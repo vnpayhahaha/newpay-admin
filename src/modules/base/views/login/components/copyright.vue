@@ -32,7 +32,7 @@ const setting: SystemSettings.copyright = settingStore.getSettings('copyright')
         {{ item.label }}
       </a>
     </div>
-    <div class="flex justify-center gap-x-2.5">
+    <div class="flex justify-center gap-x-2.5" v-if="setting.enable">
       <p class="flex items-center justify-center text-sm">
         <ma-svg-icon name="lucide:copyright" />
       </p>

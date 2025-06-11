@@ -48,7 +48,7 @@ const defaultGlobalConfigSettings: RecursiveRequired<SystemSettings.all> = {
     mode: 'rectangle',
   },
   copyright: {
-    enable: true,
+    enable: false,
     dates: useDayjs().format('YYYY'),
     company: 'MineAdmin Team',
     website: 'https://www.mineadmin.com',
