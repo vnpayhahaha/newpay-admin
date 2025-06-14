@@ -48,7 +48,7 @@ useTable('table').then((table: MaTableExpose) => {
         </div>
       </div>
     </div>
-
+    <!--
     <div class="justify-between lg:flex">
       <div class="mine-card w-auto lg:w-8/12">
         <div class="text-base">
@@ -158,7 +158,7 @@ useTable('table').then((table: MaTableExpose) => {
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="mine-card">
       <div class="text-base">

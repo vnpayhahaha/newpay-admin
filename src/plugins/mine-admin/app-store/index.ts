@@ -23,23 +23,23 @@ const pluginConfig: Plugin.PluginConfig = {
     },
   },
   views: [
-    {
-      name: 'MineAppStoreRoute',
-      path: '/appstore',
-      meta: {
-        title: '应用市场',
-        badge: () => 'Hot',
-        i18n: 'menu.appstore',
-        icon: 'vscode-icons:file-type-azure',
-        type: 'M',
-        hidden: true,
-        subForceShow: true,
-        breadcrumbEnable: true,
-        copyright: false,
-        cache: true,
-      },
-      component: () => import('./views/index.vue'),
-    },
+    // {
+    //   name: 'MineAppStoreRoute',
+    //   path: '/appstore',
+    //   meta: {
+    //     title: '应用市场',
+    //     badge: () => 'Hot',
+    //     i18n: 'menu.appstore',
+    //     icon: 'vscode-icons:file-type-azure',
+    //     type: 'M',
+    //     hidden: true,
+    //     subForceShow: true,
+    //     breadcrumbEnable: true,
+    //     copyright: false,
+    //     cache: true,
+    //   },
+    //   component: () => import('./views/index.vue'),
+    // },
   ],
 }
 
