@@ -216,3 +216,13 @@ baseMenu:
     attachmentList: 附件列表
     attachmentUpload: 上传附件
     attachmentDelete: 删除附件
+recycleBin:
+  index: 回收站
+  tenantId: 租户ID
+  tableName: 表名
+  data: 数据
+  isRestored: 是否已恢复
+  operateBy: 操作人
+  createdAt: 创建时间
+  restore: 恢复
+  list: 回收站列表

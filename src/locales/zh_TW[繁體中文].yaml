@@ -136,6 +136,7 @@ crud:
   add: 新增
   edit: 編輯
   delete: 删除
+  restore: 恢复
   search: 檢索
   reset: 重設
   submit: 提交
@@ -147,8 +148,10 @@ crud:
   updateSuccess: 修改成功
   delMessage: 是否刪除所選中數據？
   delDataMessage: 是否刪除數據？
+  restoreMessage: 是否恢复所选中数据？
   delNoData: 至少要選擇一行數據
   delSuccess: 刪除成功
+  restoreSuccess: 恢复成功
   status: 狀態
   remark: 備注
   sort: 排序

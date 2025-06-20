@@ -149,3 +149,13 @@ basePost:
     attachmentList: Attachment List
     attachmentUpload: Attachment Upload
     attachmentDelete: Attachment Delete
+recycleBin:
+  index: Recycle Bin
+  tenantId: Tenant Id
+  tableName: Table Name
+  data: Table Data
+  isRestored: Is Restored
+  operateBy: Operate By
+  createdAt: Created time
+  restore: Restore
+  list: Restore List

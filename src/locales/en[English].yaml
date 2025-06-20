@@ -136,6 +136,7 @@ crud:
   add: Add
   edit: Edit
   delete: Delete
+  restore: Restore
   search: Search
   reset: Reset
   submit: Submit
@@ -146,9 +147,11 @@ crud:
   createSuccess: The creation is successful
   updateSuccess: The update was successful
   delMessage: Whether to delete the selected data?
+  restoreMessage: Whether to restore the selected data?
   delDataMessage: Whether or not to delete the data?
   delNoData: Select at least one row of data
   delSuccess: The deletion is successful
+  restoreSuccess: The restore is successful
   status: Status
   remark: Remark
   sort: Sort
