@@ -1,0 +1,64 @@
+import type { ResponseStruct } from '#/global'
+
+export interface TenantVo {
+  // id
+  id: number
+  // 租户编号
+  tenant_id: string
+  // 联系人
+  contact_user_name: string
+  // 联系电话
+  contact_phone: string
+  // 企业名称
+  company_name: string
+  // 企业代码
+  license_number: string
+  // 地址
+  address: string
+  // 企业简介
+  intro: string
+  // 域名
+  domain: string
+  // 用户数量（-1不限制）
+  account_count: string
+  // 启用状态(1正常 2停用)
+  is_enabled: string
+  // 操作管理员
+  operate_by: number
+  // 创建时间
+  created_at: string
+  // 过期时间
+  expired_at: string
+  // 更新者
+  updated_by: number
+  // 更新时间
+  updated_at: string
+  // 安全等级(0-99)
+  safe_level: string
+  // 删除者
+  deleted_by: number
+  // 删除时间
+  deleted_at: string
+  // 备注
+  remark: string
+}
+
+// 租户管理查询
+export function page(params: TenantVo): Promise<ResponseStruct<TenantVo[]>> {
+  return useHttp().get('/admin/tenant/tenant/list', { params })
+}
+
+// 租户管理新增
+export function create(data: TenantVo): Promise<ResponseStruct<null>> {
+  return useHttp().post('/admin/tenant/tenant', data)
+}
+
+// 租户管理编辑
+export function save(id: number, data: TenantVo): Promise<ResponseStruct<null>> {
+  return useHttp().put(`/admin/tenant/tenant/${id}`, data)
+}
+
+// 租户管理删除
+export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().delete('/admin/tenant/tenant', { data: ids })
+}

@@ -1,0 +1,22 @@
+tenant:
+  index: Tenant Management
+  tenantId: Tenant ID
+  contactUserName: Contact User Name
+  contactPhone: Contact Phone
+  companyName: Company Name
+  accountCount: Account Count
+  isEnabled: Is Enabled
+  createdBy: createdBy
+  safeLevel: Safe Level
+  licenseNumber: License Number
+  address: address
+  intro: intro
+  domain: domain
+tenantApp:
+  index: Tenant App
+  appName: APP Name
+  appKey: APP Key
+  appSecret: APP Secret
+  status: status
+  description: description
+  createdAt: created time

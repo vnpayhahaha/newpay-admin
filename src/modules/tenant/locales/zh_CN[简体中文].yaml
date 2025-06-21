@@ -1,0 +1,22 @@
+tenant:
+  index: 租户管理
+  tenantId: 租户编号
+  contactUserName: 联系人名称
+  contactPhone: 联系人手机
+  companyName: 公司名称
+  accountCount: 账户数
+  isEnabled: 是否启用
+  createdBy: 创建人
+  safeLevel: 安全等级
+  licenseNumber: 营业执照号
+  address: 公司地址
+  intro: 简介
+  domain: 域名
+tenantApp:
+  index: 租户应用
+  appName: 应用名称
+  appKey: 应用密钥(Key)
+  appSecret: 应用私钥(Secret)
+  status: 状态
+  description: 描述
+  createdAt: 创建时间
