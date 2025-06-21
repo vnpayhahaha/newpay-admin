@@ -41,9 +41,9 @@ function getInfo(): Promise<ResponseStruct<UserInfo>> {
   return useHttp().get('/admin/passport/getInfo')
 }
 
-function logoutApi(): Promise<ResponseStruct<null>> {
-  return useHttp().post('/admin/passport/logout')
-}
+// function logoutApi(): Promise<ResponseStruct<null>> {
+//   return useHttp().post('/admin/passport/logout')
+// }
 
 /**
  * Passport login
