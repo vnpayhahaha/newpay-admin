@@ -20,3 +20,5 @@ tenantApp:
   status: 状态
   description: 描述
   createdAt: 创建时间
+tenantUser:
+  index: 租户成员
