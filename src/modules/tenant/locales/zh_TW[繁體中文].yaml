@@ -12,6 +12,7 @@ tenant:
   address: 公司地址
   intro: 简介
   domain: 域名
+  accountCountHint: -1 表示无限制
 tenantApp:
   index: 租户应用
   appName: 应用名称
@@ -20,3 +21,5 @@ tenantApp:
   status: 状态
   description: 描述
   createdAt: 创建时间
+tenantUser:
+  index: 租户成员

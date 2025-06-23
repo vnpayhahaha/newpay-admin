@@ -12,6 +12,7 @@ tenant:
   address: address
   intro: intro
   domain: domain
+  accountCountHint: -1 represents unlimited
 tenantApp:
   index: Tenant App
   appName: APP Name
@@ -20,3 +21,5 @@ tenantApp:
   status: status
   description: description
   createdAt: created time
+tenantUser:
+  index: Tenant members

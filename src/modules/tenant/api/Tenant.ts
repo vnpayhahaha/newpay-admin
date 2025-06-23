@@ -20,9 +20,9 @@ export interface TenantVo {
   // 域名
   domain: string
   // 用户数量（-1不限制）
-  account_count: string
+  account_count: number
   // 启用状态(1正常 2停用)
-  is_enabled: string
+  is_enabled: boolean
   // 操作管理员
   operate_by: number
   // 创建时间
@@ -34,7 +34,7 @@ export interface TenantVo {
   // 更新时间
   updated_at: string
   // 安全等级(0-99)
-  safe_level: string
+  safe_level: number
   // 删除者
   deleted_by: number
   // 删除时间
