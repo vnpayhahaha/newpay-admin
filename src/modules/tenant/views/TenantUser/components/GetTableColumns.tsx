@@ -30,14 +30,14 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-                            { label: () =>  '租户编号' , prop: 'tenant_id' },
-                        { label: () =>  '用户名' , prop: 'username' },
-                                  { label: () =>  '手机号码' , prop: 'phone' },
-                        { label: () =>  '头像' , prop: 'avatar' },
-                                            { label: () =>  '状态(1正常 2停用)' , prop: 'status' },
-                        { label: () =>  'google验证(1正常 2停用)' , prop: 'is_enabled_google' },
-                                                                                                                  { label: () =>  '备注' , prop: 'remark' },
-          
+    { label: () => '租户编号', prop: 'tenant_id' },
+    { label: () => '用户名', prop: 'username' },
+    { label: () => '手机号码', prop: 'phone' },
+    { label: () => '头像', prop: 'avatar' },
+    { label: () => '状态(1正常 2停用)', prop: 'status' },
+    { label: () => 'google验证(1正常 2停用)', prop: 'is_enabled_google' },
+    { label: () => '备注', prop: 'remark' },
+
     // 操作列
     {
       type: 'operation',

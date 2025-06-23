@@ -32,7 +32,7 @@ useForm('maFormRef').then((form: MaFormExpose) => {
   }
   form.setItems(getFormItems(formType, t, formModel.value))
   form.setOptions({
-    labelWidth: '120px',
+    labelWidth: '150px',
   })
 })
 

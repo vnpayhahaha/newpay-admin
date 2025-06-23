@@ -31,11 +31,11 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { type: 'index' },
     // 普通列
     { label: () => t('tenant.tenantId'), prop: 'tenant_id' },
+    { label: () => t('tenant.isEnabled'), prop: 'is_enabled' },
+    { label: () => t('tenant.companyName'), prop: 'company_name' },
     { label: () => t('tenant.contactUserName'), prop: 'contact_user_name' },
     { label: () => t('tenant.contactPhone'), prop: 'contact_phone' },
-    { label: () => t('tenant.companyName'), prop: 'company_name' },
     { label: () => t('tenant.accountCount'), prop: 'account_count' },
-    { label: () => t('tenant.isEnabled'), prop: 'is_enabled' },
     { label: () => t('tenant.createdBy'), prop: 'created_by' },
     { label: () => t('tenant.safeLevel'), prop: 'safe_level' },
 

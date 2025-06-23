@@ -50,7 +50,7 @@ function add(): Promise<any> {
 // 更新操作
 function edit(): Promise<any> {
   return new Promise((resolve, reject) => {
-    save(formModel.value.id as number, formModel.value).then((res: any) => {
+    save(formModel.value.user_id as number, formModel.value).then((res: any) => {
       res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
     }).catch((err) => {
       reject(err)
