@@ -99,6 +99,9 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
+    requestParams: {
+      recycle: true,
+    },
   },
 })
 // 架构配置
