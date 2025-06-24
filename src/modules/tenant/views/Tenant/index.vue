@@ -8,7 +8,7 @@
  - @Link   https://github.com/mineadmin
 -->
 <script setup lang="tsx">
-import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
+import type { MaProTableExpose, MaProTableOptions, MaProTableSchema, MaProTableToolbar } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
@@ -19,6 +19,8 @@ import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
+import { useProTableToolbar } from '@mineadmin/pro-table'
+import MaRecycle from '@/components/ma-recycle/index.vue'
 
 import Form from './Form.vue'
 
@@ -32,6 +34,17 @@ const i18n = useTrans() as TransType
 const t = i18n.globalTrans
 const local = i18n.localTrans
 const msg = useMessage()
+const tableToolBar = useProTableToolbar()
+const newTool: MaProTableToolbar = {
+  name: 'i-ci:transfer',
+  order: 0,
+  show: true,
+  render: () => MaRecycle,
+}
+
+onMounted(() => {
+  tableToolBar.add(newTool)
+})
 
 // 弹窗配置
 const maDialog: UseDialogExpose = useDialog({
@@ -99,9 +112,6 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
-    requestParams: {
-      recycle: true,
-    },
   },
 })
 // 架构配置
