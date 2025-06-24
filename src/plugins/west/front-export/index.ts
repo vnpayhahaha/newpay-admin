@@ -17,8 +17,8 @@ const pluginConfig: Plugin.PluginConfig = {
   // eslint-disable-next-line unused-imports/no-unused-vars
   install(app: App) { },
   hooks: {
-    start: (config): any => {
-      console.log('您正在使用插件', `插件名称: ${config.info.description}`, `插件版本: ${config.info.version}`)
+    start: (): any => {
+      // console.log('您正在使用插件', `插件名称: ${config.info.description}`, `插件版本: ${config.info.version}`)
     },
     setup: (): any => {
       // 注册ICON

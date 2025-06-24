@@ -11,7 +11,7 @@ import type { Plugin } from '#/global'
 
 const pluginConfig: Plugin.PluginConfig = {
   install() {
-    console.log('MineAdmin应用市场已启动')
+    // console.log('MineAdmin应用市场已启动')
   },
   config: {
     enable: import.meta.env.DEV,

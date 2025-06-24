@@ -20,6 +20,7 @@ declare module 'vue' {
     MaIconPanel: typeof import('./../src/components/ma-icon-picker/ma-icon-panel.vue')['default']
     MaIconPicker: typeof import('./../src/components/ma-icon-picker/index.vue')['default']
     MaKeyValue: typeof import('./../src/components/ma-key-value/index.vue')['default']
+    MaRecycle: typeof import('./../src/components/ma-recycle/index.vue')['default']
     MaRemoteSelect: typeof import('./../src/components/ma-remote-select/index.vue')['default']
     MaRemoteSfcLoader: typeof import('./../src/components/ma-remote-sfc-loader/index.vue')['default']
     MaResourcePicker: typeof import('./../src/components/ma-resource-picker/index.vue')['default']
