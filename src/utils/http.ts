@@ -24,7 +24,7 @@ function createHttp(baseUrl: string | null = null, config: AxiosRequestConfig = 
   const env = import.meta.env
   return axios.create({
     baseURL: baseUrl ?? (env.VITE_OPEN_PROXY === 'true' ? env.VITE_PROXY_PREFIX : env.VITE_APP_API_BASEURL),
-    timeout: 1000 * 5,
+    timeout: 10000 * 5,
     responseType: 'json',
     ...config,
   })
