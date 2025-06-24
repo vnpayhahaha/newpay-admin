@@ -106,7 +106,7 @@ const maDrawer: UseDrawerExpose = useDrawer({
 })
 
 const maDialog: UseDialogExpose = useDialog({
-  alignCenter: 'center',
+  alignCenter: true,
   width: '800px',
   ok: (okLoadingState: (state: boolean) => void) => {
     okLoadingState(true)
