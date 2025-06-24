@@ -149,6 +149,7 @@ crud:
   delMessage: 是否刪除所選中數據？
   delDataMessage: 是否刪除數據？
   restoreMessage: 是否恢复所选中数据？
+  realDeleteDataMessage: 是否彻底刪除所選中數據？
   delNoData: 至少要選擇一行數據
   delSuccess: 刪除成功
   restoreSuccess: 恢复成功

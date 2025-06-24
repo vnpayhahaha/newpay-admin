@@ -12,7 +12,7 @@ import type { TenantVo } from '~/tenant/api/Tenant.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
 import { useMessage } from '@/hooks/useMessage.ts'
-import { deleteByIds } from '~/tenant/api/Tenant.ts'
+import { deleteByIds, realDelete, recovery } from '~/tenant/api/Tenant.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 
@@ -50,11 +50,26 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
           {
             name: 'edit',
             icon: 'i-heroicons:pencil',
-            show: ({ row }) => showBtn('tenant:tenant:update', row),
+            show: ({ row }) => showBtn('tenant:tenant:update', row) && row.deleted_at === null,
             text: () => t('crud.edit'),
             onClick: ({ row }) => {
               dialog.setTitle(t('crud.edit'))
               dialog.open({ formType: 'edit', data: row })
+            },
+          },
+          {
+            name: 'recovery',
+            icon: 'i-heroicons:arrow-left-start-on-rectangle',
+            show: ({ row }) => showBtn('tenant:tenant:recovery', row) && row.deleted_at !== null,
+            text: () => t('crud.restore'),
+            onClick: ({ row }, proxy: MaProTableExpose) => {
+              msg.confirm(t('crud.restoreMessage')).then(async () => {
+                const response = await recovery([row.id])
+                if (response.code === ResultCode.SUCCESS) {
+                  msg.success(t('crud.restoreSuccess'))
+                  await proxy.refresh()
+                }
+              })
             },
           },
           {
@@ -63,13 +78,24 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             icon: 'i-heroicons:trash',
             text: () => t('crud.delete'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t('crud.delDataMessage')).then(async () => {
-                const response = await deleteByIds([row.id])
-                if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t('crud.delSuccess'))
-                  await proxy.refresh()
-                }
-              })
+              if (row?.deleted_at !== null) {
+                msg.delConfirm(t('crud.realDeleteDataMessage')).then(async () => {
+                  const response = await realDelete([row.id])
+                  if (response.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.delSuccess'))
+                    await proxy.refresh()
+                  }
+                })
+              }
+              else {
+                msg.delConfirm(t('crud.delDataMessage')).then(async () => {
+                  const response = await deleteByIds([row.id])
+                  if (response.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.delSuccess'))
+                    await proxy.refresh()
+                  }
+                })
+              }
             },
           },
         ],
