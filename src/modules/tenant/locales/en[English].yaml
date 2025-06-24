@@ -23,3 +23,21 @@ tenantApp:
   createdAt: created time
 tenantUser:
   index: Tenant members
+tenantMenu:
+  tenant:
+    list: Tenant list
+    create: Tenant create
+    update: Tenant updated
+    delete: Tenant delete
+    recovery: Tenant recovery
+    realDelete: Empty recycle Bin
+  tenantApp:
+    list: Tenant Application List
+    create: Add tenant application
+    update: Modify tenant application
+    delete: Delete tenant application
+  tenantUser:
+    list: Tenant member list
+    create: Add new tenant members
+    update: Modify member information
+    delete: Delete tenant members

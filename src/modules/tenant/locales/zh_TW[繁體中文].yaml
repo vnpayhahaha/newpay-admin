@@ -23,3 +23,21 @@ tenantApp:
   createdAt: 创建时间
 tenantUser:
   index: 租户成员
+tenantMenu:
+  tenant:
+    list: 租户列表
+    create: 新增租户
+    update: 修改租户
+    delete: 删除租户
+    recovery: 恢复租户
+    realDelete: 清空回收站
+  tenantApp:
+    list: 租户应用列表
+    create: 新增租户应用
+    update: 修改租户应用
+    delete: 删除租户应用
+  tenantUser:
+    list: 租户成员列表
+    create: 新增租户成员
+    update: 修改成员信息
+    delete: 删除租户成员
