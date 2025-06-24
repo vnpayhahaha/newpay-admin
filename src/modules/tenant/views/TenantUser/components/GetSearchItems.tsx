@@ -9,13 +9,23 @@
  */
 
 import type { MaSearchItem } from '@mineadmin/search'
+import type { TenantDictVo } from '~/tenant/api/Tenant.ts'
+import { remote } from '~/tenant/api/Tenant.ts'
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
     {
       label: () => '租户编号',
       prop: 'tenant_id',
-      render: () => <ma-remote-select />,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(remote())),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: TenantDictVo) => {
+            return { label: `${item.tenant_id}`, value: item.tenant_id }
+          })
+        },
+      },
     },
     {
       label: () => '用户名',

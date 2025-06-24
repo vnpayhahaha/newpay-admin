@@ -95,7 +95,7 @@ const options = ref<MaProTableOptions>({
     },
   },
   // 搜索表单参数
-  searchFormOptions: { labelWidth: '90px' },
+  searchFormOptions: { labelWidth: '150px' },
   // 请求配置
   requestOptions: {
     api: page,

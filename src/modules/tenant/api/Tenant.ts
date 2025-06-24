@@ -72,3 +72,16 @@ export function realDelete(ids: number[]): Promise<ResponseStruct<null>> {
 export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().put('/admin/tenant/tenant/recovery', { ids })
 }
+
+export interface TenantDictVo {
+  id: string
+  tenant_id: string
+  contact_user_name: string
+  is_enabled: number
+  created_by: number
+  expired_at: string
+}
+
+export function remote(): Promise<ResponseStruct<TenantDictVo[]>> {
+  return useHttp().get('/admin/tenant/tenantDict/remote')
+}
