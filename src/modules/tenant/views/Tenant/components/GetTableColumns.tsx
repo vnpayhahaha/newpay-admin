@@ -12,7 +12,7 @@ import type { TenantVo } from '~/tenant/api/Tenant.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
 import { useMessage } from '@/hooks/useMessage.ts'
-import { deleteByIds, realDelete, recovery } from '~/tenant/api/Tenant.ts'
+import { deleteByIds, realDelete, recovery, save } from '~/tenant/api/Tenant.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 
@@ -31,12 +31,53 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { type: 'index' },
     // 普通列
     { label: () => t('tenant.tenantId'), prop: 'tenant_id' },
-    { label: () => t('tenant.isEnabled'), prop: 'is_enabled' },
+    {
+      label: () => t('tenant.isEnabled'),
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'switch',
+          prop: 'is_enabled',
+          props: {
+            size: 'small',
+            activeValue: true,
+            inactiveValue: false,
+            on: {
+              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
+                console.log('value', value)
+                save(row.id, {
+                  ...row,
+                  is_enabled: value,
+                }).then((res) => {
+                  if (res.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.updateSuccess'))
+                    proxy.refresh()
+                  }
+                  else {
+                    msg.error(t('crud.updateError'))
+                  }
+                })
+              },
+            },
+          },
+        },
+      },
+    },
     { label: () => t('tenant.companyName'), prop: 'company_name' },
     { label: () => t('tenant.contactUserName'), prop: 'contact_user_name' },
     { label: () => t('tenant.contactPhone'), prop: 'contact_phone' },
     { label: () => t('tenant.accountCount'), prop: 'account_count' },
-    { label: () => t('tenant.createdBy'), prop: 'created_by' },
+    {
+      label: () => t('tenant.createdBy'),
+      prop: 'created_by',
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'user-name',
+          dictName: 'userDict',
+        },
+      },
+    },
     { label: () => t('tenant.safeLevel'), prop: 'safe_level' },
 
     // 操作列

@@ -1,5 +1,14 @@
 import type { MaProTableExpose } from '@mineadmin/pro-table'
 import type { TableColumnRenderer } from '@mineadmin/table'
+import {
+  computed,
+  defineAsyncComponent,
+  defineComponent,
+  h,
+  markRaw, // 标记对象为"原始"，避免响应式转换
+  shallowRef, // 使用浅层引用替代常规ref
+  watchEffect,
+} from 'vue'
 
 export default defineComponent({
   name: 'CellEnhance',
@@ -19,16 +28,16 @@ export default defineComponent({
   },
   setup(props) {
     // 缓存已解析的组件
-    const resolvedComponent = ref<Component | null>(null)
+    const resolvedComponent = shallowRef<Component | null>(null)
     // 动态导入组件
     const components = import.meta.glob<{ default: any }>('./cell/cell-*.vue')
 
     // 默认组件
-    const DefaultComponent = defineComponent({
+    const DefaultComponent = markRaw(defineComponent({
       render() {
         return h('div', {}, '未找到对应组件，请检查类型！')
       },
-    })
+    }))
 
     // 计算组件名称
     const componentName = computed(() => {
@@ -46,12 +55,12 @@ export default defineComponent({
       }
       const component = components[componentName.value]
       resolvedComponent.value = component
-        ? defineAsyncComponent({
-          loader: component,
-          onError(error) {
-            console.error(`Error loading component: ${error.message}`)
-          },
-        })
+        ? markRaw(defineAsyncComponent({
+            loader: component,
+            onError(error) {
+              console.error(`Error loading component: ${error.message}`)
+            },
+          }))
         : DefaultComponent
     })
 
