@@ -61,6 +61,15 @@ http.interceptors.response.use(
     await usePluginStore().callHooks('networkResponse', response)
     const config = response.config
 
+    // 处理自动刷新token Automatic-Renewal-Token
+    if (response.headers['automatic-renewal-token']) {
+      const refreshToken = response.headers['automatic-renewal-token']
+      const expireAt = response.headers['Automatic-Renewal-Token-ExpireAt'] || 3600
+      cache.set('token', refreshToken)
+      cache.set('expire', useDayjs().unix() + expireAt, { exp: expireAt })
+      userStore.token = refreshToken
+    }
+
     if (response.request.responseType === 'blob' || response.request.responseType === 'arraybuffer') {
       // 处理 JSON 格式的错误响应
       if (response.data instanceof Blob && response.data.type === 'application/json') {
