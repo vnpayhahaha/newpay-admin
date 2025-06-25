@@ -5,6 +5,10 @@ import type { MaProTableExpose } from '@mineadmin/pro-table'
 
 const { proxy } = defineProps<{ proxy: MaProTableExpose }>()
 const isRecovery = ref(false)
+// 暴露 isRecovery 状态
+defineExpose({
+  isRecovery,
+})
 async function execute() {
   isRecovery.value = !isRecovery.value
   proxy.setRequestParams({
