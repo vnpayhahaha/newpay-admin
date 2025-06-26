@@ -10,7 +10,7 @@
 
 import type { MaSearchItem } from '@mineadmin/search'
 import type { TenantDictVo } from '~/tenant/api/Tenant.ts'
-import { remote } from '~/tenant/api/Tenant.ts'
+import { remote, selectStatus } from '~/tenant/api/Tenant.ts'
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
@@ -40,12 +40,14 @@ export default function getSearchItems(t: any): MaSearchItem[] {
     {
       label: () => t('tenantApp.status'),
       prop: 'status',
-      render: () => <ma-dict-select clearable />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
-        data: [
-          { label: t('enums.tenantApp.status.normal'), value: 1 },
-          { label: t('enums.tenantApp.status.disabled'), value: 2 },
-        ],
+        api: () => new Promise(resolve => resolve(selectStatus())),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
       },
     },
   ]

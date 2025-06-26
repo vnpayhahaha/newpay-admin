@@ -59,3 +59,7 @@ export function realDelete(ids: number[]): Promise<ResponseStruct<null>> {
 export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().put('/admin/tenant/tenant_app/recovery', { ids })
 }
+
+export function selectStatus(): Promise<ResponseStruct<Common.StatusOption[]>> {
+  return useHttp().get('/public/selectOption?table_name=tenant_app&field_list=status_list')
+}

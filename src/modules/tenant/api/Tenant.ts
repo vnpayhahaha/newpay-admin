@@ -83,5 +83,9 @@ export interface TenantDictVo {
 }
 
 export function remote(): Promise<ResponseStruct<TenantDictVo[]>> {
-  return useHttp().get('/admin/tenant/tenantDict/remote')
+  return useHttp().get('/admin/tenant/tenant_dict/remote')
+}
+
+export function selectStatus(): Promise<ResponseStruct<Common.StatusOption[]>> {
+  return useHttp().get('/public/selectOption?table_name=tenant&field_list=status_list')
 }
