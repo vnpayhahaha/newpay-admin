@@ -20,6 +20,7 @@ tenantApp:
   appSecret: 应用私钥(Secret)
   status: 状态
   description: 描述
+  remark: 备注
   createdAt: 创建时间
 tenantUser:
   index: 租户成员

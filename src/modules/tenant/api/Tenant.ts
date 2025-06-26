@@ -65,7 +65,7 @@ export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
 
 // 租户管理真删除
 export function realDelete(ids: number[]): Promise<ResponseStruct<null>> {
-  return useHttp().delete('/admin/tenant/tenant/realDelete', { data: ids })
+  return useHttp().delete('/admin/tenant/tenant/real_delete', { data: ids })
 }
 
 // 单个或批量恢复在回收站的数据

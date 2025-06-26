@@ -119,7 +119,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             icon: 'i-heroicons:trash',
             text: () => t('crud.delete'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
-              if (row?.deleted_at !== null) {
+              if (row?.deleted_at !== null && showBtn('tenant:tenant:realDelete', row)) {
                 msg.delConfirm(t('crud.realDeleteDataMessage')).then(async () => {
                   const response = await realDelete([row.id])
                   if (response.code === ResultCode.SUCCESS) {

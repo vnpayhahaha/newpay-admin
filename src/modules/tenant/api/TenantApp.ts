@@ -12,7 +12,7 @@ export interface TenantAppVo {
   // 应用密钥
   app_secret: string
   // 状态 (1正常 2停用)
-  status: string
+  status: boolean
   // 应用介绍
   description: string
   // 创建者
@@ -49,4 +49,13 @@ export function save(id: number, data: TenantAppVo): Promise<ResponseStruct<null
 // 租户应用删除
 export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().delete('/admin/tenant/tenant_app', { data: ids })
+}
+// 租户管理真删除
+export function realDelete(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().delete('/admin/tenant/tenant_app/real_delete', { data: ids })
+}
+
+// 单个或批量恢复在回收站的数据
+export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().put('/admin/tenant/tenant_app/recovery', { ids })
 }

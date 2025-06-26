@@ -20,6 +20,7 @@ tenantApp:
   appSecret: APP Secret
   status: status
   description: description
+  remark: remark
   createdAt: created time
 tenantUser:
   index: Tenant members

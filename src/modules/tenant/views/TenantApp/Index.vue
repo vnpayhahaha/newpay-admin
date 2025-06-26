@@ -8,17 +8,19 @@
  - @Link   https://github.com/mineadmin
 -->
 <script setup lang="tsx">
-import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
+import type { MaProTableExpose, MaProTableOptions, MaProTableSchema, MaProTableToolbar } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { deleteByIds, page } from '~/tenant/api/TenantApp.ts'
+import { deleteByIds, page, recovery } from '~/tenant/api/TenantApp.ts'
 import getSearchItems from './components/GetSearchItems.tsx'
 import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
+import { useProTableToolbar } from '@mineadmin/pro-table'
+import MaRecycle from '@/components/ma-recycle/index.vue'
 
 import Form from './Form.vue'
 
@@ -32,6 +34,23 @@ const i18n = useTrans() as TransType
 const t = i18n.globalTrans
 const local = i18n.localTrans
 const msg = useMessage()
+
+const tableToolBar = useProTableToolbar()
+const maRecycleRef = ref() // 新增：用于引用 ma-recycle 组件
+const isRecovery = computed(() => maRecycleRef.value?.isRecovery || false)
+const newTool: MaProTableToolbar = {
+  name: 'i-ci:transfer',
+  order: 0,
+  show: true,
+  render: () => h(MaRecycle, {
+    ref: maRecycleRef, // 绑定引用
+    proxy: proTableRef.value,
+  }),
+}
+
+onMounted(() => {
+  tableToolBar.add(newTool)
+})
 
 // 弹窗配置
 const maDialog: UseDialogExpose = useDialog({
@@ -120,6 +139,18 @@ function handleDelete() {
     }
   })
 }
+
+// 批量恢复
+function handleRecovery() {
+  const ids = selections.value.map((item: any) => item.id)
+  msg.confirm(t('crud.restoreMessage')).then(async () => {
+    const response = await recovery(ids)
+    if (response.code === ResultCode.SUCCESS) {
+      msg.success(t('crud.restoreSuccess'))
+      proTableRef.value.refresh()
+    }
+  })
+}
 </script>
 
 <template>
@@ -139,15 +170,27 @@ function handleDelete() {
       </template>
 
       <template #toolbarLeft>
-        <el-button
-          v-auth="['tenantApp:tenant_app:delete']"
-          type="danger"
-          plain
-          :disabled="selections.length < 1"
-          @click="handleDelete"
-        >
-          {{ t('crud.delete') }}
-        </el-button>
+        <el-button-group>
+          <el-button
+            v-auth="['tenant:tenant_app:delete']"
+            type="danger"
+            plain
+            :disabled="selections.length < 1"
+            @click="handleDelete"
+          >
+            {{ t('crud.delete') }}
+          </el-button>
+          <el-button
+            v-if="isRecovery"
+            v-auth="['tenant:tenant_app:recovery']"
+            type="success"
+            plain
+            :disabled="selections.length < 1"
+            @click="handleRecovery"
+          >
+            {{ t('crud.restore') }}
+          </el-button>
+        </el-button-group>
       </template>
       <!-- 数据为空时 -->
       <template #empty>
