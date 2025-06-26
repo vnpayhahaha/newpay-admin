@@ -9,11 +9,16 @@
  */
 import type { MaFormItem } from '@mineadmin/form'
 import type { TenantUserVo } from '~/tenant/api/TenantUser.ts'
+import type { TenantDictVo } from '~/tenant/api/Tenant.ts'
+import MaUploadImage from '@/components/ma-upload-image/index.vue'
+import MaDictRadio from '@/components/ma-dict-picker/ma-dict-radio.vue'
+import { remote } from '~/tenant/api/Tenant.ts'
 
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: TenantUserVo): MaFormItem[] {
   // 新增默认值
   if (formType === 'add') {
-    // todo...
+    model.password = '123456'
+    model.status = true
   }
 
   // 编辑默认值
@@ -23,44 +28,64 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
 
   return [
     {
+      label: '头像',
+      prop: 'avatar',
+      render: () => MaUploadImage,
+    },
+    {
       label: '租户编号',
       prop: 'tenant_id',
-      render: () => <ma-remote-select />,
+      render: () => <ma-remote-select filterable disabled={formType === 'edit'} />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(remote())),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: TenantDictVo) => {
+            return { label: `${item.tenant_id}`, value: item.tenant_id }
+          })
+        },
+      },
     },
     {
       label: '用户名',
       prop: 'username',
+      cols: { md: 12, xs: 24 },
       render: () => <el-input />,
     },
     {
       label: '手机号码',
       prop: 'phone',
+      cols: { md: 12, xs: 24 },
       render: () => <el-input />,
     },
     {
-      label: '头像',
-      prop: 'avatar',
-      render: () => <ma-upload-image />,
-    },
-    {
-      label: '状态(1正常 2停用)',
+      label: '状态',
       prop: 'status',
-      render: () => <el-switch />,
+      cols: { md: 12, xs: 24 },
+      render: () => MaDictRadio,
+      renderProps: {
+        placeholder: t('form.pleaseInput', { msg: t('crud.status') }),
+        dictName: 'system-status',
+      },
     },
     {
-      label: 'google验证(1正常 2停用)',
+      label: 'google验证',
       prop: 'is_enabled_google',
-      render: () => <ma-dict-radio />,
+      cols: { md: 12, xs: 24 },
+      render: () => MaDictRadio,
+      renderProps: {
+        placeholder: t('form.pleaseInput', { msg: t('crud.status') }),
+        dictName: 'system-status',
+      },
     },
     {
       label: 'IP白名单',
       prop: 'ip_whitelist',
-      render: () => <el-input />,
+      render: () => <el-input type="textarea" />,
     },
     {
       label: '备注',
       prop: 'remark',
-      render: () => <el-input />,
+      render: () => <el-input type="textarea" />,
     },
   ]
 }

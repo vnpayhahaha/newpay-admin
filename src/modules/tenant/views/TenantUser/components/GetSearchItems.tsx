@@ -11,11 +11,12 @@
 import type { MaSearchItem } from '@mineadmin/search'
 import type { TenantDictVo } from '~/tenant/api/Tenant.ts'
 import { remote } from '~/tenant/api/Tenant.ts'
+import { selectStatus } from '~/tenant/api/TenantUser.ts'
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
     {
-      label: () => '租户编号',
+      label: () => t('tenant.tenantId'),
       prop: 'tenant_id',
       render: () => <ma-remote-select filterable />,
       renderProps: {
@@ -28,27 +29,56 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
     {
-      label: () => '用户名',
+      label: () => t('tenantUser.username'),
       prop: 'username',
       render: () => <el-input />,
     },
     {
-      label: () => '手机号码',
+      label: () => t('tenantUser.phone'),
       prop: 'phone',
       render: () => <el-input />,
     },
     {
-      label: () => '状态(1正常 2停用)',
+      label: () => t('tenantUser.status'),
       prop: 'status',
-      render: () => <el-switch />,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('status_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
     },
     {
-      label: () => 'google验证(1正常 2停用)',
+      label: () => t('tenantUser.is_enabled_google'),
       prop: 'is_enabled_google',
-      render: () => <ma-dict-radio />,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('google_status_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
     },
     {
-      label: () => '备注',
+      label: () => t('tenantUser.is_bind_google'),
+      prop: 'is_bind_google',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('google_bind_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
+    },
+    {
+      label: () => t('tenantUser.remark'),
       prop: 'remark',
       render: () => <el-input />,
     },

@@ -8,12 +8,12 @@
  - @Link   https://github.com/mineadmin
 -->
 <script setup lang="tsx">
-import type { MaProTableExpose, MaProTableOptions, MaProTableSchema, MaProTableToolbar } from '@mineadmin/pro-table'
+import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { deleteByIds, page, recovery } from '~/tenant/api/TenantApp.ts'
+import { deleteByIds, page, realDelete, recovery } from '~/tenant/api/TenantApp.ts'
 import getSearchItems from './components/GetSearchItems.tsx'
 import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
@@ -35,21 +35,39 @@ const t = i18n.globalTrans
 const local = i18n.localTrans
 const msg = useMessage()
 
+// 管理回收站状态
 const tableToolBar = useProTableToolbar()
-const maRecycleRef = ref() // 新增：用于引用 ma-recycle 组件
-const isRecovery = computed(() => maRecycleRef.value?.isRecovery || false)
-const newTool: MaProTableToolbar = {
-  name: 'i-ci:transfer',
-  order: 0,
-  show: true,
-  render: () => h(MaRecycle, {
-    ref: maRecycleRef, // 绑定引用
-    proxy: proTableRef.value,
-  }),
-}
+const isRecovery = ref(false)
+const maRecycleRef = ref()
 
-onMounted(() => {
-  tableToolBar.add(newTool)
+const IndexName = 'TenantApp:Index'
+const isRecoveryAdded = ref(false)
+onActivated(() => {
+  // console.log(`[${IndexName}] Activated`)
+  // 确保按钮只添加一次
+  if (!isRecoveryAdded.value) {
+    tableToolBar.add({
+      name: IndexName,
+      order: 0,
+      show: true,
+      render: () => h(MaRecycle, {
+        'ref': maRecycleRef, // 绑定引用
+        'proxy': proTableRef.value,
+        'isRecovery': isRecovery.value,
+        'onUpdate:isRecovery': (value: boolean) => {
+          isRecovery.value = value
+        },
+      }),
+    })
+    isRecoveryAdded.value = true
+  }
+})
+
+onDeactivated(() => {
+  // console.log(`[${IndexName}] Deactivated`)
+  // 移除工具栏按钮
+  tableToolBar.remove(IndexName)
+  isRecoveryAdded.value = false
 })
 
 // 弹窗配置
@@ -131,13 +149,24 @@ const schema = ref<MaProTableSchema>({
 // 批量删除
 function handleDelete() {
   const ids = selections.value.map((item: any) => item.id)
-  msg.confirm(t('crud.delMessage')).then(async () => {
-    const response = await deleteByIds(ids)
-    if (response.code === ResultCode.SUCCESS) {
-      msg.success(t('crud.delSuccess'))
-      proTableRef.value.refresh()
-    }
-  })
+  if (isRecovery.value) {
+    msg.delConfirm(t('crud.realDeleteDataMessage')).then(async () => {
+      const response = await realDelete(ids)
+      if (response.code === ResultCode.SUCCESS) {
+        msg.success(t('crud.delSuccess'))
+        proTableRef.value.refresh()
+      }
+    })
+  }
+  else {
+    msg.delConfirm(t('crud.delMessage')).then(async () => {
+      const response = await deleteByIds(ids)
+      if (response.code === ResultCode.SUCCESS) {
+        msg.success(t('crud.delSuccess'))
+        proTableRef.value.refresh()
+      }
+    })
+  }
 }
 
 // 批量恢复

@@ -3,16 +3,15 @@
 import type { MaProTableExpose } from '@mineadmin/pro-table'
 // import { ElMessage } from 'element-plus'
 
-const { proxy } = defineProps<{ proxy: MaProTableExpose }>()
-const isRecovery = ref(false)
-// 暴露 isRecovery 状态
-defineExpose({
-  isRecovery,
-})
+const { proxy, isRecovery } = defineProps<{ proxy: MaProTableExpose, isRecovery: boolean }>()
+
+const emit = defineEmits(['update:isRecovery'])
+
 async function execute() {
-  isRecovery.value = !isRecovery.value
+  const newValue = !isRecovery
+  emit('update:isRecovery', newValue)
   proxy.setRequestParams({
-    recycle: isRecovery.value,
+    recycle: newValue,
   }, false)
   // 执行刷新表格
   await proxy?.refresh?.()

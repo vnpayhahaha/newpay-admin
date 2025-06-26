@@ -18,13 +18,13 @@ export interface TenantUserVo {
   // 最后登陆时间
   last_login_time: string
   // 状态(1正常 2停用)
-  status: string
+  status: boolean
   // google验证(1正常 2停用)
-  is_enabled_google: string
+  is_enabled_google: boolean
   // Google验证密钥
   google_secret_key: string
   // 是否已绑定Google验证(1yes 2no)
-  is_bind_google: string
+  is_bind_google: boolean
   // 创建者
   created_by: number
   // 创建时间
@@ -66,4 +66,18 @@ export function save(id: number, data: TenantUserVo): Promise<ResponseStruct<nul
 // 租户成员删除
 export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().delete('/admin/tenant/tenant_user', { data: ids })
+}
+
+// 租户管理真删除
+export function realDelete(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().delete('/admin/tenant/tenant_user/real_delete', { data: ids })
+}
+
+// 单个或批量恢复在回收站的数据
+export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().put('/admin/tenant/tenant_user/recovery', { ids })
+}
+
+export function selectStatus(fieldName: string): Promise<ResponseStruct<Common.StatusOption[]>> {
+  return useHttp().get(`/public/selectOption?table_name=tenant_user&field_list=${fieldName}`)
 }

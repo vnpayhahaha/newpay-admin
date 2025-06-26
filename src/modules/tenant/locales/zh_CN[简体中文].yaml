@@ -24,6 +24,24 @@ tenantApp:
   createdAt: 创建时间
 tenantUser:
   index: 租户成员
+  avatar: 头像
+  username: 用户名
+  phone: 手机
+  password: 密码
+  last_login_ip: 最后登录IP
+  last_login_time: 最后登陆时间
+  status: 状态
+  is_enabled_google: 是否启用谷歌验证
+  google_secret: 谷歌验证密钥
+  is_bind_google: 是否绑定谷歌验证
+  created_by: 创建人
+  created_at: 创建时间
+  updated_by: 修改人
+  updated_at: 修改时间
+  deleted_by: 删除人
+  deleted_at: 删除时间
+  ip_whitelist: IP白名单
+  remark: 备注
 tenantMenu:
   tenant:
     list: 租户列表
@@ -37,11 +55,15 @@ tenantMenu:
     create: 新增租户应用
     update: 修改租户应用
     delete: 删除租户应用
+    recovery: 恢复租户应用
+    realDelete: 清空回收站
   tenantUser:
     list: 租户成员列表
     create: 新增租户成员
     update: 修改成员信息
     delete: 删除租户成员
+    recovery: 恢复租户成员
+    realDelete: 清空回收站
 enums:
   tenant:
     isEnabled:

@@ -12,7 +12,7 @@ import type { TenantUserVo } from '~/tenant/api/TenantUser.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
 import { useMessage } from '@/hooks/useMessage.ts'
-import { deleteByIds } from '~/tenant/api/TenantUser.ts'
+import { deleteByIds, realDelete, recovery, save } from '~/tenant/api/TenantUser.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 
@@ -30,13 +30,45 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => '租户编号', prop: 'tenant_id' },
-    { label: () => '用户名', prop: 'username' },
-    { label: () => '手机号码', prop: 'phone' },
-    { label: () => '头像', prop: 'avatar' },
-    { label: () => '状态(1正常 2停用)', prop: 'status' },
-    { label: () => 'google验证(1正常 2停用)', prop: 'is_enabled_google' },
-    { label: () => '备注', prop: 'remark' },
+    { label: () => t('tenant.tenantId'), prop: 'tenant_id' },
+    { label: () => t('tenantUser.username'), prop: 'username' },
+    { label: () => t('tenantUser.phone'), prop: 'phone' },
+    { label: () => t('tenantUser.avatar'), prop: 'avatar' },
+    {
+      label: () => t('tenantUser.status'), prop: 'status',
+      width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'switch',
+          prop: 'status',
+          props: {
+            size: 'small',
+            activeValue: true,
+            inactiveValue: false,
+            on: {
+              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
+                console.log('value', row, value)
+                save(row.user_id, {
+                  ...row,
+                  status: value,
+                }).then((res) => {
+                  if (res.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.updateSuccess'))
+                    proxy.refresh()
+                  }
+                  else {
+                    msg.error(t('crud.updateError'))
+                  }
+                })
+              },
+            },
+          },
+        },
+      },
+    },
+    { label: () => t('tenantUser.is_enabled_google'), prop: 'is_enabled_google' },
+    { label: () => t('tenantUser.remark'), prop: 'remark' },
 
     // 操作列
     {
@@ -57,18 +89,44 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             },
           },
           {
+            name: 'recovery',
+            icon: 'i-heroicons:arrow-left-start-on-rectangle',
+            show: ({ row }) => showBtn('tenant:tenantApp:recovery', row) && row.deleted_at !== null,
+            text: () => t('crud.restore'),
+            onClick: ({ row }, proxy: MaProTableExpose) => {
+              msg.confirm(t('crud.restoreMessage')).then(async () => {
+                const response = await recovery([row.user_id])
+                if (response.code === ResultCode.SUCCESS) {
+                  msg.success(t('crud.restoreSuccess'))
+                  await proxy.refresh()
+                }
+              })
+            },
+          },
+          {
             name: 'del',
             show: ({ row }) => showBtn('tenant:tenant_user:delete', row),
             icon: 'i-heroicons:trash',
             text: () => t('crud.delete'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t('crud.delDataMessage')).then(async () => {
-                const response = await deleteByIds([row.id])
-                if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t('crud.delSuccess'))
-                  await proxy.refresh()
-                }
-              })
+              if (row?.deleted_at !== null && showBtn('tenant:tenantApp:realDelete', row)) {
+                msg.delConfirm(t('crud.realDeleteDataMessage')).then(async () => {
+                  const response = await realDelete([row.user_id])
+                  if (response.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.delSuccess'))
+                    await proxy.refresh()
+                  }
+                })
+              }
+              else {
+                msg.delConfirm(t('crud.delDataMessage')).then(async () => {
+                  const response = await deleteByIds([row.user_id])
+                  if (response.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.delSuccess'))
+                    await proxy.refresh()
+                  }
+                })
+              }
             },
           },
         ],
