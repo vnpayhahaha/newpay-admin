@@ -42,3 +42,12 @@ tenantMenu:
     create: Add new tenant members
     update: Modify member information
     delete: Delete tenant members
+enums:
+  tenant:
+    isEnabled:
+      true: Enable
+      false: Disable
+  tenantApp:
+    status:
+      normal: normal
+      disabled: disabled

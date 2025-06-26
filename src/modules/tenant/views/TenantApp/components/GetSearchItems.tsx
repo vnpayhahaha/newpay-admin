@@ -40,7 +40,13 @@ export default function getSearchItems(t: any): MaSearchItem[] {
     {
       label: () => t('tenantApp.status'),
       prop: 'status',
-      render: () => <el-switch />,
+      render: () => <ma-dict-select clearable />,
+      renderProps: {
+        data: [
+          { label: t('enums.tenantApp.status.normal'), value: 1 },
+          { label: t('enums.tenantApp.status.disabled'), value: 2 },
+        ],
+      },
     },
   ]
 }

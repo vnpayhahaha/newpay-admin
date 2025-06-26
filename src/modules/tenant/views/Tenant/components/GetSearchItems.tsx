@@ -35,7 +35,13 @@ export default function getSearchItems(t: any): MaSearchItem[] {
     {
       label: () => t('tenant.isEnabled'),
       prop: 'is_enabled',
-      render: () => <el-switch />,
+      render: () => <ma-dict-select clearable />,
+      renderProps: {
+        data: [
+          { label: t('enums.tenant.isEnabled.true'), value: 1 },
+          { label: t('enums.tenant.isEnabled.false'), value: 2 },
+        ],
+      },
     },
   ]
 }

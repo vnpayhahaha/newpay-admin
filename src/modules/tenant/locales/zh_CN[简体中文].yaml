@@ -42,3 +42,12 @@ tenantMenu:
     create: 新增租户成员
     update: 修改成员信息
     delete: 删除租户成员
+enums:
+  tenant:
+    isEnabled:
+      true: 启用
+      false: 禁用
+  tenantApp:
+    status:
+      normal: 正常
+      disabled: 禁用
