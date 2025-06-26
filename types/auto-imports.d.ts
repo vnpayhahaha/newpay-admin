@@ -49,6 +49,7 @@ declare global {
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
   const provide: typeof import('vue')['provide']
+  const provideGlobalI18n: typeof import('../src/hooks/auto-imports/useTrans')['provideGlobalI18n']
   const reactive: typeof import('vue')['reactive']
   const readonly: typeof import('vue')['readonly']
   const ref: typeof import('vue')['ref']
