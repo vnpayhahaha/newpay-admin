@@ -42,6 +42,15 @@ tenantUser:
   deleted_at: 删除时间
   ip_whitelist: IP白名单
   remark: 备注
+tenantConfig:
+  index: 租户配置
+  groupCode: 配置组编号
+  code: 配置编号
+  name: 配置名称
+  content: 配置内容
+  enabled: 是否启用
+  intro: 描述
+  option: 选项
 tenantMenu:
   tenant:
     list: 租户列表
@@ -64,6 +73,11 @@ tenantMenu:
     delete: 删除租户成员
     recovery: 恢复租户成员
     realDelete: 清空回收站
+  tenantConfig:
+    list: 租户配置列表
+    create: 新增租户配置
+    update: 修改租户配置
+    delete: 删除租户配置
 enums:
   tenant:
     isEnabled:

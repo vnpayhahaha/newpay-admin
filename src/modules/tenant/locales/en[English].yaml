@@ -42,6 +42,15 @@ tenantUser:
   deleted_at: deleted time
   ip_whitelist: IP whitelist
   remark: Remark
+tenantConfig:
+  index: Tenant Config
+  groupCode: Group Code
+  code: Code
+  name: Name
+  content: Content
+  enabled: Enabled
+  intro: Intro
+  option: Options
 tenantMenu:
   tenant:
     list: Tenant list
@@ -64,6 +73,11 @@ tenantMenu:
     delete: Delete tenant members
     recovery: Tenant User recovery
     realDelete: Empty recycle Bin
+  tenantConfig:
+    list: Tenant Config List
+    create: Add Tenant Config
+    update: Modify Tenant Config
+    delete: Delete Tenant Config
 enums:
   tenant:
     isEnabled:
