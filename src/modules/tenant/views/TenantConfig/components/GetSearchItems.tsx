@@ -11,7 +11,7 @@
 import type { MaSearchItem } from '@mineadmin/search'
 import type { TenantDictVo } from '~/tenant/api/Tenant.ts'
 import { remote } from '~/tenant/api/Tenant.ts'
-import { selectStatus } from '~/tenant/api/Common.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [

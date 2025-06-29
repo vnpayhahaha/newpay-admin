@@ -25,7 +25,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
 
   return [
     {
-      label: '租户编号',
+      label: t('tenant.tenantId'),
       prop: 'tenant_id',
       cols: { md: 12, xs: 24 },
       render: () => <ma-remote-select filterable disabled={formType === 'edit'} />,
