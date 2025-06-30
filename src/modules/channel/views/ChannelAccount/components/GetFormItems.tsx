@@ -18,7 +18,17 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
     model.status = true
     model.support_collection = false
     model.support_disbursement = false
+    model.balance = 0
     model.limit_quota = 0
+
+    model.daily_max_receipt = 0
+    model.daily_max_payment = 0
+    model.daily_max_receipt_count = 0
+    model.daily_max_payment_count = 0
+    model.max_receipt_per_txn = 0
+    model.max_payment_per_txn = 0
+    model.min_receipt_per_txn = 0
+    model.min_payment_per_txn = 0
   }
 
   // 编辑默认值
@@ -62,6 +72,62 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       render: () => <el-switch />,
     },
     {
+      label: t('channelAccount.daily_max_receipt'),
+      prop: 'daily_max_receipt',
+      cols: { md: 12, xs: 24 },
+      itemProps: { required: true },
+      render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+    },
+    {
+      label: t('channelAccount.daily_max_payment'),
+      prop: 'daily_max_payment',
+      cols: { md: 12, xs: 24 },
+      itemProps: { required: true },
+      render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+    },
+    {
+      label: t('channelAccount.daily_max_receipt_count'),
+      prop: 'daily_max_receipt_count',
+      cols: { md: 12, xs: 24 },
+      itemProps: { required: true },
+      render: () => <el-input-number min={0} max={9999999999} />,
+    },
+    {
+      label: t('channelAccount.daily_max_payment_count'),
+      prop: 'daily_max_payment_count',
+      cols: { md: 12, xs: 24 },
+      itemProps: { required: true },
+      render: () => <el-input-number min={0} max={9999999999} />,
+    },
+    {
+      label: t('channelAccount.max_receipt_per_txn'),
+      prop: 'max_receipt_per_txn',
+      cols: { md: 12, xs: 24 },
+      itemProps: { required: true },
+      render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+    },
+    {
+      label: t('channelAccount.max_payment_per_txn'),
+      prop: 'max_payment_per_txn',
+      cols: { md: 12, xs: 24 },
+      itemProps: { required: true },
+      render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+    },
+    {
+      label: t('channelAccount.min_receipt_per_txn'),
+      prop: 'min_receipt_per_txn',
+      cols: { md: 12, xs: 24 },
+      itemProps: { required: true },
+      render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+    },
+    {
+      label: t('channelAccount.min_payment_per_txn'),
+      prop: 'min_payment_per_txn',
+      cols: { md: 12, xs: 24 },
+      itemProps: { required: true },
+      render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+    },
+    {
       label: t('channelAccount.support_collection'),
       prop: 'support_collection',
       cols: { md: 12, xs: 24 },
@@ -103,14 +169,14 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       label: t('channelAccount.balance'),
       prop: 'balance',
       cols: { md: 12, xs: 24 },
-      render: () => <el-input />,
+      render: () => <el-input-number min={0} max={9999999999} precision={2} />,
     },
     {
       label: t('channelAccount.limit_quota'),
       prop: 'limit_quota',
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
-      render: () => <el-input-number min={0} max={99999999999} />,
+      render: () => <el-input-number min={0} max={99999999999} precision={2} />,
     },
     {
       label: t('channelAccount.used_quota'),

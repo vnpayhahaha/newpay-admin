@@ -51,6 +51,14 @@ tenantConfig:
   enabled: Enabled
   intro: Intro
   option: Options
+tenantAccount:
+  index: Tenant Account
+  balance_available: balance available
+  balance_frozen: balance frozen
+  account_type: account type
+  version: version
+  created_at: created_at
+  updated_at: updated_at
 tenantMenu:
   tenant:
     list: Tenant list
@@ -78,6 +86,11 @@ tenantMenu:
     create: Add Tenant Config
     update: Modify Tenant Config
     delete: Delete Tenant Config
+  tenant_account:
+    list: Tenant Account List
+    create: Add Tenant Account
+    update: Modify Tenant Account
+    delete: Delete Tenant Account
 enums:
   tenant:
     isEnabled:

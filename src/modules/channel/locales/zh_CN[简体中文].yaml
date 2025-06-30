@@ -73,6 +73,14 @@ channelAccount:
   deleted_at: 删除时间
   support_collection: 支持收款
   support_disbursement: 支持付款
+  daily_max_receipt: 每日最大收款金额
+  daily_max_payment: 每日最大付款金额
+  daily_max_receipt_count: 每日最大收款次数
+  daily_max_payment_count: 每日最大付款次数
+  max_receipt_per_txn: 每笔最大收款金额
+  max_payment_per_txn: 每笔最大付款金额
+  min_receipt_per_txn: 每笔最小收款金额
+  min_payment_per_txn: 每笔最小付款金额
 channelMenu:
   channel:
     list: 渠道列表

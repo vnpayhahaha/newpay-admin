@@ -73,6 +73,14 @@ channelAccount:
   deleted_at: Deletion time
   support_collection: support collection
   support_disbursement: support disbursement
+  daily_max_receipt: daily max receipt
+  daily_max_payment: daily max payment
+  daily_max_receipt_count: daily max receipt count
+  daily_max_payment_count: daily max payment count
+  max_receipt_per_txn: max receipt per txn
+  max_payment_per_txn: max payment per txn
+  min_receipt_per_txn: min receipt per txn
+  min_payment_per_txn: min payment per txn
 channelMenu:
   channel:
     list: Channel list

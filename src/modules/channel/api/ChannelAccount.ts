@@ -44,6 +44,22 @@ export interface ChannelAccountVo {
   deleted_at: string
   support_collection: boolean
   support_disbursement: boolean
+  // 单日最大收款限额
+  daily_max_receipt: number
+  // 单日最大付款限额
+  daily_max_payment: number
+  // 单日最大收款次数
+  daily_max_receipt_count: number
+  // 单日最大付款次数
+  daily_max_payment_count: number
+  // 单笔最大收款限额
+  max_receipt_per_txn: number
+  // 单笔最大付款限额
+  max_payment_per_txn: number
+  // 单笔最小收款限额
+  min_receipt_per_txn: number
+  // 单笔最小付款限额
+  min_payment_per_txn: number
 }
 
 // 渠道账户查询
