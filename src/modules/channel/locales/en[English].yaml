@@ -15,6 +15,7 @@ channel:
   created_at: Creation time
   updated_at: Change time
 bankAccount:
+  index: Bank Account
   channel_id: bank
   branch_name: bank branch
   account_holder: account holder
@@ -44,6 +45,9 @@ bankAccount:
   today_payment_amount: today payment amount
   stat_date: Statistical date
   status: state
+  deleted_at: Deletion time
+  support_collection: support collection
+  support_disbursement: support disbursement
 channelAccount:
   index: Channel account
   channel_id: Channel ID
@@ -66,6 +70,9 @@ channelAccount:
   status: state
   created_at: Creation time
   updated_at: Change time
+  deleted_at: Deletion time
+  support_collection: support collection
+  support_disbursement: support disbursement
 channelMenu:
   channel:
     list: Channel list
@@ -73,4 +80,18 @@ channelMenu:
     update: Channel updated
     delete: Channel delete
     recovery: Channel recovery
+    realDelete: Empty recycle Bin
+  channelAccount:
+    list: Channel account list
+    create: Channel account create
+    update: Channel account updated
+    delete: Channel account delete
+    recovery: Channel account recovery
+    realDelete: Empty recycle Bin\
+  bankAccount:
+    list: Bank account list
+    create: Bank account create
+    update: Bank account updated
+    delete: Bank account delete
+    recovery: Bank account recovery
     realDelete: Empty recycle Bin

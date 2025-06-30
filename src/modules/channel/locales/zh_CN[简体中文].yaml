@@ -15,6 +15,7 @@ channel:
   created_at: 创建时间
   updated_at: 修改时间
 bankAccount:
+  index: 银行账户
   channel_id: 银行
   branch_name: 支行名称
   account_holder: 账户持有人
@@ -44,6 +45,9 @@ bankAccount:
   today_payment_amount: 今日付款金额
   stat_date: 统计日期
   status: 状态
+  deleted_at: 删除时间
+  support_collection: 支持收款
+  support_disbursement: 支持付款
 channelAccount:
   index: 渠道账户
   channel_id: 渠道ID
@@ -66,6 +70,9 @@ channelAccount:
   status: 状态
   created_at: 创建时间
   updated_at: 修改时间
+  deleted_at: 删除时间
+  support_collection: 支持收款
+  support_disbursement: 支持付款
 channelMenu:
   channel:
     list: 渠道列表
@@ -73,4 +80,18 @@ channelMenu:
     update: 修改渠道
     delete: 删除渠道
     recovery: 恢复渠道
+    realDelete: 清空回收站
+  channelAccount:
+    list: 渠道账户列表
+    create: 新增渠道账户
+    update: 修改渠道账户
+    delete: 删除渠道账户
+    recovery: 恢复渠道账户
+    realDelete: 清空回收站
+  bankAccount:
+    list: 银行账户列表
+    create: 新增银行账户
+    update: 修改银行账户
+    delete: 删除银行账户
+    recovery: 恢复银行账户
     realDelete: 清空回收站

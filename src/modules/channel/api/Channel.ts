@@ -82,5 +82,5 @@ export interface ChannelDictVo {
 }
 
 export function remote(): Promise<ResponseStruct<ChannelDictVo[]>> {
-  return useHttp().get('/admin/channel/channel/remote')
+  return useHttp().get('/admin/channel/channel_dict/remote')
 }
