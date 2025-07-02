@@ -184,14 +184,26 @@ http.interceptors.response.use(
     }
   },
   async (error: any) => {
+    const logout = async () => {
+      if (isLogout === false) {
+        isLogout = true
+        setTimeout(() => isLogout = false, 5000)
+        Message.error(error.response?.data?.message ?? '登录已过期', { zIndex: 9999 })
+        await useUserStore().logout()
+      }
+    }
     isLoading.value = false
     const serverError = useDebounceFn(async () => {
-      if (error && error.response) {
+      console.error(error)
+      if (error && (error?.status === 401 || error?.status === 402 || error?.status === 403)) {
+        await logout()
+      }
+      else if (error && error.response) {
         Message.error(error.message ?? '服务器错误', { zIndex: 9999 })
       }
     }, 3000, { maxWait: 5000 })
-    await serverError()
-    return Promise.reject(error)
+    return await serverError()
+    // return Promise.reject(error)
   },
 )
 
