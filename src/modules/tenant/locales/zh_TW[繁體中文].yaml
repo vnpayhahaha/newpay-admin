@@ -100,3 +100,7 @@ enums:
     status:
       normal: 正常
       disabled: 禁用
+  tenantAccount:
+    account_type:
+      collection: 代收
+      payment: 代付

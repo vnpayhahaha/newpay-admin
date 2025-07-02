@@ -4,6 +4,16 @@ import type { TableColumnRenderer } from '@mineadmin/table'
 import { getDictionaryItem } from '../../utils/tools'
 import type { Tag } from '../../types'
 
+// dataItems 类型定义 { label: String(key), value: key, color: '#CCCCCC', code: '', i18n: null, i18n_scope: '' }
+export interface dataItems {
+  label: string
+  value: string
+  color?: string
+  code?: string
+  i18n?: string
+  i18n_scope?: string
+}
+
 // 接收父组件传递的 props
 const { data, proxy, props } = defineProps<{
   data: TableColumnRenderer
@@ -13,6 +23,7 @@ const { data, proxy, props } = defineProps<{
     props?: Tag
     prop?: string | null
     dictName?: string | ''
+    data?: Array<dataItems>
   }
 }>()
 
@@ -28,6 +39,13 @@ const isArrayField = computed(() => Array.isArray(modelValue.value))
 
 // 提供安全的字典标签获取
 function safeGetLabel(key: string | number) {
+  // 判断是否提供props.data源
+  if (props?.data) {
+    const item = props.data.find(i => i.value === key)
+    if (item) {
+      return item
+    }
+  }
   return getDictionaryItem(dictName, key)
 }
 

@@ -15,6 +15,7 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds } from '~/tenant/api/TenantAccount.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import { color } from 'echarts'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
@@ -26,21 +27,46 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
 
   return [
     // 多选列
-    { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
+    // { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('tenant.tenantId'), prop: 'tenant_id' },
+    {
+      label: () => t('tenant.tenantId'), prop: 'tenant_id',
+      render: (scope: any) => {
+        return h('div', {}, [
+          h('span', {}, scope.row.tenant_id),
+          h('span', {}, scope.row.tenant_id),
+
+        ])
+      },
+    },
     { label: () => t('tenantAccount.balance_available'), prop: 'balance_available' },
     { label: () => t('tenantAccount.balance_frozen'), prop: 'balance_frozen' },
-    { label: () => t('tenantAccount.account_type'), prop: 'account_type' },
-    { label: () => t('tenantAccount.version'), prop: 'version' },
+    {
+      label: () => t('tenantAccount.account_type'), prop: 'account_type',
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          data: [
+            { label: t('enums.tenantAccount.account_type.collection'), value: 1, color: '#409EFF' },
+            { label: t('enums.tenantAccount.account_type.payment'), value: 2, color: '#F56C6C' },
+          ],
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
+    { label: () => t('tenantAccount.version'), prop: 'version', hide: true },
     { label: () => t('tenantAccount.created_at'), prop: 'created_at' },
     { label: () => t('tenantAccount.updated_at'), prop: 'updated_at' },
 
     // 操作列
     {
       type: 'operation',
+      hide: true,
       label: () => t('crud.operation'),
       width: '260px',
       operationConfigure: {

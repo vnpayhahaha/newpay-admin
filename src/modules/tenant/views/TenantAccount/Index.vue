@@ -75,7 +75,7 @@ const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => t('tenant_account.index'),
+    mainTitle: () => t('tenantAccount.index'),
   },
   // 表格参数
   tableOptions: {
@@ -138,17 +138,7 @@ function handleDelete() {
         </el-button>
       </template> -->
 
-      <template #toolbarLeft>
-        <el-button
-          v-auth="['tenant:tenant_account:delete']"
-          type="danger"
-          plain
-          :disabled="selections.length < 1"
-          @click="handleDelete"
-        >
-          {{ t('crud.delete') }}
-        </el-button>
-      </template>
+      <template #toolbarLeft />
       <!-- 数据为空时 -->
       <template #empty>
         <el-empty>

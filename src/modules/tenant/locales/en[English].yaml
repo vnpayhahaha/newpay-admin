@@ -100,3 +100,7 @@ enums:
     status:
       normal: normal
       disabled: disabled
+  tenantAccount:
+    account_type:
+      collection: Collection Account
+      payment: Payment Account

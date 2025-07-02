@@ -76,6 +76,7 @@ export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
 export interface TenantDictVo {
   id: string
   tenant_id: string
+  company_name: string
   contact_user_name: string
   is_enabled: number
   created_by: number
