@@ -15,7 +15,6 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds } from '~/tenant/api/TenantAccount.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
-import { color } from 'echarts'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
@@ -33,12 +32,20 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 普通列
     {
       label: () => t('tenant.tenantId'), prop: 'tenant_id',
-      render: (scope: any) => {
-        return h('div', {}, [
-          h('span', {}, scope.row.tenant_id),
-          h('span', {}, scope.row.tenant_id),
-
-        ])
+      cellRender: (row: any) => {
+        console.log(row)
+        return (
+          <div class="text-align-left">
+            <p class="cell-ellipsis">
+              租户ID:
+              {row.row.tenant_id}
+            </p>
+            <p>
+              公司名称:
+              {row.row.tenant.company_name}
+            </p>
+          </div>
+        )
       },
     },
     { label: () => t('tenantAccount.balance_available'), prop: 'balance_available' },

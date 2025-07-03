@@ -217,3 +217,14 @@ textarea {
   opacity: 0;
   transform: translateY(10px);
 }
+
+
+.cell-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-align-left {
+  text-align: left;
+}

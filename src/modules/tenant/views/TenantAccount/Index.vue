@@ -110,16 +110,16 @@ const schema = ref<MaProTableSchema>({
 })
 
 // 批量删除
-function handleDelete() {
-  const ids = selections.value.map((item: any) => item.id)
-  msg.confirm(t('crud.delMessage')).then(async () => {
-    const response = await deleteByIds(ids)
-    if (response.code === ResultCode.SUCCESS) {
-      msg.success(t('crud.delSuccess'))
-      proTableRef.value.refresh()
-    }
-  })
-}
+// function handleDelete() {
+//   const ids = selections.value.map((item: any) => item.id)
+//   msg.confirm(t('crud.delMessage')).then(async () => {
+//     const response = await deleteByIds(ids)
+//     if (response.code === ResultCode.SUCCESS) {
+//       msg.success(t('crud.delSuccess'))
+//       proTableRef.value.refresh()
+//     }
+//   })
+// }
 </script>
 
 <template>
