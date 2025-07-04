@@ -67,8 +67,8 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       },
     },
     { label: () => t('tenantAccount.version'), prop: 'version', hide: true },
-    { label: () => t('tenantAccount.created_at'), prop: 'created_at' },
-    { label: () => t('tenantAccount.updated_at'), prop: 'updated_at' },
+    { label: () => t('tenantAccount.created_at'), prop: 'created_at', hide: true },
+    { label: () => t('tenantAccount.updated_at'), prop: 'updated_at', width: 180 },
 
     // 操作列
     {
