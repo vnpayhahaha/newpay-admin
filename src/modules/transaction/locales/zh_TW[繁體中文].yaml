@@ -1,0 +1,4 @@
+transaction:
+  index: 交易管理
+transaction_record:
+  index: 交易记录

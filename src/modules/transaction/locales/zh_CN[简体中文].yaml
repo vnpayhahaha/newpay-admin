@@ -1,0 +1,19 @@
+transaction:
+  index: 交易管理
+transaction_record:
+  index: 交易记录
+menu:
+  transaction:
+    list: 交易列表
+    create: 新增交易
+    update: 修改交易
+    delete: 删除交易
+    recovery: 恢复交易
+    realDelete: 清空回收站
+  transaction_record:
+    list: 交易记录列表
+    create: 新增交易记录
+    update: 修改交易记录
+    delete: 删除交易记录
+    recovery: 恢复交易记录
+    realDelete: 清空回收站
