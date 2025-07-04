@@ -2,3 +2,18 @@ transaction:
   index: 交易管理
 transaction_record:
   index: 交易记录
+transaction_queue_status:
+  index: 交易队列
+menu:
+  transaction_record:
+    list: 交易记录列表
+    create: 新增交易记录
+    update: 修改交易记录
+    delete: 删除交易记录
+    recovery: 恢复交易记录
+    realDelete: 清空回收站
+  transaction_queue_status:
+    list: 交易队列列表
+    create: 新增交易队列
+    update: 修改交易队列
+    delete: 删除交易队列

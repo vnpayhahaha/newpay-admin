@@ -2,3 +2,16 @@ transaction:
   index: Transaction Management
 transaction_record:
   index: Transaction Record
+transaction_queue_status:
+  index: Transaction Queue
+menu:
+  transaction_record:
+    list: Transaction Record List
+    create: Create Transaction Record
+    update: Update Transaction Record
+    delete: Delete Transaction Record
+  transaction_queue_status:
+    list: Transaction Queue List
+    create: Create Transaction Queue
+    update: Update Transaction Queue
+    delete: Delete Transaction Queue

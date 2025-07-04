@@ -31,7 +31,7 @@ export interface TransactionQueueStatusVo {
 
 // 交易队列查询
 export function page(params: TransactionQueueStatusVo): Promise<ResponseStruct<TransactionQueueStatusVo[]>> {
-return useHttp().get('/admin/transaction/transaction_queue_status/list', { params })
+  return useHttp().get('/admin/transaction/transaction_queue_status/list', { params })
 }
 
 // 交易队列新增
@@ -41,10 +41,10 @@ export function create(data: TransactionQueueStatusVo): Promise<ResponseStruct<n
 
 // 交易队列编辑
 export function save(id: number, data: TransactionQueueStatusVo): Promise<ResponseStruct<null>> {
-    return useHttp().put(`/admin/transaction/transaction_queue_status/${id}`, data)
+  return useHttp().put(`/admin/transaction/transaction_queue_status/${id}`, data)
 }
 
 // 交易队列删除
 export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
-      return useHttp().delete('/admin/transaction/transaction_queue_status', { data: ids })
+  return useHttp().delete('/admin/transaction/transaction_queue_status', { data: ids })
 }
