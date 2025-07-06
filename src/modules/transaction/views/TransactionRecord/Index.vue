@@ -75,7 +75,7 @@ const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => t('交易管理'),
+    mainTitle: () => t('transaction.index'),
   },
   // 表格参数
   tableOptions: {
@@ -95,7 +95,7 @@ const options = ref<MaProTableOptions>({
     },
   },
   // 搜索表单参数
-  searchFormOptions: { labelWidth: '90px' },
+  searchFormOptions: { labelWidth: '150px' },
   // 请求配置
   requestOptions: {
     api: page,
@@ -110,23 +110,23 @@ const schema = ref<MaProTableSchema>({
 })
 
 // 批量删除
-function handleDelete() {
-  const ids = selections.value.map((item: any) => item.id)
-  msg.confirm(t('crud.delMessage')).then(async () => {
-    const response = await deleteByIds(ids)
-    if (response.code === ResultCode.SUCCESS) {
-      msg.success(t('crud.delSuccess'))
-      proTableRef.value.refresh()
-    }
-  })
-}
+// function handleDelete() {
+//   const ids = selections.value.map((item: any) => item.id)
+//   msg.confirm(t('crud.delMessage')).then(async () => {
+//     const response = await deleteByIds(ids)
+//     if (response.code === ResultCode.SUCCESS) {
+//       msg.success(t('crud.delSuccess'))
+//       proTableRef.value.refresh()
+//     }
+//   })
+// }
 </script>
 
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #actions>
-        <el-button
+        <!-- <el-button
           v-auth="['transaction:transaction_record:save']"
           type="primary"
           @click="() => {
@@ -135,11 +135,11 @@ function handleDelete() {
           }"
         >
           {{ t('crud.add') }}
-        </el-button>
+        </el-button> -->
       </template>
 
       <template #toolbarLeft>
-        <el-button
+        <!-- <el-button
           v-auth="['transaction:transaction_record:delete']"
           type="danger"
           plain
@@ -147,7 +147,7 @@ function handleDelete() {
           @click="handleDelete"
         >
           {{ t('crud.delete') }}
-        </el-button>
+        </el-button> -->
       </template>
       <!-- 数据为空时 -->
       <template #empty>

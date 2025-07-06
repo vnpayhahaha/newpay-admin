@@ -15,6 +15,7 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds } from '~/transaction/api/TransactionQueueStatus.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
@@ -30,21 +31,22 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-                            { label: () =>  '关联交易流水号' , prop: 'transaction_no' },
-                        { label: () =>  '冗余业务交易类型（便于按类型调度）' , prop: 'transaction_type' },
-                        { label: () =>  '队列类型:1-即时 2-延时 3-重试 4-冲正 5-定时' , prop: 'queue_type' },
-                        { label: () =>  '状态:0-待处理 1-处理中 2-成功 3-失败 4-挂起 5-等待中' , prop: 'process_status' },
-                        { label: () =>  '计划执行时间' , prop: 'scheduled_execute_time' },
-                        { label: () =>  '下次重试时间' , prop: 'next_retry_time' },
-                        { label: () =>  '重试次数' , prop: 'retry_count' },
-                        { label: () =>  '乐观锁版本号' , prop: 'lock_version' },
-                        { label: () =>  '错误代码' , prop: 'error_code' },
-                        { label: () =>  '错误详情' , prop: 'error_detail' },
-                        { label: () =>  '创建时间' , prop: 'created_at' },
-                    
+    { label: () => t('transaction_queue_status.transaction_no'), prop: 'transaction_no', width: 190 },
+    {
+      label: () => t('transaction_queue_status.transaction_type'), prop: 'transaction_type', width: 80 },
+    { label: () => t('transaction_queue_status.process_status'), prop: 'process_status', width: 80 },
+    { label: () => t('transaction_queue_status.scheduled_execute_time'), prop: 'scheduled_execute_time', width: 180 },
+    { label: () => t('transaction_queue_status.next_retry_time'), prop: 'next_retry_time', width: 180 },
+    { label: () => t('transaction_queue_status.retry_count'), prop: 'retry_count', width: 80 },
+    { label: () => t('transaction_queue_status.lock_version'), prop: 'lock_version', hide: true },
+    { label: () => t('transaction_queue_status.error_code'), prop: 'error_code', width: 200 },
+    { label: () => t('transaction_queue_status.error_detail'), prop: 'error_detail' },
+    { label: () => t('transaction_queue_status.created_at'), prop: 'created_at', width: 180 },
+
     // 操作列
     {
       type: 'operation',
+      hide: true,
       label: () => t('crud.operation'),
       width: '260px',
       operationConfigure: {

@@ -22,5 +22,5 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
   }
 
   return [
-                                                                                                                                        ]
+  ]
 }

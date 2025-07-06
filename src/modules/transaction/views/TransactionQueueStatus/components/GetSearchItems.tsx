@@ -6,31 +6,43 @@
  *
  * @Author X.Mo <root@imoi.cn>
  * @Link   https://github.com/mineadmin
-*/
+ */
 
 import type { MaSearchItem } from '@mineadmin/search'
+import { selectStatus } from '@/modules/Common'
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
-                    {
-      label: () =>  '关联交易流水号' ,
+    {
+      label: () => t('transaction_queue_status.transaction_no'),
       prop: 'transaction_no',
       render: () => <el-input />,
-          },
-                {
-      label: () =>  '冗余业务交易类型（便于按类型调度）' ,
+    },
+    {
+      label: () => t('transaction_queue_status.transaction_type'),
       prop: 'transaction_type',
-      render: () => <el-input />,
-          },
-                {
-      label: () =>  '队列类型:1-即时 2-延时 3-重试 4-冲正 5-定时' ,
-      prop: 'queue_type',
-      render: () => <el-input />,
-          },
-                {
-      label: () =>  '状态:0-待处理 1-处理中 2-成功 3-失败 4-挂起 5-等待中' ,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'type_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
+    },
+    {
+      label: () => t('transaction_queue_status.process_status'),
       prop: 'process_status',
-      render: () => <el-input />,
-          },
-                                                                          ]
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('transaction_queue_status', 'status_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
+    },
+  ]
 }

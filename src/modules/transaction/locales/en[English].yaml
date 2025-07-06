@@ -2,8 +2,41 @@ transaction:
   index: Transaction Management
 transaction_record:
   index: Transaction Record
+  transaction_no: transaction no
+  tenant_account_id: tenant account id
+  account_id: account id
+  tenant_id:  tenant id
+  amount: amount
+  fee_amount: fee amount
+  net_amount: net amount
+  account_type: account type
+  transaction_type: transaction type
+  settlement_delay_mode: settlement delay mode
+  expected_settlement_time: expected settlement time
+  settlement_delay_days: settlement delay days
+  holiday_adjustment: holiday adjustment
+  actual_settlement_time: actual settlement time
+  counterparty: counterparty
+  order_no: order no
+  ref_transaction_no: ref transaction no
+  transaction_status: transaction status
+  failed_msg: failed msg
+  remark: remark
+  created_at: create time
+  updated_at: update time
 transaction_queue_status:
   index: Transaction Queue
+  transaction_no: transaction no
+  transaction_type: transaction type
+  process_status: process status
+  scheduled_execute_time: scheduled execute time
+  next_retry_time: next retry time
+  retry_count: retry count
+  lock_version: optimistic lock
+  error_code: error code
+  error_detail: error detail
+  created_at: create time
+  updated_at: update time
 menu:
   transaction_record:
     list: Transaction Record List

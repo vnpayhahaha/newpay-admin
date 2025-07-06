@@ -9,38 +9,63 @@
  */
 
 import type { MaSearchItem } from '@mineadmin/search'
+import { selectStatus } from '@/modules/Common'
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
     {
-      label: () => '全局唯一交易流水号',
+      label: () => t('transaction_record.transaction_no'),
       prop: 'transaction_no',
       render: () => <el-input />,
     },
     {
-      label: () => '账户变动类型（继承tenant_account类型）',
+      label: () => t('transaction_record.account_type'),
       prop: 'account_type',
       render: () => <el-input />,
     },
     {
-      label: () => '业务交易类型：# 基础交易类型 (1XX)',
+      label: () => t('transaction_record.transaction_type'),
       prop: 'transaction_type',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'type_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
     },
     {
-      label: () => '延迟模式:1-D0(立即) 2-D(自然日) 3-T(工作日)',
+      label: () => t('transaction_record.settlement_delay_mode'),
       prop: 'settlement_delay_mode',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'settlement_delay_mode_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
     },
     {
-      label: () => '节假日调整:0-不调整 1-顺延 2-提前',
+      label: () => t('transaction_record.holiday_adjustment'),
       prop: 'holiday_adjustment',
       render: () => <el-input />,
     },
     {
-      label: () => '交易状态:0-处理中 1-成功 2-失败 3-已冲正 4-等待结算',
+      label: () => t('transaction_record.transaction_status'),
       prop: 'transaction_status',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'status_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
     },
   ]
 }

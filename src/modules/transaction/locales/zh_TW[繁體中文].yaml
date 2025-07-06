@@ -2,8 +2,41 @@ transaction:
   index: 交易管理
 transaction_record:
   index: 交易记录
+  transaction_no: 交易编号
+  tenant_account_id: 租户账号ID
+  account_id: 账号ID
+  tenant_id: 租户ID
+  amount: 金额
+  fee_amount: 手续费金额
+  net_amount: 净金额
+  account_type: 账号类型
+  transaction_type: 交易类型
+  settlement_delay_mode: 结算延迟模式
+  expected_settlement_time: 期望结算时间
+  settlement_delay_days: 结算延迟天数
+  holiday_adjustment: 节假日调整
+  actual_settlement_time: 实际结算时间
+  counterparty: 交易方标识
+  order_no: 订单编号
+  ref_transaction_no: 原交易流水号
+  transaction_status: 交易状态
+  failed_msg: 失败信息
+  remark: 备注
+  created_at: 创建时间
+  updated_at: 更新时间
 transaction_queue_status:
   index: 交易队列
+  transaction_no: 交易编号
+  transaction_type: 交易类型
+  process_status: 处理状态
+  scheduled_execute_time: 队列执行时间
+  next_retry_time: 下次重试时间
+  retry_count: 重试次数
+  lock_version: 乐观锁
+  error_code: 错误码
+  error_detail: 错误详情
+  created_at: 创建时间
+  updated_at: 更新时间
 menu:
   transaction_record:
     list: 交易记录列表
