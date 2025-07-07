@@ -33,7 +33,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 普通列
     { label: () => t('transaction_queue_status.transaction_no'), prop: 'transaction_no', width: 190 },
     {
-      label: () => t('transaction_queue_status.transaction_type'), prop: 'transaction_type', width: 80,
+      label: () => t('transaction_queue_status.transaction_type'), prop: 'transaction_type', width: 120,
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {
@@ -51,7 +51,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       },
     },
     {
-      label: () => t('transaction_queue_status.process_status'), prop: 'process_status', width: 80,
+      label: () => t('transaction_queue_status.process_status'), prop: 'process_status', width: 120,
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {

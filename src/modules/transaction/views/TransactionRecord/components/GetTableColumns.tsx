@@ -38,7 +38,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { label: () => t('transaction_record.fee_amount'), prop: 'fee_amount', width: 120 },
     { label: () => t('transaction_record.net_amount'), prop: 'net_amount', width: 120 },
     {
-      label: () => t('transaction_record.account_type'), prop: 'account_type', width: 80,
+      label: () => t('transaction_record.account_type'), prop: 'account_type', width: 120,
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {
@@ -56,7 +56,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       },
     },
     {
-      label: () => t('transaction_record.transaction_type'), prop: 'transaction_type', width: 80,
+      label: () => t('transaction_record.transaction_type'), prop: 'transaction_type', width: 120,
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {
@@ -74,7 +74,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       },
     },
     {
-      label: () => t('transaction_record.settlement_delay_mode'), prop: 'settlement_delay_mode', width: 80,
+      label: () => t('transaction_record.settlement_delay_mode'), prop: 'settlement_delay_mode', width: 120,
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {
