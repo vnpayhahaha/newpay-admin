@@ -33,8 +33,41 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 普通列
     { label: () => t('transaction_queue_status.transaction_no'), prop: 'transaction_no', width: 190 },
     {
-      label: () => t('transaction_queue_status.transaction_type'), prop: 'transaction_type', width: 80 },
-    { label: () => t('transaction_queue_status.process_status'), prop: 'process_status', width: 80 },
+      label: () => t('transaction_queue_status.transaction_type'), prop: 'transaction_type', width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'type_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
+    {
+      label: () => t('transaction_queue_status.process_status'), prop: 'process_status', width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          api: () => new Promise(resolve => resolve(selectStatus('transaction_queue_status', 'status_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
     { label: () => t('transaction_queue_status.scheduled_execute_time'), prop: 'scheduled_execute_time', width: 180 },
     { label: () => t('transaction_queue_status.next_retry_time'), prop: 'next_retry_time', width: 180 },
     { label: () => t('transaction_queue_status.retry_count'), prop: 'retry_count', width: 80 },
