@@ -15,6 +15,7 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds } from '~/transaction/api/TransactionRecord.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
@@ -36,9 +37,60 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { label: () => t('transaction_record.amount'), prop: 'amount', width: 120 },
     { label: () => t('transaction_record.fee_amount'), prop: 'fee_amount', width: 120 },
     { label: () => t('transaction_record.net_amount'), prop: 'net_amount', width: 120 },
-    { label: () => t('transaction_record.account_type'), prop: 'account_type', width: 80 },
-    { label: () => t('transaction_record.transaction_type'), prop: 'transaction_type', width: 80 },
-    { label: () => t('transaction_record.settlement_delay_mode'), prop: 'settlement_delay_mode', width: 80 },
+    {
+      label: () => t('transaction_record.account_type'), prop: 'account_type', width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          api: () => new Promise(resolve => resolve(selectStatus('tenant_account', 'account_type_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
+    {
+      label: () => t('transaction_record.transaction_type'), prop: 'transaction_type', width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'type_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
+    {
+      label: () => t('transaction_record.settlement_delay_mode'), prop: 'settlement_delay_mode', width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'settlement_delay_mode_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
     { label: () => t('transaction_record.expected_settlement_time'), prop: 'expected_settlement_time', width: 180 },
     { label: () => t('transaction_record.settlement_delay_days'), prop: 'settlement_delay_days', width: 80 },
     { label: () => t('transaction_record.holiday_adjustment'), prop: 'holiday_adjustment', width: 80 },
