@@ -51,7 +51,8 @@ const maDialog: UseDialogExpose = useDialog({
           // 加分
           case 'add':
             changeBalanceAvailableFormRef.value.add().then((res: any) => {
-              res.code === ResultCode.SUCCESS ? msg.success(t('tenantAccount.addSuccess')) : msg.error(res.message)
+              console.log('res', res)
+              res?.code === ResultCode.SUCCESS ? msg.success(t('tenantAccount.addSuccess')) : msg.error(res.message)
               maDialog.close()
               delayRefresh()
             }).catch((err: any) => {
@@ -61,7 +62,7 @@ const maDialog: UseDialogExpose = useDialog({
           // 减分
           case 'sub':
             changeBalanceAvailableFormRef.value.sub().then((res: any) => {
-              res.code === 200 ? msg.success(t('tenantAccount.subSuccess')) : msg.error(res.message)
+              res?.code === ResultCode.SUCCESS ? msg.success(t('tenantAccount.subSuccess')) : msg.error(res.message)
               maDialog.close()
               delayRefresh()
             }).catch((err: any) => {
@@ -80,7 +81,7 @@ const maDialog: UseDialogExpose = useDialog({
           // 冻结
           case 'freeze':
             changeBalanceFrozenFormRef.value.freeze().then((res: any) => {
-              res.code === ResultCode.SUCCESS ? msg.success(t('tenantAccount.freezeSuccess')) : msg.error(res.message)
+              res?.code === ResultCode.SUCCESS ? msg.success(t('tenantAccount.freezeSuccess')) : msg.error(res.message)
               maDialog.close()
               delayRefresh()
             }).catch((err: any) => {
@@ -90,7 +91,7 @@ const maDialog: UseDialogExpose = useDialog({
           // 解冻
           case 'unfreeze':
             changeBalanceFrozenFormRef.value.unfreeze().then((res: any) => {
-              res.code === 200 ? msg.success(t('tenantAccount.unfreezeSuccess')) : msg.error(res.message)
+              res?.code === ResultCode.SUCCESS ? msg.success(t('tenantAccount.unfreezeSuccess')) : msg.error(res.message)
               maDialog.close()
               delayRefresh()
             }).catch((err: any) => {
@@ -107,9 +108,7 @@ const maDialog: UseDialogExpose = useDialog({
 
 // 延迟刷新方法
 function delayRefresh() {
-  setTimeout(() => {
-    proTableRef.value.refresh()
-  }, 500)
+  proTableRef.value.refresh()
 }
 
 // 参数配置

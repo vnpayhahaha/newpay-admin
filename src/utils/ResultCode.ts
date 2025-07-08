@@ -17,4 +17,5 @@ export enum ResultCode {
   NOT_ACCEPTABLE = 406,
   UNPROCESSABLE_ENTITY = 422,
   DISABLED = 423,
+  SYS_Error = 100500,
 }

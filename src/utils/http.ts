@@ -77,7 +77,8 @@ http.interceptors.response.use(
           const reader = new FileReader()
           reader.onload = () => {
             const result = JSON.parse(reader.result as string)
-            if (result.code !== ResultCode.SUCCESS) {
+            console.log('blob', result)
+            if (result?.code !== ResultCode.SUCCESS) {
               Message.error(result.message || '下载失败', { zIndex: 9999 })
               reject(result)
             }
@@ -102,7 +103,7 @@ http.interceptors.response.use(
         headers: response.headers,
       })
     }
-
+    // console.log('response', response)
     if (response?.data?.code === ResultCode.SUCCESS) {
       return Promise.resolve(response.data)
     }
@@ -133,7 +134,7 @@ http.interceptors.response.use(
                 },
               }).post('/admin/passport/refresh')
 
-              if (refreshTokenResponse.data.code !== 200) {
+              if (refreshTokenResponse?.data?.code !== 200) {
                 await logout()
                 break
               }
@@ -193,13 +194,13 @@ http.interceptors.response.use(
       }
     }
     isLoading.value = false
+    console.error('err:', error)
     const serverError = useDebounceFn(async () => {
-      console.error(error)
       if (error && (error?.status === 401 || error?.status === 402 || error?.status === 403)) {
         await logout()
       }
       else if (error && error.response) {
-        Message.error(error.message ?? '服务器错误', { zIndex: 9999 })
+        Message.error(error.response?.data?.message ?? '服务器错误', { zIndex: 9999 })
       }
     }, 3000, { maxWait: 5000 })
     return await serverError()

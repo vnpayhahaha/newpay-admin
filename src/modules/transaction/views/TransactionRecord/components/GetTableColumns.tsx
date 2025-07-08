@@ -31,8 +31,27 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('transaction_record.transaction_no'), prop: 'transaction_no', width: 190 },
+    { label: () => t('transaction_record.transaction_no'), prop: 'transaction_no', width: 210 },
     { label: () => t('transaction_record.account_id'), prop: 'account_id', width: 100 },
+    {
+      label: () => t('transaction_record.transaction_status'), prop: 'transaction_status',
+      width: 120,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'status_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
     { label: () => t('transaction_record.tenant_id'), prop: 'tenant_id', width: 80 },
     { label: () => t('transaction_record.amount'), prop: 'amount', width: 120 },
     { label: () => t('transaction_record.fee_amount'), prop: 'fee_amount', width: 120 },
@@ -98,25 +117,6 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { label: () => t('transaction_record.counterparty'), prop: 'counterparty', width: 120 },
     { label: () => t('transaction_record.order_no'), prop: 'order_no' },
     { label: () => t('transaction_record.ref_transaction_no'), prop: 'ref_transaction_no' },
-    {
-      label: () => t('transaction_record.transaction_status'), prop: 'transaction_status',
-      width: 120,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'tag',
-          api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'status_list'))),
-          dataHandle: (response: any) => {
-            return response.data?.map((item: Common.StatusOptionItem) => {
-              return { label: `${item.label}`, value: item.value }
-            })
-          },
-          props: {
-            effect: 'dark',
-          },
-        },
-      },
-    },
     { label: () => t('transaction_record.remark'), prop: 'remark' },
     { label: () => t('transaction_record.created_at'), prop: 'created_at', width: 180 },
     { label: () => t('transaction_record.updated_at'), prop: 'updated_at', width: 180 },
