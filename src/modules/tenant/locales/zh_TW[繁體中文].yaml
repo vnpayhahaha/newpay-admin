@@ -53,12 +53,21 @@ tenantConfig:
   option: 选项
 tenantAccount:
   index: 租户账户
+  account_id: 账户编号
   balance_available: 可用余额
   balance_frozen: 冻结余额
   account_type: 账户类型
   version: 乐观锁版本
   created_at: 创建时间
   updated_at: 修改时间
+  add: 上分
+  sub: 下分
+  freeze: 冻结
+  unfreeze: 解冻
+  addSuccess: 上分成功
+  subSuccess: 下分成功
+  freezeSuccess: 冻结成功
+  unfreezeSuccess: 解冻成功
 tenantMenu:
   tenant:
     list: 租户列表

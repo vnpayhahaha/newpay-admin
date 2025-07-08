@@ -21,16 +21,20 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 
 import Form from './Form.vue'
+import ChangeBalanceAvailableForm from './components/changeBalanceAvailableForm.vue'
+import ChangeBalanceFrozenForm from './components/changeBalanceFrozenForm.vue'
 
 defineOptions({ name: 'tenant:tenant_account' })
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const formRef = ref()
-const setFormRef = ref()
+// const setFormRef = ref()
+const changeBalanceAvailableFormRef = ref()
+const changeBalanceFrozenFormRef = ref()
 const selections = ref<any[]>([])
 const i18n = useTrans() as TransType
 const t = i18n.globalTrans
-const local = i18n.localTrans
+
 const msg = useMessage()
 
 // 弹窗配置
@@ -38,27 +42,28 @@ const maDialog: UseDialogExpose = useDialog({
   // 保存数据
   ok: ({ formType }, okLoadingState: (state: boolean) => void) => {
     okLoadingState(true)
-    if (['add', 'edit'].includes(formType)) {
-      const elForm = formRef.value.maForm.getElFormRef()
+    if (['add', 'sub'].includes(formType)) {
+      console.log('保存数据')
+      const elForm = changeBalanceAvailableFormRef.value.maForm.getElFormRef()
       // 验证通过后
       elForm.validate().then(() => {
         switch (formType) {
-          // 新增
+          // 加分
           case 'add':
-            formRef.value.add().then((res: any) => {
-              res.code === ResultCode.SUCCESS ? msg.success(t('crud.createSuccess')) : msg.error(res.message)
+            changeBalanceAvailableFormRef.value.add().then((res: any) => {
+              res.code === ResultCode.SUCCESS ? msg.success(t('tenantAccount.addSuccess')) : msg.error(res.message)
               maDialog.close()
-              proTableRef.value.refresh()
+              delayRefresh()
             }).catch((err: any) => {
               msg.alertError(err)
             })
             break
-          // 修改
-          case 'edit':
-            formRef.value.edit().then((res: any) => {
-              res.code === 200 ? msg.success(t('crud.updateSuccess')) : msg.error(res.message)
+          // 减分
+          case 'sub':
+            changeBalanceAvailableFormRef.value.sub().then((res: any) => {
+              res.code === 200 ? msg.success(t('tenantAccount.subSuccess')) : msg.error(res.message)
               maDialog.close()
-              proTableRef.value.refresh()
+              delayRefresh()
             }).catch((err: any) => {
               msg.alertError(err)
             })
@@ -66,9 +71,46 @@ const maDialog: UseDialogExpose = useDialog({
         }
       }).catch()
     }
+    else if (['freeze', 'unfreeze'].includes(formType)) {
+      console.log('freeze')
+      const elForm = changeBalanceFrozenFormRef.value.maForm.getElFormRef()
+      // 验证通过后
+      elForm.validate().then(() => {
+        switch (formType) {
+          // 冻结
+          case 'freeze':
+            changeBalanceFrozenFormRef.value.freeze().then((res: any) => {
+              res.code === ResultCode.SUCCESS ? msg.success(t('tenantAccount.freezeSuccess')) : msg.error(res.message)
+              maDialog.close()
+              delayRefresh()
+            }).catch((err: any) => {
+              msg.alertError(err)
+            })
+            break
+          // 解冻
+          case 'unfreeze':
+            changeBalanceFrozenFormRef.value.unfreeze().then((res: any) => {
+              res.code === 200 ? msg.success(t('tenantAccount.unfreezeSuccess')) : msg.error(res.message)
+              maDialog.close()
+              delayRefresh()
+            }).catch((err: any) => {
+              msg.alertError(err)
+            })
+            break
+        }
+      }).catch()
+    }
+
     okLoadingState(false)
   },
 })
+
+// 延迟刷新方法
+function delayRefresh() {
+  setTimeout(() => {
+    proTableRef.value.refresh()
+  }, 500)
+}
 
 // 参数配置
 const options = ref<MaProTableOptions>({
@@ -125,8 +167,8 @@ const schema = ref<MaProTableSchema>({
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <!-- <template #actions>
-        <el-button
+      <template #actions>
+        <!-- <el-button
           v-auth="['tenant:tenant_account:save']"
           type="primary"
           @click="() => {
@@ -135,13 +177,13 @@ const schema = ref<MaProTableSchema>({
           }"
         >
           {{ t('crud.add') }}
-        </el-button>
-      </template> -->
+        </el-button> -->
+      </template>
 
       <template #toolbarLeft />
       <!-- 数据为空时 -->
       <template #empty>
-        <el-empty>
+        <!-- <el-empty>
           <el-button
             v-auth="['tenant:tenant_account:save']"
             type="primary"
@@ -152,14 +194,16 @@ const schema = ref<MaProTableSchema>({
           >
             {{ t('crud.add') }}
           </el-button>
-        </el-empty>
+        </el-empty> -->
       </template>
     </MaProTable>
 
     <component :is="maDialog.Dialog">
       <template #default="{ formType, data }">
         <!-- 新增、编辑表单 -->
-        <Form ref="formRef" :form-type="formType" :data="data" />
+        <!-- <Form ref="formRef" :form-type="formType" :data="data" /> -->
+        <ChangeBalanceAvailableForm v-if="formType === 'add' || formType === 'sub'" ref="changeBalanceAvailableFormRef" :form-type="formType" :data="data" />
+        <ChangeBalanceFrozenForm v-else-if="formType === 'freeze' || formType === 'unfreeze'" ref="changeBalanceFrozenFormRef" :form-type="formType" :data="data" />
       </template>
     </component>
   </div>

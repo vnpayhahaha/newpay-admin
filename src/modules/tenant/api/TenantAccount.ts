@@ -12,7 +12,7 @@ export interface TenantAccountVo {
   // 冻结金额
   balance_frozen: string
   // 账户类型:10-收款账户 20-付款账户
-  account_type: string
+  account_type: number
   // 币种
   currency: string
   // 乐观锁版本
@@ -41,4 +41,20 @@ export function save(id: number, data: TenantAccountVo): Promise<ResponseStruct<
 // 租户账户删除
 export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().delete('/admin/tenant/tenant_account', { data: ids })
+}
+
+// 修改可用余额
+export function changeBalanceAvailable(id: number, change_amount: number): Promise<ResponseStruct<null>> {
+  return useHttp().put(`/admin/tenant/tenant_account/change_balance_available`, {
+    id,
+    change_amount,
+  })
+}
+
+// 修改冻结余额
+export function changeBalanceFrozen(id: number, change_amount: number): Promise<ResponseStruct<null>> {
+  return useHttp().put(`/admin/tenant/tenant_account/change_balance_frozen`, {
+    id,
+    change_amount,
+  })
 }

@@ -29,11 +29,11 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
     // 索引序号列
     { type: 'index' },
+    { label: () => t('tenantAccount.account_id'), prop: 'account_id' },
     // 普通列
     {
       label: () => t('tenant.tenantId'), prop: 'tenant_id',
       cellRender: (row: any) => {
-        console.log(row)
         return (
           <div class="text-align-left">
             <p class="cell-ellipsis">
@@ -73,37 +73,75 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 操作列
     {
       type: 'operation',
-      hide: true,
       label: () => t('crud.operation'),
-      width: '260px',
+      width: '80px',
       operationConfigure: {
-        type: 'tile',
         actions: [
           {
-            name: 'edit',
-            icon: 'i-heroicons:pencil',
+            name: 'add',
+            icon: 'i-heroicons:plus-circle-16-solid',
             show: ({ row }) => showBtn('tenant:tenant_account:update', row),
-            text: () => t('crud.edit'),
+            text: () => t('tenantAccount.add'),
             onClick: ({ row }) => {
-              dialog.setTitle(t('crud.edit'))
-              dialog.open({ formType: 'edit', data: row })
+              dialog.setTitle(t('tenantAccount.add'))
+              dialog.open({ formType: 'add', data: row })
             },
           },
           {
-            name: 'del',
-            show: ({ row }) => showBtn('tenant:tenant_account:delete', row),
-            icon: 'i-heroicons:trash',
-            text: () => t('crud.delete'),
-            onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t('crud.delDataMessage')).then(async () => {
-                const response = await deleteByIds([row.id])
-                if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t('crud.delSuccess'))
-                  await proxy.refresh()
-                }
-              })
+            name: 'sub',
+            icon: 'i-heroicons:minus-circle-16-solid',
+            show: ({ row }) => showBtn('tenant:tenant_account:update', row),
+            text: () => t('tenantAccount.sub'),
+            onClick: ({ row }) => {
+              dialog.setTitle(t('tenantAccount.sub'))
+              dialog.open({ formType: 'sub', data: row })
             },
           },
+          {
+            name: 'freeze',
+            icon: 'i-heroicons:document-currency-rupee',
+            show: ({ row }) => showBtn('tenant:tenant_account:update', row),
+            text: () => t('tenantAccount.freeze'),
+            onClick: ({ row }) => {
+              dialog.setTitle(t('tenantAccount.freeze'))
+              dialog.open({ formType: 'freeze', data: row })
+            },
+          },
+          {
+            name: 'unfreeze',
+            icon: 'i-heroicons:document-currency-rupee-solid',
+            show: ({ row }) => showBtn('tenant:tenant_account:update', row),
+            text: () => t('tenantAccount.unfreeze'),
+            onClick: ({ row }) => {
+              dialog.setTitle(t('tenantAccount.unfreeze'))
+              dialog.open({ formType: 'unfreeze', data: row })
+            },
+          },
+          // {
+          //   name: 'edit',
+          //   icon: 'i-heroicons:pencil',
+          //   show: ({ row }) => showBtn('tenant:tenant_account:update', row),
+          //   text: () => t('crud.edit'),
+          //   onClick: ({ row }) => {
+          //     dialog.setTitle(t('crud.edit'))
+          //     dialog.open({ formType: 'edit', data: row })
+          //   },
+          // },
+          // {
+          //   name: 'del',
+          //   show: ({ row }) => showBtn('tenant:tenant_account:delete', row),
+          //   icon: 'i-heroicons:trash',
+          //   text: () => t('crud.delete'),
+          //   onClick: ({ row }, proxy: MaProTableExpose) => {
+          //     msg.delConfirm(t('crud.delDataMessage')).then(async () => {
+          //       const response = await deleteByIds([row.id])
+          //       if (response.code === ResultCode.SUCCESS) {
+          //         msg.success(t('crud.delSuccess'))
+          //         await proxy.refresh()
+          //       }
+          //     })
+          //   },
+          // },
         ],
       },
     },

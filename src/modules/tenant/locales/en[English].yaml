@@ -53,12 +53,21 @@ tenantConfig:
   option: Options
 tenantAccount:
   index: Tenant Account
+  account_id: Account ID
   balance_available: balance available
   balance_frozen: balance frozen
   account_type: account type
   version: version
   created_at: created_at
   updated_at: updated_at
+  add: Bonus points
+  sub: Minus points
+  freeze: Freeze
+  unfreeze: UnFreeze
+  addSuccess: Bonus points success
+  subSuccess: Minus points success
+  freezeSuccess: Freeze success
+  unfreezeSuccess: UnFreeze success
 tenantMenu:
   tenant:
     list: Tenant list
