@@ -74,7 +74,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     {
       type: 'operation',
       label: () => t('crud.operation'),
-      width: '120px',
+      width: '160px',
       operationConfigure: {
         actions: [
           {
