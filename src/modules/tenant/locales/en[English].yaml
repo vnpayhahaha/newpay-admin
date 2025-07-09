@@ -100,6 +100,8 @@ tenantMenu:
     create: Add Tenant Account
     update: Modify Tenant Account
     delete: Delete Tenant Account
+    change_balance_available: Change Balance Available
+    change_balance_frozen: Change Balance Frozen
 enums:
   tenant:
     isEnabled:

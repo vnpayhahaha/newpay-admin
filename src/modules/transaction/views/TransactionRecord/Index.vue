@@ -21,6 +21,7 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 
 import Form from './Form.vue'
+import NmSearch from '$/west/nm-search/views/index.vue'
 
 defineOptions({ name: 'transaction:transaction_record' })
 
@@ -143,6 +144,7 @@ const schema = ref<MaProTableSchema>({
       </template>
 
       <template #toolbarLeft>
+        <NmSearch :proxy="proTableRef" :row="2" />
         <!-- <el-button
           v-auth="['transaction:transaction_record:delete']"
           type="danger"

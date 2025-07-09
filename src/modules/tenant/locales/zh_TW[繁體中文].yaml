@@ -100,6 +100,8 @@ tenantMenu:
     create: 新增租户账户
     update: 修改成户账户
     delete: 删除租户账户
+    change_balance_available: 修改账户可用余额
+    change_balance_frozen: 修改账户冻结余额
 enums:
   tenant:
     isEnabled:
