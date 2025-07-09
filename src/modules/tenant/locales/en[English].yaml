@@ -68,6 +68,21 @@ tenantAccount:
   subSuccess: Minus points success
   freezeSuccess: Freeze success
   unfreezeSuccess: UnFreeze success
+tenantAccountRecord:
+  index: All Billing records
+  tenantAccountBillRecord: Billing records
+  tenant_id: Tenant ID
+  tenant_account_id: Associate tenant account ID
+  account_id: Account ID
+  account_type: Account Type
+  change_amount: Change amount
+  balance_available_before: Available balance (original)
+  balance_available_after: Available balance (new)
+  balance_frozen_before: Freeze balance (original)
+  balance_frozen_after: Freeze balance (new)
+  change_type: Change type
+  transaction_no: Transaction number
+  created_at: Trading Hours
 tenantMenu:
   tenant:
     list: Tenant list
@@ -102,6 +117,11 @@ tenantMenu:
     delete: Delete Tenant Account
     change_balance_available: Change Balance Available
     change_balance_frozen: Change Balance Frozen
+  tenant_account_record:
+    list: Billing records
+    create: Add Billing record
+    update: Modify Billing record
+    delete: Delete Billing record
 enums:
   tenant:
     isEnabled:
@@ -113,5 +133,5 @@ enums:
       disabled: disabled
   tenantAccount:
     account_type:
-      collection: Collection Account
-      payment: Payment Account
+      collection: Collection
+      payment: Payment

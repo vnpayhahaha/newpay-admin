@@ -186,3 +186,6 @@ dictionary:
     self: Personal data permissions
     customDept: Custom department selection data permissions
     customFunc: Custom function data permissions
+common:
+  startTime: start time
+  endTime: end time

@@ -186,3 +186,6 @@ dictionary:
     self: 本人数据权限
     customDept: 自选部门数据权限
     customFunc: 自定义函数数据权限
+common:
+  startTime: 开始时间
+  endTime: 结束时间
