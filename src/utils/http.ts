@@ -17,14 +17,14 @@ import { ResultCode } from './ResultCode.ts'
 
 const { isLoading } = useNProgress()
 const cache = useCache()
-const requestList = ref<any[]>([])
-const isRefreshToken = ref<boolean>(false)
+// const requestList = ref<any[]>([])
+// const isRefreshToken = ref<boolean>(false)
 
 function createHttp(baseUrl: string | null = null, config: AxiosRequestConfig = {}): AxiosInstance {
   const env = import.meta.env
   return axios.create({
     baseURL: baseUrl ?? (env.VITE_OPEN_PROXY === 'true' ? env.VITE_PROXY_PREFIX : env.VITE_APP_API_BASEURL),
-    timeout: 10000 * 5,
+    timeout: 15000 * 5,
     responseType: 'json',
     ...config,
   })
@@ -59,7 +59,7 @@ http.interceptors.response.use(
     isLoading.value = false
     const userStore = useUserStore()
     await usePluginStore().callHooks('networkResponse', response)
-    const config = response.config
+    // const config = response.config
 
     // 处理自动刷新token Automatic-Renewal-Token
     if (response.headers['automatic-renewal-token']) {
@@ -109,68 +109,6 @@ http.interceptors.response.use(
     }
     else {
       switch (response?.data?.code) {
-        case ResultCode.UNAUTHORIZED:
-        {
-          const logout = async () => {
-            if (isLogout === false) {
-              isLogout = true
-              setTimeout(() => isLogout = false, 5000)
-              Message.error(response?.data?.message ?? '登录已过期', { zIndex: 9999 })
-              await useUserStore().logout()
-            }
-          }
-          // 检查token是否需要刷新
-          if (userStore.isLogin && !isRefreshToken.value) {
-            isRefreshToken.value = true
-            if (!cache.get('refresh_token')) {
-              await logout()
-              break
-            }
-
-            try {
-              const refreshTokenResponse = await createHttp(null, {
-                headers: {
-                  Authorization: `Bearer ${cache.get('refresh_token')}`,
-                },
-              }).post('/admin/passport/refresh')
-
-              if (refreshTokenResponse?.data?.code !== 200) {
-                await logout()
-                break
-              }
-              else {
-                const { data } = refreshTokenResponse.data
-                userStore.token = data.access_token
-                cache.set('token', data.access_token)
-                cache.set('expire', useDayjs().unix() + data.expire_at, { exp: data.expire_at })
-                cache.set('refresh_token', data.refresh_token)
-
-                config.headers!.Authorization = `Bearer ${userStore.token}`
-                requestList.value.map((cb: any) => cb())
-                requestList.value = []
-                return http(config)
-              }
-            }
-            // eslint-disable-next-line unused-imports/no-unused-vars
-            catch (e: any) {
-              requestList.value.map((cb: any) => cb())
-              await logout()
-              break
-            }
-            finally {
-              requestList.value = []
-              isRefreshToken.value = false
-            }
-          }
-          else {
-            return new Promise((resolve) => {
-              requestList.value.push(() => {
-                config.headers!.Authorization = `Bearer ${cache.get('token')}`
-                resolve(http(config))
-              })
-            })
-          }
-        }
         case ResultCode.DISABLED: {
           Message.error(response?.data?.message ?? '账号已被禁用', { zIndex: 9999 })
           await useUserStore().logout()
@@ -185,6 +123,7 @@ http.interceptors.response.use(
     }
   },
   async (error: any) => {
+    isLoading.value = false
     const logout = async () => {
       if (isLogout === false) {
         isLogout = true
@@ -193,18 +132,19 @@ http.interceptors.response.use(
         await useUserStore().logout()
       }
     }
-    isLoading.value = false
-    console.error('err:', error)
+
+    if (error && (error?.status === 401 || error?.status === 402 || error?.status === 403)) {
+      await logout()
+      return Promise.reject(error)
+    }
+
     const serverError = useDebounceFn(async () => {
-      if (error && (error?.status === 401 || error?.status === 402 || error?.status === 403)) {
-        await logout()
-      }
-      else if (error && error.response) {
+      if (error && error.response && error.response.status === 500) {
         Message.error(error.response?.data?.message ?? '服务器错误', { zIndex: 9999 })
       }
     }, 3000, { maxWait: 5000 })
-    return await serverError()
-    // return Promise.reject(error)
+    await serverError()
+    return Promise.reject(error)
   },
 )
 

@@ -56,7 +56,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               delayRefresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response?.data?.message)
             })
             break
           // 减分
@@ -66,7 +66,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               delayRefresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response?.data?.message)
             })
             break
         }
@@ -85,7 +85,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               delayRefresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response?.data?.message)
             })
             break
           // 解冻
@@ -95,7 +95,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               delayRefresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response?.data?.message)
             })
             break
         }
