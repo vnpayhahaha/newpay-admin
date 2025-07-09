@@ -4,7 +4,15 @@ import { getComponentByRender, resolveLabel } from '$/west/nm-search/utils/tools
 defineOptions({ name: 'SearchFormItem' })
 
 const props = defineProps<{
-  item: any
+  item: {
+    prop: string
+    label: string | (() => string)
+    render?: ((modelValue: any) => any) | { // 允许对象类型
+      component: string // 组件名称
+      props?: Record<string, any> // 组件属性
+    }
+    renderProps?: Record<string, any>
+  }
   hideLabel?: boolean
   render?: ((modelValue: any) => any) | null
 }>()

@@ -88,7 +88,14 @@ watch(searchModel, (model) => {
           :render="getComponentByRender(item.render)"
         />
       </template>
-
+      <div>
+        <el-button text bg size="small" class="h-34px link-h-34px" @click="onSearch">
+          <template #icon>
+            <ma-svg-icon name="i-bx:search-alt" />
+          </template>
+          {{ t('nmSearch.search') }}
+        </el-button>
+      </div>
       <!-- 更多筛选按钮和弹出层 -->
       <div>
         <el-popover :visible="visible" teleported placement="bottom-start" :width="600" trigger="click">

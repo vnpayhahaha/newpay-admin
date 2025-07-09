@@ -17,11 +17,23 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       label: () => t('transaction_record.transaction_no'),
       prop: 'transaction_no',
       render: () => <el-input />,
+      renderProps: {
+        placeholder: t('transaction_record.transaction_no'),
+      },
     },
     {
       label: () => t('transaction_record.account_type'),
       prop: 'account_type',
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('tenant_account', 'account_type_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+        placeholder: t('transaction_record.account_type'),
+      },
     },
     {
       label: () => t('transaction_record.transaction_type'),
