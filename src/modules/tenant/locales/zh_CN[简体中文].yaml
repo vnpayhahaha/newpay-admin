@@ -4,7 +4,7 @@ tenant:
   contactUserName: 联系人名称
   contactPhone: 联系人手机
   companyName: 公司名称
-  accountCount: 账户数
+  accountCount: 最大用户数
   isEnabled: 是否启用
   createdBy: 创建人
   safeLevel: 安全等级
@@ -22,6 +22,9 @@ tenantApp:
   description: 描述
   remark: 备注
   createdAt: 创建时间
+  remarkPlaceholder: 请输入备注
+  refreshAppKey: 刷新应用密钥(Key)
+  refreshAppSecret: 刷新应用私钥(Secret)
 tenantUser:
   index: 租户成员
   avatar: 头像

@@ -53,8 +53,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       render: ({ formData }) => {
         const showHint = formData.account_count === -1
         return (
-          <div>
-            <el-input-number v-model={formData.account_count} min={-1} />
+          <div class="w-full">
+            <el-input-number class="w-full" v-model={formData.account_count} min={-1} />
             {showHint && (
               <div style="color: #999; font-size: 12px; margin-top: 5px;">
                 {t('tenant.accountCountHint')}
@@ -85,6 +85,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
       cols: {
         span: 12,
+      },
+      renderProps: {
+        class: 'w-full',
       },
     },
     {

@@ -22,6 +22,9 @@ tenantApp:
   description: description
   remark: remark
   createdAt: created time
+  remarkPlaceholder: Please enter the remark
+  refreshAppKey: Refresh application key(Key)
+  refreshAppSecret: Refresh application secret(Secret)
 tenantUser:
   index: Tenant members
   avatar: Avatar
