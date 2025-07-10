@@ -31,7 +31,15 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'), hide: true },
     // 索引序号列
     { type: 'index' },
-    { label: () => t('tenantAccountRecord.transaction_no'), prop: 'transaction_no', width: '210px' },
+    {
+      label: () => t('tenantAccountRecord.transaction_no'), prop: 'transaction_no', width: '230px',
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'copy',
+        },
+      },
+    },
     // 普通列
     { label: () => t('tenantAccountRecord.account_type'), prop: 'account_id', width: '100px' },
     {

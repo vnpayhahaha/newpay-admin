@@ -58,19 +58,6 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
     {
-      label: () => t('tenantAccountRecord.change_type'),
-      prop: 'change_type',
-      render: () => <ma-remote-select filterable />,
-      renderProps: {
-        api: () => new Promise(resolve => resolve(selectStatus('tenant_account_record', 'change_type_list'))),
-        dataHandle: (response: any) => {
-          return response.data?.map((item: Common.StatusOptionItem) => {
-            return { label: `${item.label}`, value: item.value }
-          })
-        },
-      },
-    },
-    {
       label: () => t('tenantAccountRecord.created_at'),
       prop: 'created_at',
       render: () => <el-date-picker />,

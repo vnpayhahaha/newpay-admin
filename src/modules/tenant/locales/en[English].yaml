@@ -135,3 +135,16 @@ enums:
     account_type:
       collection: Collection
       payment: Payment
+  tenantAccountRecord:
+    change_type:
+      transaction: transaction
+      refund: refund
+      manual_add: manual_add
+      manual_sub: manual_sub
+      freeze: freeze
+      unfreeze: unfreeze
+      transfer_in: transfer_in
+      transfer_out: transfer_out
+      reverse: reverse
+      reversal: reversal
+      error_adjust: error_adjust
