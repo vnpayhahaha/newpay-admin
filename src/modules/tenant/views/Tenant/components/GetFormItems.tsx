@@ -15,7 +15,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
   if (formType === 'add') {
     // todo...
     model.is_enabled = true
-    model.account_count = 1
+    model.user_num_limit = 1
+    model.app_num_limit = 1
     model.safe_level = 1
   }
 
@@ -32,8 +33,20 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: {
         required: true,
       },
+    },
+    {
+      label: t('tenant.safeLevel'),
+      prop: 'safe_level',
+      render: () => <el-input-number min={0} />,
+      itemProps: {
+        required: true,
+      },
       cols: {
         span: 12,
+      },
+      renderProps: {
+        class: 'w-full',
+        max: 99,
       },
     },
     {
@@ -48,16 +61,16 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
-      label: t('tenant.accountCount'),
-      prop: 'account_count',
+      label: t('tenant.user_num_limit'),
+      prop: 'user_num_limit',
       render: ({ formData }) => {
-        const showHint = formData.account_count === -1
+        const showHint = formData.user_num_limit === -1
         return (
           <div class="w-full">
-            <el-input-number class="w-full" v-model={formData.account_count} min={-1} />
+            <el-input-number class="w-full" v-model={formData.user_num_limit} min={-1} />
             {showHint && (
               <div style="color: #999; font-size: 12px; margin-top: 5px;">
-                {t('tenant.accountCountHint')}
+                {t('tenant.limitHint')}
               </div>
             )}
           </div>
@@ -77,17 +90,32 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
-      label: t('tenant.safeLevel'),
-      prop: 'safe_level',
-      render: () => <el-input-number min={0} />,
+      label: t('tenant.app_num_limit'),
+      prop: 'app_num_limit',
+      render: ({ formData }) => {
+        const showHint = formData.app_num_limit === -1
+        return (
+          <div class="w-full">
+            <el-input-number class="w-full" v-model={formData.app_num_limit} min={-1} />
+            {showHint && (
+              <div style="color: #999; font-size: 12px; margin-top: 5px;">
+                {t('tenant.limitHint')}
+              </div>
+            )}
+          </div>
+        )
+      },
       itemProps: {
         required: true,
+        rules: [
+          {
+            type: 'number',
+            min: -1,
+          },
+        ],
       },
       cols: {
         span: 12,
-      },
-      renderProps: {
-        class: 'w-full',
       },
     },
     {

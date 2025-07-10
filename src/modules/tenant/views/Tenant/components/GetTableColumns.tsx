@@ -30,9 +30,10 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('tenant.tenantId'), prop: 'tenant_id' },
+    { label: () => t('tenant.tenantId'), prop: 'tenant_id', width: '100px' },
     {
       label: () => t('tenant.isEnabled'),
+      width: '80px',
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {
@@ -64,11 +65,23 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       },
     },
     { label: () => t('tenant.companyName'), prop: 'company_name' },
-    { label: () => t('tenant.contactUserName'), prop: 'contact_user_name' },
-    { label: () => t('tenant.contactPhone'), prop: 'contact_phone' },
-    { label: () => t('tenant.accountCount'), prop: 'account_count' },
+    { label: () => t('tenant.contactUserName'), prop: 'contact_user_name', width: '180px' },
+    { label: () => t('tenant.contactPhone'), prop: 'contact_phone', width: '180px' },
+    {
+      label: () => t('tenant.user_num_limit'), prop: 'user_num_limit', width: '100px',
+      cellRender: ({ row }) => {
+        return row.user_num_limit === -1 ? <el-text class="mx-1" type="info">{t('tenant.unlimited')}</el-text> : row.user_num_limit
+      },
+    },
+    {
+      label: () => t('tenant.app_num_limit'), prop: 'app_num_limit', width: '100px',
+      cellRender: ({ row }) => {
+        return row.app_num_limit === -1 ? <el-text class="mx-1" type="info">{t('tenant.unlimited')}</el-text> : row.app_num_limit
+      },
+    },
     {
       label: () => t('tenant.createdBy'),
+      width: '180px',
       prop: 'created_by',
       cellRenderTo: {
         name: 'nmCellEnhance',
@@ -78,7 +91,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         },
       },
     },
-    { label: () => t('tenant.safeLevel'), prop: 'safe_level' },
+    { label: () => t('tenant.safeLevel'), prop: 'safe_level', width: '100px' },
 
     // 操作列
     {

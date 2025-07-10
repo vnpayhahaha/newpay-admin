@@ -4,7 +4,8 @@ tenant:
   contactUserName: 联系人名称
   contactPhone: 联系人手机
   companyName: 公司名称
-  accountCount: 最大用户数
+  user_num_limit: 最大用户数
+  app_num_limit: 最大应用数
   isEnabled: 是否启用
   createdBy: 创建人
   safeLevel: 安全等级
@@ -12,7 +13,8 @@ tenant:
   address: 公司地址
   intro: 简介
   domain: 域名
-  accountCountHint: -1 表示无限制
+  limitHint: -1 表示无限制
+  unlimited: 无限制
 tenantApp:
   index: 租户应用
   appName: 应用名称

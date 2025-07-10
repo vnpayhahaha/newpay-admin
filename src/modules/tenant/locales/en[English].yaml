@@ -4,7 +4,8 @@ tenant:
   contactUserName: Contact User Name
   contactPhone: Contact Phone
   companyName: Company Name
-  accountCount: Account Count
+  user_num_limit: Maximum number of users
+  app_num_limit: Maximum number of applications
   isEnabled: Is Enabled
   createdBy: createdBy
   safeLevel: Safe Level
@@ -12,7 +13,8 @@ tenant:
   address: address
   intro: intro
   domain: domain
-  accountCountHint: -1 represents unlimited
+  limitHint: -1 represents unlimited
+  unlimited: Unlimited
 tenantApp:
   index: Tenant App
   appName: APP Name

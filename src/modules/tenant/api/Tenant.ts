@@ -20,7 +20,8 @@ export interface TenantVo {
   // 域名
   domain: string
   // 用户数量（-1不限制）
-  account_count: number
+  user_num_limit: number
+  app_num_limit: number
   // 启用状态(1正常 2停用)
   is_enabled: boolean
   // 操作管理员

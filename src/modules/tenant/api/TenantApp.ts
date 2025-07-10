@@ -63,3 +63,11 @@ export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
 export function selectStatus(): Promise<ResponseStruct<Common.StatusOption[]>> {
   return useHttp().get('/public/selectOption?table_name=tenant_app&field_list=status_list')
 }
+
+export function getAppKey(): Promise<ResponseStruct<{ app_key: string }>> {
+  return useHttp().get('/admin/tenant/tenant_app/get_app_key')
+}
+
+export function getAppSecret(): Promise<ResponseStruct<{ app_secret: string }>> {
+  return useHttp().get('/admin/tenant/tenant_app/get_app_secret')
+}
