@@ -44,18 +44,27 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
           })
         },
       },
+      itemProps: {
+        required: true,
+      },
     },
     {
       label: '用户名',
       prop: 'username',
       cols: { md: 12, xs: 24 },
       render: () => <el-input />,
+      itemProps: {
+        required: true,
+      },
     },
     {
       label: '手机号码',
       prop: 'phone',
       cols: { md: 12, xs: 24 },
       render: () => <el-input />,
+      itemProps: {
+        required: true,
+      },
     },
     {
       label: '状态',
@@ -66,6 +75,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
         placeholder: t('form.pleaseInput', { msg: t('crud.status') }),
         dictName: 'system-status',
       },
+      itemProps: {
+        required: true,
+      },
     },
     {
       label: 'google验证',
@@ -75,6 +87,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       renderProps: {
         placeholder: t('form.pleaseInput', { msg: t('crud.status') }),
         dictName: 'system-status',
+      },
+      itemProps: {
+        required: true,
       },
     },
     {
