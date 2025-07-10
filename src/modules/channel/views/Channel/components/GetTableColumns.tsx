@@ -34,20 +34,13 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { label: () => t('channel.channel_name'), prop: 'channel_name' },
     {
       label: () => t('channel.channel_icon'), prop: 'channel_icon',
+      width: 100,
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {
-          type: 'image', // 类型 url, image, avatar, avatarGroup, video, switch
+          type: 'avatar',
           props: {
-            lazy: true,
-            on: {
-              show: (value: any, row: any, proxy: MaProTableExpose) => {
-                // value: 当前单元格的值（图片地址）
-                // row: 当前行的数据
-                // proxy: 表格的代理实例，提供表格操作功能
-
-              },
-            },
+            shape: 'circle',
           },
         },
       },

@@ -47,7 +47,19 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     },
     { label: () => t('tenantUser.username'), prop: 'username' },
     { label: () => t('tenantUser.phone'), prop: 'phone' },
-    { label: () => t('tenantUser.avatar'), prop: 'avatar' },
+    {
+      label: () => t('tenantUser.avatar'), prop: 'avatar',
+      width: 100,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'avatar',
+          props: {
+            shape: 'circle',
+          },
+        },
+      },
+    },
     {
       label: () => t('tenantUser.status'), prop: 'status',
       width: 80,
