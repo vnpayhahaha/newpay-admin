@@ -13,7 +13,7 @@ import type { TenantDictVo } from '~/tenant/api/Tenant.ts'
 import { remote } from '~/tenant/api/Tenant.ts'
 import { selectStatus } from '@/modules/Common'
 
-export default function getSearchItems(t: any): MaSearchItem[] {
+export default function getSearchItems(t: any, hideChangeType: boolean = false): MaSearchItem[] {
   return [
     {
       label: () => t('tenantAccountRecord.transaction_no'),
@@ -50,6 +50,20 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       render: () => <ma-remote-select filterable />,
       renderProps: {
         api: () => new Promise(resolve => resolve(selectStatus('tenant_account', 'account_type_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
+    },
+    {
+      label: () => t('tenantAccountRecord.change_type'),
+      prop: 'change_type',
+      hide: hideChangeType,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('tenant_account_record', 'change_type_list'))),
         dataHandle: (response: any) => {
           return response.data?.map((item: Common.StatusOptionItem) => {
             return { label: `${item.label}`, value: item.value }

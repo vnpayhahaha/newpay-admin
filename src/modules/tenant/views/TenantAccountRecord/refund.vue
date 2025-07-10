@@ -111,7 +111,7 @@ const options = ref<MaProTableOptions>({
 // 架构配置
 const schema = ref<MaProTableSchema>({
   // 搜索项
-  searchItems: getSearchItems(t),
+  searchItems: getSearchItems(t, true),
   // 表格列
   tableColumns: getTableColumns(maDialog, formRef, t),
 })

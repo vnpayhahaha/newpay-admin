@@ -109,7 +109,7 @@ watch(searchModel, (model) => {
           </template>
           <el-row :gutter="24">
             <template v-for="item in searchItem.slice(props.row)" :key="item.prop">
-              <el-col :span="8" class="!mb-10px">
+              <el-col v-if="!item.hide" :span="8" class="!mb-10px">
                 <SearchFormItem v-model="searchModel[item.prop]" :item="item" class="nm-search-form-item-default" />
               </el-col>
             </template>
