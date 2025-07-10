@@ -113,11 +113,9 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         return (
           <div class="text-align-left">
             <p class="cell-ellipsis">
-              租户ID:
               {row.row.tenant_id}
             </p>
             <p>
-              公司名称:
               {row.row?.tenant?.company_name}
             </p>
           </div>
