@@ -30,7 +30,21 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('tenant.tenantId'), prop: 'tenant_id' },
+    {
+      label: () => t('tenant.tenantId'), prop: 'tenant_id',
+      cellRender: (row: any) => {
+        return (
+          <div class="text-align-left">
+            <p class="cell-ellipsis">
+              {row.row.tenant_id}
+            </p>
+            <p>
+              {row.row.tenant.company_name}
+            </p>
+          </div>
+        )
+      },
+    },
     { label: () => t('tenantUser.username'), prop: 'username' },
     { label: () => t('tenantUser.phone'), prop: 'phone' },
     { label: () => t('tenantUser.avatar'), prop: 'avatar' },

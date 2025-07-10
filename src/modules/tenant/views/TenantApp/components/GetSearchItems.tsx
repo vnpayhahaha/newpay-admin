@@ -22,7 +22,7 @@ export default function getSearchItems(t: any): MaSearchItem[] {
         api: () => new Promise(resolve => resolve(remote())),
         dataHandle: (response: any) => {
           return response.data?.map((item: TenantDictVo) => {
-            return { label: `${item.tenant_id}`, value: item.tenant_id }
+            return { label: `${item.tenant_id} ${item.company_name}`, value: item.tenant_id }
           })
         },
       },

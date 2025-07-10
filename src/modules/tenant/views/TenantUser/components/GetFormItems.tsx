@@ -28,19 +28,19 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
 
   return [
     {
-      label: '头像',
+      label: t('tenantUser.avatar'),
       prop: 'avatar',
       render: () => MaUploadImage,
     },
     {
-      label: '租户编号',
+      label: t('tenant.tenantId'),
       prop: 'tenant_id',
       render: () => <ma-remote-select filterable disabled={formType === 'edit'} />,
       renderProps: {
         api: () => new Promise(resolve => resolve(remote())),
         dataHandle: (response: any) => {
           return response.data?.map((item: TenantDictVo) => {
-            return { label: `${item.tenant_id}`, value: item.tenant_id }
+            return { label: `${item.tenant_id} ${item.company_name}`, value: item.tenant_id }
           })
         },
       },
@@ -49,7 +49,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
-      label: '用户名',
+      label: t('tenantUser.username'),
       prop: 'username',
       cols: { md: 12, xs: 24 },
       render: () => <el-input />,
@@ -58,7 +58,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
-      label: '手机号码',
+      label: t('tenantUser.phone'),
       prop: 'phone',
       cols: { md: 12, xs: 24 },
       render: () => <el-input />,
@@ -67,7 +67,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
-      label: '状态',
+      label: t('tenantUser.status'),
       prop: 'status',
       cols: { md: 12, xs: 24 },
       render: () => MaDictRadio,
@@ -80,7 +80,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
-      label: 'google验证',
+      label: t('tenantUser.is_enabled_google'),
       prop: 'is_enabled_google',
       cols: { md: 12, xs: 24 },
       render: () => MaDictRadio,
@@ -93,12 +93,12 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
-      label: 'IP白名单',
+      label: t('tenantUser.ip_whitelist'),
       prop: 'ip_whitelist',
       render: () => <el-input type="textarea" />,
     },
     {
-      label: '备注',
+      label: t('tenantUser.remark'),
       prop: 'remark',
       render: () => <el-input type="textarea" />,
     },
