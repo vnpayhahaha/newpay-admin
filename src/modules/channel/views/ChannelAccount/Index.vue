@@ -253,5 +253,18 @@ function handleRecovery() {
 </template>
 
 <style scoped lang="scss">
+:deep(.el-table th.cellBackgroundBlue.el-table__cell){
+  background-color: rgb(148,191,255,0.3) !important;
+}
 
+:deep(.el-table td.cellBackgroundBlue.el-table__cell){
+  background-color: rgb(148,191,255,0.3) !important;
+}
+:deep(.el-table th.cellBackgroundRed.el-table__cell){
+  background-color: rgba(253,171,171,0.3) !important;
+}
+
+:deep(.el-table td.cellBackgroundRed.el-table__cell){
+  background-color: rgba(253,171,171,0.3) !important;
+}
 </style>

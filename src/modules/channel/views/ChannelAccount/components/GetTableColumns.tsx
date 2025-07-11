@@ -15,6 +15,7 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds, save } from '~/channel/api/ChannelAccount.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import { tr } from 'element-plus/es/locale/index.mjs'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
@@ -49,18 +50,69 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         )
       },
     },
-    { label: () => t('channelAccount.merchant_id'), prop: 'merchant_id' },
-    { label: () => t('channelAccount.api_version'), prop: 'api_version' },
-    { label: () => t('channelAccount.callback_url'), prop: 'callback_url' },
-    { label: () => t('channelAccount.balance'), prop: 'balance' },
-    { label: () => t('channelAccount.currency'), prop: 'currency' },
-    { label: () => t('channelAccount.used_quota'), prop: 'used_quota' },
-    { label: () => t('channelAccount.limit_quota'), prop: 'limit_quota' },
-    { label: () => t('channelAccount.today_receipt_count'), prop: 'today_receipt_count' },
-    { label: () => t('channelAccount.today_payment_count'), prop: 'today_payment_count' },
-    { label: () => t('channelAccount.today_receipt_amount'), prop: 'today_receipt_amount' },
-    { label: () => t('channelAccount.today_payment_amount'), prop: 'today_payment_amount' },
-    { label: () => t('channelAccount.stat_date'), prop: 'stat_date' },
+    {
+      label: () => t('channelAccount.merchant_id'), prop: 'merchant_id',
+      width: 180,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'copy',
+        },
+      },
+     },
+    { label: () => t('channelAccount.api_version'), prop: 'api_version', width: 80, hide: true },
+    {
+      label: () => t('channelAccount.callback_url'), prop: 'callback_url',
+      width: 300,
+      hide: true
+     },
+    {
+      label: () => t('channelAccount.balance'), prop: 'balance',
+      width: 120,
+      cellRenderTo: {
+        name: 'tag',
+      }
+     },
+    { label: () => t('channelAccount.currency'), prop: 'currency', width: 80, hide: true },
+    {
+      label: () => t('channelAccount.used_quota'), prop: 'used_quota', width: 120,
+       cellRenderTo: {
+        name: 'tag',
+        props: {
+          type: 'success',
+        },
+      }
+     },
+    {
+      label: () => t('channelAccount.limit_quota'), prop: 'limit_quota', width: 120,
+      cellRenderTo: {
+        name: 'tag',
+        props: {
+          type: 'danger',
+        },
+      }
+     },
+    {
+      label: () => t('channelAccount.today_receipt_count'), prop: 'today_receipt_count',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+     },
+    {
+      label: () => t('channelAccount.today_payment_count'), prop: 'today_payment_count',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+     },
+    {
+      label: () => t('channelAccount.today_receipt_amount'), prop: 'today_receipt_amount',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+     },
+    {
+      label: () => t('channelAccount.today_payment_amount'), prop: 'today_payment_amount',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+     },
+    { label: () => t('channelAccount.stat_date'), prop: 'stat_date',width: 120 ,hide: true},
     {
       label: () => t('channelAccount.status'), prop: 'status',
       width: 80,

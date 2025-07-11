@@ -20,7 +20,7 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       prop: 'channel_id',
       render: () => <ma-remote-select filterable />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(remote())),
+        api: () => new Promise(resolve => resolve(remote({channel_type:1}))),
         dataHandle: (response: any) => {
           return response.data?.map((item: ChannelDictVo) => {
             return { label: `${item.channel_name}`, value: item.id }

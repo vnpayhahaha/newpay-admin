@@ -14,7 +14,7 @@ export interface ChannelVo {
   // 渠道图标
   channel_icon: string
   // 渠道类型:1-银行 2-上游第三方支付
-  channel_type: string
+  channel_type: number
   // 国家代码(IN=印度)
   country_code: string
   // 默认币种
@@ -91,6 +91,6 @@ export interface ChannelDictVo {
   config: Array<ChannelDictVoConfig>
 }
 
-export function remote(): Promise<ResponseStruct<ChannelDictVo[]>> {
-  return useHttp().get('/admin/channel/channel_dict/remote')
+export function remote(params?: {channel_type: number}): Promise<ResponseStruct<ChannelDictVo[]>> {
+  return useHttp().get('/admin/channel/channel_dict/remote', {params})
 }

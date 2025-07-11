@@ -46,7 +46,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <ma-remote-select filterable disabled={formType === 'edit'} />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(remote())),
+        api: () => new Promise(resolve => resolve(remote({channel_type:1}))),
         dataHandle: (response: any) => {
           return response.data?.map((item: ChannelDictVo) => {
             return { label: `${item.channel_name}`, value: item.id }
