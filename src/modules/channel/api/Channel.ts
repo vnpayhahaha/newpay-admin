@@ -1,5 +1,9 @@
 import type { ResponseStruct } from '#/global'
-
+export interface ChannelConfigVo {
+  value: string
+  label: string
+  // 根据实际结构补充字段
+}
 export interface ChannelVo {
   //
   id: number
@@ -24,7 +28,7 @@ export interface ChannelVo {
   // 支持代付
   support_disbursement: boolean
   // 渠道配置(JSON)
-  config: string
+  config: Array<ChannelConfigVo>
   // 状态:1-启用 2-停用
   status: boolean
   // 创建时间
@@ -62,6 +66,11 @@ export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().put('/admin/channel/channel/recovery', { ids })
 }
 
+
+export interface ChannelDictVoConfig {
+  value: string
+  label: string
+}
 export interface ChannelDictVo {
   // 'id',
   // 'channel_code',
@@ -79,6 +88,7 @@ export interface ChannelDictVo {
   status: number
   support_collection: number
   support_disbursement: number
+  config: Array<ChannelDictVoConfig>
 }
 
 export function remote(): Promise<ResponseStruct<ChannelDictVo[]>> {

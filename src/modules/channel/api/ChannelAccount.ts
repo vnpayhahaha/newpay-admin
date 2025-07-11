@@ -1,5 +1,8 @@
 import type { ResponseStruct } from '#/global'
-
+interface ChannelAccountAPIConfigVo {
+  value: string;
+  label: string;
+}
 export interface ChannelAccountVo {
   // id
   id: number
@@ -8,7 +11,7 @@ export interface ChannelAccountVo {
   // 渠道商户ID
   merchant_id: string
   // API配置
-  api_config: string
+  api_config: Array<ChannelAccountAPIConfigVo>
   // 文档信息
   document_info: string
   // 接口版本

@@ -11,6 +11,7 @@ import type { MaFormItem } from '@mineadmin/form'
 import type { ChannelVo } from '~/channel/api/Channel.ts'
 import { remote } from '~/channel/api/Channel.ts'
 import { selectStatus } from '@/modules/Common'
+import MaKeyValue from '@/components/ma-key-value/index.vue'
 
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: ChannelVo): MaFormItem[] {
   // 新增默认值
@@ -18,6 +19,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
     model.status = true
     model.support_collection = false
     model.support_disbursement = false
+    model.config = []
   }
 
   // 编辑默认值
@@ -106,7 +108,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
     {
       label: t('channel.config'),
       prop: 'config',
-      render: () => <el-input type="textarea" />,
+      render: () => MaKeyValue,
     },
   ]
 }

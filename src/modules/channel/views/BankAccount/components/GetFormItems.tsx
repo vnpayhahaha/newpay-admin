@@ -80,6 +80,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.account_number'),
@@ -111,6 +114,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.daily_max_payment'),
@@ -118,6 +124,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.daily_max_receipt_count'),
@@ -125,6 +134,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} />,
+      renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.daily_max_payment_count'),
@@ -132,6 +144,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} />,
+      renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.max_receipt_per_txn'),
@@ -139,6 +154,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+        renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.max_payment_per_txn'),
@@ -146,6 +164,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+  renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.min_receipt_per_txn'),
@@ -153,6 +174,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+        renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.min_payment_per_txn'),
@@ -160,6 +184,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+        renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.support_collection'),
@@ -181,6 +208,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+        renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.security_level'),
@@ -188,12 +218,18 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={99} />,
+        renderProps: {
+        class: 'w-full',
+      },
     },
     {
       label: t('bankAccount.used_quota'),
       prop: 'used_quota',
       cols: { md: 12, xs: 24 },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+        renderProps: {
+        class: 'w-full',
+      },
     },
 
   ]

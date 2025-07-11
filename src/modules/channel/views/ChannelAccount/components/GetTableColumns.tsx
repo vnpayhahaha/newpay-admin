@@ -30,7 +30,25 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('channelAccount.channel_id'), prop: 'channel_id' },
+    {
+      label: () => t('channelAccount.channel_id'), prop: 'channel_id',
+      width: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left" style={{ display: 'flex', alignItems: 'center' }}>
+            <el-avatar shape="square" src={row.channel.channel_icon} />
+            <div class="ml-5" style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                <el-text class="mx-1" type="primary">{row.channel.channel_code}</el-text>
+              </p>
+              <p>
+                <el-text class="mx-1" truncated>{row.channel.channel_name}</el-text>
+              </p>
+            </div>
+          </div>
+        )
+      },
+    },
     { label: () => t('channelAccount.merchant_id'), prop: 'merchant_id' },
     { label: () => t('channelAccount.api_version'), prop: 'api_version' },
     { label: () => t('channelAccount.callback_url'), prop: 'callback_url' },
@@ -146,7 +164,8 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     {
       type: 'operation',
       label: () => t('crud.operation'),
-      width: '260px',
+      width: '160px',
+      fixed: 'right',
       operationConfigure: {
         type: 'tile',
         actions: [

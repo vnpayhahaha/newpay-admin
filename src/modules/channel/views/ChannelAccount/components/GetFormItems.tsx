@@ -11,7 +11,7 @@ import type { MaFormItem } from '@mineadmin/form'
 import type { ChannelAccountVo } from '~/channel/api/ChannelAccount.ts'
 import type { ChannelDictVo } from '~/channel/api/Channel.ts'
 import { remote } from '~/channel/api/Channel.ts'
-
+import MaKeyValue from '@/components/ma-key-value/index.vue'
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: ChannelAccountVo): MaFormItem[] {
   // 新增默认值
   if (formType === 'add') {
@@ -29,6 +29,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
     model.max_payment_per_txn = 0
     model.min_receipt_per_txn = 0
     model.min_payment_per_txn = 0
+
+    model.api_config = []
+    model.used_quota = 0
   }
 
   // 编辑默认值
@@ -36,16 +39,26 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
     // todo...
   }
 
+  const channelChange = (val: string) => {
+    console.log('channelArray', channelArray)
+    console.log('channelChange', val)
+    // model.api_config 赋值等于 遍历channelArray 中id === val 的 channelArray[i].config
+    model.api_config = channelArray.find(item => item.id === val)?.config || []
+  }
+
+  const channelArray = reactive<ChannelDictVo[]>([])
+
   return [
     {
       label: t('channelAccount.channel_id'),
       prop: 'channel_id',
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
-      render: () => <ma-remote-select filterable disabled={formType === 'edit'} />,
+      render: () => <ma-remote-select onChange={channelChange} filterable disabled={formType === 'edit'} />,
       renderProps: {
         api: () => new Promise(resolve => resolve(remote())),
         dataHandle: (response: any) => {
+          channelArray.splice(0, channelArray.length, ...response.data)
           return response.data?.map((item: ChannelDictVo) => {
             return { label: `${item.channel_name}`, value: item.id }
           })
@@ -77,6 +90,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.daily_max_payment'),
@@ -84,6 +100,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.daily_max_receipt_count'),
@@ -91,6 +110,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.daily_max_payment_count'),
@@ -98,6 +120,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.max_receipt_per_txn'),
@@ -105,6 +130,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.max_payment_per_txn'),
@@ -112,6 +140,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.min_receipt_per_txn'),
@@ -119,6 +150,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.min_payment_per_txn'),
@@ -126,6 +160,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.support_collection'),
@@ -142,7 +179,10 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
     {
       label: t('channelAccount.api_config'),
       prop: 'api_config',
-      render: () => <el-input type="textarea" />,
+      render: () => MaKeyValue,
+      renderProps: {
+        fixedKey: true,
+      }
     },
     {
       label: t('channelAccount.document_info'),
@@ -170,6 +210,9 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       prop: 'balance',
       cols: { md: 12, xs: 24 },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.limit_quota'),
@@ -177,12 +220,18 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={99999999999} precision={2} />,
+      renderProps: {
+        class: 'w-full'
+      }
     },
     {
       label: t('channelAccount.used_quota'),
       prop: 'used_quota',
       cols: { md: 12, xs: 24 },
-      render: () => <el-input />,
+      render: () => <el-input-number min={0} max={99999999999} precision={2} />,
+        renderProps: {
+        class: 'w-full'
+      }
     },
   ]
 }
