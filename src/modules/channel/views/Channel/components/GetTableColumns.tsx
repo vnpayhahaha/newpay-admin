@@ -15,6 +15,7 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds, save } from '~/channel/api/Channel.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
@@ -31,7 +32,9 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { type: 'index' },
     // 普通列
     { label: () => t('channel.channel_code'), prop: 'channel_code' },
-    { label: () => t('channel.channel_name'), prop: 'channel_name' },
+    {
+      label: () => t('channel.channel_name'), prop: 'channel_name',
+    },
     {
       label: () => t('channel.channel_icon'), prop: 'channel_icon',
       width: 100,
@@ -45,7 +48,25 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         },
       },
     },
-    { label: () => t('channel.channel_type'), prop: 'channel_type' },
+    {
+      label: () => t('channel.channel_type'), prop: 'channel_type',
+      width: 100,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          api: () => new Promise(resolve => resolve(selectStatus('channel', 'channel_type_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
     { label: () => t('channel.country_code'), prop: 'country_code' },
     { label: () => t('channel.currency'), prop: 'currency' },
     {

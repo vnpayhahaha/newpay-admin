@@ -23,6 +23,7 @@ import { useProTableToolbar } from '@mineadmin/pro-table'
 import MaRecycle from '@/components/ma-recycle/index.vue'
 
 import Form from './Form.vue'
+import { orderBy } from 'lodash-es'
 
 defineOptions({ name: 'channel:channel_account' })
 
@@ -87,7 +88,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response.data?.message)
             })
             break
           // 修改
@@ -97,7 +98,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response.data?.message)
             })
             break
         }
@@ -136,6 +137,10 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
+    requestParams: {
+      orderBy: ['id'],
+      orderType: ['desc'],
+    },
   },
 })
 // 架构配置

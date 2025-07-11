@@ -102,3 +102,8 @@ channelMenu:
     delete: 删除银行账户
     recovery: 恢复银行账户
     realDelete: 清空回收站
+enums:
+  channel:
+    account_type:
+      collection: 代收
+      payment: 代付

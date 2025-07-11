@@ -103,3 +103,8 @@ channelMenu:
     delete: Bank account delete
     recovery: Bank account recovery
     realDelete: Empty recycle Bin
+enums:
+  channel:
+    account_type:
+      collection: collection
+      payment: payment

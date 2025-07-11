@@ -33,14 +33,14 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 普通列
     {
       label: () => t('tenant.tenantId'), prop: 'tenant_id',
-      cellRender: (row: any) => {
+      cellRender: ({ row }) => {
         return (
           <div class="text-align-left">
             <p class="cell-ellipsis">
-              {row.row.tenant_id}
+              {row.tenant_id}
             </p>
             <p>
-              {row.row.tenant.company_name}
+              {row.tenant.company_name}
             </p>
           </div>
         )

@@ -23,6 +23,7 @@ import { useProTableToolbar } from '@mineadmin/pro-table'
 import MaRecycle from '@/components/ma-recycle/index.vue'
 
 import Form from './Form.vue'
+import { orderBy } from 'lodash-es'
 
 defineOptions({ name: 'channel:bank_account' })
 
@@ -136,6 +137,10 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
+    requestParams: {
+      orderBy: 'id',
+      orderType: 'desc',
+    },
   },
 })
 // 架构配置
@@ -248,5 +253,18 @@ function handleRecovery() {
 </template>
 
 <style scoped lang="scss">
+:deep(.el-table th.cellBackgroundBlue.el-table__cell){
+  background-color: rgb(148,191,255,0.3) !important;
+}
 
+:deep(.el-table td.cellBackgroundBlue.el-table__cell){
+  background-color: rgb(148,191,255,0.3) !important;
+}
+:deep(.el-table th.cellBackgroundRed.el-table__cell){
+  background-color: rgba(253,171,171,0.3) !important;
+}
+
+:deep(.el-table td.cellBackgroundRed.el-table__cell){
+  background-color: rgba(253,171,171,0.3) !important;
+}
 </style>

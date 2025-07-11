@@ -30,96 +30,29 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('bankAccount.channel_id'), prop: 'channel_id' },
-    { label: () => t('bankAccount.branch_name'), prop: 'branch_name' },
-    { label: () => t('bankAccount.account_holder'), prop: 'account_holder' },
-    { label: () => t('bankAccount.account_number'), prop: 'account_number' },
-    { label: () => t('bankAccount.bank_code'), prop: 'bank_code' },
-    { label: () => t('bankAccount.account_type'), prop: 'account_type' },
-    { label: () => t('bankAccount.balance'), prop: 'balance' },
     {
-      label: () => t('bankAccount.float_amount_enabled'), prop: 'float_amount_enabled',
-      width: 80,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'switch',
-          prop: 'float_amount_enabled',
-          props: {
-            size: 'small',
-            activeValue: true,
-            inactiveValue: false,
-            on: {
-              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
-                console.log('value', value)
-                save(row.id, {
-                  ...row,
-                  float_amount_enabled: value,
-                }).then((res) => {
-                  if (res.code === ResultCode.SUCCESS) {
-                    msg.success(t('crud.updateSuccess'))
-                    proxy.refresh()
-                  }
-                  else {
-                    msg.error(t('crud.updateError'))
-                  }
-                })
-              },
-            },
-          },
-        },
+      label: () => t('bankAccount.channel_id'), prop: 'channel_id',
+      width: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left" style={{ display: 'flex', alignItems: 'center' }}>
+            <el-avatar shape="square" src={row.channel.channel_icon} />
+            <div class="ml-5" style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                <el-text class="mx-1" type="primary">{row.channel.channel_code}</el-text>
+              </p>
+              <p>
+                <el-text class="mx-1" truncated>{row.channel.channel_name}</el-text>
+              </p>
+            </div>
+          </div>
+        )
       },
     },
-    { label: () => t('bankAccount.daily_max_receipt'), prop: 'daily_max_receipt' },
-    { label: () => t('bankAccount.daily_max_payment'), prop: 'daily_max_payment' },
-    { label: () => t('bankAccount.daily_max_receipt_count'), prop: 'daily_max_receipt_count' },
-    { label: () => t('bankAccount.daily_max_payment_count'), prop: 'daily_max_payment_count' },
-    { label: () => t('bankAccount.max_receipt_per_txn'), prop: 'max_receipt_per_txn' },
-    { label: () => t('bankAccount.max_payment_per_txn'), prop: 'max_payment_per_txn' },
-    { label: () => t('bankAccount.min_receipt_per_txn'), prop: 'min_receipt_per_txn' },
-    { label: () => t('bankAccount.min_payment_per_txn'), prop: 'min_payment_per_txn' },
-    { label: () => t('bankAccount.security_level'), prop: 'security_level' },
-    { label: () => t('bankAccount.last_used_time'), prop: 'last_used_time' },
-    { label: () => t('bankAccount.upi_id'), prop: 'upi_id' },
-    { label: () => t('bankAccount.used_quota'), prop: 'used_quota' },
-    { label: () => t('bankAccount.limit_quota'), prop: 'limit_quota' },
-    { label: () => t('bankAccount.today_receipt_count'), prop: 'today_receipt_count' },
-    { label: () => t('bankAccount.today_payment_count'), prop: 'today_payment_count' },
-    { label: () => t('bankAccount.today_receipt_amount'), prop: 'today_receipt_amount' },
-    { label: () => t('bankAccount.today_payment_amount'), prop: 'today_payment_amount' },
-    { label: () => t('bankAccount.stat_date'), prop: 'stat_date' },
+    { label: () => t('bankAccount.bank_code'), prop: 'bank_code' },
     {
-      label: () => t('channelAccount.status'), prop: 'status',
-      width: 80,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'switch',
-          prop: 'status',
-          props: {
-            size: 'small',
-            activeValue: true,
-            inactiveValue: false,
-            on: {
-              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
-                console.log('value', value)
-                save(row.id, {
-                  ...row,
-                  status: value,
-                }).then((res) => {
-                  if (res.code === ResultCode.SUCCESS) {
-                    msg.success(t('crud.updateSuccess'))
-                    proxy.refresh()
-                  }
-                  else {
-                    msg.error(t('crud.updateError'))
-                  }
-                })
-              },
-            },
-          },
-        },
-      },
+      label: () => t('bankAccount.branch_name'), prop: 'branch_name',
+      width: 220,
     },
     {
       label: () => t('channelAccount.support_collection'), prop: 'support_collection',
@@ -187,12 +120,172 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         },
       },
     },
+    {
+      label: () => t('bankAccount.account_holder'), prop: 'account_holder', width: 180,
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left">
+            <p class="cell-ellipsis">
+              {row.account_holder}
+            </p>
+            <p>
+              <el-text class="mx-1" type="primary">Account:</el-text>
+              {row.account_number}
+            </p>
+            <p>
+              <el-text class="mx-1" type="warning">UPI ID:</el-text>
+              {row.upi_id}
+            </p>
+          </div>
+        )
+      },
+
+    },
+
+    {
+      label: () => t('bankAccount.balance'), prop: 'balance', width: 120,
+      cellRenderTo: {
+        name: 'tag',
+      },
+    },
+    {
+      label: () => t('bankAccount.float_amount_enabled'), prop: 'float_amount_enabled',
+      width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'switch',
+          prop: 'float_amount_enabled',
+          props: {
+            size: 'small',
+            activeValue: true,
+            inactiveValue: false,
+            on: {
+              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
+                console.log('value', value)
+                save(row.id, {
+                  ...row,
+                  float_amount_enabled: value,
+                }).then((res) => {
+                  if (res.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.updateSuccess'))
+                    proxy.refresh()
+                  }
+                  else {
+                    msg.error(t('crud.updateError'))
+                  }
+                })
+              },
+            },
+          },
+        },
+      },
+    },
+    {
+      label: () => t('bankAccount.daily_max_receipt'), prop: 'daily_max_receipt',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.daily_max_payment'), prop: 'daily_max_payment',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.daily_max_receipt_count'), prop: 'daily_max_receipt_count',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.daily_max_payment_count'), prop: 'daily_max_payment_count',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.max_receipt_per_txn'), prop: 'max_receipt_per_txn',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.max_payment_per_txn'), prop: 'max_payment_per_txn',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.min_receipt_per_txn'), prop: 'min_receipt_per_txn',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.min_payment_per_txn'), prop: 'min_payment_per_txn',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    { label: () => t('bankAccount.security_level'), prop: 'security_level' },
+    { label: () => t('bankAccount.last_used_time'), prop: 'last_used_time' },
+    { label: () => t('bankAccount.used_quota'), prop: 'used_quota' },
+    { label: () => t('bankAccount.limit_quota'), prop: 'limit_quota' },
+    {
+      label: () => t('bankAccount.today_receipt_count'), prop: 'today_receipt_count',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.today_payment_count'), prop: 'today_payment_count',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.today_receipt_amount'), prop: 'today_receipt_amount',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.today_payment_amount'), prop: 'today_payment_amount',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    { label: () => t('bankAccount.stat_date'), prop: 'stat_date' },
+    {
+      label: () => t('channelAccount.status'), prop: 'status',
+      width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'switch',
+          prop: 'status',
+          props: {
+            size: 'small',
+            activeValue: true,
+            inactiveValue: false,
+            on: {
+              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
+                console.log('value', value)
+                save(row.id, {
+                  ...row,
+                  status: value,
+                }).then((res) => {
+                  if (res.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.updateSuccess'))
+                    proxy.refresh()
+                  }
+                  else {
+                    msg.error(t('crud.updateError'))
+                  }
+                })
+              },
+            },
+          },
+        },
+      },
+    },
 
     // 操作列
     {
       type: 'operation',
       label: () => t('crud.operation'),
-      width: '260px',
+      width: '160px',
+      fixed: 'right',
       operationConfigure: {
         type: 'tile',
         actions: [
