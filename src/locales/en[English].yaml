@@ -189,3 +189,6 @@ dictionary:
 common:
   startTime: start time
   endTime: end time
+  boolean:
+    true: yes
+    false: no

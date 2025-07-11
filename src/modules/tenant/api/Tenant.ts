@@ -42,6 +42,15 @@ export interface TenantVo {
   deleted_at: string
   // 备注
   remark: string
+  auto_transfer: boolean
+  settlement_type: number
+  settlement_delay_days: number
+  receipt_fee_type: Array<number>
+  receipt_fixed_fee: number
+  receipt_fee_rate: number
+  payment_fee_type: Array<number>
+  payment_fixed_fee: number
+  payment_fee_rate: number
 }
 
 // 租户管理查询

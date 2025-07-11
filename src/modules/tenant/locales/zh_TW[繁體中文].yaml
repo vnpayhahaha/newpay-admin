@@ -13,6 +13,15 @@ tenant:
   address: 公司地址
   intro: 简介
   domain: 域名
+  settlement_type: 结算方式
+  settlement_delay_days: 结算延迟天数
+  auto_transfer: 自动划扣
+  receipt_fee_type: 手续费类型(收)
+  receipt_fixed_fee: 固定手续费(收)
+  receipt_fee_rate: 手续费费率(收)
+  payment_fee_type: 手续费类型(付)
+  payment_fixed_fee: 固定手续费(付)
+  payment_fee_rate: 手续费费率(付)
   limitHint: -1 表示无限制
   unlimited: 无限制
 tenantApp:

@@ -15,6 +15,7 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds, realDelete, recovery, save } from '~/tenant/api/Tenant.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
@@ -64,9 +65,113 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         },
       },
     },
-    { label: () => t('tenant.companyName'), prop: 'company_name' },
-    { label: () => t('tenant.contactUserName'), prop: 'contact_user_name', width: '180px' },
-    { label: () => t('tenant.contactPhone'), prop: 'contact_phone', width: '180px' },
+    {
+      label: () => t('tenant.companyName'), prop: 'company_name',
+      width: '180px',
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left">
+            <p>
+              <el-text type="primary" truncated>{row.company_name}</el-text>
+            </p>
+            <p>
+              <el-text class="mx-1" type="success">{row.contact_user_name}</el-text>
+            </p>
+            <p>
+              <el-text class="mx-1" type="info">{row.contact_phone}</el-text>
+            </p>
+          </div>
+        )
+      },
+    },
+    {
+      label: () => t('tenant.settlement_type'), prop: 'settlement_type', width: '130px',
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'tag',
+          api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'settlement_delay_mode_list'))),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value }
+            })
+          },
+          props: {
+            effect: 'dark',
+          },
+        },
+      },
+    },
+    {
+      label: () => t('tenant.auto_transfer'), prop: 'auto_transfer', width: '100px',
+      cellRender: ({ row }) => {
+        return row.auto_transfer === true ? <el-text class="mx-1" type="success">{t('common.boolean.true')}</el-text> : <el-text class="mx-1" type="info">{t('common.boolean.false')}</el-text>
+      },
+    },
+    {
+      label: () => t('tenant.receipt_fee_type'), prop: 'receipt_fee_type', width: '120px',
+      cellRender: ({ row }) => {
+        // 判断row.receipt_fee_type 个位是否为1
+        const isFixed = row.receipt_fee_type % 10 === 1
+        // 判断row.receipt_fee_type 十位是否为1
+        const isRate = row.receipt_fee_type % 100 === 1
+        const feeDisplay: JSX.Element[] = []
+        if (isFixed) {
+          feeDisplay.push(
+            <p>
+              <el-text key="fixed" class="mx-1" type="primary">
+                ₹
+                {row.receipt_fixed_fee}
+              </el-text>
+            </p>,
+          )
+        }
+
+        if (isRate) {
+          feeDisplay.push(
+            <p>
+              <el-text key="rate" class="mx-1" type="success">
+                {row.receipt_fee_rate}
+                %
+              </el-text>
+            </p>,
+          )
+        }
+        return <div>{feeDisplay}</div>
+      },
+    },
+    {
+      label: () => t('tenant.payment_fee_type'), prop: 'payment_fee_type', width: '120px',
+      cellRender: ({ row }) => {
+        // 判断row.payment_fee_type 个位是否为1
+        const isFixed = row.payment_fee_type % 10 === 1
+        // 判断row.payment_fee_type 十位是否为1
+        const isRate = row.payment_fee_type % 100 === 1
+        const feeDisplay: JSX.Element[] = []
+        if (isFixed) {
+          feeDisplay.push(
+            <p>
+              <el-text key="fixed" class="mx-1" type="danger">
+                ₹
+                {row.payment_fixed_fee}
+              </el-text>
+            </p>,
+          )
+        }
+
+        if (isRate) {
+          feeDisplay.push(
+            <p>
+              <el-text key="rate" class="mx-1" type="success">
+                {row.payment_fee_rate}
+                %
+              </el-text>
+            </p>,
+          )
+        }
+        return <div>{feeDisplay}</div>
+      },
+    },
     {
       label: () => t('tenant.user_num_limit'), prop: 'user_num_limit', width: '100px',
       cellRender: ({ row }) => {
@@ -77,6 +182,14 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       label: () => t('tenant.app_num_limit'), prop: 'app_num_limit', width: '100px',
       cellRender: ({ row }) => {
         return row.app_num_limit === -1 ? <el-text class="mx-1" type="info">{t('tenant.unlimited')}</el-text> : row.app_num_limit
+      },
+    },
+    {
+      label: () => t('tenant.safeLevel'), prop: 'safe_level', width: '100px',
+      cellRenderTo: {
+        name: 'tag',
+        props: {
+        },
       },
     },
     {
@@ -91,13 +204,13 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         },
       },
     },
-    { label: () => t('tenant.safeLevel'), prop: 'safe_level', width: '100px' },
 
     // 操作列
     {
       type: 'operation',
       label: () => t('crud.operation'),
       width: '260px',
+      fixed: 'right',
       operationConfigure: {
         type: 'tile',
         actions: [

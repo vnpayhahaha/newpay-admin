@@ -189,3 +189,6 @@ dictionary:
 common:
   startTime: 开始时间
   endTime: 结束时间
+  boolean:
+    true: 是
+    false: 否

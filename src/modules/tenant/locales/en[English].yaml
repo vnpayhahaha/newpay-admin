@@ -13,6 +13,15 @@ tenant:
   address: address
   intro: intro
   domain: domain
+  settlement_type: settlement type
+  settlement_delay_days: settlement delay days
+  auto_transfer: auto transfer
+  receipt_fee_type: receipt fee type
+  receipt_fixed_fee: receipt fixed fee
+  receipt_fee_rate: receipt fee rate
+  payment_fee_type: payment fee type
+  payment_fixed_fee: payment fixed fee
+  payment_fee_rate: payment fee rate
   limitHint: -1 represents unlimited
   unlimited: Unlimited
 tenantApp:
