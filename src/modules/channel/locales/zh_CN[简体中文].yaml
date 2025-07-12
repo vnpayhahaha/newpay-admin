@@ -81,6 +81,22 @@ channelAccount:
   max_payment_per_txn: 每笔最大付款金额
   min_receipt_per_txn: 每笔最小收款金额
   min_payment_per_txn: 每笔最小付款金额
+ChannelAccountDailyStats:
+  index: 每日统计
+  channel_account_id: 渠道账户ID
+  bank_account_id: 银行账户ID
+  channel_id: 渠道ID
+  stat_date: 统计日期
+  transaction_count: 交易次数
+  success_count: 成功次数
+  failure_count: 失败次数
+  receipt_amount: 收款金额
+  payment_amount: 付款金额
+  success_rate: 成功率
+  avg_process_time: 平均处理时间
+  limit_status: 限额状态
+  created_at: 创建时间
+  updated_at: 修改时间
 channelMenu:
   channel:
     list: 渠道列表
@@ -103,6 +119,8 @@ channelMenu:
     delete: 删除银行账户
     recovery: 恢复银行账户
     realDelete: 清空回收站
+  channel_account_daily_stats:
+    list: 每日统计列表
 enums:
   channel:
     account_type:

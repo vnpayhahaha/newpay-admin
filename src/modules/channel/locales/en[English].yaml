@@ -81,6 +81,22 @@ channelAccount:
   max_payment_per_txn: max payment per txn
   min_receipt_per_txn: min receipt per txn
   min_payment_per_txn: min payment per txn
+ChannelAccountDailyStats:
+  index: Channel account daily statistics
+  channel_account_id: Channel account ID
+  bank_account_id: Bank account ID
+  channel_id: Channel ID
+  stat_date: Statistical date
+  transaction_count: Transaction count
+  success_count: Successful transaction count
+  failure_count: Failed transaction count
+  receipt_amount: Receipt amount
+  payment_amount: Payment amount
+  success_rate: Success rate
+  avg_process_time: Average processing time
+  limit_status: Limit status
+  created_at: Creation time
+  updated_at: Update time
 channelMenu:
   channel:
     list: Channel list
@@ -103,6 +119,8 @@ channelMenu:
     delete: Bank account delete
     recovery: Bank account recovery
     realDelete: Empty recycle Bin
+  channel_account_daily_stats:
+    list: Channel account daily statistics
 enums:
   channel:
     account_type:
