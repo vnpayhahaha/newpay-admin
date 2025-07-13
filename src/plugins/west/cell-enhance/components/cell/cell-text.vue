@@ -49,9 +49,7 @@ function safeGetLabel(key: string | number) {
 </template>
 
 <style scoped lang="scss">
-:deep {
-  .el-tag {
+:deep(.el-tag) {
     border: none;
-  }
 }
 </style>

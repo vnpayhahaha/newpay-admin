@@ -252,8 +252,7 @@ function handleEvent(eventHandlers: Record<string, (...args: any[]) => void> = {
 </template>
 
 <style scoped lang="scss">
-:deep {
-  .el-tag {
+:deep(.el-tag) {
     border: none;
     margin: 2px;
     font-weight: bold;
@@ -270,6 +269,5 @@ function handleEvent(eventHandlers: Record<string, (...args: any[]) => void> = {
       text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
       border: 1px solid rgba(0, 0, 0, 0.1); // 添加边框增加对比度
     }
-  }
 }
 </style>
