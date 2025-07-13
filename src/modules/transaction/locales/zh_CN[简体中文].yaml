@@ -37,6 +37,52 @@ transaction_queue_status:
   error_detail: 错误详情
   created_at: 创建时间
   updated_at: 更新时间
+collection_order:
+  index: 收款订单
+  all: 全部
+  platform_order_no: 平台订单号
+  merchant_order_no: 下游订单号
+  upstream_order_no: 上游订单号
+  amount: 金额
+  payable_amount: 应收金额
+  paid_amount: 实收金额
+  fixed_fee: 固定手续费
+  rate_fee: 费率
+  total_fee: 手续费
+  upstream_fee: 上游手续费
+  upstream_settlement_amount: 上游结算金额
+  settlement_amount: 结算金额
+  settlement_type: 结算方式
+  collection_type: 收款方式
+  collection_channel_id: 收款渠道
+  pay_time: 支付时间
+  expire_time: 过期时间
+  order_source: 订单来源
+  recon_type: 对账类型
+  callback_url: 回调地址
+  callback_count: 回调次数
+  notify_status: 通知状态
+  checkout_url: 收银台地址
+  return_url:  返回地址
+  tenant_id: 租户ID
+  app_id: 应用ID
+  payer_name: 付款人名称
+  payer_account: 付款人账号
+  payer_bank: 付款人银行
+  payer_ifsc: 付款人IFSC
+  payer_upi: 付款人UPI
+  description: 描述
+  status: 状态
+  channel_transaction_no: 渠道交易流水号
+  error_code: 错误码
+  error_message: 错误信息
+  request_id: 请求ID
+  created_at: 创建时间
+  updated_at: 更新时间
+  payment_proof_photo: 付款凭证图片
+  platform_transaction_no: 平台交易流水号
+  utr: UTR
+  customer_submitted_utr: 客户提交UTR
 menu:
   transaction_record:
     list: 交易记录列表
@@ -50,3 +96,8 @@ menu:
     create: 新增交易队列
     update: 修改交易队列
     delete: 删除交易队列
+  collection_order:
+    list: 收款订单列表
+    create: 新增收款订单
+    update: 修改收款订单
+    delete: 删除收款订单

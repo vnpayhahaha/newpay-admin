@@ -37,6 +37,52 @@ transaction_queue_status:
   error_detail: error detail
   created_at: create time
   updated_at: update time
+collection_order:
+  index: Collection Order
+  all: All
+  platform_order_no: Platform Order No
+  merchant_order_no: Merchant Order No
+  upstream_order_no: Upstream Order No
+  amount: Amount
+  payable_amount: Payable Amount
+  paid_amount: Paid Amount
+  fixed_fee: Fixed Fee
+  rate_fee: Rate Fee
+  total_fee: Total Fee
+  upstream_fee: Upstream Fee
+  upstream_settlement_amount: Upstream Settlement Amount
+  settlement_amount: Settlement Amount
+  settlement_type: Settlement Type
+  collection_type: Collection Type
+  collection_channel_id: Collection Channel Id
+  pay_time: Pay Time
+  expire_time: Expire Time
+  order_source: Order Source
+  recon_type: Recon Type
+  callback_url: Callback Url
+  callback_count: Callback Count
+  notify_status: Notify Status
+  checkout_url: Checkout Url
+  return_url:  Return Url
+  tenant_id: Tenant Id
+  app_id: App Id
+  payer_name: Payment Name
+  payer_account: Payment Account
+  payer_bank: Payment Bank
+  payer_ifsc: Payment IFSC
+  payer_upi: Payment UPI
+  description: Description
+  status: Status
+  channel_transaction_no: Channel Transaction No
+  error_code: Error Code
+  error_message: Error Message
+  request_id: Request Id
+  created_at: Created At
+  updated_at: Updated At
+  payment_proof_photo: Payment Proof Photo
+  platform_transaction_no: Platform Transaction No
+  utr: UTR
+  customer_submitted_utr: Customer Submitted UTR
 menu:
   transaction_record:
     list: Transaction Record List
@@ -48,3 +94,8 @@ menu:
     create: Create Transaction Queue
     update: Update Transaction Queue
     delete: Delete Transaction Queue
+  collection_order:
+    list: Collection Order List
+    create: Collection Order Create
+    update: Collection Order Update
+    delete: Collection Order Delete
