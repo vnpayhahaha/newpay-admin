@@ -115,7 +115,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         const isFixed = row.receipt_fee_type % 10 === 1
         // 判断row.receipt_fee_type 十位是否为1
         const isRate = row.receipt_fee_type % 100 === 1
-        const feeDisplay: JSX.Element[] = []
+        let feeDisplay: JSX.Element[] = []
         if (isFixed) {
           feeDisplay.push(
             <p>
@@ -147,7 +147,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         const isFixed = row.payment_fee_type % 10 === 1
         // 判断row.payment_fee_type 十位是否为1
         const isRate = row.payment_fee_type % 100 === 1
-        const feeDisplay: JSX.Element[] = []
+        let feeDisplay: JSX.Element[] = []
         if (isFixed) {
           feeDisplay.push(
             <p>
