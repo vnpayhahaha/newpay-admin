@@ -115,6 +115,26 @@ channel_callback_record:
   process_result: 处理结果
   elapsed_time: 处理耗时
   created_at: 创建时间
+channel_request_record:
+  index: 请求记录
+  request_id: 请求ID
+  channel_id: 渠道ID
+  api_method: API方法
+  request_url: 请求URL
+  http_method: HTTP方法
+  request_params: 请求参数
+  request_headers: 请求头
+  request_body: 请求内容
+  request_time: 请求时间
+  http_status_code: HTTP状态码
+  response_status: 响应状态
+  response_headers: 响应头
+  response_body: 响应内容
+  error_message: 错误信息
+  response_time: 响应时间
+  elapsed_time: 处理耗时
+  created_at: 创建时间
+  updated_at: 修改时间
 channelMenu:
   channel:
     list: 渠道列表
@@ -144,6 +164,11 @@ channelMenu:
     create: 新增回调记录
     update: 修改回调记录
     delete: 删除回调记录
+  channel_request_record:
+    list: 请求记录列表
+    create: 新增请求记录
+    update: 修改请求记录
+    delete: 删除请求记录
 enums:
   channel:
     account_type:
