@@ -97,6 +97,24 @@ ChannelAccountDailyStats:
   limit_status: Limit status
   created_at: Creation time
   updated_at: Update time
+channel_callback_record:
+  index: Callback record
+  callback_id: Callback ID
+  channel_id: Channel ID
+  original_request_id: Original request ID
+  callback_type: Callback type
+  callback_url: Callback URL
+  callback_http_method: Callback HTTP method
+  callback_params: Callback parameters
+  callback_headers: Callback headers
+  callback_body: Callback body
+  callback_time: Callback time
+  client_ip: Client IP
+  verification_status: Verification status
+  response_content: Response content
+  process_result: Process result
+  elapsed_time: Elapsed time
+  created_at: Created at
 channelMenu:
   channel:
     list: Channel list
@@ -120,7 +138,12 @@ channelMenu:
     recovery: Bank account recovery
     realDelete: Empty recycle Bin
   channel_account_daily_stats:
-    list: Channel account daily statistics
+    list: Channel account daily statistics list
+  channel_callback_record:
+    list: Channel callback record list
+    create: Channel callback record create
+    update: Channel callback record updated
+    delete: Channel callback record delete
 enums:
   channel:
     account_type:
