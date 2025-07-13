@@ -114,7 +114,7 @@ const schema = ref<MaProTableSchema>({
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #toolbarLeft>
-        <NmSearch :proxy="proTableRef" :row="2" />
+        <!-- <NmSearch :proxy="proTableRef" :row="2" /> -->
       </template>
     </MaProTable>
 
