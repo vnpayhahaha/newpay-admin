@@ -103,5 +103,8 @@
     "vite-plugin-vue-devtools": "^7.7.7",
     "vue-tsc": "^2.2.10",
     "vue3-ace-editor": "^2.2.4"
+  },
+  "resolutions": {
+    "rollup": "4.44.0"
   }
 }
