@@ -148,7 +148,7 @@ const schema = ref<MaProTableSchema>({
 
 // 批量删除
 function handleDelete() {
-  const ids = selections.value.map((item: any) => item.user_id)
+  const ids = selections.value.map((item: any) => item.id)
   if (isRecovery.value) {
     msg.delConfirm(t('crud.realDeleteDataMessage')).then(async () => {
       const response = await realDelete(ids)
@@ -170,7 +170,7 @@ function handleDelete() {
 }
 // 批量恢复
 function handleRecovery() {
-  const ids = selections.value.map((item: any) => item.user_id)
+  const ids = selections.value.map((item: any) => item.id)
   msg.confirm(t('crud.restoreMessage')).then(async () => {
     const response = await recovery(ids)
     if (response.code === ResultCode.SUCCESS) {

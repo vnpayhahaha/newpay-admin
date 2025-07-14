@@ -74,8 +74,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             inactiveValue: false,
             on: {
               change: (value: boolean, row: any, proxy: MaProTableExpose) => {
-                console.log('value', row, value)
-                save(row.user_id, {
+                save(row.id, {
                   ...row,
                   status: value,
                 }).then((res) => {
@@ -111,7 +110,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             text: () => t('crud.reset_password'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
               msg.delConfirm(t('crud.reset_password_message')).then(async () => {
-                const response = await resetPassword(row.user_id)
+                const response = await resetPassword(row.id)
                 if (response.code === ResultCode.SUCCESS) {
                   msg.success(t('crud.reset_password_success'))
                   await proxy.refresh()
@@ -136,7 +135,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             text: () => t('crud.restore'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
               msg.confirm(t('crud.restoreMessage')).then(async () => {
-                const response = await recovery([row.user_id])
+                const response = await recovery([row.id])
                 if (response.code === ResultCode.SUCCESS) {
                   msg.success(t('crud.restoreSuccess'))
                   await proxy.refresh()
@@ -152,7 +151,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             onClick: ({ row }, proxy: MaProTableExpose) => {
               if (row?.deleted_at !== null && showBtn('tenant:tenantApp:realDelete', row)) {
                 msg.delConfirm(t('crud.realDeleteDataMessage')).then(async () => {
-                  const response = await realDelete([row.user_id])
+                  const response = await realDelete([row.id])
                   if (response.code === ResultCode.SUCCESS) {
                     msg.success(t('crud.delSuccess'))
                     await proxy.refresh()
@@ -161,7 +160,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
               }
               else {
                 msg.delConfirm(t('crud.delDataMessage')).then(async () => {
-                  const response = await deleteByIds([row.user_id])
+                  const response = await deleteByIds([row.id])
                   if (response.code === ResultCode.SUCCESS) {
                     msg.success(t('crud.delSuccess'))
                     await proxy.refresh()

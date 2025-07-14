@@ -2,7 +2,7 @@ import type { ResponseStruct } from '#/global'
 
 export interface TenantUserVo {
   // 用户ID
-  user_id: number
+  id: number
   // 租户编号
   tenant_id: string
   // 用户名
