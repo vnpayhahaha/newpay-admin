@@ -165,6 +165,9 @@ crud:
   noPermission: There is no permission to access or use this feature
   userNotAllow: This feature is not accessible or available to current users
   superAdminNoEdit: SuperAdmin not allow edit
+  reset_password: Reset password
+  reset_password_message: Have you confirmed the password reset?
+  reset_password_success: Password reset successful
 form:
   pleaseInput: Please input {msg}
   pleaseSelect: Please select {msg}

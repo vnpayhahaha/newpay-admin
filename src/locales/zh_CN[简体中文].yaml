@@ -165,6 +165,9 @@ crud:
   noPermission: 没有权限访问页面或使用此功能
   userNotAllow: 当前用户不可访问或使用此功能
   superAdminNoEdit: 超管不可修改
+  reset_password: 重置密码
+  reset_password_message: 是否确认重置密码？
+  reset_password_success: 重置密码成功
 form:
   pleaseInput: 请输入{msg}
   pleaseSelect: 请选择{msg}

@@ -12,7 +12,7 @@ import type { TenantUserVo } from '~/tenant/api/TenantUser.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
 import { useMessage } from '@/hooks/useMessage.ts'
-import { deleteByIds, realDelete, recovery, save } from '~/tenant/api/TenantUser.ts'
+import { deleteByIds, realDelete, recovery, save, resetPassword } from '~/tenant/api/TenantUser.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 
@@ -105,9 +105,24 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         type: 'tile',
         actions: [
           {
+            name: 'reset_password',
+            icon: 'hugeicons:reset-password',
+            show: ({ row }) => showBtn('tenant:tenantUser:update', row),
+            text: () => t('crud.reset_password'),
+            onClick: ({ row }, proxy: MaProTableExpose) => {
+              msg.delConfirm(t('crud.reset_password_message')).then(async () => {
+                const response = await resetPassword(row.user_id)
+                if (response.code === ResultCode.SUCCESS) {
+                  msg.success(t('crud.reset_password_success'))
+                  await proxy.refresh()
+                }
+              })
+            },
+          },
+          {
             name: 'edit',
             icon: 'i-heroicons:pencil',
-            show: ({ row }) => showBtn('tenant:tenant_user:update', row),
+            show: ({ row }) => showBtn('tenant:tenantUser:update', row),
             text: () => t('crud.edit'),
             onClick: ({ row }) => {
               dialog.setTitle(t('crud.edit'))
@@ -131,7 +146,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
           },
           {
             name: 'del',
-            show: ({ row }) => showBtn('tenant:tenant_user:delete', row),
+            show: ({ row }) => showBtn('tenant:tenantUser:delete', row),
             icon: 'i-heroicons:trash',
             text: () => t('crud.delete'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
