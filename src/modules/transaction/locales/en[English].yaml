@@ -83,6 +83,45 @@ collection_order:
   platform_transaction_no: Platform Transaction No
   utr: UTR
   customer_submitted_utr: Customer Submitted UTR
+disbursement_order:
+  index: Payment Order
+  all: All
+  platform_order_no: Platform Order No
+  merchant_order_no: Merchant Order No
+  upstream_order_no: Upstream Order No
+  pay_time: Pay Time
+  order_source: Order Source
+  disbursement_channel_id: Disbursement Channel Id
+  disbursement_bank_id: Disbursement Bank Id
+  amount: Amount
+  paid_amount: Paid Amount
+  fixed_fee: Fixed Fee
+  rate_fee: Rate Fee
+  total_fee: Total Fee
+  settlement_amount: Settlement Amount
+  upstream_fee: Upstream Fee
+  upstream_settlement_amount: Upstream Settlement Amount
+  payment_type: Payment Type
+  payee_bank_name: Payee Bank Name
+  payee_bank_code: Payee Bank Code
+  payee_account_name: Payee Account Name
+  payee_account_no: Payee Account No
+  payee_upi: Payee UPI
+  utr: UTR
+  tenant_id: Tenant Id
+  app_id: App Id
+  description: Description
+  status: Status
+  expire_time: Expire Time
+  callback_url: Callback Url
+  callback_count: Callback Count
+  notify_status: Notify Status
+  channel_transaction_no: Channel Transaction No
+  error_code: Error Code
+  error_message: Error Message
+  request_id: Request Id
+  created_at: Create time
+  updated_at: Update time
 menu:
   transaction_record:
     list: Transaction Record List
@@ -99,3 +138,8 @@ menu:
     create: Collection Order Create
     update: Collection Order Update
     delete: Collection Order Delete
+  disbursement_order:
+    list: Disbursement Order List
+    create: Disbursement Order Create
+    update: Disbursement Order Update
+    delete: Disbursement Order Delete

@@ -83,6 +83,45 @@ collection_order:
   platform_transaction_no: 平台交易流水号
   utr: UTR
   customer_submitted_utr: 客户提交UTR
+disbursement_order:
+  index: 付款订单
+  all: 全部
+  platform_order_no: 平台订单号
+  merchant_order_no: 下游订单号
+  upstream_order_no: 上游订单号
+  pay_time: 付款时间
+  order_source: 订单来源
+  disbursement_channel_id: 渠道ID
+  disbursement_bank_id: 银行ID
+  amount: 金额
+  paid_amount: 已付款金额
+  fixed_fee: 固定手续费
+  rate_fee: 动态手续费
+  total_fee: 总手续费
+  settlement_amount: 结算金额
+  upstream_fee: 上游手续费
+  upstream_settlement_amount: 上游结算金额
+  payment_type: 付款方式
+  payee_bank_name: 收款银行名称
+  payee_bank_code: 收款银行编号
+  payee_account_name: 收款账户名称
+  payee_account_no: 收款账号
+  payee_upi: 收款UPI
+  utr: UTR
+  tenant_id: 租户ID
+  app_id: 应用ID
+  description: 描述
+  status: 状态
+  expire_time: 过期时间
+  callback_url: 回调地址
+  callback_count: 回调次数
+  notify_status: 通知状态
+  channel_transaction_no: 渠道交易号
+  error_code: 错误码
+  error_message: 错误信息
+  request_id: 请求ID
+  created_at: 创建时间
+  updated_at: 更新时间
 menu:
   transaction_record:
     list: 交易记录列表
@@ -101,3 +140,8 @@ menu:
     create: 新增收款订单
     update: 修改收款订单
     delete: 删除收款订单
+  disbursement_order:
+    list: 付款订单列表
+    create: 新增付款订单
+    update: 修改付款订单
+    delete: 删除付款订单
