@@ -10,7 +10,7 @@
 import type { MaFormItem } from '@mineadmin/form'
 import type { TenantApiInterfaceVo } from '~/tenant/api/TenantApiInterface.ts'
 import { selectStatus } from '@/modules/Common'
-import { tr } from 'element-plus/es/locale/index.mjs'
+import { jsonValidator } from '@/utils/form'
 
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: TenantApiInterfaceVo): MaFormItem[] {
   // 新增默认值
@@ -72,24 +72,36 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       prop: 'request_params',
       cols: { md: 12, xs: 24 },
       render: () => <el-input type="textarea" />,
+      itemProps: {
+        rules: [jsonValidator()],
+      },
     },
     {
       label: t('tenant_api_interface.request_example'),
       prop: 'request_example',
       cols: { md: 12, xs: 24 },
       render: () => <el-input type="textarea" />,
+      itemProps: {
+        rules: [jsonValidator()],
+      },
     },
     {
       label: t('tenant_api_interface.response_params'),
       prop: 'response_params',
       cols: { md: 12, xs: 24 },
       render: () => <el-input type="textarea" />,
+      itemProps: {
+        rules: [jsonValidator()],
+      },
     },
     {
       label: t('tenant_api_interface.response_example'),
       prop: 'response_example',
       cols: { md: 12, xs: 24 },
       render: () => <el-input type="textarea" />,
+      itemProps: {
+        rules: [jsonValidator()],
+      },
     },
     {
       label: t('tenant_api_interface.description'),
