@@ -12,6 +12,7 @@ import type { ChannelAccountVo } from '~/channel/api/ChannelAccount.ts'
 import type { ChannelDictVo } from '~/channel/api/Channel.ts'
 import { remote } from '~/channel/api/Channel.ts'
 import MaKeyValue from '@/components/ma-key-value/index.vue'
+
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: ChannelAccountVo): MaFormItem[] {
   // 新增默认值
   if (formType === 'add') {
@@ -56,7 +57,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <ma-remote-select onChange={channelChange} filterable disabled={formType === 'edit'} />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(remote({channel_type:2}))),
+        api: () => new Promise(resolve => resolve(remote({ channel_type: 2 }))),
         dataHandle: (response: any) => {
           channelArray.splice(0, channelArray.length, ...response.data)
           return response.data?.map((item: ChannelDictVo) => {
@@ -91,8 +92,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.daily_max_payment'),
@@ -101,8 +102,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.daily_max_receipt_count'),
@@ -111,8 +112,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.daily_max_payment_count'),
@@ -121,8 +122,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.max_receipt_per_txn'),
@@ -131,8 +132,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.max_payment_per_txn'),
@@ -141,8 +142,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.min_receipt_per_txn'),
@@ -151,8 +152,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.min_payment_per_txn'),
@@ -161,8 +162,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.support_collection'),
@@ -182,7 +183,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       render: () => MaKeyValue,
       renderProps: {
         fixedKey: true,
-      }
+      },
     },
     {
       label: t('channelAccount.document_info'),
@@ -211,8 +212,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       cols: { md: 12, xs: 24 },
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.limit_quota'),
@@ -221,17 +222,17 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       itemProps: { required: true },
       render: () => <el-input-number min={0} max={99999999999} precision={2} />,
       renderProps: {
-        class: 'w-full'
-      }
+        class: 'w-full',
+      },
     },
     {
       label: t('channelAccount.used_quota'),
       prop: 'used_quota',
       cols: { md: 12, xs: 24 },
       render: () => <el-input-number min={0} max={99999999999} precision={2} />,
-        renderProps: {
-        class: 'w-full'
-      }
+      renderProps: {
+        class: 'w-full',
+      },
     },
   ]
 }

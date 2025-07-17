@@ -97,6 +97,23 @@ tenantAccountRecord:
   change_type: 变动类型
   transaction_no: 交易流水号
   created_at: 交易时间
+tenant_api_interface:
+  index: 开放接口
+  api_name: 接口名称
+  api_uri: 接口URI
+  http_method: 请求方式
+  request_params: 请求参数
+  request_example: 请求示例
+  response_params: 响应参数
+  response_example: 响应示例
+  description: 描述
+  status: 状态
+  rate_limit: 频率限制
+  auth_mode: 授权模式
+  created_by: 创建人
+  updated_by: 修改人
+  created_at: 创建时间
+  updated_at: 修改时间
 tenantMenu:
   tenant:
     list: 租户列表
@@ -136,6 +153,11 @@ tenantMenu:
     create: 新增账单记录
     update: 修改账单记录
     delete: 删除账单记录
+  tenant_api_interface:
+    list: 接口列表
+    create: 新增接口
+    update: 修改接口
+    delete: 删除接口
 enums:
   tenant:
     isEnabled:

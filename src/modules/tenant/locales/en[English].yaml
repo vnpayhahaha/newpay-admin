@@ -97,6 +97,23 @@ tenantAccountRecord:
   change_type: Change type
   transaction_no: Transaction number
   created_at: Trading Hours
+tenant_api_interface:
+  index: Interface Management
+  api_name: API Name
+  api_uri: API URI
+  http_method: HTTP Method
+  request_params: Request Parameters
+  request_example: Request Example
+  response_params: Response Parameters
+  response_example: Response Example
+  description: Description
+  status: Status
+  rate_limit: Rate Limit
+  auth_mode: Auth Mode
+  created_by: Created By
+  updated_by: Updated By
+  created_at: Created Time
+  updated_at: Updated Time
 tenantMenu:
   tenant:
     list: Tenant list
@@ -136,6 +153,11 @@ tenantMenu:
     create: Add Billing record
     update: Modify Billing record
     delete: Delete Billing record
+  tenant_api_interface:
+    list: Interface List
+    create: Add Interface
+    update: Modify Interface
+    delete: Delete Interface
 enums:
   tenant:
     isEnabled:
