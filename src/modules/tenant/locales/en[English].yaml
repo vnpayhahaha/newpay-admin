@@ -184,3 +184,8 @@ enums:
       reverse: reverse
       reversal: reversal
       error_adjust: error_adjust
+crud:
+  collection:
+    edit: 代收
+  disbursement:
+    edit: 代付

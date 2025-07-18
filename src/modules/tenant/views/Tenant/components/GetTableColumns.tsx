@@ -17,7 +17,7 @@ import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 import { selectStatus } from '@/modules/Common'
 
-export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
+export default function getTableColumns(dialog: UseDialogExpose, collectionDialog: UseDialogExpose, disbursementDialog: UseDialogExpose, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
   const msg = useMessage()
 
@@ -115,7 +115,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         const isFixed = row.receipt_fee_type % 10 === 1
         // 判断row.receipt_fee_type 十位是否为1
         const isRate = row.receipt_fee_type % 100 === 1
-        let feeDisplay: JSX.Element[] = []
+        const feeDisplay: JSX.Element[] = []
         if (isFixed) {
           feeDisplay.push(
             <p>
@@ -147,7 +147,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         const isFixed = row.payment_fee_type % 10 === 1
         // 判断row.payment_fee_type 十位是否为1
         const isRate = row.payment_fee_type % 100 === 1
-        let feeDisplay: JSX.Element[] = []
+        const feeDisplay: JSX.Element[] = []
         if (isFixed) {
           feeDisplay.push(
             <p>
@@ -214,6 +214,26 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       operationConfigure: {
         type: 'tile',
         actions: [
+          {
+            name: 'collection_edit',
+            icon: 'i-heroicons:document-currency-rupee-solid',
+            show: ({ row }) => showBtn('tenant:tenant:update', row),
+            text: () => t('crud.collection.edit'),
+            onClick: ({ row }) => {
+              collectionDialog.setTitle(t('crud.edit'))
+              collectionDialog.open({ data: row })
+            },
+          },
+          {
+            name: 'disbursement_edit',
+            icon: 'i-heroicons:document-currency-rupee',
+            show: ({ row }) => showBtn('tenant:tenant:update', row),
+            text: () => t('crud.disbursement.edit'),
+            onClick: ({ row }) => {
+              disbursementDialog.setTitle(t('crud.edit'))
+              disbursementDialog.open({ data: row })
+            },
+          },
           {
             name: 'edit',
             icon: 'i-heroicons:pencil',

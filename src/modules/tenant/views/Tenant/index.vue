@@ -23,11 +23,15 @@ import { useProTableToolbar } from '@mineadmin/pro-table'
 import MaRecycle from '@/components/ma-recycle/index.vue'
 
 import Form from './Form.vue'
+import CollectionForm from './CollectionForm.vue'
+import DisbursementForm from './DisbursementForm.vue'
 
 defineOptions({ name: 'tenant:tenant' })
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const formRef = ref()
+const formCollectionRef = ref()
+const formDisbursementRef = ref()
 const setFormRef = ref()
 const selections = ref<any[]>([])
 const i18n = useTrans() as TransType
@@ -87,7 +91,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response.data?.message)
             })
             break
           // 修改
@@ -97,12 +101,50 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response.data?.message)
             })
             break
         }
       }).catch()
     }
+    okLoadingState(false)
+  },
+})
+
+const collectionDialog: UseDialogExpose = useDialog({
+  // 保存数据
+  ok: (_, okLoadingState: (state: boolean) => void) => {
+    okLoadingState(true)
+    const elForm = formCollectionRef.value.maForm.getElFormRef()
+    // 验证通过后
+    elForm.validate().then(() => {
+      formCollectionRef.value.edit().then((res: any) => {
+        res.code === 200 ? msg.success(t('crud.updateSuccess')) : msg.error(res.message)
+        collectionDialog.close()
+        proTableRef.value.refresh()
+      }).catch((err: any) => {
+        msg.alertError(err.response.data?.message)
+      })
+    }).catch()
+    okLoadingState(false)
+  },
+})
+
+const disbursementDialog: UseDialogExpose = useDialog({
+  // 保存数据
+  ok: (_, okLoadingState: (state: boolean) => void) => {
+    okLoadingState(true)
+    const elForm = formDisbursementRef.value.maForm.getElFormRef()
+    // 验证通过后
+    elForm.validate().then(() => {
+      formDisbursementRef.value.edit().then((res: any) => {
+        res.code === 200 ? msg.success(t('crud.updateSuccess')) : msg.error(res.message)
+        disbursementDialog.close()
+        proTableRef.value.refresh()
+      }).catch((err: any) => {
+        msg.alertError(err.response.data?.message)
+      })
+    }).catch()
     okLoadingState(false)
   },
 })
@@ -143,7 +185,7 @@ const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t),
   // 表格列
-  tableColumns: getTableColumns(maDialog, formRef, t),
+  tableColumns: getTableColumns(maDialog, collectionDialog, disbursementDialog, t),
 })
 
 // 批量删除
@@ -242,6 +284,16 @@ function handleRecovery() {
       <template #default="{ formType, data }">
         <!-- 新增、编辑表单 -->
         <Form ref="formRef" :form-type="formType" :data="data" />
+      </template>
+    </component>
+    <component :is="collectionDialog.Dialog">
+      <template #default="{ data }">
+        <CollectionForm ref="formCollectionRef" :data="data" />
+      </template>
+    </component>
+    <component :is="disbursementDialog.Dialog">
+      <template #default="{ data }">
+        <DisbursementForm ref="formDisbursementRef" :data="data" />
       </template>
     </component>
   </div>
