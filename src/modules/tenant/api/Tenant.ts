@@ -71,6 +71,7 @@ export interface TenantVo {
   card_acquire_type: number
   auto_verify_fail_rate: number
   payment_assign_items: Array<string>
+  collection_use_method: Array<number>
 }
 
 // 租户管理查询

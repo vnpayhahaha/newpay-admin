@@ -16,6 +16,7 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
   model.float_range = model.float_range ?? [0, 0]
   model.notify_range = model.notify_range ?? [0, 0]
   model.upstream_items = model.upstream_items ?? []
+  model.collection_use_method = model.collection_use_method ?? []
 
   return [
     {
@@ -384,6 +385,23 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
       renderSlots: {
         suffix: () => <span style="margin-left: 8px">MIN</span>,
+      },
+    },
+    {
+      label: t('tenant.collection_use_method'),
+      prop: 'collection_use_method',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'collection_use_method_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+        multiple: true,
+      },
+      cols: {
+        span: 12,
       },
     },
     {

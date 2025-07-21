@@ -44,6 +44,7 @@ tenant:
   card_acquire_type: Method of obtaining a bank card
   auto_verify_fail_rate: Failure rate of automatic write-off
   payment_assign_items: Payment automatic allocation item
+  collection_use_method: Collection method
 tenantApp:
   index: Tenant App
   appName: APP Name
