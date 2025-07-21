@@ -51,6 +51,25 @@ export interface TenantVo {
   payment_fee_type: Array<number>
   payment_fixed_fee: number
   payment_fee_rate: number
+  is_receipt: boolean
+  is_payment: number
+  receipt_min_amount: number
+  receipt_max_amount: number
+  payment_min_amount: number
+  payment_max_amount: number
+  receipt_settlement_type: number
+  upstream_enabled: boolean
+  float_enabled: boolean
+  float_range: string
+  notify_range: string
+  auto_assign_enabled: boolean
+  receipt_expire_minutes: number
+  payment_expire_minutes: number
+  reconcile_retain_minutes: number
+  bill_delay_minutes: number
+  card_acquire_type: number
+  auto_verify_fail_rate: number
+  payment_assign_items: string
 }
 
 // 租户管理查询

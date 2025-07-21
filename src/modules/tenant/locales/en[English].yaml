@@ -24,6 +24,25 @@ tenant:
   payment_fee_rate: payment fee rate
   limitHint: -1 represents unlimited
   unlimited: Unlimited
+  is_payment: Is Enabled Payment
+  is_receipt: Is Enabled Collection
+  receipt_min_amount: Minimum receipt amount
+  receipt_max_amount: Maximum receipt amount
+  payment_min_amount: Minimum payment amount
+  payment_max_amount: Maximum payment amount
+  receipt_settlement_type: Receipt Settlement Type
+  upstream_enabled: Enable upstream collection
+  float_enabled: Enable amount floating
+  float_range: Amount fluctuation range
+  notify_range: Notify downstream of the amount range
+  auto_assign_enabled: Automatic payment allocation
+  receipt_expire_minutes: Collection order timeout
+  payment_expire_minutes: Payment order timeout
+  reconcile_retain_minutes: Bill reconciliation retention time
+  bill_delay_minutes: Bill delay time
+  card_acquire_type: Method of obtaining a bank card
+  auto_verify_fail_rate: Failure rate of automatic write-off
+  payment_assign_items: Payment automatic allocation item
 tenantApp:
   index: Tenant App
   appName: APP Name

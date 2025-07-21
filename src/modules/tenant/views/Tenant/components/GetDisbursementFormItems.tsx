@@ -26,8 +26,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.isEnabled'),
-      prop: 'is_enabled',
+      label: t('tenant.is_payment'),
+      prop: 'is_payment',
       render: () => <el-switch />,
       itemProps: {
         required: true,
@@ -104,6 +104,84 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
       renderSlots: {
         suffix: () => <span style="margin-right: 8px">%</span>,
+      },
+    },
+    {
+      label: t('tenant.payment_min_amount'),
+      prop: 'payment_min_amount',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 99,
+        precision: 2,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        prefix: () => <span style="margin-left: 8px">INR</span>,
+      },
+    },
+    {
+      label: t('tenant.payment_max_amount'),
+      prop: 'payment_max_amount',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 99,
+        precision: 2,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        prefix: () => <span style="margin-left: 8px">INR</span>,
+      },
+    },
+    {
+      label: t('tenant.auto_assign_enabled'),
+      prop: 'auto_assign_enabled',
+      render: () => <el-switch />,
+      itemProps: {
+        required: true,
+      },
+      cols: {
+        span: 12,
+      },
+    },
+    {
+      label: t('tenant.payment_expire_minutes'),
+      prop: 'payment_expire_minutes',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 999,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        suffix: () => <span style="margin-left: 8px">MIN</span>,
+      },
+    },
+    {
+      label: t('tenant.payment_assign_items'),
+      prop: 'payment_assign_items',
+      render: () => <el-input />,
+      itemProps: {
+        required: true,
+      },
+      cols: {
+        span: 12,
       },
     },
   ]

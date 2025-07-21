@@ -26,8 +26,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.isEnabled'),
-      prop: 'is_enabled',
+      label: t('tenant.is_receipt'),
+      prop: 'is_receipt',
       render: () => <el-switch />,
       itemProps: {
         required: true,
@@ -127,6 +127,183 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
       renderSlots: {
         suffix: () => <span style="margin-right: 8px">%</span>,
+      },
+    },
+    {
+      label: t('tenant.receipt_min_amount'),
+      prop: 'receipt_min_amount',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 99,
+        precision: 2,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        prefix: () => <span style="margin-left: 8px">INR</span>,
+      },
+    },
+    {
+      label: t('tenant.receipt_max_amount'),
+      prop: 'receipt_max_amount',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 99,
+        precision: 2,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        prefix: () => <span style="margin-left: 8px">INR</span>,
+      },
+    },
+    {
+      label: t('tenant.receipt_settlement_type'),
+      prop: 'receipt_settlement_type',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 99,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        prefix: () => <span style="margin-left: 8px">INR</span>,
+      },
+    },
+    {
+      label: t('tenant.upstream_enabled'),
+      prop: 'upstream_enabled',
+      render: () => <el-switch />,
+      itemProps: {
+        required: true,
+      },
+      cols: {
+        span: 12,
+      },
+    },
+    {
+      label: t('tenant.float_enabled'),
+      prop: 'float_enabled',
+      render: () => <el-switch />,
+      itemProps: {
+        required: true,
+      },
+      cols: {
+        span: 12,
+      },
+    },
+    {
+      label: t('tenant.notify_range'),
+      prop: 'notify_range',
+      render: () => <el-input />,
+      itemProps: {
+        required: true,
+      },
+      cols: {
+        span: 12,
+      },
+    },
+    {
+      label: t('tenant.receipt_expire_minutes'),
+      prop: 'receipt_expire_minutes',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 999,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        suffix: () => <span style="margin-left: 8px">MIN</span>,
+      },
+    },
+    {
+      label: t('tenant.reconcile_retain_minutes'),
+      prop: 'reconcile_retain_minutes',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 9999,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        suffix: () => <span style="margin-left: 8px">MIN</span>,
+      },
+    },
+    {
+      label: t('tenant.bill_delay_minutes'),
+      prop: 'bill_delay_minutes',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 999,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        suffix: () => <span style="margin-left: 8px">MIN</span>,
+      },
+    },
+    {
+      label: t('tenant.card_acquire_type'),
+      prop: 'card_acquire_type',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 3,
+      },
+      cols: {
+        span: 12,
+      },
+    },
+    {
+      label: t('tenant.auto_verify_fail_rate'),
+      prop: 'auto_verify_fail_rate',
+      render: () => <el-input-number class="w-full" />,
+      itemProps: {
+        required: true,
+      },
+      renderProps: {
+        min: 0,
+        max: 100,
+        precision: 2,
+      },
+      cols: {
+        span: 12,
+      },
+      renderSlots: {
+        suffix: () => <span style="margin-left: 8px">%</span>,
       },
     },
   ]

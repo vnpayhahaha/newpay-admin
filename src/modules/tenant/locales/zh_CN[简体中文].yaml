@@ -24,6 +24,25 @@ tenant:
   payment_fee_rate: 手续费费率(付)
   limitHint: -1 表示无限制
   unlimited: 无限制
+  is_payment: 是否启用付款
+  is_receipt: 是否启用收款
+  receipt_min_amount: 最小收款金额
+  receipt_max_amount: 最大收款金额
+  payment_min_amount: 最小付款金额
+  payment_max_amount: 最大付款金额
+  receipt_settlement_type: 收款结算方式
+  upstream_enabled: 启用上游收款
+  float_enabled: 启用金额浮动
+  float_range: 金额浮动区间
+  notify_range: 通知下游金额区间
+  auto_assign_enabled: 付款自动分配
+  receipt_expire_minutes: 收款订单超时
+  payment_expire_minutes: 付款订单超时
+  reconcile_retain_minutes: 账单对账保留时间
+  bill_delay_minutes: 账单延迟时间
+  card_acquire_type: 银行卡获取方式
+  auto_verify_fail_rate: 自动核销失败比例
+  payment_assign_items: 付款自动分配项
 tenantApp:
   index: 租户应用
   appName: 应用名称
