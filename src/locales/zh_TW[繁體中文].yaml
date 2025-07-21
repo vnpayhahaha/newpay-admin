@@ -195,3 +195,7 @@ common:
   boolean:
     true: 是
     false: 否
+  min: 最小值
+  max: 最大值
+validation:
+  rangeInvalid: 最小值不能大于最大值

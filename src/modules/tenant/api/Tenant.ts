@@ -59,9 +59,10 @@ export interface TenantVo {
   payment_max_amount: number
   receipt_settlement_type: number
   upstream_enabled: boolean
+  upstream_items: Array<string>
   float_enabled: boolean
-  float_range: string
-  notify_range: string
+  float_range: Array<number>
+  notify_range: Array<number>
   auto_assign_enabled: boolean
   receipt_expire_minutes: number
   payment_expire_minutes: number
@@ -69,7 +70,7 @@ export interface TenantVo {
   bill_delay_minutes: number
   card_acquire_type: number
   auto_verify_fail_rate: number
-  payment_assign_items: string
+  payment_assign_items: Array<string>
 }
 
 // 租户管理查询

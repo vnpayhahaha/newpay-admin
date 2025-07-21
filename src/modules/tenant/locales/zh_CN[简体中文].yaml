@@ -32,6 +32,7 @@ tenant:
   payment_max_amount: 最大付款金额
   receipt_settlement_type: 收款结算方式
   upstream_enabled: 启用上游收款
+  upstream_items: 上游收款项
   float_enabled: 启用金额浮动
   float_range: 金额浮动区间
   notify_range: 通知下游金额区间

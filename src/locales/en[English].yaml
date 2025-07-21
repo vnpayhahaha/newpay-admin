@@ -195,3 +195,7 @@ common:
   boolean:
     true: yes
     false: no
+  min: Minimum value
+  max: Maximum value
+validation:
+  rangeInvalid: The value must be between {min} and {max}

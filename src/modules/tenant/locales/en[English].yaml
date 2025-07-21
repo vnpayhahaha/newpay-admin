@@ -32,6 +32,7 @@ tenant:
   payment_max_amount: Maximum payment amount
   receipt_settlement_type: Receipt Settlement Type
   upstream_enabled: Enable upstream collection
+  upstream_items: Upstream collection items
   float_enabled: Enable amount floating
   float_range: Amount fluctuation range
   notify_range: Notify downstream of the amount range

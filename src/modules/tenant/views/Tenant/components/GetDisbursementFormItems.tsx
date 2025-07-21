@@ -13,6 +13,7 @@ import { selectStatus } from '@/modules/Common'
 import MaDictCheckbox from '@/components/ma-dict-picker/ma-dict-checkbox.vue'
 
 export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
+  model.payment_assign_items = model.payment_assign_items ?? []
   return [
     {
       label: t('tenant.companyName'),
@@ -156,6 +157,23 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
+      label: t('tenant.payment_assign_items'),
+      prop: 'payment_assign_items',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'upstream_options'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+        multiple: true,
+      },
+      cols: {
+        span: 12,
+      },
+    },
+    {
       label: t('tenant.payment_expire_minutes'),
       prop: 'payment_expire_minutes',
       render: () => <el-input-number class="w-full" />,
@@ -164,24 +182,13 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
       renderProps: {
         min: 0,
-        max: 999,
+        max: 9999,
       },
       cols: {
         span: 12,
       },
       renderSlots: {
         suffix: () => <span style="margin-left: 8px">MIN</span>,
-      },
-    },
-    {
-      label: t('tenant.payment_assign_items'),
-      prop: 'payment_assign_items',
-      render: () => <el-input />,
-      itemProps: {
-        required: true,
-      },
-      cols: {
-        span: 12,
       },
     },
   ]

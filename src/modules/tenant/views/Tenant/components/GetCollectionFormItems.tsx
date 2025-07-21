@@ -13,6 +13,10 @@ import { selectStatus } from '@/modules/Common'
 import MaDictCheckbox from '@/components/ma-dict-picker/ma-dict-checkbox.vue'
 
 export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
+  model.float_range = model.float_range ?? [0, 0]
+  model.notify_range = model.notify_range ?? [0, 0]
+  model.upstream_items = model.upstream_items ?? []
+
   return [
     {
       label: t('tenant.companyName'),
@@ -170,19 +174,33 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
     {
       label: t('tenant.receipt_settlement_type'),
       prop: 'receipt_settlement_type',
-      render: () => <el-input-number class="w-full" />,
-      itemProps: {
-        required: true,
-      },
+      render: () => <ma-remote-select filterable />,
       renderProps: {
-        min: 0,
-        max: 99,
+        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'settlement_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
       },
       cols: {
         span: 12,
       },
-      renderSlots: {
-        prefix: () => <span style="margin-left: 8px">INR</span>,
+    },
+    {
+      label: t('tenant.card_acquire_type'),
+      prop: 'card_acquire_type',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'bank_card_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+      },
+      cols: {
+        span: 12,
       },
     },
     {
@@ -191,6 +209,23 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       render: () => <el-switch />,
       itemProps: {
         required: true,
+      },
+      cols: {
+        span: 12,
+      },
+    },
+    {
+      label: t('tenant.upstream_items'),
+      prop: 'upstream_items',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'upstream_options'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+        multiple: true,
       },
       cols: {
         span: 12,
@@ -208,15 +243,94 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.notify_range'),
-      prop: 'notify_range',
-      render: () => <el-input />,
+      label: t('tenant.float_range'),
+      prop: 'float_range',
+      render: () => (
+        <div class="w-full" style="display: flex; align-items: center; gap: 8px;">
+          <el-input-number
+            v-model={model.float_range[0]}
+            min={-5}
+            max={5}
+            precision={2}
+            step={0.01}
+            controls-position="right"
+            placeholder={t('common.min')}
+            style="flex: 1;"
+          />
+          <span style="padding: 0 8px;">~</span>
+          <el-input-number
+            v-model={model.float_range[1]}
+            min={-5}
+            max={5}
+            precision={2}
+            step={0.01}
+            controls-position="right"
+            placeholder={t('common.max')}
+            style="flex: 1;"
+          />
+        </div>
+      ),
       itemProps: {
         required: true,
+        rules: [
+          {
+            validator: (_, value, callback) => {
+              if (value[0] !== undefined && value[1] !== undefined && value[0] > value[1]) {
+                callback(new Error(t('validation.rangeInvalid')))
+              }
+              else {
+                callback()
+              }
+            },
+          },
+        ],
       },
-      cols: {
-        span: 12,
+      cols: { span: 12 },
+    },
+    {
+      label: t('tenant.notify_range'),
+      prop: 'notify_range',
+      render: () => (
+        <div class="w-full" style="display: flex; align-items: center; gap: 8px;">
+          <el-input-number
+            v-model={model.notify_range[0]}
+            min={-5}
+            max={5}
+            precision={2}
+            step={0.01}
+            controls-position="right"
+            placeholder={t('common.min')}
+            style="flex: 1;"
+          />
+          <span style="padding: 0 8px;">~</span>
+          <el-input-number
+            v-model={model.notify_range[1]}
+            min={-5}
+            max={5}
+            precision={2}
+            step={0.01}
+            controls-position="right"
+            placeholder={t('common.max')}
+            style="flex: 1;"
+          />
+        </div>
+      ),
+      itemProps: {
+        required: true,
+        rules: [
+          {
+            validator: (_, value, callback) => {
+              if (value[0] !== undefined && value[1] !== undefined && value[0] > value[1]) {
+                callback(new Error(t('validation.rangeInvalid')))
+              }
+              else {
+                callback()
+              }
+            },
+          },
+        ],
       },
+      cols: { span: 12 },
     },
     {
       label: t('tenant.receipt_expire_minutes'),
@@ -273,21 +387,6 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.card_acquire_type'),
-      prop: 'card_acquire_type',
-      render: () => <el-input-number class="w-full" />,
-      itemProps: {
-        required: true,
-      },
-      renderProps: {
-        min: 0,
-        max: 3,
-      },
-      cols: {
-        span: 12,
-      },
-    },
-    {
       label: t('tenant.auto_verify_fail_rate'),
       prop: 'auto_verify_fail_rate',
       render: () => <el-input-number class="w-full" />,
@@ -298,6 +397,7 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
         min: 0,
         max: 100,
         precision: 2,
+        step: 0.01,
       },
       cols: {
         span: 12,
