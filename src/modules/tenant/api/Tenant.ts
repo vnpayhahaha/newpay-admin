@@ -43,7 +43,7 @@ export interface TenantVo {
   // 备注
   remark: string
   auto_transfer: boolean
-  settlement_type: number
+  settlement_delay_mode: number
   settlement_delay_days: number
   receipt_fee_type: Array<number>
   receipt_fixed_fee: number

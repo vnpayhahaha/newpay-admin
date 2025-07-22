@@ -43,7 +43,7 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
     },
     {
       label: t('tenant.settlement_type'),
-      prop: 'settlement_type',
+      prop: 'settlement_delay_mode',
       render: () => <ma-remote-select filterable />,
       renderProps: {
         api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'settlement_delay_mode_list'))),

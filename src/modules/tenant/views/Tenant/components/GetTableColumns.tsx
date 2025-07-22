@@ -85,7 +85,7 @@ export default function getTableColumns(dialog: UseDialogExpose, collectionDialo
       },
     },
     {
-      label: () => t('tenant.settlement_type'), prop: 'settlement_type', width: '130px',
+      label: () => t('tenant.settlement_type'), prop: 'settlement_delay_mode', width: '130px',
       cellRenderTo: {
         name: 'nmCellEnhance',
         props: {
