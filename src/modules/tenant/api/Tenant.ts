@@ -59,7 +59,7 @@ export interface TenantVo {
   payment_max_amount: number
   receipt_settlement_type: number
   upstream_enabled: boolean
-  upstream_items: Array<string>
+  upstream_items: Array<number>
   float_enabled: boolean
   float_range: Array<number>
   notify_range: Array<number>
@@ -70,7 +70,7 @@ export interface TenantVo {
   bill_delay_minutes: number
   card_acquire_type: number
   auto_verify_fail_rate: number
-  payment_assign_items: Array<string>
+  payment_assign_items: Array<number>
   collection_use_method: Array<number>
 }
 

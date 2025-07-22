@@ -1,7 +1,8 @@
 import type { ResponseStruct } from '#/global'
+
 interface ChannelAccountAPIConfigVo {
-  value: string;
-  label: string;
+  value: string
+  label: string
 }
 export interface ChannelAccountVo {
   // id
@@ -111,6 +112,15 @@ export interface ChannelAccountDictVo {
   support_disbursement: number
 }
 
+export interface AvailableOption {
+  id: number
+  merchant_id: string
+}
+
 export function remote(): Promise<ResponseStruct<ChannelAccountDictVo[]>> {
   return useHttp().get('/admin/channel/channel_account/remote')
+}
+
+export function availableOptions(type: number): Promise<ResponseStruct<AvailableOption[]>> {
+  return useHttp().get(`/admin/channel/channel_account/available_options/${type}`)
 }

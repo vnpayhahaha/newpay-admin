@@ -57,17 +57,5 @@ defineExpose({
 </template>
 
 <style scoped lang="scss">
-.range-input-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
 
-  .el-input-number {
-    flex: 1;
-  }
-
-  .range-separator {
-    padding: 0 8px;
-  }
-}
 </style>

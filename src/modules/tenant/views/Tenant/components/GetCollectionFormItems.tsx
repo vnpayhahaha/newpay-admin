@@ -9,7 +9,9 @@
  */
 import type { MaFormItem } from '@mineadmin/form'
 import type { TenantVo } from '~/tenant/api/Tenant.ts'
+import type { AvailableOption } from '@/modules/channel/api/ChannelAccount'
 import { selectStatus } from '@/modules/Common'
+import { availableOptions } from '@/modules/channel/api/ChannelAccount'
 import MaDictCheckbox from '@/components/ma-dict-picker/ma-dict-checkbox.vue'
 
 export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
@@ -220,10 +222,10 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       prop: 'upstream_items',
       render: () => <ma-remote-select filterable />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'upstream_options'))),
+        api: () => new Promise(resolve => resolve(availableOptions(1))),
         dataHandle: (response: any) => {
-          return response.data?.map((item: Common.StatusOptionItem) => {
-            return { label: `${item.label}`, value: item.value }
+          return response.data?.map((item: AvailableOption) => {
+            return { label: `${item.merchant_id}`, value: item.id }
           })
         },
         multiple: true,

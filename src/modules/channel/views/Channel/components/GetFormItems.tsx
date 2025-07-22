@@ -81,6 +81,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
             return { label: `${item.label}`, value: item.value }
           })
         },
+        disabled: () => formType === 'edit',
       },
     },
     {
