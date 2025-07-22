@@ -207,6 +207,6 @@ enums:
       error_adjust: error_adjust
 crud:
   collection:
-    edit: 代收
+    edit: collection
   disbursement:
-    edit: 代付
+    edit: disbursement
