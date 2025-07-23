@@ -20,6 +20,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
     model.support_collection = false
     model.support_disbursement = false
     model.config = []
+    model.country_code = 'IND'
+    model.currency = 'INR'
   }
 
   // 编辑默认值
@@ -81,7 +83,7 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
             return { label: `${item.label}`, value: item.value }
           })
         },
-        disabled: () => formType === 'edit',
+        disabled: formType === 'edit',
       },
     },
     {

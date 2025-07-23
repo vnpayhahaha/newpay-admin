@@ -42,7 +42,7 @@ function add(): Promise<any> {
     create(formModel.value).then((res: any) => {
       res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
     }).catch((err) => {
-      reject(err.response.data.message)
+      reject(err.response.message)
     })
   })
 }
