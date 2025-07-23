@@ -41,7 +41,7 @@ collection_order:
   index: 收款订单
   all: 全部
   platform_order_no: 平台订单号
-  merchant_order_no: 下游订单号
+  tenant_order_no: 下游订单号
   upstream_order_no: 上游订单号
   amount: 金额
   payable_amount: 应收金额
@@ -87,7 +87,7 @@ disbursement_order:
   index: 付款订单
   all: 全部
   platform_order_no: 平台订单号
-  merchant_order_no: 下游订单号
+  tenant_order_no: 下游订单号
   upstream_order_no: 上游订单号
   pay_time: 付款时间
   order_source: 订单来源

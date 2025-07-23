@@ -21,11 +21,11 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
     {
-      label: () => t('collection_order.merchant_order_no'),
-      prop: 'merchant_order_no',
+      label: () => t('collection_order.tenant_order_no'),
+      prop: 'tenant_order_no',
       render: () => <el-input />,
       renderProps: {
-        placeholder: t('collection_order.merchant_order_no'),
+        placeholder: t('collection_order.tenant_order_no'),
       },
     },
     {

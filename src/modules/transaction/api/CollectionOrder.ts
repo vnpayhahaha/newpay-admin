@@ -6,7 +6,7 @@ export interface CollectionOrderVo {
   // 平台订单号
   platform_order_no: string
   // 下游订单号
-  merchant_order_no: string
+  tenant_order_no: string
   // 上游订单号
   upstream_order_no: string
   // 订单金额

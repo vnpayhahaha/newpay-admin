@@ -30,9 +30,9 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('collection_order.platform_order_no'), prop: 'platform_order_no' },
-    { label: () => t('collection_order.merchant_order_no'), prop: 'merchant_order_no' },
-    { label: () => t('collection_order.upstream_order_no'), prop: 'upstream_order_no' },
+    { label: () => t('collection_order.platform_order_no'), prop: 'platform_order_no', minWidth: '250px' },
+    { label: () => t('collection_order.tenant_order_no'), prop: 'tenant_order_no', minWidth: '180px' },
+    { label: () => t('collection_order.upstream_order_no'), prop: 'upstream_order_no', minWidth: '180px' },
     { label: () => t('collection_order.amount'), prop: 'amount' },
     { label: () => t('collection_order.payable_amount'), prop: 'payable_amount' },
     { label: () => t('collection_order.paid_amount'), prop: 'paid_amount' },

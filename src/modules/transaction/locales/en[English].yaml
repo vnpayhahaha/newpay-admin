@@ -41,7 +41,7 @@ collection_order:
   index: Collection Order
   all: All
   platform_order_no: Platform Order No
-  merchant_order_no: Merchant Order No
+  tenant_order_no: Merchant Order No
   upstream_order_no: Upstream Order No
   amount: Amount
   payable_amount: Payable Amount
@@ -87,7 +87,7 @@ disbursement_order:
   index: Payment Order
   all: All
   platform_order_no: Platform Order No
-  merchant_order_no: Merchant Order No
+  tenant_order_no: Merchant Order No
   upstream_order_no: Upstream Order No
   pay_time: Pay Time
   order_source: Order Source
