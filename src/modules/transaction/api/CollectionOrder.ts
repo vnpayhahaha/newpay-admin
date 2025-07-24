@@ -96,6 +96,8 @@ export interface CollectionOrderVo {
   utr: string
   // 客户提交的UTR
   customer_submitted_utr: string
+  settlement_delay_mode: number
+  settlement_delay_days: number
 }
 
 // 收款订单查询

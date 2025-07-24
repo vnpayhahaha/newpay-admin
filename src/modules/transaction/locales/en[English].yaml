@@ -37,6 +37,25 @@ transaction_queue_status:
   error_detail: error detail
   created_at: create time
   updated_at: update time
+transaction_voucher:
+  index: Transaction Voucher
+  channel_id: channel
+  channel_account_id: channel account
+  bank_account_id: bank account
+  collection_card_no: collection card no
+  collection_amount: collection amount
+  collection_fee: collection fee
+  collection_time: collection time
+  collection_status: collection status
+  collection_source: collection source
+  transaction_voucher: transaction voucher
+  transaction_voucher_type: transaction voucher type
+  order_no: order no
+  content: content
+  operation_admin_id: operation admin
+  created_at: created at
+  updated_at: updated at
+  transaction_type: 交易类型
 collection_order:
   index: Collection Order
   all: All
@@ -143,3 +162,8 @@ menu:
     create: Disbursement Order Create
     update: Disbursement Order Update
     delete: Disbursement Order Delete
+  transaction_voucher:
+    list: Transaction Voucher List
+    create: Transaction Voucher Create
+    update: Transaction Voucher Update
+    delete: Transaction Voucher Delete

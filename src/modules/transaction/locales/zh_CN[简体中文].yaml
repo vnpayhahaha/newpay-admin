@@ -37,6 +37,25 @@ transaction_queue_status:
   error_detail: 错误详情
   created_at: 创建时间
   updated_at: 更新时间
+transaction_voucher:
+  index: 交易凭证
+  channel_id: 渠道编号
+  channel_account_id: 渠道账户
+  bank_account_id: 银行账户
+  collection_card_no: 收款卡号
+  collection_amount: 收款金额
+  collection_fee: 手续费
+  collection_time: 收款时间
+  collection_status: 状态
+  collection_source: 收款来源
+  transaction_voucher: 交易凭证
+  transaction_voucher_type: 凭证类型
+  order_no: 订单编号
+  content: 内容
+  operation_admin_id: 操作管理员
+  created_at: 创建时间
+  updated_at: 更新时间
+  transaction_type: 交易类型
 collection_order:
   index: 收款订单
   all: 全部
@@ -145,3 +164,8 @@ menu:
     create: 新增付款订单
     update: 修改付款订单
     delete: 删除付款订单
+  transaction_voucher:
+    list: 交易凭证列表
+    create: 新增交易凭证
+    update: 修改交易凭证
+    delete: 删除交易凭证
