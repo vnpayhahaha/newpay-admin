@@ -42,7 +42,7 @@ transaction_voucher:
   channel_id: 渠道编号
   channel_account_id: 渠道账户
   bank_account_id: 银行账户
-  collection_card_no: 收款卡号
+  collection_card_no: 卡号
   collection_amount: 收款金额
   collection_fee: 手续费
   collection_time: 收款时间
