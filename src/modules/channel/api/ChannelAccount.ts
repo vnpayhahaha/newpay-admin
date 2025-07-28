@@ -107,9 +107,9 @@ export interface ChannelAccountDictVo {
   channel_id: number
   merchant_id: string
   currency: string
-  status: number
-  support_collection: number
-  support_disbursement: number
+  status: boolean
+  support_collection: boolean
+  support_disbursement: boolean
 }
 
 export interface AvailableOption {
@@ -117,8 +117,8 @@ export interface AvailableOption {
   merchant_id: string
 }
 
-export function remote(): Promise<ResponseStruct<ChannelAccountDictVo[]>> {
-  return useHttp().get('/admin/channel/channel_account/remote')
+export function remote(params?: { channel_id?: number, support_collection?: number, status?: number }): Promise<ResponseStruct<ChannelAccountDictVo[]>> {
+  return useHttp().get('/admin/channel/channel_account/remote', { params })
 }
 
 export function availableOptions(type: number): Promise<ResponseStruct<AvailableOption[]>> {

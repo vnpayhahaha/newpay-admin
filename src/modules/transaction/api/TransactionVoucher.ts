@@ -18,13 +18,13 @@ export interface TransactionVoucherVo {
   // 收款时间
   collection_time: string
   // 状态(1等待核销 2已经核销 3核销失败)
-  collection_status: string
+  collection_status: number
   // 转账凭证来源:0未定义1人工创建2平台内部接口3平台开放下游接口4上游回调接口
-  collection_source: string
+  collection_source: number
   // 转账的凭证UTR/order_no/金额
   transaction_voucher: string
   // 转账凭证类型：1订单号 2utr 3金额
-  transaction_voucher_type: string
+  transaction_voucher_type: number
   // 匹配的订单编号
   order_no: string
   // 原始内容
@@ -36,7 +36,7 @@ export interface TransactionVoucherVo {
   // 更新时间
   updated_at: string
   // 交易类型：1代收 2代付
-  transaction_type: string
+  transaction_type: number
 }
 
 // 交易凭证查询

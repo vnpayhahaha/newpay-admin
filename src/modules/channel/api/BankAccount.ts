@@ -97,11 +97,13 @@ export interface BankAccountDictVo {
   channel_id: number
   branch_name: string
   bank_code: string
-  status: number
-  support_collection: number
-  support_disbursement: number
+  account_holder: string
+  account_number: string
+  status: boolean
+  support_collection: boolean
+  support_disbursement: boolean
 }
 
-export function remote(): Promise<ResponseStruct<BankAccountDictVo[]>> {
-  return useHttp().get('/admin/channel/bank_account/remote')
+export function remote(params?: { channel_id?: number, support_collection?: number, status?: number }): Promise<ResponseStruct<BankAccountDictVo[]>> {
+  return useHttp().get('/admin/channel/bank_account/remote', { params })
 }

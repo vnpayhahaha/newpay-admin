@@ -1,4 +1,5 @@
 import type { ResponseStruct } from '#/global'
+
 export interface ChannelConfigVo {
   value: string
   label: string
@@ -66,7 +67,6 @@ export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().put('/admin/channel/channel/recovery', { ids })
 }
 
-
 export interface ChannelDictVoConfig {
   value: string
   label: string
@@ -83,14 +83,14 @@ export interface ChannelDictVo {
   id: string
   channel_code: string
   channel_name: string
-  channel_type: string
+  channel_type: number
   currency: string
-  status: number
-  support_collection: number
-  support_disbursement: number
+  status: boolean
+  support_collection: boolean
+  support_disbursement: boolean
   config: Array<ChannelDictVoConfig>
 }
 
-export function remote(params?: {channel_type: number}): Promise<ResponseStruct<ChannelDictVo[]>> {
-  return useHttp().get('/admin/channel/channel_dict/remote', {params})
+export function remote(params?: { channel_type?: number, support_collection?: number, status?: number }): Promise<ResponseStruct<ChannelDictVo[]>> {
+  return useHttp().get('/admin/channel/channel_dict/remote', { params })
 }

@@ -167,3 +167,11 @@ menu:
     create: Transaction Voucher Create
     update: Transaction Voucher Update
     delete: Transaction Voucher Delete
+enums:
+  transaction_type:
+    collection: Collection
+    disbursement: Disbursement
+  transaction_voucher_type:
+    order_no: Order No
+    utr: UTR
+    amount: Amount

@@ -39,15 +39,13 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
   if (formType === 'edit') {
     // todo...
   }
-
+  const channelArray = reactive<ChannelDictVo[]>([])
   const channelChange = (val: string) => {
     console.log('channelArray', channelArray)
     console.log('channelChange', val)
     // model.api_config 赋值等于 遍历channelArray 中id === val 的 channelArray[i].config
     model.api_config = channelArray.find(item => item.id === val)?.config || []
   }
-
-  const channelArray = reactive<ChannelDictVo[]>([])
 
   return [
     {

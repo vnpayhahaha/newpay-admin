@@ -169,3 +169,11 @@ menu:
     create: 新增交易凭证
     update: 修改交易凭证
     delete: 删除交易凭证
+enums:
+  transaction_type:
+    collection: 代收
+    disbursement: 代付
+  transaction_voucher_type:
+    order_no: 订单号
+    utr: UTR
+    amount: 金额
