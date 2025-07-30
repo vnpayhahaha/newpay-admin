@@ -124,10 +124,15 @@ tenant_api_interface:
   api_uri: API URI
   http_method: HTTP Method
   request_params: Request Parameters
+  request_params_en: Request Parameters(en)
   request_example: Request Example
+  request_example_en: Request Example(en)
   response_params: Response Parameters
+  response_params_en: Response Parameters(en)
   response_example: Response Example
+  response_example_en: Response Example(en)
   description: Description
+  description_en: Description(en)
   status: Status
   rate_limit: Rate Limit
   auth_mode: Auth Mode

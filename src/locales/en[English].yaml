@@ -197,5 +197,9 @@ common:
     false: no
   min: Minimum value
   max: Maximum value
+  copy: Copy
+  copyed: Copied
+  copySueccess: Copied to clipboard
+  copyError: Copy failed
 validation:
   rangeInvalid: The value must be between {min} and {max}

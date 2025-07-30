@@ -197,5 +197,9 @@ common:
     false: 否
   min: 最小值
   max: 最大值
+  copy: 复制
+  copyed: 已复制
+  copySueccess: 已复制到剪贴板
+  copyError: 复制失败
 validation:
   rangeInvalid: 最小值不能大于最大值

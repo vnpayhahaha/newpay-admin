@@ -59,15 +59,17 @@ transaction_voucher:
 collection_order:
   index: Collection Order
   all: All
+  order_no: Order No
   platform_order_no: Platform Order No
   tenant_order_no: Merchant Order No
   upstream_order_no: Upstream Order No
   amount: Amount
   payable_amount: Payable Amount
   paid_amount: Paid Amount
+  fee: Fee
   fixed_fee: Fixed Fee
   rate_fee: Rate Fee
-  total_fee: Total Fee
+  total_fee: Total
   upstream_fee: Upstream Fee
   upstream_settlement_amount: Upstream Settlement Amount
   settlement_amount: Settlement Amount

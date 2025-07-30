@@ -59,15 +59,17 @@ transaction_voucher:
 collection_order:
   index: 收款订单
   all: 全部
+  order_no: 订单号
   platform_order_no: 平台订单号
   tenant_order_no: 下游订单号
   upstream_order_no: 上游订单号
   amount: 金额
   payable_amount: 应收金额
   paid_amount: 实收金额
+  fee: 手续费
   fixed_fee: 固定手续费
   rate_fee: 费率
-  total_fee: 手续费
+  total_fee: 总计
   upstream_fee: 上游手续费
   upstream_settlement_amount: 上游结算金额
   settlement_amount: 结算金额

@@ -77,8 +77,26 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
+      label: t('tenant_api_interface.request_params_en'),
+      prop: 'request_params_en',
+      cols: { md: 12, xs: 24 },
+      render: () => <el-input type="textarea" />,
+      itemProps: {
+        rules: [jsonValidator()],
+      },
+    },
+    {
       label: t('tenant_api_interface.request_example'),
       prop: 'request_example',
+      cols: { md: 12, xs: 24 },
+      render: () => <el-input type="textarea" />,
+      itemProps: {
+        rules: [jsonValidator()],
+      },
+    },
+    {
+      label: t('tenant_api_interface.request_example_en'),
+      prop: 'request_example_en',
       cols: { md: 12, xs: 24 },
       render: () => <el-input type="textarea" />,
       itemProps: {
@@ -95,6 +113,15 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
+      label: t('tenant_api_interface.response_params_en'),
+      prop: 'response_params_en',
+      cols: { md: 12, xs: 24 },
+      render: () => <el-input type="textarea" />,
+      itemProps: {
+        rules: [jsonValidator()],
+      },
+    },
+    {
       label: t('tenant_api_interface.response_example'),
       prop: 'response_example',
       cols: { md: 12, xs: 24 },
@@ -104,8 +131,22 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       },
     },
     {
+      label: t('tenant_api_interface.response_example_en'),
+      prop: 'response_example_en',
+      cols: { md: 12, xs: 24 },
+      render: () => <el-input type="textarea" />,
+      itemProps: {
+        rules: [jsonValidator()],
+      },
+    },
+    {
       label: t('tenant_api_interface.description'),
       prop: 'description',
+      render: () => <el-input type="textarea" />,
+    },
+    {
+      label: t('tenant_api_interface.description_en'),
+      prop: 'description_en',
       render: () => <el-input type="textarea" />,
     },
     {

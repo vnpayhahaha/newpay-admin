@@ -124,10 +124,15 @@ tenant_api_interface:
   api_uri: 接口URI
   http_method: 请求方式
   request_params: 请求参数
+  request_params_en: 请求参数(en)
   request_example: 请求示例
+  request_example_en: 请求示例(en)
   response_params: 响应参数
+  response_params_en: 响应参数(en)
   response_example: 响应示例
+  response_example_en: 响应示例(en)
   description: 描述
+  description_en: 描述(en)
   status: 状态
   rate_limit: 频率限制
   auth_mode: 授权模式

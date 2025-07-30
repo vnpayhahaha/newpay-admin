@@ -15,11 +15,13 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds } from '~/transaction/api/CollectionOrder.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import MaCopy from '@/components/ma-copy/index.vue'
+import tool from '@/utils/tool.ts'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
   const msg = useMessage()
-
+ 
   const showBtn = (auth: string | string[], row: CollectionOrderVo) => {
     return hasAuth(auth)
   }
@@ -30,15 +32,51 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('collection_order.platform_order_no'), prop: 'platform_order_no', minWidth: '250px' },
-    { label: () => t('collection_order.tenant_order_no'), prop: 'tenant_order_no', minWidth: '180px' },
-    { label: () => t('collection_order.upstream_order_no'), prop: 'upstream_order_no', minWidth: '180px' },
-    { label: () => t('collection_order.amount'), prop: 'amount' },
-    { label: () => t('collection_order.payable_amount'), prop: 'payable_amount' },
-    { label: () => t('collection_order.paid_amount'), prop: 'paid_amount' },
-    { label: () => t('collection_order.fixed_fee'), prop: 'fixed_fee' },
-    { label: () => t('collection_order.rate_fee'), prop: 'rate_fee' },
-    { label: () => t('collection_order.total_fee'), prop: 'total_fee' },
+    { label: () => t('collection_order.order_no'), prop: 'platform_order_no', 
+      minWidth: '260px',
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left" style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p>{t('collection_order.platform_order_no')}:</p>
+              <p class="ml-2"><MaCopy class='color-blue' content={row.platform_order_no} /></p>
+              <p>{t('collection_order.tenant_order_no')}:</p>
+              <p class="ml-2"><MaCopy class='color-red' content={row.tenant_order_no} /></p>
+              <p>{t('collection_order.upstream_order_no')}:</p>
+              <p class="ml-2"><MaCopy class='color-green' content={row.upstream_order_no} /></p>
+            </div>
+          </div>
+        )
+      },
+    },
+    { label: () => t('collection_order.amount'), prop: 'amount',
+      width: '220px',
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left" style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p>{t('collection_order.amount')}: <MaCopy class='color-blue' content={row.amount} /></p>
+              <p>{t('collection_order.payable_amount')}: <MaCopy class='color-green' content={row.payable_amount} /></p>
+              <p>{t('collection_order.paid_amount')}: <MaCopy class='color-red' content={row.paid_amount} /></p>
+            </div>
+          </div>
+        )
+      },
+     },
+    { label: () => t('collection_order.fee'), prop: 'fee',
+      width: '220px',
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left" style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p>{t('collection_order.fixed_fee')}: <MaCopy content={tool.formatMoney(row.fixed_fee)} /></p>
+              <p>{t('collection_order.rate_fee')}: <MaCopy content={tool.formatMoney(row.rate_fee)+'%'} /> * <MaCopy class='color-red' content={tool.formatMoney(row.amount)} /></p>
+              <p>{t('collection_order.total_fee')}: <MaCopy class='color-blue' content={tool.formatMoney(row.total_fee)} /></p>
+            </div>
+          </div>
+        )
+      },
+    },
     { label: () => t('collection_order.upstream_fee'), prop: 'upstream_fee' },
     { label: () => t('collection_order.upstream_settlement_amount'), prop: 'upstream_settlement_amount' },
     { label: () => t('collection_order.settlement_amount'), prop: 'settlement_amount' },
