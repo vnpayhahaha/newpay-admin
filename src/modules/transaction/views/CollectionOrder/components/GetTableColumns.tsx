@@ -42,6 +42,70 @@ export default function getTableColumns(
     { type: "index" },
     // 普通列
     {
+      label: () => t("channelAccount.channel_id"),
+      prop: "channel_id",
+      width: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <el-avatar shape="square" src={row.channel.channel_icon} />
+            <div class="ml-5" style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                <el-text class="mx-1" type="primary">
+                  {row.channel.channel_code}
+                </el-text>
+              </p>
+              <p>
+                <el-text class="mx-1" truncated>
+                  {row.channel.channel_name}
+                </el-text>
+              </p>
+              {row.bank_account?.branch_name && (
+                <p>
+                  <el-text class="mx-1" truncated>
+                    {row.bank_account?.branch_name}
+                  </el-text>
+                </p>
+              )}
+              {row.channel_account?.merchant_id && (
+                <p>
+                  <el-text class="mx-1" truncated>
+                    {row.channel_account?.merchant_id}
+                  </el-text>
+                </p>
+              )}
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      label: () => t("collection_order.collection_type"),
+      prop: "collection_type",
+      minWidth: "120px",
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("collection_order", "collection_type_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
+    },
+    {
       label: () => t("collection_order.order_no"),
       prop: "platform_order_no",
       minWidth: "260px",
@@ -67,6 +131,29 @@ export default function getTableColumns(
             </div>
           </div>
         );
+      },
+    },
+    {
+      label: () => t("collection_order.status"),
+      prop: "status",
+      minWidth: 100,
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("collection_order", "status_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
       },
     },
     {
@@ -160,14 +247,6 @@ export default function getTableColumns(
       },
     },
     {
-      label: () => t("collection_order.settlement_amount"),
-      prop: "settlement_amount",
-      minWidth: "120px",
-      cellRender: ({ row }) => {
-        return tool.formatMoney(row.settlement_amount);
-      },
-    },
-    {
       label: () => t("collection_order.settlement_type"),
       prop: "settlement_type",
       minWidth: "120px",
@@ -191,23 +270,84 @@ export default function getTableColumns(
       },
     },
     {
-      label: () => t("collection_order.collection_type"),
-      prop: "collection_type",
+      label: () => t("collection_order.settlement_amount"),
+      prop: "settlement_amount",
+      minWidth: "120px",
+      cellRender: ({ row }) => {
+        return tool.formatMoney(row.settlement_amount);
+      },
     },
     {
-      label: () => t("collection_order.collection_channel_id"),
-      prop: "collection_channel_id",
+      label: () => t("collection_order.pay_time"),
+      prop: "pay_time",
+      width: "180px",
     },
-    { label: () => t("collection_order.pay_time"), prop: "pay_time" },
-    { label: () => t("collection_order.expire_time"), prop: "expire_time" },
-    { label: () => t("collection_order.order_source"), prop: "order_source" },
-    { label: () => t("collection_order.recon_type"), prop: "recon_type" },
-    { label: () => t("collection_order.callback_url"), prop: "callback_url" },
+    {
+      label: () => t("collection_order.expire_time"),
+      prop: "expire_time",
+      width: "180px",
+    },
+    {
+      label: () => t("collection_order.order_source"),
+      prop: "order_source",
+      width: "120px",
+    },
+    {
+      label: () => t("collection_order.recon_type"),
+      prop: "recon_type",
+      minWidth: "120px",
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("collection_order", "recon_type_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
+    },
+    {
+      label: () => t("collection_order.callback_url"),
+      prop: "callback_url",
+      hide: true,
+    },
     {
       label: () => t("collection_order.callback_count"),
       prop: "callback_count",
+      width: 100,
     },
-    { label: () => t("collection_order.notify_status"), prop: "notify_status" },
+    {
+      label: () => t("collection_order.notify_status"),
+      prop: "notify_status",
+      minWidth: "120px",
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("collection_order", "notify_status_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
+    },
     { label: () => t("collection_order.checkout_url"), prop: "checkout_url" },
     { label: () => t("collection_order.return_url"), prop: "return_url" },
     { label: () => t("collection_order.tenant_id"), prop: "tenant_id" },
