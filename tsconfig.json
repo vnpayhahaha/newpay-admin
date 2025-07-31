@@ -31,7 +31,8 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "jsxImportSource": "vue"
   },
   "references": [
     {
@@ -47,5 +48,5 @@
     "src/**/*.vue",
     "src/**/*.mjs"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist"],
 }

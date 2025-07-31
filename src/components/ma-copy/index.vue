@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useLocalTrans } from '@/hooks/useLocalTrans.ts'
 const props = defineProps<{
-  class: string
+  class?: string
   content: string
 }>()
 
@@ -54,7 +54,7 @@ const t = useLocalTrans()
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
-  
+
   &:hover {
     transform: scale(1.1);
   }
