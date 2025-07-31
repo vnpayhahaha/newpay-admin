@@ -42,8 +42,8 @@ export default function getTableColumns(
     { type: "index" },
     // 普通列
     {
-      label: () => t("channelAccount.channel_id"),
-      prop: "channel_id",
+      label: () => t("collection_order.channel"),
+      prop: "channel",
       width: 220,
       cellRender: ({ row }) => {
         return (
@@ -83,6 +83,28 @@ export default function getTableColumns(
       },
     },
     {
+      label: () => t("collection_order.branch_name"),
+      prop: "branch_name",
+      width: "120px",
+      hide: true,
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            {row.bank_account?.branch_name && (
+              <p>
+                <el-text class="mx-1" truncated>
+                  {row.bank_account?.branch_name}
+                </el-text>
+              </p>
+            )}
+          </div>
+        );
+      },
+    },
+    {
       label: () => t("collection_order.collection_type"),
       prop: "collection_type",
       minWidth: "120px",
@@ -108,6 +130,7 @@ export default function getTableColumns(
     {
       label: () => t("collection_order.order_no"),
       prop: "platform_order_no",
+      type: "merge",
       minWidth: "260px",
       cellRender: ({ row }) => {
         return (
@@ -134,6 +157,24 @@ export default function getTableColumns(
       },
     },
     {
+      label: () => t("collection_order.platform_order_no"),
+      prop: "platform_order_no",
+      minWidth: "260px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.tenant_order_no"),
+      prop: "tenant_order_no",
+      minWidth: "220px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.upstream_order_no"),
+      prop: "upstream_order_no",
+      minWidth: "220px",
+      hide: true,
+    },
+    {
       label: () => t("collection_order.status"),
       prop: "status",
       minWidth: 100,
@@ -157,8 +198,9 @@ export default function getTableColumns(
       },
     },
     {
-      label: () => t("collection_order.amount"),
+      label: () => t("collection_order.amount_info"),
       prop: "amount",
+      type: "merge",
       minWidth: "180px",
       cellRender: ({ row }) => {
         return (
@@ -183,6 +225,24 @@ export default function getTableColumns(
           </div>
         );
       },
+    },
+    {
+      label: () => t("collection_order.amount"),
+      prop: "amount",
+      minWidth: "120px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.payable_amount"),
+      prop: "payable_amount",
+      minWidth: "120px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.paid_amount"),
+      prop: "paid_amount",
+      minWidth: "120px",
+      hide: true,
     },
     {
       label: () => t("collection_order.fee"),
@@ -220,8 +280,26 @@ export default function getTableColumns(
       },
     },
     {
-      label: () => t("collection_order.upstream_settlement_amount"),
-      prop: "upstream_settlement_amount",
+      label: () => t("collection_order.fixed_fee"),
+      prop: "fixed_fee",
+      width: "120px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.rate_fee"),
+      prop: "rate_fee",
+      width: "120px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.total_fee"),
+      prop: "total_fee",
+      width: "120px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.upstream_settlement_info"),
+      prop: "upstream_settlement_info",
       minWidth: "120px",
       cellRender: ({ row }) => {
         return (
@@ -235,16 +313,28 @@ export default function getTableColumns(
                   content={tool.formatMoney(row.upstream_settlement_amount)}
                 />
               </p>
-              {
+              {row.upstream_fee && (
                 <p>
                   ({t("collection_order.fee")}:
                   {tool.formatMoney(row.upstream_fee)})
                 </p>
-              }
+              )}
             </div>
           </div>
         );
       },
+    },
+    {
+      label: () => t("collection_order.upstream_settlement_amount"),
+      prop: "upstream_settlement_amount",
+      width: "120px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.upstream_fee"),
+      prop: "upstream_fee",
+      width: "120px",
+      hide: true,
     },
     {
       label: () => t("collection_order.settlement_type"),
@@ -291,6 +381,35 @@ export default function getTableColumns(
       label: () => t("collection_order.order_source"),
       prop: "order_source",
       width: "120px",
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                <MaCopy content={row.order_source} />
+              </p>
+              <p>
+                <MaCopy content={row.tenant_id} />
+              </p>
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      label: () => t("collection_order.tenant_id"),
+      prop: "tenant_id",
+      width: 100,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.app_id"),
+      prop: "app_id",
+      width: 100,
+      hide: true,
     },
     {
       label: () => t("collection_order.recon_type"),
@@ -318,6 +437,7 @@ export default function getTableColumns(
     {
       label: () => t("collection_order.callback_url"),
       prop: "callback_url",
+      minWidth: 150,
       hide: true,
     },
     {
@@ -348,38 +468,155 @@ export default function getTableColumns(
         },
       },
     },
-    { label: () => t("collection_order.checkout_url"), prop: "checkout_url" },
-    { label: () => t("collection_order.return_url"), prop: "return_url" },
-    { label: () => t("collection_order.tenant_id"), prop: "tenant_id" },
-    { label: () => t("collection_order.app_id"), prop: "app_id" },
-    { label: () => t("collection_order.payer_name"), prop: "payer_name" },
-    { label: () => t("collection_order.payer_account"), prop: "payer_account" },
-    { label: () => t("collection_order.payer_bank"), prop: "payer_bank" },
-    { label: () => t("collection_order.payer_ifsc"), prop: "payer_ifsc" },
-    { label: () => t("collection_order.payer_upi"), prop: "payer_upi" },
-    { label: () => t("collection_order.description"), prop: "description" },
-    { label: () => t("collection_order.status"), prop: "status" },
+    {
+      label: () => t("collection_order.checkout_url"),
+      prop: "checkout_url",
+      minWidth: 150,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.return_url"),
+      prop: "return_url",
+      minWidth: 150,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.payer_info"),
+      prop: "payer_info",
+      minWidth: 240,
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                {t("collection_order.payer_name")}:{" "}
+                <MaCopy content={row.payer_name} />
+              </p>
+              <p>
+                {t("collection_order.payer_account")}:{" "}
+                <MaCopy content={row.payer_account} />
+              </p>
+              <p>
+                {t("collection_order.payer_bank")}:{" "}
+                <MaCopy content={row.payer_bank} />
+              </p>
+              <p>
+                {t("collection_order.payer_ifsc")}:{" "}
+                <MaCopy content={row.payer_ifsc} />
+              </p>
+              <p>
+                {t("collection_order.payer_upi")}:{" "}
+                <MaCopy content={row.payer_upi} />
+              </p>
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      label: () => t("collection_order.payer_name"),
+      prop: "payer_name",
+      minWidth: 150,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.payer_account"),
+      prop: "payer_account",
+      minWidth: 150,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.payer_bank"),
+      prop: "payer_bank",
+      minWidth: 150,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.payer_ifsc"),
+      prop: "payer_ifsc",
+      minWidth: 100,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.payer_upi"),
+      prop: "payer_upi",
+      minWidth: 150,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.description"),
+      prop: "description",
+      minWidth: 150,
+      hide: true,
+    },
     {
       label: () => t("collection_order.channel_transaction_no"),
       prop: "channel_transaction_no",
+      minWidth: 150,
+      hide: true,
     },
-    { label: () => t("collection_order.error_code"), prop: "error_code" },
-    { label: () => t("collection_order.error_message"), prop: "error_message" },
-    { label: () => t("collection_order.request_id"), prop: "request_id" },
-    { label: () => t("collection_order.created_at"), prop: "created_at" },
-    { label: () => t("collection_order.updated_at"), prop: "updated_at" },
+    {
+      label: () => t("collection_order.error_code"),
+      prop: "error_code",
+      minWidth: 100,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.error_message"),
+      prop: "error_message",
+      minWidth: 150,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.request_id"),
+      prop: "request_id",
+      minWidth: 200,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.created_at"),
+      prop: "created_at",
+      minWidth: 180,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.updated_at"),
+      prop: "updated_at",
+      minWidth: 180,
+      hide: true,
+    },
     {
       label: () => t("collection_order.payment_proof_photo"),
       prop: "payment_proof_photo",
+      width: 120,
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <el-avatar shape="square" size={80} src={row.payment_proof_photo} />
+          </div>
+        );
+      },
     },
     {
       label: () => t("collection_order.platform_transaction_no"),
       prop: "platform_transaction_no",
+      minWidth: 220,
     },
-    { label: () => t("collection_order.utr"), prop: "utr" },
+    {
+      label: () => t("collection_order.utr"),
+      prop: "utr",
+      minWidth: 120,
+    },
     {
       label: () => t("collection_order.customer_submitted_utr"),
       prop: "customer_submitted_utr",
+      minWidth: 120,
     },
 
     // 操作列

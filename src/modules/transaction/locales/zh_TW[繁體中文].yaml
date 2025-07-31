@@ -59,10 +59,14 @@ transaction_voucher:
 collection_order:
   index: 收款订单
   all: 全部
+  channel: 渠道信息
+  merchant_id: 商户ID
+  branch_name: 支行名称
   order_no: 订单号
   platform_order_no: 平台订单号
   tenant_order_no: 下游订单号
   upstream_order_no: 上游订单号
+  amount_info: 金额信息
   amount: 金额
   payable_amount: 应收金额
   paid_amount: 实收金额
@@ -70,6 +74,7 @@ collection_order:
   fixed_fee: 固定手续费
   rate_fee: 费率
   total_fee: 总计
+  upstream_settlement_info: 上游结算信息
   upstream_fee: 上游手续费
   upstream_settlement_amount: 上游结算金额
   settlement_amount: 结算金额
@@ -84,14 +89,15 @@ collection_order:
   callback_count: 回调次数
   notify_status: 通知状态
   checkout_url: 收银台地址
-  return_url:  返回地址
+  return_url: 返回地址
   tenant_id: 租户ID
   app_id: 应用ID
-  payer_name: 付款人名称
-  payer_account: 付款人账号
-  payer_bank: 付款人银行
-  payer_ifsc: 付款人IFSC
-  payer_upi: 付款人UPI
+  payer_info: 收款信息
+  payer_name: 收款人名称
+  payer_account: 收款人账号
+  payer_bank: 收款人银行
+  payer_ifsc: 收款人IFSC
+  payer_upi: 收款人UPI
   description: 描述
   status: 状态
   channel_transaction_no: 渠道交易流水号
@@ -100,7 +106,7 @@ collection_order:
   request_id: 请求ID
   created_at: 创建时间
   updated_at: 更新时间
-  payment_proof_photo: 付款凭证图片
+  payment_proof_photo: 付款凭证
   platform_transaction_no: 平台交易流水号
   utr: UTR
   customer_submitted_utr: 客户提交UTR

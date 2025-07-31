@@ -5,7 +5,7 @@ transaction_record:
   transaction_no: transaction no
   tenant_account_id: tenant account id
   account_id: account id
-  tenant_id:  tenant id
+  tenant_id: tenant id
   amount: amount
   fee_amount: fee amount
   net_amount: net amount
@@ -59,10 +59,14 @@ transaction_voucher:
 collection_order:
   index: Collection Order
   all: All
+  channel: Channel
+  merchant_id: Merchant ID
+  branch_name: Branch Name
   order_no: Order No
   platform_order_no: Platform Order No
   tenant_order_no: Merchant Order No
   upstream_order_no: Upstream Order No
+  amount_info: Amount Info
   amount: Amount
   payable_amount: Payable Amount
   paid_amount: Paid Amount
@@ -70,6 +74,7 @@ collection_order:
   fixed_fee: Fixed Fee
   rate_fee: Rate Fee
   total_fee: Total
+  upstream_settlement_info: Upstream Settlement Info
   upstream_fee: Upstream Fee
   upstream_settlement_amount: Upstream Settlement Amount
   settlement_amount: Settlement Amount
@@ -84,14 +89,15 @@ collection_order:
   callback_count: Callback Count
   notify_status: Notify Status
   checkout_url: Checkout Url
-  return_url:  Return Url
+  return_url: Return Url
   tenant_id: Tenant Id
   app_id: App Id
-  payer_name: Payment Name
-  payer_account: Payment Account
-  payer_bank: Payment Bank
-  payer_ifsc: Payment IFSC
-  payer_upi: Payment UPI
+  payer_info: Payee Info
+  payer_name: Payee Name
+  payer_account: Payee Account
+  payer_bank: Payee Bank
+  payer_ifsc: Payee IFSC
+  payer_upi: Payee UPI
   description: Description
   status: Status
   channel_transaction_no: Channel Transaction No
