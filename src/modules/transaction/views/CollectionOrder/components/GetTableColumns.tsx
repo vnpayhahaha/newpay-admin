@@ -628,30 +628,14 @@ export default function getTableColumns(
         type: "tile",
         actions: [
           {
-            name: "edit",
-            icon: "i-heroicons:pencil",
+            name: "write_off",
+            icon: "i-heroicons:qr-code",
             show: ({ row }) =>
               showBtn("transaction:collection_order:update", row),
-            text: () => t("crud.edit"),
+            text: () => t("collection_order.write_off"),
             onClick: ({ row }) => {
-              dialog.setTitle(t("crud.edit"));
-              dialog.open({ formType: "edit", data: row });
-            },
-          },
-          {
-            name: "del",
-            show: ({ row }) =>
-              showBtn("transaction:collection_order:delete", row),
-            icon: "i-heroicons:trash",
-            text: () => t("crud.delete"),
-            onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t("crud.delDataMessage")).then(async () => {
-                const response = await deleteByIds([row.id]);
-                if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t("crud.delSuccess"));
-                  await proxy.refresh();
-                }
-              });
+              dialog.setTitle(t("collection_order.write_off"));
+              dialog.open({ data: row });
             },
           },
         ],

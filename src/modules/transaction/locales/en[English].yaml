@@ -111,6 +111,8 @@ collection_order:
   utr: UTR
   customer_submitted_utr: Customer Submitted UTR
   query_total: Query Total
+  write_off: write Off
+  transaction_voucher: Transaction Voucher
 disbursement_order:
   index: Payment Order
   all: All
@@ -181,6 +183,6 @@ enums:
     collection: Collection
     disbursement: Disbursement
   transaction_voucher_type:
-    order_no: Order No
+    order_no: Transaction ID
     utr: UTR
     amount: Amount

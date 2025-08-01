@@ -98,6 +98,7 @@ export interface CollectionOrderVo {
   customer_submitted_utr: string;
   settlement_delay_mode: number;
   settlement_delay_days: number;
+  transaction_voucher_id: number;
   bank_account: {
     //
     id: number;

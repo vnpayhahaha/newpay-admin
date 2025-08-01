@@ -25,12 +25,12 @@ import useDialog from "@/hooks/useDialog";
 import { useMessage } from "@/hooks/useMessage";
 import { ResultCode } from "@/utils/ResultCode";
 
-import Form from "./Form.vue";
+import WriteOffForm from "./WriteOffForm.vue";
 
 defineOptions({ name: "transaction:collection_order" });
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>;
-const formRef = ref();
+const writeOffFormRef = ref();
 const setFormRef = ref();
 const selections = ref<any[]>([]);
 const i18n = useTrans() as TransType;
@@ -39,51 +39,29 @@ const local = i18n.localTrans;
 const msg = useMessage();
 
 // 弹窗配置
-const maDialog: UseDialogExpose = useDialog({
+const writeOffDialog: UseDialogExpose = useDialog({
   // 保存数据
-  ok: ({ formType }, okLoadingState: (state: boolean) => void) => {
+  ok: (_, okLoadingState: (state: boolean) => void) => {
     okLoadingState(true);
-    if (["add", "edit"].includes(formType)) {
-      const elForm = formRef.value.maForm.getElFormRef();
-      // 验证通过后
-      elForm
-        .validate()
-        .then(() => {
-          switch (formType) {
-            // 新增
-            case "add":
-              formRef.value
-                .add()
-                .then((res: any) => {
-                  res.code === ResultCode.SUCCESS
-                    ? msg.success(t("crud.createSuccess"))
-                    : msg.error(res.message);
-                  maDialog.close();
-                  proTableRef.value.refresh();
-                })
-                .catch((err: any) => {
-                  msg.alertError(err);
-                });
-              break;
-            // 修改
-            case "edit":
-              formRef.value
-                .edit()
-                .then((res: any) => {
-                  res.code === 200
-                    ? msg.success(t("crud.updateSuccess"))
-                    : msg.error(res.message);
-                  maDialog.close();
-                  proTableRef.value.refresh();
-                })
-                .catch((err: any) => {
-                  msg.alertError(err);
-                });
-              break;
-          }
-        })
-        .catch();
-    }
+    const elForm = writeOffFormRef.value.maForm.getElFormRef();
+    // 验证通过后
+    elForm
+      .validate()
+      .then(() => {
+        writeOffFormRef.value
+          .writeOffHandle()
+          .then((res: any) => {
+            res.code === 200
+              ? msg.success(t("crud.updateSuccess"))
+              : msg.error(res.message);
+            writeOffDialog.close();
+            proTableRef.value.refresh();
+          })
+          .catch((err: any) => {
+            msg.alertError(err.response.data?.message);
+          });
+      })
+      .catch();
     okLoadingState(false);
   },
 });
@@ -145,7 +123,7 @@ const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t),
   // 表格列
-  tableColumns: getTableColumns(maDialog, formRef, t),
+  tableColumns: getTableColumns(writeOffDialog, writeOffFormRef, t),
 });
 </script>
 
@@ -157,10 +135,10 @@ const schema = ref<MaProTableSchema>({
       </template>
     </MaProTable>
 
-    <component :is="maDialog.Dialog">
-      <template #default="{ formType, data }">
+    <component :is="writeOffDialog.Dialog">
+      <template #default="{ data }">
         <!-- 新增、编辑表单 -->
-        <Form ref="formRef" :form-type="formType" :data="data" />
+        <WriteOffForm ref="writeOffFormRef" :data="data" />
       </template>
     </component>
   </div>
