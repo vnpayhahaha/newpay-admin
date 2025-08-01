@@ -110,6 +110,7 @@ collection_order:
   platform_transaction_no: 平台交易流水号
   utr: UTR
   customer_submitted_utr: 客户提交UTR
+  query_total: 查询总数
 disbursement_order:
   index: 付款订单
   all: 全部

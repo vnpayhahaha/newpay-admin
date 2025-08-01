@@ -298,6 +298,37 @@ export default function getTableColumns(
       hide: true,
     },
     {
+      label: () => t("collection_order.settlement_type"),
+      prop: "settlement_type",
+      minWidth: "120px",
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("collection_order", "settlement_type_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
+    },
+    {
+      label: () => t("collection_order.settlement_amount"),
+      prop: "settlement_amount",
+      minWidth: "120px",
+      cellRender: ({ row }) => {
+        return tool.formatMoney(row.settlement_amount);
+      },
+    },
+    {
       label: () => t("collection_order.upstream_settlement_info"),
       prop: "upstream_settlement_info",
       minWidth: "120px",
@@ -337,40 +368,19 @@ export default function getTableColumns(
       hide: true,
     },
     {
-      label: () => t("collection_order.settlement_type"),
-      prop: "settlement_type",
-      minWidth: "120px",
-      cellRenderTo: {
-        name: "nmCellEnhance",
-        props: {
-          type: "tag",
-          api: () =>
-            new Promise((resolve) =>
-              resolve(selectStatus("collection_order", "settlement_type_list"))
-            ),
-          dataHandle: (response: any) => {
-            return response.data?.map((item: Common.StatusOptionItem) => {
-              return { label: `${item.label}`, value: item.value };
-            });
-          },
-          props: {
-            effect: "dark",
-          },
-        },
-      },
-    },
-    {
-      label: () => t("collection_order.settlement_amount"),
-      prop: "settlement_amount",
-      minWidth: "120px",
-      cellRender: ({ row }) => {
-        return tool.formatMoney(row.settlement_amount);
-      },
-    },
-    {
       label: () => t("collection_order.pay_time"),
       prop: "pay_time",
       width: "180px",
+    },
+    {
+      label: () => t("collection_order.utr"),
+      prop: "utr",
+      minWidth: 120,
+    },
+    {
+      label: () => t("collection_order.customer_submitted_utr"),
+      prop: "customer_submitted_utr",
+      minWidth: 120,
     },
     {
       label: () => t("collection_order.expire_time"),
@@ -608,17 +618,6 @@ export default function getTableColumns(
       prop: "platform_transaction_no",
       minWidth: 220,
     },
-    {
-      label: () => t("collection_order.utr"),
-      prop: "utr",
-      minWidth: 120,
-    },
-    {
-      label: () => t("collection_order.customer_submitted_utr"),
-      prop: "customer_submitted_utr",
-      minWidth: 120,
-    },
-
     // 操作列
     {
       type: "operation",

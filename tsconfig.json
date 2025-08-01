@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "jsx": "preserve",
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "useDefineForClassFields": true,
     "baseUrl": "./",
     "module": "ESNext",
@@ -48,5 +44,5 @@
     "src/**/*.vue",
     "src/**/*.mjs"
   ],
-  "exclude": ["node_modules", "dist"],
+  "exclude": ["node_modules", "dist"]
 }

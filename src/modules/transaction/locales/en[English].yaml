@@ -110,6 +110,7 @@ collection_order:
   platform_transaction_no: Platform Transaction No
   utr: UTR
   customer_submitted_utr: Customer Submitted UTR
+  query_total: Query Total
 disbursement_order:
   index: Payment Order
   all: All
