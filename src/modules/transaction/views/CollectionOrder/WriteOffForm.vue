@@ -9,7 +9,7 @@
 -->
 <script setup lang="ts">
 import type { CollectionOrderVo } from "~/transaction/api/CollectionOrder.ts";
-import { create, save } from "~/transaction/api/CollectionOrder.ts";
+import { writeOff, save } from "~/transaction/api/CollectionOrder.ts";
 import getFormItems from "./components/GetWriteOffFormItems.tsx";
 import type { MaFormExpose } from "@mineadmin/form";
 import useForm from "@/hooks/useForm.ts";
@@ -24,6 +24,11 @@ const maFormRef = ref<MaFormExpose>();
 const formModel = ref<CollectionOrderVo>({});
 
 useForm("maFormRef").then((form: MaFormExpose) => {
+  if (data) {
+    Object.keys(data).map((key: string) => {
+      formModel.value[key] = data[key];
+    });
+  }
   form.setItems(getFormItems(t, formModel.value));
   form.setOptions({
     labelWidth: "180px",
@@ -32,8 +37,9 @@ useForm("maFormRef").then((form: MaFormExpose) => {
 
 // 核销操作
 function writeOffHandle(): Promise<any> {
+  console.log("writeOffHandle", formModel.value);
   return new Promise((resolve, reject) => {
-    create(formModel.value)
+    writeOff(formModel.value.id as number, formModel.value)
       .then((res: any) => {
         res.code === ResultCode.SUCCESS ? resolve(res) : reject(res);
       })

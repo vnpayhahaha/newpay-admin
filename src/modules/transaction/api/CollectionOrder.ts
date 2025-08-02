@@ -141,3 +141,14 @@ export function save(
 export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().delete("/admin/transaction/collection_order", { data: ids });
 }
+
+// writeOff
+export function writeOff(
+  id: number,
+  data: CollectionOrderVo
+): Promise<ResponseStruct<null>> {
+  return useHttp().put(
+    `/admin/transaction/collection_order/write_off/${id}`,
+    data
+  );
+}

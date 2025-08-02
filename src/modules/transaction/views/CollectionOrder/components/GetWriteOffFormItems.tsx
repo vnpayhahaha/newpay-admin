@@ -21,7 +21,7 @@ export default function getFormItems(
   t: any,
   model: CollectionOrderVo
 ): MaFormItem[] {
-  getWriteOffOptions().then((res) => {
+  getWriteOffOptions({ transaction_type: 1 }).then((res) => {
     options.value = res.data;
   });
 
@@ -60,7 +60,10 @@ export default function getFormItems(
                     label={item.collection_amount}
                     value={item.id}
                   >
-                    <span style="float: left">{item.collection_amount}</span>
+                    <span style="float: left">
+                      <ma-svg-icon name="i-prime:indian-rupee" size="1.2em" />{" "}
+                      {item.collection_amount}
+                    </span>
                     <span style="float: right; color: #8492a6; font-size: 13px">
                       {item.transaction_voucher}
                     </span>

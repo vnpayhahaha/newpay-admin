@@ -76,13 +76,13 @@ export interface TransactionVoucherWriteOffOptionVo {
     id: number;
     transaction_voucher_type: number;
     transaction_voucher: string;
-    collection_amount: number;
+    collection_amount: string;
   }>;
 }
 // /admin/transaction/transaction_voucher/write_off_options
-export function getWriteOffOptions(
-  params?: TransactionVoucherVo
-): Promise<ResponseStruct<TransactionVoucherWriteOffOptionVo[]>> {
+export function getWriteOffOptions(params?: {
+  transaction_type: number;
+}): Promise<ResponseStruct<TransactionVoucherWriteOffOptionVo[]>> {
   return useHttp().get(
     "/admin/transaction/transaction_voucher/write_off_options",
     { params }

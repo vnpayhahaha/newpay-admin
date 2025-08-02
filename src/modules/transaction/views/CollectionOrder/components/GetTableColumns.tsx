@@ -18,6 +18,7 @@ import hasAuth from "@/utils/permission/hasAuth.ts";
 import MaCopy from "@/components/ma-copy/index.vue";
 import tool from "@/utils/tool.ts";
 import { selectStatus } from "@/modules/Common";
+import { color } from "echarts";
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -188,6 +189,13 @@ export default function getTableColumns(
             ),
           dataHandle: (response: any) => {
             return response.data?.map((item: Common.StatusOptionItem) => {
+              if (item.value === 20) {
+                return {
+                  label: `${item.label}`,
+                  value: item.value,
+                  color: "success",
+                };
+              }
               return { label: `${item.label}`, value: item.value };
             });
           },
