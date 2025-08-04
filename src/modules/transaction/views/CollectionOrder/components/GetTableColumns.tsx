@@ -19,6 +19,7 @@ import MaCopy from "@/components/ma-copy/index.vue";
 import tool from "@/utils/tool.ts";
 import { selectStatus } from "@/modules/Common";
 import { color } from "echarts";
+import { ro } from "element-plus/es/locale/index.mjs";
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -219,15 +220,24 @@ export default function getTableColumns(
             <div style={{ flex: 1, minWidth: 0 }}>
               <p>
                 {t("collection_order.amount")}:{" "}
-                <MaCopy class="color-blue" content={row.amount} />
+                <MaCopy
+                  class="color-blue"
+                  content={tool.formatMoney(row.amount)}
+                />
               </p>
               <p>
                 {t("collection_order.payable_amount")}:{" "}
-                <MaCopy class="color-green" content={row.payable_amount} />
+                <MaCopy
+                  class="color-green"
+                  content={tool.formatMoney(row.payable_amount)}
+                />
               </p>
               <p>
                 {t("collection_order.paid_amount")}:{" "}
-                <MaCopy class="color-red" content={row.paid_amount} />
+                <MaCopy
+                  class="color-red"
+                  content={tool.formatMoney(row.paid_amount)}
+                />
               </p>
             </div>
           </div>
@@ -702,6 +712,7 @@ export default function getTableColumns(
             icon: "i-heroicons:qr-code",
             show: ({ row }) =>
               showBtn("transaction:collection_order:update", row),
+            disabled: ({ row }) => row.status > 10 && row.status !== 43,
             text: () => t("collection_order.write_off"),
             onClick: ({ row }) => {
               dialog.setTitle(t("collection_order.write_off"));
