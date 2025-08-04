@@ -168,11 +168,14 @@ crud:
   reset_password: Reset password
   reset_password_message: Have you confirmed the password reset?
   reset_password_success: Password reset successful
+  cancelMessage: Should the selected order be canceled?
+  cancelDataMessage: Do you want to cancel the order?
+  cancelSuccess: Cancel successfully
 form:
   pleaseInput: Please input {msg}
   pleaseSelect: Please select {msg}
-  requiredInput: '{msg} Required'
-  requiredSelect: '{msg} Required'
+  requiredInput: "{msg} Required"
+  requiredSelect: "{msg} Required"
 dictionary:
   system:
     statusEnabled: Enabled

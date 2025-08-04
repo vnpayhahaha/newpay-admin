@@ -168,11 +168,14 @@ crud:
   reset_password: 重置密码
   reset_password_message: 是否确认重置密码？
   reset_password_success: 重置密码成功
+  cancelMessage: 是否取消所选中订单？
+  cancelDataMessage: 是否取消订单？
+  cancelSuccess: 取消成功
 form:
   pleaseInput: 请输入{msg}
   pleaseSelect: 请选择{msg}
-  requiredInput: '{msg}必填'
-  requiredSelect: '{msg}必选'
+  requiredInput: "{msg}必填"
+  requiredSelect: "{msg}必选"
 dictionary:
   system:
     statusEnabled: 启用

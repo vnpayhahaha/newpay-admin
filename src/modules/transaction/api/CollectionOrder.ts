@@ -137,9 +137,11 @@ export function save(
   return useHttp().put(`/admin/transaction/collection_order/${id}`, data);
 }
 
-// 收款订单删除
-export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
-  return useHttp().delete("/admin/transaction/collection_order", { data: ids });
+// 收款订单取消
+export function cancel(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().put("/admin/transaction/collection_order/cancel", {
+    data: ids,
+  });
 }
 
 // writeOff

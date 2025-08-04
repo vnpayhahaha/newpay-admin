@@ -18,7 +18,7 @@ import type { TransType } from "@/hooks/auto-imports/useTrans";
 import type { UseDialogExpose } from "@/hooks/useDialog";
 import type { CollectionOrderVo } from "~/transaction/api/CollectionOrder";
 
-import { deleteByIds, page } from "~/transaction/api/CollectionOrder";
+import { cancel, page } from "~/transaction/api/CollectionOrder";
 import getSearchItems from "./components/GetSearchItems";
 import getTableColumns from "./components/GetTableColumns";
 import useDialog from "@/hooks/useDialog";
@@ -125,12 +125,33 @@ const schema = ref<MaProTableSchema>({
   // 表格列
   tableColumns: getTableColumns(writeOffDialog, writeOffFormRef, t),
 });
+
+// 批量取消
+function handleCancel() {
+  const ids = selections.value.map((item: any) => item.id);
+  msg.confirm(t("crud.cancelMessage")).then(async () => {
+    const response = await cancel(ids);
+    if (response.code === ResultCode.SUCCESS) {
+      msg.success(t("crud.cancelSuccess"));
+      proTableRef.value.refresh();
+    }
+  });
+}
 </script>
 
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #toolbarLeft>
+        <el-button
+          v-auth="['transaction:transaction_voucher:update']"
+          type="danger"
+          plain
+          :disabled="selections.length < 1"
+          @click="handleCancel"
+        >
+          {{ t("crud.cancel") }}
+        </el-button>
         <NmSearch :proxy="proTableRef" :row="2" />
       </template>
     </MaProTable>
