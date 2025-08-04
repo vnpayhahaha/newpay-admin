@@ -199,8 +199,8 @@ enums:
       payment: 代付
   tenantAccountRecord:
     change_type:
-      transaction: 交易
-      refund: 退款
+      transaction: 订单成功
+      refund: 订单退款
       manual_add: 上分
       manual_sub: 下分
       freeze: 冻结

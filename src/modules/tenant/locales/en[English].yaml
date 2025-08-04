@@ -199,8 +199,8 @@ enums:
       payment: Payment
   tenantAccountRecord:
     change_type:
-      transaction: transaction
-      refund: refund
+      transaction: Order successful
+      refund: Order refund
       manual_add: manual_add
       manual_sub: manual_sub
       freeze: freeze
