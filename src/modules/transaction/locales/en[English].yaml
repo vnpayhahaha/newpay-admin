@@ -190,3 +190,12 @@ enums:
     order_no: Transaction ID
     utr: UTR
     amount: Amount
+  CollectionOrder:
+    status:
+      processing: processing
+      success: paid
+      suspend: suspend
+      fail: fail
+      cancel: cancel
+      invalid: invalid
+      refund: refund

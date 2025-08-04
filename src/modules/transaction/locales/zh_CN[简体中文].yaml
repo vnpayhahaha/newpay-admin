@@ -192,3 +192,12 @@ enums:
     order_no: 交易ID
     utr: UTR
     amount: 金额
+  CollectionOrder:
+    status:
+      processing: 待支付
+      success: 已支付
+      suspend: 待处理
+      fail: 已失败
+      cancel: 已取消
+      invalid: 已失效
+      refund: 已退款
