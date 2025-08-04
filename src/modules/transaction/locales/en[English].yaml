@@ -113,6 +113,10 @@ collection_order:
   query_total: Query Total
   write_off: write Off
   transaction_voucher: Transaction Voucher
+  paid_info: Paid Info
+  cancelled_at: Cancelled At
+  cancelled_by: Cancel operator
+  cancel_info: Cancel Info
 disbursement_order:
   index: Payment Order
   all: All

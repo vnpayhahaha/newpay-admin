@@ -99,6 +99,8 @@ export interface CollectionOrderVo {
   settlement_delay_mode: number;
   settlement_delay_days: number;
   transaction_voucher_id: number;
+  cancelled_at: string;
+  cancelled_by: number;
   bank_account: {
     //
     id: number;
@@ -115,6 +117,11 @@ export interface CollectionOrderVo {
     channel_name: string;
     id: number;
   };
+  cancel_operator: {
+    id: number;
+    username: string;
+    nickname: string;
+  } | null;
 }
 
 // 收款订单查询

@@ -376,14 +376,76 @@ export default function getTableColumns(
       hide: true,
     },
     {
+      label: () => t("collection_order.paid_info"),
+      prop: "paid_info",
+      minWidth: "180px",
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p>{row.pay_time}</p>
+              {row.utr && (
+                <p>
+                  UTR: <MaCopy content={row.utr} class="color-blue" />
+                </p>
+              )}
+            </div>
+          </div>
+        );
+      },
+    },
+    {
       label: () => t("collection_order.pay_time"),
       prop: "pay_time",
       width: "180px",
+      hide: true,
     },
     {
       label: () => t("collection_order.utr"),
       prop: "utr",
       minWidth: 120,
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.cancel_info"),
+      prop: "cancel_info",
+      minWidth: "180px",
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p>{row.cancelled_at}</p>
+              {row.cancel_operator?.id && (
+                <p>
+                  {row.cancel_operator?.nickname}:{" "}
+                  <MaCopy
+                    content={row.cancel_operator?.username}
+                    class="color-blue"
+                  />
+                </p>
+              )}
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      label: () => t("collection_order.cancelled_at"),
+      prop: "cancelled_at",
+      width: "180px",
+      hide: true,
+    },
+    {
+      label: () => t("collection_order.cancelled_by"),
+      prop: "cancelled_by",
+      minWidth: 100,
+      hide: true,
     },
     {
       label: () => t("collection_order.customer_submitted_utr"),

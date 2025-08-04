@@ -113,6 +113,10 @@ collection_order:
   query_total: 查询总数
   write_off: 核销
   transaction_voucher: 交易凭证
+  paid_info: 付款信息
+  cancelled_at: 取消时间
+  cancelled_by: 取消人
+  cancel_info: 取消信息
 disbursement_order:
   index: 付款订单
   all: 全部
