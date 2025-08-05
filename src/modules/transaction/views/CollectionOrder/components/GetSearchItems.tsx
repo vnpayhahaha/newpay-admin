@@ -10,6 +10,13 @@
 
 import type { MaSearchItem } from "@mineadmin/search";
 import { selectStatus } from "@/modules/Common";
+import type { ChannelDictVo } from "~/channel/api/Channel.ts";
+import type { BankAccountDictVo } from "~/channel/api/BankAccount.ts";
+import type { ChannelAccountDictVo } from "~/channel/api/ChannelAccount.ts";
+import { remote } from "~/channel/api/Channel.ts";
+import { remote as bankAccountRemote } from "~/channel/api/BankAccount.ts";
+import { remote as channelAccountRemote } from "~/channel/api/ChannelAccount.ts";
+import { TenantDictVo, remote as tenantRemote } from "~/tenant/api/Tenant.ts";
 export default function getSearchItems(
   t: any,
   hideStatus: boolean = false
@@ -42,41 +49,126 @@ export default function getSearchItems(
     {
       label: () => t("collection_order.settlement_type"),
       prop: "settlement_type",
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("collection_order", "settlement_type_list"))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
         placeholder: t("collection_order.settlement_type"),
       },
     },
     {
       label: () => t("collection_order.collection_type"),
       prop: "collection_type",
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("collection_order", "collection_type_list"))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
         placeholder: t("collection_order.collection_type"),
       },
     },
     {
       label: () => t("collection_order.collection_channel_id"),
       prop: "collection_channel_id",
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise((resolve) => resolve(remote({ support_collection: 1 }))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: ChannelDictVo) => {
+            return { label: `${item.channel_name}`, value: item.id };
+          });
+        },
         placeholder: t("collection_order.collection_channel_id"),
+      },
+    },
+    {
+      label: () => t("collection_order.bank_account"),
+      prop: "bank_account_id",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(bankAccountRemote({ support_collection: 1 }))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: BankAccountDictVo) => {
+            return {
+              label: `${item.account_holder} [${item.account_number}]`,
+              value: item.id,
+            };
+          });
+        },
+        placeholder: t("collection_order.bank_account"),
+      },
+    },
+    {
+      label: () => t("collection_order.channel_account"),
+      prop: "channel_account_id",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(channelAccountRemote({ support_collection: 1 }))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: ChannelAccountDictVo) => {
+            return { label: `${item.merchant_id}`, value: item.id };
+          });
+        },
+        placeholder: t("collection_order.channel_account"),
+      },
+    },
+    {
+      label: () => t("collection_order.created_at"),
+      prop: "created_at",
+      render: () => <el-date-picker />,
+      renderProps: {
+        type: "datetimerange",
+        rangeSeparator: "~",
+        startPlaceholder: t("common.startTime"),
+        endPlaceholder: t("common.endTime"),
+        valueFormat: "YYYY-MM-DD HH:mm:ss",
+        name: [t("collection_order.created_at")],
       },
     },
     {
       label: () => t("collection_order.pay_time"),
       prop: "pay_time",
-      render: () => <el-input />,
+      render: () => <el-date-picker />,
       renderProps: {
-        placeholder: t("collection_order.pay_time"),
+        type: "datetimerange",
+        rangeSeparator: "~",
+        startPlaceholder: t("common.startTime"),
+        endPlaceholder: t("common.endTime"),
+        valueFormat: "YYYY-MM-DD HH:mm:ss",
+        name: [t("collection_order.pay_time")],
       },
     },
     {
       label: () => t("collection_order.expire_time"),
       prop: "expire_time",
-      render: () => <el-input />,
+      render: () => <el-date-picker />,
       renderProps: {
-        placeholder: t("collection_order.expire_time"),
+        type: "datetimerange",
+        rangeSeparator: "~",
+        startPlaceholder: t("common.startTime"),
+        endPlaceholder: t("common.endTime"),
+        valueFormat: "YYYY-MM-DD HH:mm:ss",
+        name: [t("collection_order.expire_time")],
       },
     },
     {
@@ -90,25 +182,51 @@ export default function getSearchItems(
     {
       label: () => t("collection_order.recon_type"),
       prop: "recon_type",
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("collection_order", "recon_type_list"))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
         placeholder: t("collection_order.recon_type"),
       },
     },
     {
       label: () => t("collection_order.notify_status"),
       prop: "notify_status",
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("collection_order", "notify_status_list"))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
         placeholder: t("collection_order.notify_status"),
       },
     },
     {
       label: () => t("collection_order.tenant_id"),
       prop: "tenant_id",
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
       renderProps: {
-        placeholder: t("collection_order.tenant_id"),
+        api: () => new Promise((resolve) => resolve(tenantRemote())),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: TenantDictVo) => {
+            return {
+              label: `${item.tenant_id} ${item.company_name}`,
+              value: item.tenant_id,
+            };
+          });
+        },
       },
     },
     {

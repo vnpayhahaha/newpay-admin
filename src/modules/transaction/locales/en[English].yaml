@@ -60,6 +60,8 @@ collection_order:
   index: Collection Order
   all: All
   channel: Channel
+  bank_account: bank account
+  channel_account: channel account
   merchant_id: Merchant ID
   branch_name: Branch Name
   order_no: Order No

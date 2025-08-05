@@ -60,6 +60,8 @@ collection_order:
   index: 收款订单
   all: 全部
   channel: 渠道信息
+  bank_account: 银行账号
+  channel_account: 上游账号
   merchant_id: 商户ID
   branch_name: 支行名称
   order_no: 订单号
