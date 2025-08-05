@@ -85,8 +85,8 @@ collection_order:
   expire_time: 过期时间
   order_source: 订单来源
   recon_type: 对账类型
-  callback_url: 回调地址
-  callback_count: 回调次数
+  notify_url: 回调地址
+  notify_count: 回调次数
   notify_status: 通知状态
   checkout_url: 收银台地址
   return_url: 返回地址

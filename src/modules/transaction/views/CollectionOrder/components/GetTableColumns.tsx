@@ -20,6 +20,7 @@ import tool from "@/utils/tool.ts";
 import { selectStatus } from "@/modules/Common";
 import { color } from "echarts";
 import { ro } from "element-plus/es/locale/index.mjs";
+import { trim } from "lodash-es";
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -397,7 +398,7 @@ export default function getTableColumns(
           >
             <div style={{ flex: 1, minWidth: 0 }}>
               <p>{row.pay_time}</p>
-              {row.utr && (
+              {trim(row.utr) != "" && (
                 <p>
                   UTR: <MaCopy content={row.utr} class="color-blue" />
                 </p>
