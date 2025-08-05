@@ -269,10 +269,10 @@ export default function getTableColumns(
                   content={tool.formatMoney(row.upstream_settlement_amount)}
                 />
               </p>
-              {row.upstream_fee && (
+              {trim(row.upstream_fee) && (
                 <p>
-                  ({t("disbursement_order.fee")}:
-                  {tool.formatMoney(row.upstream_fee)})
+                  {t("disbursement_order.fee")}:
+                  {tool.formatMoney(row.upstream_fee)}
                 </p>
               )}
             </div>
