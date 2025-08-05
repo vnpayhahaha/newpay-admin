@@ -120,19 +120,24 @@ collection_order:
 disbursement_order:
   index: Payment Order
   all: All
+  channel: Channel Info
+  order_no: Order No
   platform_order_no: Platform Order No
   tenant_order_no: Merchant Order No
   upstream_order_no: Upstream Order No
   pay_time: Pay Time
   order_source: Order Source
   disbursement_channel_id: Disbursement Channel Id
-  disbursement_bank_id: Disbursement Bank Id
+  bank_account_id: Bank Account Id
+  channel_account_id: Channel Account Id
   amount: Amount
   paid_amount: Paid Amount
+  fee: Fee
   fixed_fee: Fixed Fee
   rate_fee: Rate Fee
   total_fee: Total Fee
   settlement_amount: Settlement Amount
+  upstream_settlement_info: Upstream Settlement Info
   upstream_fee: Upstream Fee
   upstream_settlement_amount: Upstream Settlement Amount
   payment_type: Payment Type
@@ -147,8 +152,8 @@ disbursement_order:
   description: Description
   status: Status
   expire_time: Expire Time
-  callback_url: Callback Url
-  callback_count: Callback Count
+  notify_url: Notify Url
+  notify_count: Notify Count
   notify_status: Notify Status
   channel_transaction_no: Channel Transaction No
   error_code: Error Code
@@ -156,6 +161,13 @@ disbursement_order:
   request_id: Request Id
   created_at: Create time
   updated_at: Update time
+  paid_info: Paid Info
+  cancelled_at: Cancelled At
+  cancelled_by: Cancel operator
+  cancel_info: Cancel Info
+  payee_info: Payee Info
+  undistributed: undistributed
+  assigned: assigned
 menu:
   transaction_record:
     list: Transaction Record List

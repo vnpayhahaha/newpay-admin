@@ -47,13 +47,13 @@ export interface CollectionOrderVo {
   // 4-机器人核销
   recon_type: string;
   // 回调地址
-  callback_url: string;
+  notify_url: string;
   // 回调次数
-  callback_count: number;
+  notify_count: number;
   // 通知状态:0-未通知 1-通知成功 2-通知失败 3-回调中
   notify_status: string;
   // 收银台地址
-  checkout_url: string;
+  pay_url: string;
   // 支付成功后跳转地址
   return_url: string;
   // 租户编号

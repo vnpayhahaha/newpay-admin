@@ -147,11 +147,11 @@ export default function getTableColumns(
               </p>
               <p>{t("collection_order.tenant_order_no")}:</p>
               <p class="ml-2">
-                <MaCopy class="color-red" content={row.tenant_order_no} />
+                <MaCopy class="color-green" content={row.tenant_order_no} />
               </p>
               <p>{t("collection_order.upstream_order_no")}:</p>
               <p class="ml-2">
-                <MaCopy class="color-green" content={row.upstream_order_no} />
+                <MaCopy class="color-red" content={row.upstream_order_no} />
               </p>
             </div>
           </div>
@@ -525,14 +525,14 @@ export default function getTableColumns(
       },
     },
     {
-      label: () => t("collection_order.callback_url"),
-      prop: "callback_url",
+      label: () => t("collection_order.notify_url"),
+      prop: "notify_url",
       minWidth: 150,
       hide: true,
     },
     {
-      label: () => t("collection_order.callback_count"),
-      prop: "callback_count",
+      label: () => t("collection_order.notify_count"),
+      prop: "notify_count",
       width: 100,
     },
     {
@@ -559,8 +559,8 @@ export default function getTableColumns(
       },
     },
     {
-      label: () => t("collection_order.checkout_url"),
-      prop: "checkout_url",
+      label: () => t("collection_order.pay_url"),
+      prop: "pay_url",
       minWidth: 150,
       hide: true,
     },
