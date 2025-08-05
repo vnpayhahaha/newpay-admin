@@ -78,6 +78,7 @@ export interface DisbursementOrderVo {
   created_at: string;
   //
   updated_at: string;
+  transaction_voucher_id: number;
   bank_account: {
     //
     id: number;
@@ -130,4 +131,22 @@ export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().delete("/admin/transaction/disbursement_order", {
     data: ids,
   });
+}
+
+// 付款订单取消
+export function cancel(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().put("/admin/transaction/disbursement_order/cancel", {
+    data: ids,
+  });
+}
+
+// writeOff
+export function writeOff(
+  id: number,
+  data: DisbursementOrderVo
+): Promise<ResponseStruct<null>> {
+  return useHttp().put(
+    `/admin/transaction/disbursement_order/write_off/${id}`,
+    data
+  );
 }

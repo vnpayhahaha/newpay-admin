@@ -12,7 +12,7 @@ import type { DisbursementOrderVo } from "~/transaction/api/DisbursementOrder.ts
 import type { UseDialogExpose } from "@/hooks/useDialog.ts";
 
 import { useMessage } from "@/hooks/useMessage.ts";
-import { deleteByIds } from "~/transaction/api/DisbursementOrder.ts";
+import { cancel } from "~/transaction/api/DisbursementOrder.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
 import hasAuth from "@/utils/permission/hasAuth.ts";
 import MaCopy from "@/components/ma-copy/index.vue";
@@ -567,32 +567,35 @@ export default function getTableColumns(
     {
       type: "operation",
       label: () => t("crud.operation"),
-      width: "160px",
+      width: "200px",
+      fixed: "right",
       operationConfigure: {
         type: "tile",
         actions: [
           {
-            name: "edit",
-            icon: "i-heroicons:pencil",
+            name: "write_off",
+            icon: "i-heroicons:qr-code",
             show: ({ row }) =>
               showBtn("transaction:disbursement_order:update", row),
-            text: () => t("crud.edit"),
+            disabled: ({ row }) => row.status > 10 && row.status !== 43,
+            text: () => t("disbursement_order.write_off"),
             onClick: ({ row }) => {
-              dialog.setTitle(t("crud.edit"));
-              dialog.open({ formType: "edit", data: row });
+              dialog.setTitle(t("disbursement_order.write_off"));
+              dialog.open({ data: row });
             },
           },
           {
-            name: "del",
+            name: "cancel",
             show: ({ row }) =>
-              showBtn("transaction:disbursement_order:delete", row),
-            icon: "i-heroicons:trash",
-            text: () => t("crud.delete"),
+              showBtn("transaction:disbursement_order:update", row),
+            disabled: ({ row }) => row.status > 10,
+            icon: "i-material-symbols:cancel-outline-rounded",
+            text: () => t("crud.cancel"),
             onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t("crud.delDataMessage")).then(async () => {
-                const response = await deleteByIds([row.id]);
+              msg.delConfirm(t("crud.cancelDataMessage")).then(async () => {
+                const response = await cancel([row.id]);
                 if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t("crud.delSuccess"));
+                  msg.success(t("crud.cancelSuccess"));
                   await proxy.refresh();
                 }
               });

@@ -173,6 +173,7 @@ disbursement_order:
   undistributed: 未分配
   assigned: 已分配
   query_total: 查询总数
+  write_off: 核销
 menu:
   transaction_record:
     list: 交易记录列表

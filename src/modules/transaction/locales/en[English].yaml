@@ -113,7 +113,7 @@ collection_order:
   utr: UTR
   customer_submitted_utr: Customer Submitted UTR
   query_total: Query Total
-  write_off: write Off
+  write_off: Write Off
   transaction_voucher: Transaction Voucher
   paid_info: Paid Info
   cancelled_at: Cancelled At
@@ -173,6 +173,7 @@ disbursement_order:
   undistributed: undistributed
   assigned: assigned
   query_total: Query Total
+  write_off: Write Off
 menu:
   transaction_record:
     list: Transaction Record List
