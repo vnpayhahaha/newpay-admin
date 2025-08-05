@@ -122,6 +122,8 @@ collection_order:
 disbursement_order:
   index: Payment Order
   all: All
+  bank_account: Bank Account
+  channel_account: Channel Account
   channel: Channel Info
   order_no: Order No
   platform_order_no: Platform Order No
@@ -170,6 +172,7 @@ disbursement_order:
   payee_info: Payee Info
   undistributed: undistributed
   assigned: assigned
+  query_total: Query Total
 menu:
   transaction_record:
     list: Transaction Record List

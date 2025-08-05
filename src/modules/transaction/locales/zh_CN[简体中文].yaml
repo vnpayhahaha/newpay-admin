@@ -123,6 +123,8 @@ disbursement_order:
   index: 付款订单
   all: 全部
   channel: 渠道信息
+  bank_account: 银行账号
+  channel_account: 上游账号
   order_no: 订单号
   platform_order_no: 平台订单号
   tenant_order_no: 下游订单号
@@ -170,6 +172,7 @@ disbursement_order:
   payee_info: 收款信息
   undistributed: 未分配
   assigned: 已分配
+  query_total: 查询总数
 menu:
   transaction_record:
     list: 交易记录列表

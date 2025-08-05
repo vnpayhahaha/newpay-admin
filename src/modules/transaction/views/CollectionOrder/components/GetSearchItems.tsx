@@ -10,12 +10,15 @@
 
 import type { MaSearchItem } from "@mineadmin/search";
 import { selectStatus } from "@/modules/Common";
-import type { ChannelDictVo } from "~/channel/api/Channel.ts";
-import type { BankAccountDictVo } from "~/channel/api/BankAccount.ts";
-import type { ChannelAccountDictVo } from "~/channel/api/ChannelAccount.ts";
-import { remote } from "~/channel/api/Channel.ts";
-import { remote as bankAccountRemote } from "~/channel/api/BankAccount.ts";
-import { remote as channelAccountRemote } from "~/channel/api/ChannelAccount.ts";
+import { ChannelDictVo, remote } from "~/channel/api/Channel.ts";
+import {
+  BankAccountDictVo,
+  remote as bankAccountRemote,
+} from "~/channel/api/BankAccount.ts";
+import {
+  ChannelAccountDictVo,
+  remote as channelAccountRemote,
+} from "~/channel/api/ChannelAccount.ts";
 import { TenantDictVo, remote as tenantRemote } from "~/tenant/api/Tenant.ts";
 export default function getSearchItems(
   t: any,
