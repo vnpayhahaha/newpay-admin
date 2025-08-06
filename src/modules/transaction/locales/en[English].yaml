@@ -171,7 +171,8 @@ disbursement_order:
   cancel_info: Cancel Info
   payee_info: Payee Info
   undistributed: undistributed
-  assigned: assigned
+  distributed: distributed
+  distribute: Distribute
   query_total: Query Total
   write_off: Write Off
 menu:

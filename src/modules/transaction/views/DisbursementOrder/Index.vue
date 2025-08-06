@@ -25,11 +25,13 @@ import { useMessage } from "@/hooks/useMessage.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
 
 import WriteOffForm from "./WriteOffForm.vue";
+import DistributeForm from "./DistributeForm.vue";
 
 defineOptions({ name: "transaction:disbursement_order" });
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>;
 const writeOffFormRef = ref();
+const distributeFormRef = ref();
 const setFormRef = ref();
 const selections = ref<any[]>([]);
 const i18n = useTrans() as TransType;
@@ -54,6 +56,32 @@ const writeOffDialog: UseDialogExpose = useDialog({
               ? msg.success(t("crud.updateSuccess"))
               : msg.error(res.message);
             writeOffDialog.close();
+            proTableRef.value.refresh();
+          })
+          .catch((err: any) => {
+            msg.alertError(err.response.data?.message);
+          });
+      })
+      .catch();
+    okLoadingState(false);
+  },
+});
+const distributeDialog: UseDialogExpose = useDialog({
+  // 保存数据
+  ok: (_, okLoadingState: (state: boolean) => void) => {
+    okLoadingState(true);
+    const elForm = distributeFormRef.value.maForm.getElFormRef();
+    // 验证通过后
+    elForm
+      .validate()
+      .then(() => {
+        distributeFormRef.value
+          .distributeHandle()
+          .then((res: any) => {
+            res.code === 200
+              ? msg.success(t("crud.updateSuccess"))
+              : msg.error(res.message);
+            distributeDialog.close();
             proTableRef.value.refresh();
           })
           .catch((err: any) => {
@@ -121,11 +149,11 @@ const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t),
   // 表格列
-  tableColumns: getTableColumns(writeOffDialog, writeOffFormRef, t),
+  tableColumns: getTableColumns(writeOffDialog, distributeDialog, t),
 });
 const allocationOptions = ref([
   { label: t("disbursement_order.undistributed"), value: 1 },
-  { label: t("disbursement_order.assigned"), value: 2 },
+  { label: t("disbursement_order.distributed"), value: 2 },
 ]);
 
 function handleCheckedAllocationChange(val) {
@@ -183,6 +211,12 @@ function handleCancel() {
       <template #default="{ data }">
         <!-- 新增、编辑表单 -->
         <WriteOffForm ref="writeOffFormRef" :data="data" />
+      </template>
+    </component>
+    <component :is="distributeDialog.Dialog">
+      <template #default="{ data }">
+        <!-- 新增、编辑表单 -->
+        <DistributeForm ref="distributeFormRef" :data="data" />
       </template>
     </component>
   </div>

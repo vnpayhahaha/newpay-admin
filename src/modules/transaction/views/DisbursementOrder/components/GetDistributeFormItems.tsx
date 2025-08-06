@@ -8,7 +8,8 @@
  * @Link   https://github.com/mineadmin
  */
 import type { MaFormItem } from "@mineadmin/form";
-import type { TransactionVoucherVo } from "~/transaction/api/TransactionVoucher.ts";
+import type { DisbursementOrderVo } from "~/transaction/api/DisbursementOrder.ts";
+
 import { ChannelDictVo, remote } from "~/channel/api/Channel.ts";
 import {
   ChannelAccountDictVo,
@@ -18,42 +19,24 @@ import {
   BankAccountDictVo,
   remote as remoteBankAccount,
 } from "~/channel/api/BankAccount.ts";
-import MaDictRadio from "@/components/ma-dict-picker/ma-dict-radio.vue";
-import { Label } from "radix-vue";
 
 export default function getFormItems(
-  formType: "add" | "edit" = "add",
   t: any,
-  model: TransactionVoucherVo
+  model: DisbursementOrderVo
 ): MaFormItem[] {
-  // 新增默认值
-  if (formType === "add") {
-    model.transaction_type = 1;
-    model.transaction_voucher_type = 1;
-    // todo...
-  }
-
-  // 编辑默认值
-  if (formType === "edit") {
-    // todo...
-  }
   const channelArray = reactive<ChannelDictVo[]>([]);
-
-  // 当前选中的渠道类型、
-  const channelType = ref<number>(0);
-
   const channelChange = (val: string) => {
     // console.log('channelArray', channelArray)
     // console.log('channelChange', val)
     // model.api_config 赋值等于 遍历channelArray 中id === val 的 channelArray[i].config
     // model.channel_id = channelArray.find(item => item.id === val)?.config || []
-    channelType.value =
+    model.channel_type =
       channelArray.find((item) => item.id === val)?.channel_type || 0;
   };
   return [
     {
       label: t("transaction_voucher.channel_id"),
-      prop: "channel_id",
+      prop: "disbursement_channel_id",
       itemProps: { required: true },
       render: () => {
         return <ma-remote-select onChange={channelChange} filterable />;
@@ -102,10 +85,10 @@ export default function getFormItems(
               </span>
               <span
                 style="
-          float: right;
-          color: var(--el-text-color-secondary);
-          font-size: 13px;
-        "
+           float: right;
+           color: var(--el-text-color-secondary);
+           font-size: 13px;
+         "
               >
                 {item.extend.channel_code}
               </span>
@@ -114,7 +97,10 @@ export default function getFormItems(
         },
       },
       renderProps: {
-        api: () => new Promise((resolve) => resolve(remote({ status: 1 }))),
+        api: () =>
+          new Promise((resolve) =>
+            resolve(remote({ status: 1, support_disbursement: 1 }))
+          ),
         dataHandle: (response: any) => {
           channelArray.splice(0, channelArray.length, ...response.data);
           return response.data?.map((item: ChannelDictVo) => {
@@ -130,7 +116,7 @@ export default function getFormItems(
     {
       label: t("transaction_voucher.bank_account_id"),
       prop: "bank_account_id",
-      hide: () => channelType.value !== 1,
+      hide: () => model.channel_type !== 1,
       render: () => {
         return <ma-remote-select filterable />;
       },
@@ -171,10 +157,10 @@ export default function getFormItems(
               </span>
               <span
                 style="
-          float: right;
-          color: var(--el-text-color-secondary);
-          font-size: 13px;
-        "
+           float: right;
+           color: var(--el-text-color-secondary);
+           font-size: 13px;
+         "
               >
                 {item.extend.account_number}
               </span>
@@ -184,7 +170,9 @@ export default function getFormItems(
       },
       renderProps: {
         api: () =>
-          new Promise((resolve) => resolve(remoteBankAccount({ status: 1 }))),
+          new Promise((resolve) =>
+            resolve(remoteBankAccount({ status: 1, support_disbursement: 1 }))
+          ),
         dataHandle: (response: any) => {
           return response.data?.map((item: BankAccountDictVo) => {
             return {
@@ -200,7 +188,7 @@ export default function getFormItems(
           {
             required: true, // 保持基础必填规则
             validator: (_, value, callback) => {
-              if (channelType.value === 1 && !value) {
+              if (model.channel_type === 1 && !value) {
                 callback(new Error("bank_account_id is required"));
               } else {
                 callback();
@@ -213,7 +201,7 @@ export default function getFormItems(
     {
       label: t("transaction_voucher.channel_account_id"),
       prop: "channel_account_id",
-      hide: () => channelType.value !== 2,
+      hide: () => model.channel_type !== 2,
       render: () => {
         return <ma-remote-select filterable />;
       },
@@ -259,7 +247,9 @@ export default function getFormItems(
       renderProps: {
         api: () =>
           new Promise((resolve) =>
-            resolve(remoteChannelAccount({ status: 1 }))
+            resolve(
+              remoteChannelAccount({ status: 1, support_disbursement: 1 })
+            )
           ),
         dataHandle: (response: any) => {
           return response.data?.map((item: ChannelAccountDictVo) => {
@@ -273,11 +263,10 @@ export default function getFormItems(
       },
       itemProps: {
         rules: [
-          // 当channelType.value === 2， required: true
           {
             required: true, // 保持基础必填规则
             validator: (_, value, callback) => {
-              if (channelType.value === 2 && !value) {
+              if (model.channel_type === 2 && !value) {
                 callback(new Error("channel_account_id is required"));
               } else {
                 callback();
@@ -285,92 +274,6 @@ export default function getFormItems(
             },
           },
         ],
-      },
-    },
-    {
-      label: t("transaction_voucher.transaction_type"),
-      prop: "transaction_type",
-      cols: { md: 12, xs: 24 },
-      render: () => MaDictRadio,
-      itemProps: {
-        required: true,
-      },
-      renderProps: {
-        data: [
-          { label: t("enums.transaction_type.collection"), value: 1 },
-          { label: t("enums.transaction_type.disbursement"), value: 2 },
-        ],
-        // disabled: true,
-      },
-    },
-    {
-      label: t("transaction_voucher.collection_amount"),
-      prop: "collection_amount",
-      render: () => <el-input-number class="w-full" />,
-      itemProps: {
-        required: true,
-      },
-      renderProps: {
-        min: 0,
-        max: 999999,
-        precision: 2,
-      },
-      cols: {
-        span: 12,
-      },
-      renderSlots: {
-        prefix: () => <span style="margin-left: 8px">INR</span>,
-      },
-    },
-    {
-      label: t("transaction_voucher.transaction_voucher_type"),
-      prop: "transaction_voucher_type",
-      cols: { md: 12, xs: 24 },
-      render: () => MaDictRadio,
-      itemProps: {
-        required: true,
-      },
-      renderProps: {
-        data: [
-          { label: t("enums.transaction_voucher_type.order_no"), value: 1 },
-          { label: t("enums.transaction_voucher_type.utr"), value: 2 },
-          { label: t("enums.transaction_voucher_type.amount"), value: 3 },
-        ],
-        // disabled: true,
-      },
-    },
-    {
-      label: t("transaction_voucher.transaction_voucher"),
-      prop: "transaction_voucher",
-      hide: () => model.transaction_voucher_type === 3,
-      render: () => <el-input class="w-full" />,
-      itemProps: {
-        rules: [
-          {
-            required: true, // 保持基础必填规则
-            validator: (_, value, callback) => {
-              if (model.transaction_voucher_type < 3 && !value) {
-                callback(new Error("transaction_voucher is required"));
-              } else {
-                callback();
-              }
-            },
-          },
-        ],
-      },
-      cols: {
-        span: 12,
-      },
-      renderSlots: {
-        prefix: () => (
-          <span style="margin-left: 8px">
-            {model.transaction_voucher_type === 1
-              ? t("enums.transaction_voucher_type.order_no")
-              : model.transaction_voucher_type === 2
-              ? t("enums.transaction_voucher_type.utr")
-              : t("enums.transaction_voucher_type.amount")}
-          </span>
-        ),
       },
     },
   ];

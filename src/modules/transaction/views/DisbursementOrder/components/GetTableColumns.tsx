@@ -21,7 +21,7 @@ import { selectStatus } from "@/modules/Common";
 import { trim } from "lodash-es";
 export default function getTableColumns(
   dialog: UseDialogExpose,
-  formRef: any,
+  distributeDialog: UseDialogExpose,
   t: any
 ): MaProTableColumns[] {
   const dictStore = useDictStore();
@@ -573,11 +573,27 @@ export default function getTableColumns(
         type: "tile",
         actions: [
           {
+            name: "distribute",
+            icon: "i-material-symbols:account-tree-outline",
+            show: ({ row }) =>
+              showBtn("transaction:disbursement_order:update", row),
+            disabled: ({ row }) =>
+              (row.status > 10 && row.status !== 43) ||
+              row.disbursement_channel_id > 0,
+            text: () => t("disbursement_order.distribute"),
+            onClick: ({ row }) => {
+              distributeDialog.setTitle(t("disbursement_order.distribute"));
+              distributeDialog.open({ data: row });
+            },
+          },
+          {
             name: "write_off",
             icon: "i-heroicons:qr-code",
             show: ({ row }) =>
               showBtn("transaction:disbursement_order:update", row),
-            disabled: ({ row }) => row.status > 10 && row.status !== 43,
+            disabled: ({ row }) =>
+              (row.status > 10 && row.status !== 43) ||
+              row.disbursement_channel_id == 0,
             text: () => t("disbursement_order.write_off"),
             onClick: ({ row }) => {
               dialog.setTitle(t("disbursement_order.write_off"));

@@ -171,7 +171,8 @@ disbursement_order:
   cancel_info: 取消信息
   payee_info: 收款信息
   undistributed: 未分配
-  assigned: 已分配
+  distributed: 已分配
+  distribute: 分配
   query_total: 查询总数
   write_off: 核销
 menu:

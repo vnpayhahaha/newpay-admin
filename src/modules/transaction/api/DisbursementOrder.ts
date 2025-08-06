@@ -15,6 +15,7 @@ export interface DisbursementOrderVo {
   order_source: string;
   // 代付渠道D
   disbursement_channel_id: number;
+  channel_type: number;
   // 代付银行卡ID
   bank_account_id: number;
   channel_account_id: number;
@@ -147,6 +148,21 @@ export function writeOff(
 ): Promise<ResponseStruct<null>> {
   return useHttp().put(
     `/admin/transaction/disbursement_order/write_off/${id}`,
+    data
+  );
+}
+
+// distribute
+interface DistributerVo {
+  disbursement_channel_id: number;
+  channel_type: number;
+  channel_account_id?: number;
+  bank_account_id?: number;
+  ids: number[];
+}
+export function distribute(data: DistributerVo): Promise<ResponseStruct<null>> {
+  return useHttp().put(
+    `/admin/transaction/disbursement_order/distribute`,
     data
   );
 }
