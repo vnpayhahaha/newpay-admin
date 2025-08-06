@@ -280,6 +280,22 @@ export default function getSearchItems(
         placeholder: t("disbursement_order.request_id"),
       },
     },
+    {
+      label: () => t("disbursement_order.channel_type"),
+      prop: "channel_type",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("disbursement_order", "channel_type_list"))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
+      },
+    },
   ];
   if (!hideStatus) {
     searchItems.push({

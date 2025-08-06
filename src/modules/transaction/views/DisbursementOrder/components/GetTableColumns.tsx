@@ -55,7 +55,10 @@ export default function getTableColumns(
             {row.disbursement_channel_id > 0 ? (
               <div class="ml-5" style={{ flex: 1, minWidth: 0 }}>
                 <p>
-                  <el-text class="mx-1" type="primary">
+                  <el-text
+                    class="mx-1"
+                    type={row.channel_type === 1 ? "primary" : "danger"}
+                  >
                     {row.channel?.channel_code || ""}
                   </el-text>
                 </p>
@@ -91,6 +94,12 @@ export default function getTableColumns(
           </div>
         );
       },
+    },
+    {
+      label: () => t("disbursement_order.channel_type"),
+      prop: "channel_type",
+      minWidth: "100px",
+      hide: true,
     },
     {
       label: () => t("disbursement_order.disbursement_channel_id"),

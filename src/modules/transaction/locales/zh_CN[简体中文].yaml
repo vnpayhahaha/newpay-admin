@@ -123,6 +123,7 @@ disbursement_order:
   index: 付款订单
   all: 全部
   channel: 渠道信息
+  channel_type: 渠道类型
   bank_account: 银行账号
   channel_account: 上游账号
   order_no: 订单号
