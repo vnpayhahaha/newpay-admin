@@ -153,7 +153,7 @@ export function writeOff(
 }
 
 // distribute
-interface DistributerVo {
+export interface DistributerVo {
   disbursement_channel_id: number;
   channel_type: number;
   channel_account_id?: number;

@@ -12,39 +12,39 @@ import type {
   MaProTableExpose,
   MaProTableOptions,
   MaProTableSchema,
-} from "@mineadmin/pro-table";
-import type { Ref } from "vue";
-import type { TransType } from "@/hooks/auto-imports/useTrans.ts";
-import type { UseDialogExpose } from "@/hooks/useDialog.ts";
+} from '@mineadmin/pro-table'
+import type { Ref } from 'vue'
+import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
+import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { cancel, page } from "~/transaction/api/DisbursementOrder.ts";
-import getSearchItems from "./components/GetSearchItems.tsx";
-import getTableColumns from "./components/GetTableColumns.tsx";
-import useDialog from "@/hooks/useDialog.ts";
-import { useMessage } from "@/hooks/useMessage.ts";
-import { ResultCode } from "@/utils/ResultCode.ts";
+import { cancel, page } from '~/transaction/api/DisbursementOrder.ts'
+import getSearchItems from './components/GetSearchItems.tsx'
+import getTableColumns from './components/GetTableColumns.tsx'
+import useDialog from '@/hooks/useDialog.ts'
+import { useMessage } from '@/hooks/useMessage.ts'
+import { ResultCode } from '@/utils/ResultCode.ts'
 
-import WriteOffForm from "./WriteOffForm.vue";
-import DistributeForm from "./DistributeForm.vue";
+import WriteOffForm from './WriteOffForm.vue'
+import DistributeForm from './DistributeForm.vue'
 
-defineOptions({ name: "transaction:disbursement_order" });
+defineOptions({ name: 'transaction:disbursement_order' })
 
-const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>;
-const writeOffFormRef = ref();
-const distributeFormRef = ref();
-const setFormRef = ref();
-const selections = ref<any[]>([]);
-const i18n = useTrans() as TransType;
-const t = i18n.globalTrans;
-const local = i18n.localTrans;
-const msg = useMessage();
+const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
+const writeOffFormRef = ref()
+const distributeFormRef = ref()
+const setFormRef = ref()
+const selections = ref<any[]>([])
+const i18n = useTrans() as TransType
+const t = i18n.globalTrans
+const local = i18n.localTrans
+const msg = useMessage()
 
 // 弹窗配置
 const writeOffDialog: UseDialogExpose = useDialog({
   // 保存数据
   ok: (_, okLoadingState: (state: boolean) => void) => {
-    okLoadingState(true);
-    const elForm = writeOffFormRef.value.maForm.getElFormRef();
+    okLoadingState(true)
+    const elForm = writeOffFormRef.value.maForm.getElFormRef()
     // 验证通过后
     elForm
       .validate()
@@ -53,24 +53,24 @@ const writeOffDialog: UseDialogExpose = useDialog({
           .writeOffHandle()
           .then((res: any) => {
             res.code === 200
-              ? msg.success(t("crud.updateSuccess"))
-              : msg.error(res.message);
-            writeOffDialog.close();
-            proTableRef.value.refresh();
+              ? msg.success(t('crud.updateSuccess'))
+              : msg.error(res.message)
+            writeOffDialog.close()
+            proTableRef.value.refresh()
           })
           .catch((err: any) => {
-            msg.alertError(err.response.data?.message);
-          });
+            msg.alertError(err.response.data?.message)
+          })
       })
-      .catch();
-    okLoadingState(false);
+      .catch()
+    okLoadingState(false)
   },
-});
+})
 const distributeDialog: UseDialogExpose = useDialog({
   // 保存数据
   ok: (_, okLoadingState: (state: boolean) => void) => {
-    okLoadingState(true);
-    const elForm = distributeFormRef.value.maForm.getElFormRef();
+    okLoadingState(true)
+    const elForm = distributeFormRef.value.maForm.getElFormRef()
     // 验证通过后
     elForm
       .validate()
@@ -79,37 +79,37 @@ const distributeDialog: UseDialogExpose = useDialog({
           .distributeHandle()
           .then((res: any) => {
             res.code === 200
-              ? msg.success(t("crud.updateSuccess"))
-              : msg.error(res.message);
-            distributeDialog.close();
-            proTableRef.value.refresh();
+              ? msg.success(t('crud.updateSuccess'))
+              : msg.error(res.message)
+            distributeDialog.close()
+            proTableRef.value.refresh()
           })
           .catch((err: any) => {
-            msg.alertError(err.response.data?.message);
-          });
+            msg.alertError(err.response.data?.message)
+          })
       })
-      .catch();
-    okLoadingState(false);
+      .catch()
+    okLoadingState(false)
   },
-});
-const checkboxGroupAllocation = ref([]);
+})
+const checkboxGroupAllocation = ref([])
 const responseTableData = ref<Record<string, any>>({
   list: [],
   total: 0,
-});
+})
 // 参数配置
 const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => t("disbursement_order.index"),
+    mainTitle: () => t('disbursement_order.index'),
     subTitle: () => {
       return (
-        "| " +
-        t("disbursement_order.query_total") +
-        ": " +
-        responseTableData.value.total
-      );
+        `| ${
+          t('disbursement_order.query_total')
+        }: ${
+          responseTableData.value.total}`
+      )
     },
   },
   // 表格参数
@@ -123,58 +123,58 @@ const options = ref<MaProTableOptions>({
   searchOptions: {
     fold: true,
     text: {
-      searchBtn: () => t("crud.search"),
-      resetBtn: () => t("crud.reset"),
-      isFoldBtn: () => t("crud.searchFold"),
-      notFoldBtn: () => t("crud.searchUnFold"),
+      searchBtn: () => t('crud.search'),
+      resetBtn: () => t('crud.reset'),
+      isFoldBtn: () => t('crud.searchFold'),
+      notFoldBtn: () => t('crud.searchUnFold'),
     },
   },
   // 搜索表单参数
-  searchFormOptions: { labelWidth: "150px" },
+  searchFormOptions: { labelWidth: '150px' },
   // 请求配置
   requestOptions: {
     api: page,
     requestParams: {
-      orderBy: "id",
-      orderType: "desc",
+      orderBy: 'id',
+      orderType: 'desc',
     },
     responseDataHandler: (response: Record<string, any>) => {
-      responseTableData.value = response;
-      return response.list;
+      responseTableData.value = response
+      return response.list
     },
   },
-});
+})
 // 架构配置
 const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t),
   // 表格列
   tableColumns: getTableColumns(writeOffDialog, distributeDialog, t),
-});
+})
 const allocationOptions = ref([
-  { label: t("disbursement_order.undistributed"), value: 1 },
-  { label: t("disbursement_order.distributed"), value: 2 },
-]);
+  { label: t('disbursement_order.undistributed'), value: 1 },
+  { label: t('disbursement_order.distributed'), value: 2 },
+])
 
 function handleCheckedAllocationChange(val) {
   proTableRef.value.setRequestParams(
     {
       allocation: val,
     },
-    true
-  );
+    true,
+  )
 }
 
 // 批量取消
 function handleCancel() {
-  const ids = selections.value.map((item: any) => item.id);
-  msg.confirm(t("crud.cancelMessage")).then(async () => {
-    const response = await cancel(ids);
+  const ids = selections.value.map((item: any) => item.id)
+  msg.confirm(t('crud.cancelMessage')).then(async () => {
+    const response = await cancel(ids)
     if (response.code === ResultCode.SUCCESS) {
-      msg.success(t("crud.cancelSuccess"));
-      proTableRef.value.refresh();
+      msg.success(t('crud.cancelSuccess'))
+      proTableRef.value.refresh()
     }
-  });
+  })
 }
 </script>
 
@@ -199,10 +199,10 @@ function handleCancel() {
         >
           <el-checkbox-button
             v-for="option in allocationOptions"
-            :label="option.label"
             :key="option.value"
+            :label="option.label"
             :value="option.value"
-          ></el-checkbox-button>
+          />
         </el-checkbox-group>
       </template>
     </MaProTable>

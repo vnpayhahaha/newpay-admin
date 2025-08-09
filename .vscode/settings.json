@@ -1,6 +1,39 @@
 {
-    "i18n-ally.localesPaths": [
-        "src/locales",
-        "src/modules/base/locales"
-    ]
+    "go.gopath": "/Users/daxiong/go/wxhh",
+    "go.formatTool": "goimports",
+    "diffEditor.ignoreTrimWhitespace": true,
+    "go.docsTool": "gogetdoc",
+    "tabnine.experimentalAutoImports": true,
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "[json]": {
+
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+
+    //vscode es6语法检测配置
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "html",
+      "vue"
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.codeActionsOnSaveTimeout": 5000,
+    // 保存时自动格式化
+    "editor.formatOnSave": false,
+    "explorer.confirmDragAndDrop": false,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "vetur.format.defaultFormatter.js": "none",
+    "eslint.codeAction.showDocumentation": {
+      "enable": true
+    },
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }
