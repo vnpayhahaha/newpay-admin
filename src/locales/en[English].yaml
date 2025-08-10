@@ -204,5 +204,6 @@ common:
   copyed: Copied
   copySueccess: Copied to clipboard
   copyError: Copy failed
+  select_channel: Select channel
 validation:
   rangeInvalid: The value must be between {min} and {max}

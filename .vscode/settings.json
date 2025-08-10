@@ -35,5 +35,16 @@
       "enable": true
     },
     "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "i18n-ally.localesPaths": [
+      "src/locales",
+      "src/modules/channel/locales",
+      "src/modules/base/locales",
+      "src/modules/tenant/locales",
+      "src/modules/transaction/locales",
+      "src/plugins/west/front-export/locales",
+      "src/plugins/west/nm-search/locales",
+      "src/plugins/west/sys-settings/locales",
+      "src/plugins/west/tinymce/utils/langs"
+    ]
 }

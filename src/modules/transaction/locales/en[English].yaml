@@ -212,10 +212,22 @@ enums:
     amount: Amount
   CollectionOrder:
     status:
-      processing: processing
-      success: paid
+      create: created
+      processing: pending payment
+      success: success
       suspend: suspend
-      fail: fail
-      cancel: cancel
+      fail: failed
+      cancel: cancelled
       invalid: invalid
-      refund: refund
+      refund: refunded
+  disbursement_order:
+    status:
+      create: created
+      wait_pay: pending payment
+      wait_fill: processing
+      success: success
+      suspend: suspend
+      fail: failed
+      cancel: cancelled
+      invalid: invalid
+      refund: refunded

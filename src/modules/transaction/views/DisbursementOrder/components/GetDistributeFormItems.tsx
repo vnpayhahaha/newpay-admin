@@ -19,11 +19,26 @@ import {
   BankAccountDictVo,
   remote as remoteBankAccount,
 } from "~/channel/api/BankAccount.ts";
+import { unset } from "lodash-es";
 
 export default function getFormItems(
   t: any,
   model: DisbursementOrderVo
 ): MaFormItem[] {
+
+  if (model.disbursement_channel_id === 0) {
+    unset(model, 'disbursement_channel_id')
+    unset(model, 'channel_type')
+  }
+
+  if (model.channel_account_id === 0) {
+    unset(model, 'channel_account_id')
+  }
+
+  if (model.bank_account_id === 0) {
+    unset(model, 'bank_account_id')
+  }
+
   const channelArray = reactive<ChannelDictVo[]>([]);
   const channelChange = (val: string) => {
     // console.log('channelArray', channelArray)
