@@ -466,12 +466,12 @@ export default function getTableColumns(
     {
       label: () => t("collection_order.expire_time"),
       prop: "expire_time",
-      width: "180px",
+      width: "190px",
     },
     {
       label: () => t("collection_order.order_source"),
       prop: "order_source",
-      width: "120px",
+      width: "180px",
       cellRender: ({ row }) => {
         return (
           <div
@@ -479,6 +479,9 @@ export default function getTableColumns(
             style={{ display: "flex", alignItems: "center" }}
           >
             <div style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                <MaCopy content={row.created_at} class="color-blue" />
+              </p>
               <p>
                 <MaCopy content={row.order_source} />
               </p>
