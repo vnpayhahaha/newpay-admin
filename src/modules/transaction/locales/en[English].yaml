@@ -120,6 +120,7 @@ collection_order:
   cancelled_by: Cancel operator
   cancel_info: Cancel Info
 disbursement_order:
+  bankStatement: Bank Statement
   index: Payment Order
   all: All
   bank_account: Bank Account

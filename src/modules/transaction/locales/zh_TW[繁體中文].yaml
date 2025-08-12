@@ -120,6 +120,7 @@ collection_order:
   cancelled_by: 取消人
   cancel_info: 取消信息
 disbursement_order:
+  bankStatement: 银行账单
   index: 付款订单
   all: 全部
   bank_account: 银行账号

@@ -76,6 +76,7 @@
     "autoprefixer": "^10.4.21",
     "boxen": "^8.0.1",
     "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.8",
     "esno": "^4.8.0",
     "fs-extra": "^11.3.0",
     "http-server": "^14.1.1",
