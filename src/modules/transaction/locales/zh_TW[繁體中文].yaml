@@ -177,6 +177,9 @@ disbursement_order:
   distribute: 分配
   query_total: 查询总数
   write_off: 核销
+bankStatement:
+  index: 银行账单
+  download: 下载
 menu:
   transaction_record:
     list: 交易记录列表

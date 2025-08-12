@@ -177,6 +177,9 @@ disbursement_order:
   distribute: Distribute
   query_total: Query Total
   write_off: Write Off
+bankStatement:
+  index: Bank Statement
+  download: Download
 menu:
   transaction_record:
     list: Transaction Record List

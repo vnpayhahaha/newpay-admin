@@ -22,7 +22,8 @@ import {
 import { TenantDictVo, remote as tenantRemote } from "~/tenant/api/Tenant.ts";
 export default function getSearchItems(
   t: any,
-  hideStatus: boolean = false
+  hideStatus: boolean = false,
+  isChannelTypeBank: boolean = false,
 ): MaSearchItem[] {
   const searchItems: MaSearchItem[] = [
     {
@@ -47,6 +48,7 @@ export default function getSearchItems(
       render: () => <el-input />,
       renderProps: {
         placeholder: t("disbursement_order.upstream_order_no"),
+        disabled: isChannelTypeBank
       },
     },
     {
@@ -79,8 +81,13 @@ export default function getSearchItems(
       render: () => <ma-remote-select filterable />,
       renderProps: {
         api: () =>
-          new Promise((resolve) =>
-            resolve(remote({ support_disbursement: 1 }))
+          new Promise((resolve) => {
+              if (isChannelTypeBank) {
+              return  resolve(remote({ support_disbursement: 1, channel_type: 1 }))
+              } else {
+              return  resolve(remote({ support_disbursement: 1 }))
+              }
+            }
           ),
         dataHandle: (response: any) => {
           return response.data?.map((item: ChannelDictVo) => {
@@ -125,6 +132,7 @@ export default function getSearchItems(
           });
         },
         placeholder: t("disbursement_order.channel_account"),
+        disabled: isChannelTypeBank
       },
     },
     {
@@ -280,22 +288,6 @@ export default function getSearchItems(
         placeholder: t("disbursement_order.request_id"),
       },
     },
-    {
-      label: () => t("disbursement_order.channel_type"),
-      prop: "channel_type",
-      render: () => <ma-remote-select filterable />,
-      renderProps: {
-        api: () =>
-          new Promise((resolve) =>
-            resolve(selectStatus("disbursement_order", "channel_type_list"))
-          ),
-        dataHandle: (response: any) => {
-          return response.data?.map((item: Common.StatusOptionItem) => {
-            return { label: `${item.label}`, value: item.value };
-          });
-        },
-      },
-    },
   ];
   if (!hideStatus) {
     searchItems.push({
@@ -306,6 +298,24 @@ export default function getSearchItems(
         api: () =>
           new Promise((resolve) =>
             resolve(selectStatus("disbursement_order", "status_list"))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
+      },
+    });
+  }
+  if (!isChannelTypeBank) {
+    searchItems.push({
+      label: () => t("disbursement_order.channel_type"),
+      prop: "channel_type",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("disbursement_order", "channel_type_list"))
           ),
         dataHandle: (response: any) => {
           return response.data?.map((item: Common.StatusOptionItem) => {

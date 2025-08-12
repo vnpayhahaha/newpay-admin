@@ -17,21 +17,22 @@ import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { cancel, page } from '~/transaction/api/DisbursementOrder.ts'
+import { page } from '~/transaction/api/DisbursementOrder.ts'
 import getSearchItems from './components/GetSearchItems.tsx'
 import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
-import { ResultCode } from '@/utils/ResultCode.ts'
 
 import WriteOffForm from './WriteOffForm.vue'
 import DistributeForm from './DistributeForm.vue'
+import DownloadForm from './DownloadForm.vue'
 
 defineOptions({ name: 'transaction:disbursement_order' })
 
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const writeOffFormRef = ref()
 const distributeFormRef = ref()
+const downloadFormRef = ref()
 const setFormRef = ref()
 const selections = ref<any[]>([])
 const i18n = useTrans() as TransType
@@ -92,7 +93,23 @@ const distributeDialog: UseDialogExpose = useDialog({
     okLoadingState(false)
   },
 })
-const checkboxGroupAllocation = ref([])
+const downloadDialog: UseDialogExpose = useDialog({
+  // 保存数据
+  ok: (_, okLoadingState: (state: boolean) => void) => {
+    okLoadingState(true)
+    const elForm = downloadFormRef.value.maForm.getElFormRef()
+    // 验证通过后
+    elForm
+      .validate()
+      .then(() => {
+        const selectValue = downloadFormRef.value.downloadHandle()
+        downloadDialog.close()
+        proTableRef.value.search({ ...selectValue })
+      })
+      .catch()
+    okLoadingState(false)
+  },
+})
 const responseTableData = ref<Record<string, any>>({
   list: [],
   total: 0,
@@ -137,6 +154,7 @@ const options = ref<MaProTableOptions>({
       status: 11,
       channel_type: 1,
     },
+    autoRequest: false,
     responseDataHandler: (response: Record<string, any>) => {
       responseTableData.value = response
       return response.list
@@ -146,23 +164,10 @@ const options = ref<MaProTableOptions>({
 // 架构配置
 const schema = ref<MaProTableSchema>({
   // 搜索项
-  searchItems: getSearchItems(t, true),
+  searchItems: getSearchItems(t, true, true),
   // 表格列
   tableColumns: getTableColumns(writeOffDialog, distributeDialog, t),
 })
-const allocationOptions = ref([
-  { label: t('disbursement_order.undistributed'), value: 1 },
-  { label: t('disbursement_order.distributed'), value: 2 },
-])
-
-function handleCheckedAllocationChange(val) {
-  proTableRef.value.setRequestParams(
-    {
-      allocation: val,
-    },
-    true,
-  )
-}
 </script>
 
 <template>
@@ -170,31 +175,39 @@ function handleCheckedAllocationChange(val) {
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #toolbarLeft>
         <NmSearch :proxy="proTableRef" :row="2" />
-        <el-checkbox-group
-          v-model="checkboxGroupAllocation"
-          :max="1"
-          @change="handleCheckedAllocationChange"
-        >
-          <el-checkbox-button
-            v-for="option in allocationOptions"
-            :key="option.value"
-            :label="option.label"
-            :value="option.value"
-          />
-        </el-checkbox-group>
+      </template>
+      <!-- 数据为空时 -->
+      <template #empty>
+        <el-empty>
+          <el-button
+            type="primary"
+            @click="() => {
+              downloadDialog.setTitle(t('bankStatement.download'))
+              downloadDialog.open({ t })
+            }"
+          >
+            {{ t('bankStatement.download') }}
+          </el-button>
+        </el-empty>
       </template>
     </MaProTable>
 
     <component :is="writeOffDialog.Dialog">
       <template #default="{ data }">
-        <!-- 新增、编辑表单 -->
+        <!-- 核销表单 -->
         <WriteOffForm ref="writeOffFormRef" :data="data" />
       </template>
     </component>
     <component :is="distributeDialog.Dialog">
       <template #default="{ data }">
-        <!-- 新增、编辑表单 -->
+        <!-- 分配表单 -->
         <DistributeForm ref="distributeFormRef" :data="data" />
+      </template>
+    </component>
+    <component :is="downloadDialog.Dialog">
+      <template #default="{ data }">
+        <!-- download -->
+        <DownloadForm ref="downloadFormRef" :data="data" />
       </template>
     </component>
   </div>
