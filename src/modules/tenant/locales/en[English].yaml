@@ -105,7 +105,7 @@ tenantAccount:
   unfreezeSuccess: UnFreeze success
 tenantAccountRecord:
   index: All Billing records
-  tenantAccountBillRecord: Billing records
+  tenantAccountBillRecord: Tenant Billing records
   tenant_id: Tenant ID
   tenant_account_id: Associate tenant account ID
   account_id: Account ID
