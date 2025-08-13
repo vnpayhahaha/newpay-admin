@@ -180,6 +180,14 @@ disbursement_order:
 bankStatement:
   index: Bank Statement
   download: Download
+BankDisbursementDownload:
+  index: Download Record
+TransactionRawData:
+  index: Original voucher
+TransactionParsingRules:
+  index: Parsing Rules
+TransactionParsingLog:
+  index: Parsing Log
 menu:
   transaction_record:
     list: Transaction Record List
@@ -206,6 +214,26 @@ menu:
     create: Transaction Voucher Create
     update: Transaction Voucher Update
     delete: Transaction Voucher Delete
+  bank_disbursement_download:
+    list: Bank Disbursement Download List
+    create: Bank Disbursement Download Create
+    update: Bank Disbursement Download Update
+    delete: Bank Disbursement Download Delete
+  transaction_raw_data":
+    list: Transaction Raw Data List
+    create: Transaction Raw Data Create
+    update: Transaction Raw Data Update
+    delete: Transaction Raw Data Delete
+  transaction_parsing_rules:
+    list: Transaction Parsing Rules List
+    create: Transaction Parsing Rules Create
+    update: Transaction Parsing Rules Update
+    delete: Transaction Parsing Rules Delete
+  transaction_parsing_log:
+    list: Transaction Parsing Log List
+    create: Transaction Parsing Log Create
+    update: Transaction Parsing Log Update
+    delete: Transaction Parsing Log Delete
 enums:
   transaction_type:
     collection: Collection

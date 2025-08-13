@@ -180,6 +180,14 @@ disbursement_order:
 bankStatement:
   index: 银行账单
   download: 下载
+BankDisbursementDownload:
+  index: 下载记录
+TransactionRawData:
+  index: 原始凭证
+TransactionParsingRules:
+  index: 解析规则
+TransactionParsingLog:
+  index: 解析日志
 menu:
   transaction_record:
     list: 交易记录列表
@@ -208,6 +216,26 @@ menu:
     create: 新增交易凭证
     update: 修改交易凭证
     delete: 删除交易凭证
+  bank_disbursement_download:
+    list: 银行账单下载列表
+    create: 新增银行账单下载
+    update: 修改银行账单下载
+    delete: 删除银行账单下载
+  transaction_raw_data:
+    list: 原始凭证列表
+    create: 新增原始凭证
+    update: 修改原始凭证
+    delete: 删除原始凭证
+  transaction_parsing_rules:
+    list: 解析规则列表
+    create: 新增解析规则
+    update: 修改解析规则
+    delete: 删除解析规则
+  transaction_parsing_log:
+    list: 解析日志列表
+    create: 新增解析日志
+    update: 修改解析日志
+    delete: 删除解析日志
 enums:
   transaction_type:
     collection: 代收
