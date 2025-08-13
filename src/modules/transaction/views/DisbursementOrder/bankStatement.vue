@@ -151,7 +151,7 @@ const options = ref<MaProTableOptions>({
     requestParams: {
       orderBy: 'id',
       orderType: 'desc',
-      status: 11,
+      status: 10,
       channel_type: 1,
     },
     autoRequest: false,
@@ -166,7 +166,7 @@ const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t, true, true),
   // 表格列
-  tableColumns: getTableColumns(writeOffDialog, distributeDialog, t),
+  tableColumns: getTableColumns(writeOffDialog, distributeDialog, t, true),
 })
 </script>
 

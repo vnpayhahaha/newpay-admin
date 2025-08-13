@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import type { DisbursementOrderVo } from '~/transaction/api/DisbursementOrder.ts'
 
-import getFormItems from './GetDownloadFormItems.tsx'
+import getFormItems from './components/GetDownloadFormItems.tsx'
 import type { MaFormExpose } from '@mineadmin/form'
 import useForm from '@/hooks/useForm.ts'
 

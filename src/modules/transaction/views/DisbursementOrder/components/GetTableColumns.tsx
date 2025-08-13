@@ -22,7 +22,8 @@ import { trim } from "lodash-es";
 export default function getTableColumns(
   dialog: UseDialogExpose,
   distributeDialog: UseDialogExpose,
-  t: any
+  t: any,
+  isBankStatement: boolean = false,
 ): MaProTableColumns[] {
   const dictStore = useDictStore();
   const msg = useMessage();
@@ -576,6 +577,7 @@ export default function getTableColumns(
     {
       type: "operation",
       label: () => t("crud.operation"),
+      hide: isBankStatement,
       width: "200px",
       fixed: "right",
       operationConfigure: {
