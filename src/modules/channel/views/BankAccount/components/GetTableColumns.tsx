@@ -49,6 +49,39 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         )
       },
     },
+     {
+      label: () => t('channelAccount.status'), prop: 'status',
+      width: 80,
+      cellRenderTo: {
+        name: 'nmCellEnhance',
+        props: {
+          type: 'switch',
+          prop: 'status',
+          props: {
+            size: 'small',
+            activeValue: true,
+            inactiveValue: false,
+            on: {
+              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
+                console.log('value', value)
+                save(row.id, {
+                  ...row,
+                  status: value,
+                }).then((res) => {
+                  if (res.code === ResultCode.SUCCESS) {
+                    msg.success(t('crud.updateSuccess'))
+                    proxy.refresh()
+                  }
+                  else {
+                    msg.error(t('crud.updateError'))
+                  }
+                })
+              },
+            },
+          },
+        },
+      },
+    },
     { label: () => t('bankAccount.bank_code'), prop: 'bank_code' },
     {
       label: () => t('bankAccount.branch_name'), prop: 'branch_name',
@@ -182,103 +215,223 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       },
     },
     {
-      label: () => t('bankAccount.daily_max_receipt'), prop: 'daily_max_receipt',
-      className: 'cellBackgroundBlue',
-      labelClassName: 'cellBackgroundBlue',
-    },
-    {
-      label: () => t('bankAccount.daily_max_payment'), prop: 'daily_max_payment',
-      className: 'cellBackgroundRed',
-      labelClassName: 'cellBackgroundRed',
-    },
-    {
-      label: () => t('bankAccount.daily_max_receipt_count'), prop: 'daily_max_receipt_count',
-      className: 'cellBackgroundBlue',
-      labelClassName: 'cellBackgroundBlue',
-    },
-    {
-      label: () => t('bankAccount.daily_max_payment_count'), prop: 'daily_max_payment_count',
-      className: 'cellBackgroundRed',
-      labelClassName: 'cellBackgroundRed',
-    },
-    {
-      label: () => t('bankAccount.max_receipt_per_txn'), prop: 'max_receipt_per_txn',
-      className: 'cellBackgroundBlue',
-      labelClassName: 'cellBackgroundBlue',
-    },
-    {
-      label: () => t('bankAccount.max_payment_per_txn'), prop: 'max_payment_per_txn',
-      className: 'cellBackgroundRed',
-      labelClassName: 'cellBackgroundRed',
-    },
-    {
-      label: () => t('bankAccount.min_receipt_per_txn'), prop: 'min_receipt_per_txn',
-      className: 'cellBackgroundBlue',
-      labelClassName: 'cellBackgroundBlue',
-    },
-    {
-      label: () => t('bankAccount.min_payment_per_txn'), prop: 'min_payment_per_txn',
-      className: 'cellBackgroundRed',
-      labelClassName: 'cellBackgroundRed',
-    },
-    { label: () => t('bankAccount.security_level'), prop: 'security_level' },
-    { label: () => t('bankAccount.last_used_time'), prop: 'last_used_time' },
-    { label: () => t('bankAccount.used_quota'), prop: 'used_quota' },
-    { label: () => t('bankAccount.limit_quota'), prop: 'limit_quota' },
-    {
-      label: () => t('bankAccount.today_receipt_count'), prop: 'today_receipt_count',
-      className: 'cellBackgroundBlue',
-      labelClassName: 'cellBackgroundBlue',
-    },
-    {
-      label: () => t('bankAccount.today_payment_count'), prop: 'today_payment_count',
-      className: 'cellBackgroundRed',
-      labelClassName: 'cellBackgroundRed',
-    },
-    {
-      label: () => t('bankAccount.today_receipt_amount'), prop: 'today_receipt_amount',
-      className: 'cellBackgroundBlue',
-      labelClassName: 'cellBackgroundBlue',
-    },
-    {
-      label: () => t('bankAccount.today_payment_amount'), prop: 'today_payment_amount',
-      className: 'cellBackgroundRed',
-      labelClassName: 'cellBackgroundRed',
-    },
-    { label: () => t('bankAccount.stat_date'), prop: 'stat_date' },
-    {
-      label: () => t('channelAccount.status'), prop: 'status',
-      width: 80,
-      cellRenderTo: {
-        name: 'nmCellEnhance',
-        props: {
-          type: 'switch',
-          prop: 'status',
-          props: {
-            size: 'small',
-            activeValue: true,
-            inactiveValue: false,
-            on: {
-              change: (value: boolean, row: any, proxy: MaProTableExpose) => {
-                console.log('value', value)
-                save(row.id, {
-                  ...row,
-                  status: value,
-                }).then((res) => {
-                  if (res.code === ResultCode.SUCCESS) {
-                    msg.success(t('crud.updateSuccess'))
-                    proxy.refresh()
-                  }
-                  else {
-                    msg.error(t('crud.updateError'))
-                  }
-                })
-              },
-            },
-          },
-        },
+      label: () => t('bankAccount.daily_receipt'),
+      prop: 'daily_receipt',
+      type: 'merge',
+      minWidth: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left">
+            <p>
+              <el-text class="mx-1" type="primary">{t('bankAccount.daily_max_receipt')}:</el-text>
+              {row.daily_max_receipt}
+            </p>
+            <p>
+              <el-text class="mx-1" type="primary">{t('bankAccount.daily_max_receipt_count')}:</el-text>
+              {row.daily_max_receipt_count}
+            </p>
+            <p>
+              <el-text class="mx-1" type="warning">{t('bankAccount.max_receipt_per_txn')}:</el-text>
+              {row.max_receipt_per_txn}
+            </p>
+            <p>
+              <el-text class="mx-1" type="warning">{t('bankAccount.min_receipt_per_txn')}:</el-text>
+              {row.min_receipt_per_txn}
+            </p>
+          </div>
+        )
       },
     },
+    {
+      label: () => t('bankAccount.daily_payment'),
+      prop: 'daily_payment',
+      type: 'merge',
+      minWidth: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left">
+            <p>
+              <el-text class="mx-1" type="primary">{t('bankAccount.daily_max_payment')}:</el-text>
+              {row.daily_max_payment}
+            </p>
+            <p>
+              <el-text class="mx-1" type="primary">{t('bankAccount.daily_max_payment_count')}:</el-text>
+              {row.daily_max_payment_count}
+            </p>
+            <p>
+              <el-text class="mx-1" type="warning">{t('bankAccount.max_payment_per_txn')}:</el-text>
+              {row.max_payment_per_txn}
+            </p>
+            <p>
+              <el-text class="mx-1" type="warning">{t('bankAccount.min_payment_per_txn')}:</el-text>
+              {row.min_payment_per_txn}
+            </p>
+          </div>
+        )
+      },
+    },
+    {
+      label: () => t('bankAccount.daily_max_receipt'),
+      hide: true,
+      width: 140,
+      prop: 'daily_max_receipt',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.daily_max_payment'),
+      hide: true,
+      width: 140,
+      prop: 'daily_max_payment',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.daily_max_receipt_count'),
+      hide: true,
+      width: 140,
+      prop: 'daily_max_receipt_count',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.daily_max_payment_count'),
+      hide: true,
+      width: 140,
+      prop: 'daily_max_payment_count',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.max_receipt_per_txn'),
+      hide: true,
+      width: 140,
+      prop: 'max_receipt_per_txn',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.max_payment_per_txn'),
+      hide: true,
+      width: 140,
+      prop: 'max_payment_per_txn',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.min_receipt_per_txn'),
+      hide: true,
+      width: 140,
+      prop: 'min_receipt_per_txn',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.min_payment_per_txn'),
+      hide: true,
+      width: 140,
+      prop: 'min_payment_per_txn',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.security_level'),
+      width: 100,
+      prop: 'security_level'
+    },
+    {
+      label: () => t('bankAccount.last_used_time'),
+      width: 180,
+      prop: 'last_used_time'
+    },
+    {
+      label: () => t('bankAccount.used_quota'),
+      width: 100,
+      prop: 'used_quota'
+    },
+    {
+      label: () => t('bankAccount.limit_quota'),
+      width: 100,
+      prop: 'limit_quota'
+    },
+    {
+      label: () => t('bankAccount.today_receipt'),
+      prop: 'today_receipt',
+      type: 'merge',
+      minWidth: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left">
+            <p>
+              <el-text class="mx-1" type="primary">{t('bankAccount.today_receipt_count')}:</el-text>
+              {row.today_receipt_count}
+            </p>
+            <p>
+              <el-text class="mx-1" type="primary">{t('bankAccount.today_receipt_amount')}:</el-text>
+              {row.today_receipt_amount}
+            </p>
+          </div>
+        )
+      },
+    },
+    {
+      label: () => t('bankAccount.today_payment'),
+      prop: 'today_payment',
+      type: 'merge',
+      minWidth: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left">
+            <p>
+              <el-text class="mx-1" type="primary">{t('bankAccount.today_payment_count')}:</el-text>
+              {row.today_payment_count}
+            </p>
+            <p>
+              <el-text class="mx-1" type="primary">{t('bankAccount.today_payment_amount')}:</el-text>
+              {row.today_payment_amount}
+            </p>
+          </div>
+        )
+      },
+    },
+    {
+      label: () => t('bankAccount.today_receipt_count'),
+      hide: true,
+      width: 120,
+      prop: 'today_receipt_count',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.today_payment_count'),
+      hide: true,
+      width: 120,
+      prop: 'today_payment_count',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.today_receipt_amount'),
+      hide: true,
+      width: 120,
+      prop: 'today_receipt_amount',
+      className: 'cellBackgroundBlue',
+      labelClassName: 'cellBackgroundBlue',
+    },
+    {
+      label: () => t('bankAccount.today_payment_amount'),
+      hide: true,
+      width: 120,
+      prop: 'today_payment_amount',
+      className: 'cellBackgroundRed',
+      labelClassName: 'cellBackgroundRed',
+    },
+    {
+      label: () => t('bankAccount.stat_date'),
+      width: 120,
+      prop: 'stat_date'
+    },
+
 
     // 操作列
     {
