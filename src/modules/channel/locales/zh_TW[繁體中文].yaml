@@ -47,6 +47,7 @@ bankAccount:
   deleted_at: 删除时间
   support_collection: 支持收款
   support_disbursement: 支持付款
+  down_bill_template_id: 付款账单模板项
 channelAccount:
   index: 渠道账户
   channel_id: 渠道ID

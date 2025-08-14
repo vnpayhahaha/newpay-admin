@@ -62,6 +62,7 @@ export interface BankAccountVo {
   deleted_at: string;
   support_collection: boolean;
   support_disbursement: boolean;
+  down_bill_template_id: string[];
 }
 
 // 银行账户查询

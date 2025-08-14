@@ -11,6 +11,7 @@ import type { MaFormItem } from '@mineadmin/form'
 import type { BankAccountVo } from '~/channel/api/BankAccount.ts'
 import type { ChannelDictVo } from '~/channel/api/Channel.ts'
 import { remote } from '~/channel/api/Channel.ts'
+import { selectStatus } from '@/modules/Common'
 
 export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: BankAccountVo): MaFormItem[] {
   // 新增默认值
@@ -229,6 +230,20 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       render: () => <el-input-number min={0} max={9999999999} precision={2} />,
         renderProps: {
         class: 'w-full',
+      },
+    },
+    {
+      label: t('bankAccount.down_bill_template_id'),
+      prop: 'down_bill_template_id',
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('disbursement_order', 'bill_template_list'))),
+        dataHandle: (response: any) => {
+         return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+        multiple: true,
       },
     },
 

@@ -88,7 +88,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response.data?.message)
             })
             break
           // 修改
@@ -98,7 +98,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err.response.data?.message)
             })
             break
         }

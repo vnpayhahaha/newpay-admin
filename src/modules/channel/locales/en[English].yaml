@@ -48,6 +48,7 @@ bankAccount:
   deleted_at: Deletion time
   support_collection: support collection
   support_disbursement: support disbursement
+  down_bill_template_id: Payment bill template item
 channelAccount:
   index: Channel account
   channel_id: Channel ID
