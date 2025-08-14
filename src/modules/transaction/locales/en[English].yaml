@@ -39,7 +39,7 @@ transaction_queue_status:
   updated_at: update time
 transaction_voucher:
   index: Transaction Voucher
-  channel_id: channel
+  channel_id: channel/bank
   channel_account_id: channel account
   bank_account_id: bank account
   collection_card_no: collection card no
@@ -177,9 +177,14 @@ disbursement_order:
   distribute: Distribute
   query_total: Query Total
   write_off: Write Off
+  downloadBankBillMessage: Download bank statement
+  downloadBankBillSuccess: Bank statement downloaded successfully
+  downloadBankBillError: Request server error, download failed
+  download: 下 载
 bankStatement:
   index: Bank Statement
   download: Download
+  select_bank_account: Select Bank Account
 BankDisbursementDownload:
   index: Download Record
 TransactionRawData:

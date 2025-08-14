@@ -96,6 +96,7 @@ http.interceptors.response.use(
           fileName = decodeURIComponent(match[1].replace(/['"]/g, ''))
         }
       }
+      console.log('fileName==', fileName)
 
       return Promise.resolve({
         data: response.data,

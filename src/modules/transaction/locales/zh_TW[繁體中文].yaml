@@ -39,7 +39,7 @@ transaction_queue_status:
   updated_at: 更新时间
 transaction_voucher:
   index: 交易凭证
-  channel_id: 渠道编号ID
+  channel_id: 渠道/银行
   channel_account_id: 渠道账户ID
   bank_account_id: 银行账户ID
   collection_card_no: 收款卡号
@@ -177,9 +177,14 @@ disbursement_order:
   distribute: 分配
   query_total: 查询总数
   write_off: 核销
+  downloadBankBillMessage: 银行账单下载
+  downloadBankBillSuccess: 银行账单下载成功
+  downloadBankBillError: 请求服务器错误，下载失败
+  download: 下 载
 bankStatement:
   index: 银行账单
   download: 下载
+  select_bank_account: 选择银行账户
 BankDisbursementDownload:
   index: 下载记录
 TransactionRawData:

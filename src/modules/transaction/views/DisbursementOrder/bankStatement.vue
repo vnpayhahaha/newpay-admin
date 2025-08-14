@@ -17,15 +17,17 @@ import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { page } from '~/transaction/api/DisbursementOrder.ts'
+import { downloadBankBill, page } from '~/transaction/api/DisbursementOrder.ts'
 import getSearchItems from './components/GetSearchItems.tsx'
 import getTableColumns from './components/GetTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
 import { useMessage } from '@/hooks/useMessage.ts'
+import { ResultCode } from '@/utils/ResultCode.ts'
 
 import WriteOffForm from './WriteOffForm.vue'
 import DistributeForm from './DistributeForm.vue'
 import DownloadForm from './DownloadForm.vue'
+import tool from '@/utils/tool.ts'
 
 defineOptions({ name: 'transaction:disbursement_order' })
 
@@ -168,12 +170,36 @@ const schema = ref<MaProTableSchema>({
   // 表格列
   tableColumns: getTableColumns(writeOffDialog, distributeDialog, t, true),
 })
+
+// 批量下载
+function handleDownload() {
+  const ids = selections.value.map((item: any) => item.id)
+  msg.confirm(t('disbursement_order.downloadBankBillMessage')).then(async () => {
+    await downloadBankBill(ids).then((res) => {
+      tool.download(res)
+      msg.success(t('disbursement_order.downloadBankBillSuccess'))
+    }).catch(() => {
+      msg.error(t('disbursement_order.downloadBankBillError'))
+    }).finally(() => {
+      proTableRef.value.refresh()
+    })
+  })
+}
 </script>
 
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #toolbarLeft>
+        <el-button
+          v-auth="['transaction:disbursement_order:update']"
+          type="primary"
+          plain
+          :disabled="selections.length < 1"
+          @click="handleDownload"
+        >
+          {{ t("disbursement_order.download") }}
+        </el-button>
         <NmSearch :proxy="proTableRef" :row="2" />
       </template>
       <!-- 数据为空时 -->
@@ -182,11 +208,11 @@ const schema = ref<MaProTableSchema>({
           <el-button
             type="primary"
             @click="() => {
-              downloadDialog.setTitle(t('bankStatement.download'))
+              downloadDialog.setTitle(t('bankStatement.select_bank_account'))
               downloadDialog.open({ t })
             }"
           >
-            {{ t('bankStatement.download') }}
+            {{ t('bankStatement.select_bank_account') }}
           </el-button>
         </el-empty>
       </template>

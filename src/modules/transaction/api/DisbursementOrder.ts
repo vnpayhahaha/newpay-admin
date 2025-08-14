@@ -166,3 +166,18 @@ export function distribute(data: DistributerVo): Promise<ResponseStruct<null>> {
     data
   );
 }
+
+// 获取下载表单 blod响应 /admin/transaction/disbursement_order/download_bank_bill
+export function downloadBankBill(
+  ids: number[]
+): Promise<ResponseStruct<Blob>> {
+  return useHttp().request({
+   url: "/admin/transaction/disbursement_order/download_bank_bill",
+   data: {
+    ids
+    },
+   method: 'post', 
+   timeout: 60 * 1000, 
+   responseType: 'blob'
+  });
+}
