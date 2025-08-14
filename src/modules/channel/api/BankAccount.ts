@@ -72,6 +72,13 @@ export function page(
   return useHttp().get("/admin/channel/bank_account/list", { params });
 }
 
+// down_bill_template_ids
+export function down_bill_template_ids(
+  id: number
+): Promise<ResponseStruct<string[]>> {
+  return useHttp().get(`/admin/channel/down_bill_template_ids/${id}`);
+}
+
 // 银行账户新增
 export function create(data: BankAccountVo): Promise<ResponseStruct<null>> {
   return useHttp().post("/admin/channel/bank_account", data);

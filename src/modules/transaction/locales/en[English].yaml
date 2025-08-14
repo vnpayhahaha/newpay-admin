@@ -180,7 +180,8 @@ disbursement_order:
   downloadBankBillMessage: Download bank statement
   downloadBankBillSuccess: Bank statement downloaded successfully
   downloadBankBillError: Request server error, download failed
-  download: 下 载
+  download: Download
+  downloadBankBillSelectBankAccountMsg: Please select a bank and a bank account before continuing
 bankStatement:
   index: Bank Statement
   download: Download

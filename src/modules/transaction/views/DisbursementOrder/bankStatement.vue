@@ -17,6 +17,7 @@ import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
+import type { DisbursementOrderVo } from '~/transaction/api/DisbursementOrder.ts'
 import { downloadBankBill, page } from '~/transaction/api/DisbursementOrder.ts'
 import getSearchItems from './components/GetSearchItems.tsx'
 import getTableColumns from './components/GetTableColumns.tsx'
@@ -26,6 +27,7 @@ import { ResultCode } from '@/utils/ResultCode.ts'
 
 import WriteOffForm from './WriteOffForm.vue'
 import DistributeForm from './DistributeForm.vue'
+import SearchBankForm from './SearchBankForm.vue'
 import DownloadForm from './DownloadForm.vue'
 import tool from '@/utils/tool.ts'
 
@@ -35,6 +37,7 @@ const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
 const writeOffFormRef = ref()
 const distributeFormRef = ref()
 const downloadFormRef = ref()
+const searchBankFormRef = ref()
 const setFormRef = ref()
 const selections = ref<any[]>([])
 const i18n = useTrans() as TransType
@@ -95,6 +98,23 @@ const distributeDialog: UseDialogExpose = useDialog({
     okLoadingState(false)
   },
 })
+const searchBankDialog: UseDialogExpose = useDialog({
+  // 保存数据
+  ok: (_, okLoadingState: (state: boolean) => void) => {
+    okLoadingState(true)
+    const elForm = searchBankFormRef.value.maForm.getElFormRef()
+    // 验证通过后
+    elForm
+      .validate()
+      .then(() => {
+        const selectValue = searchBankFormRef.value.downloadHandle()
+        searchBankDialog.close()
+        proTableRef.value.search({ ...selectValue })
+      })
+      .catch()
+    okLoadingState(false)
+  },
+})
 const downloadDialog: UseDialogExpose = useDialog({
   // 保存数据
   ok: (_, okLoadingState: (state: boolean) => void) => {
@@ -103,10 +123,11 @@ const downloadDialog: UseDialogExpose = useDialog({
     // 验证通过后
     elForm
       .validate()
-      .then(() => {
-        const selectValue = downloadFormRef.value.downloadHandle()
+      .then(async () => {
+        const ids = selections.value.map((item: any) => item.id)
+        await downloadFormRef.value.downloadHandle(ids)
         downloadDialog.close()
-        proTableRef.value.search({ ...selectValue })
+        proTableRef.value.refresh()
       })
       .catch()
     okLoadingState(false)
@@ -171,6 +192,11 @@ const schema = ref<MaProTableSchema>({
   tableColumns: getTableColumns(writeOffDialog, distributeDialog, t, true),
 })
 
+// 返回值 Record<string, any> 断言 DisbursementOrderVo
+const searchData = computed((): DisbursementOrderVo => {
+  return proTableRef.value.getSearchForm() as DisbursementOrderVo
+})
+
 // 批量下载
 function handleDownload() {
   const ids = selections.value.map((item: any) => item.id)
@@ -196,7 +222,17 @@ function handleDownload() {
           type="primary"
           plain
           :disabled="selections.length < 1"
-          @click="handleDownload"
+          @click="() => {
+            if (searchData?.bank_account_id > 0 && searchData?.disbursement_channel_id > 0) {
+              downloadDialog.setTitle(t('disbursement_order.download'))
+              downloadDialog.open({ t })
+            }
+            else {
+              msg.warning(t('disbursement_order.downloadBankBillSelectBankAccountMsg'))
+              searchBankDialog.setTitle(t('bankStatement.select_bank_account'))
+              searchBankDialog.open({ t })
+            }
+          }"
         >
           {{ t("disbursement_order.download") }}
         </el-button>
@@ -208,8 +244,8 @@ function handleDownload() {
           <el-button
             type="primary"
             @click="() => {
-              downloadDialog.setTitle(t('bankStatement.select_bank_account'))
-              downloadDialog.open({ t })
+              searchBankDialog.setTitle(t('bankStatement.select_bank_account'))
+              searchBankDialog.open({ t })
             }"
           >
             {{ t('bankStatement.select_bank_account') }}
@@ -230,10 +266,16 @@ function handleDownload() {
         <DistributeForm ref="distributeFormRef" :data="data" />
       </template>
     </component>
-    <component :is="downloadDialog.Dialog">
+    <component :is="searchBankDialog.Dialog">
       <template #default="{ data }">
         <!-- download -->
-        <DownloadForm ref="downloadFormRef" :data="data" />
+        <SearchBankForm ref="searchBankFormRef" :data="data" />
+      </template>
+    </component>
+    <component :is="downloadDialog.Dialog">
+      <template #default>
+        <!-- download -->
+        <DownloadForm ref="downloadFormRef" :data="searchData" />
       </template>
     </component>
   </div>

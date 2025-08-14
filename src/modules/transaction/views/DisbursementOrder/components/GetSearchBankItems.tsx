@@ -11,20 +11,17 @@ import type { MaFormItem } from "@mineadmin/form";
 import type { DisbursementOrderVo } from "~/transaction/api/DisbursementOrder.ts";
 
 import { ChannelDictVo, remote } from "~/channel/api/Channel.ts";
-import {down_bill_template_ids } from "~/channel/api/BankAccount";
 import {
   BankAccountDictVo,
   remote as remoteBankAccount,
 } from "~/channel/api/BankAccount.ts";
 import { unset } from "lodash-es";
-//down_bill_template_ids
 
 export default function getFormItems(
   t: any,
   model: DisbursementOrderVo
 ): MaFormItem[] {
 
-  console.log('model===', model)
   if (model.disbursement_channel_id === 0) {
     unset(model, 'disbursement_channel_id')
   }
@@ -209,23 +206,5 @@ export default function getFormItems(
         ],
       },
     },
-    {
-      label: t("bankAccount.down_bill_template_id"),
-      prop: "down_bill_template_id",
-      render: () => <ma-remote-select filterable />,
-      renderProps: {
-        api: () =>
-          new Promise((resolve) =>
-            resolve(down_bill_template_ids(model.bank_account_id))
-          ),
-        dataHandle: (response: any) => {
-          return response.data?.map((item: string) => {
-            return { label: `${item}`, value: item };
-          });
-        },
-        placeholder: t("bankAccount.down_bill_template_id"),
-
-      },
-    }
   ];
 }

@@ -10,13 +10,9 @@
 <script setup lang="ts">
 import type { DisbursementOrderVo } from '~/transaction/api/DisbursementOrder.ts'
 
-import getFormItems from './components/GetDownloadFormItems.tsx'
+import getFormItems from './components/GetSearchBankItems.tsx'
 import type { MaFormExpose } from '@mineadmin/form'
 import useForm from '@/hooks/useForm.ts'
-// downloadBankBill
-import { downloadBankBill } from '~/transaction/api/DisbursementOrder.ts'
-import tool from '@/utils/tool.ts'
-import { useMessage } from '@/hooks/useMessage.ts'
 
 const { data = null } = defineProps<{
   data?: DisbursementOrderVo | null
@@ -37,16 +33,10 @@ useForm('maFormRef').then((form: MaFormExpose) => {
     labelWidth: '180px',
   })
 })
-const msg = useMessage()
+
 // 核销操作
-// 核销操作
-async function downloadHandle(ids: number[]) {
-  await downloadBankBill(ids).then((res) => {
-    tool.download(res)
-    msg.success(t('disbursement_order.downloadBankBillSuccess'))
-  }).catch(() => {
-    msg.error(t('disbursement_order.downloadBankBillError'))
-  })
+function downloadHandle() {
+  return formModel.value
 }
 
 defineExpose({

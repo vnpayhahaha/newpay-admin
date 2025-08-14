@@ -49,6 +49,10 @@ bankAccount:
   support_collection: support collection
   support_disbursement: support disbursement
   down_bill_template_id: Payment bill template item
+  daily_receipt: Daily collection limit
+  daily_payment: Daily payment limit
+  today_receipt: Received payment today
+  today_payment: Today's payment
 channelAccount:
   index: Channel account
   channel_id: Channel ID
