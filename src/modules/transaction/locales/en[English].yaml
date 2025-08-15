@@ -182,6 +182,7 @@ disbursement_order:
   downloadBankBillError: Request server error, download failed
   download: Download
   downloadBankBillSelectBankAccountMsg: Please select a bank and a bank account before continuing
+  bank_disbursement_download: Bank Statement
 bankStatement:
   index: Bank Statement
   download: Download

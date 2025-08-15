@@ -12,45 +12,45 @@ import type {
   MaProTableExpose,
   MaProTableOptions,
   MaProTableSchema,
-} from '@mineadmin/pro-table'
-import type { Ref } from 'vue'
-import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
-import type { UseDialogExpose } from '@/hooks/useDialog.ts'
+} from "@mineadmin/pro-table";
+import type { Ref } from "vue";
+import type { TransType } from "@/hooks/auto-imports/useTrans.ts";
+import type { UseDialogExpose } from "@/hooks/useDialog.ts";
 
-import type { DisbursementOrderVo } from '~/transaction/api/DisbursementOrder.ts'
-import { downloadBankBill, page } from '~/transaction/api/DisbursementOrder.ts'
-import getSearchItems from './components/GetSearchItems.tsx'
-import getTableColumns from './components/GetTableColumns.tsx'
-import useDialog from '@/hooks/useDialog.ts'
-import { useMessage } from '@/hooks/useMessage.ts'
-import { ResultCode } from '@/utils/ResultCode.ts'
+import type { DisbursementOrderVo } from "~/transaction/api/DisbursementOrder.ts";
+import { downloadBankBill, page } from "~/transaction/api/DisbursementOrder.ts";
+import getSearchItems from "./components/GetSearchItems.tsx";
+import getTableColumns from "./components/GetTableColumns.tsx";
+import useDialog from "@/hooks/useDialog.ts";
+import { useMessage } from "@/hooks/useMessage.ts";
+import { ResultCode } from "@/utils/ResultCode.ts";
 
-import WriteOffForm from './WriteOffForm.vue'
-import DistributeForm from './DistributeForm.vue'
-import SearchBankForm from './SearchBankForm.vue'
-import DownloadForm from './DownloadForm.vue'
-import tool from '@/utils/tool.ts'
+import WriteOffForm from "./WriteOffForm.vue";
+import DistributeForm from "./DistributeForm.vue";
+import SearchBankForm from "./SearchBankForm.vue";
+import DownloadForm from "./DownloadForm.vue";
+import tool from "@/utils/tool.ts";
 
-defineOptions({ name: 'transaction:disbursement_order' })
+defineOptions({ name: "transaction:disbursement_order" });
 
-const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>
-const writeOffFormRef = ref()
-const distributeFormRef = ref()
-const downloadFormRef = ref()
-const searchBankFormRef = ref()
-const setFormRef = ref()
-const selections = ref<any[]>([])
-const i18n = useTrans() as TransType
-const t = i18n.globalTrans
-const local = i18n.localTrans
-const msg = useMessage()
+const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>;
+const writeOffFormRef = ref();
+const distributeFormRef = ref();
+const downloadFormRef = ref();
+const searchBankFormRef = ref();
+const setFormRef = ref();
+const selections = ref<any[]>([]);
+const i18n = useTrans() as TransType;
+const t = i18n.globalTrans;
+const local = i18n.localTrans;
+const msg = useMessage();
 
 // 弹窗配置
 const writeOffDialog: UseDialogExpose = useDialog({
   // 保存数据
   ok: (_, okLoadingState: (state: boolean) => void) => {
-    okLoadingState(true)
-    const elForm = writeOffFormRef.value.maForm.getElFormRef()
+    okLoadingState(true);
+    const elForm = writeOffFormRef.value.maForm.getElFormRef();
     // 验证通过后
     elForm
       .validate()
@@ -59,24 +59,24 @@ const writeOffDialog: UseDialogExpose = useDialog({
           .writeOffHandle()
           .then((res: any) => {
             res.code === 200
-              ? msg.success(t('crud.updateSuccess'))
-              : msg.error(res.message)
-            writeOffDialog.close()
-            proTableRef.value.refresh()
+              ? msg.success(t("crud.updateSuccess"))
+              : msg.error(res.message);
+            writeOffDialog.close();
+            proTableRef.value.refresh();
           })
           .catch((err: any) => {
-            msg.alertError(err.response.data?.message)
-          })
+            msg.alertError(err.response.data?.message);
+          });
       })
-      .catch()
-    okLoadingState(false)
+      .catch();
+    okLoadingState(false);
   },
-})
+});
 const distributeDialog: UseDialogExpose = useDialog({
   // 保存数据
   ok: (_, okLoadingState: (state: boolean) => void) => {
-    okLoadingState(true)
-    const elForm = distributeFormRef.value.maForm.getElFormRef()
+    okLoadingState(true);
+    const elForm = distributeFormRef.value.maForm.getElFormRef();
     // 验证通过后
     elForm
       .validate()
@@ -85,68 +85,68 @@ const distributeDialog: UseDialogExpose = useDialog({
           .distributeHandle()
           .then((res: any) => {
             res.code === 200
-              ? msg.success(t('crud.updateSuccess'))
-              : msg.error(res.message)
-            distributeDialog.close()
-            proTableRef.value.refresh()
+              ? msg.success(t("crud.updateSuccess"))
+              : msg.error(res.message);
+            distributeDialog.close();
+            proTableRef.value.refresh();
           })
           .catch((err: any) => {
-            msg.alertError(err.response.data?.message)
-          })
+            msg.alertError(err.response.data?.message);
+          });
       })
-      .catch()
-    okLoadingState(false)
+      .catch();
+    okLoadingState(false);
   },
-})
+});
 const searchBankDialog: UseDialogExpose = useDialog({
   // 保存数据
   ok: (_, okLoadingState: (state: boolean) => void) => {
-    okLoadingState(true)
-    const elForm = searchBankFormRef.value.maForm.getElFormRef()
+    okLoadingState(true);
+    const elForm = searchBankFormRef.value.maForm.getElFormRef();
     // 验证通过后
     elForm
       .validate()
       .then(() => {
-        const selectValue = searchBankFormRef.value.downloadHandle()
-        searchBankDialog.close()
-        proTableRef.value.search({ ...selectValue })
+        const selectValue = searchBankFormRef.value.downloadHandle();
+        searchBankDialog.close();
+        proTableRef.value.search({ ...selectValue });
       })
-      .catch()
-    okLoadingState(false)
+      .catch();
+    okLoadingState(false);
   },
-})
+});
 const downloadDialog: UseDialogExpose = useDialog({
   // 保存数据
   ok: (_, okLoadingState: (state: boolean) => void) => {
-    okLoadingState(true)
-    const elForm = downloadFormRef.value.maForm.getElFormRef()
+    okLoadingState(true);
+    const elForm = downloadFormRef.value.maForm.getElFormRef();
     // 验证通过后
     elForm
       .validate()
       .then(async () => {
-        const ids = selections.value.map((item: any) => item.id)
-        await downloadFormRef.value.downloadHandle(ids)
-        downloadDialog.close()
-        proTableRef.value.refresh()
+        const ids = selections.value.map((item: any) => item.id);
+        await downloadFormRef.value.downloadHandle(ids);
+        downloadDialog.close();
+        proTableRef.value.refresh();
       })
-      .catch()
-    okLoadingState(false)
+      .catch();
+    okLoadingState(false);
   },
-})
+});
 const responseTableData = ref<Record<string, any>>({
   list: [],
   total: 0,
-})
+});
 // 参数配置
 const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
   adaptionOffsetBottom: 161,
   header: {
-    mainTitle: () => t('disbursement_order.index'),
+    mainTitle: () => t("disbursement_order.index"),
     subTitle: () => {
-      return `| ${t('disbursement_order.query_total')}: ${
+      return `| ${t("disbursement_order.query_total")}: ${
         responseTableData.value.total
-      }`
+      }`;
     },
   },
   // 表格参数
@@ -160,57 +160,42 @@ const options = ref<MaProTableOptions>({
   searchOptions: {
     fold: true,
     text: {
-      searchBtn: () => t('crud.search'),
-      resetBtn: () => t('crud.reset'),
-      isFoldBtn: () => t('crud.searchFold'),
-      notFoldBtn: () => t('crud.searchUnFold'),
+      searchBtn: () => t("crud.search"),
+      resetBtn: () => t("crud.reset"),
+      isFoldBtn: () => t("crud.searchFold"),
+      notFoldBtn: () => t("crud.searchUnFold"),
     },
   },
   // 搜索表单参数
-  searchFormOptions: { labelWidth: '150px' },
+  searchFormOptions: { labelWidth: "150px" },
   // 请求配置
   requestOptions: {
     api: page,
     requestParams: {
-      orderBy: 'id',
-      orderType: 'desc',
+      orderBy: "id",
+      orderType: "desc",
       status: 10,
       channel_type: 1,
     },
     autoRequest: false,
     responseDataHandler: (response: Record<string, any>) => {
-      responseTableData.value = response
-      return response.list
+      responseTableData.value = response;
+      return response.list;
     },
   },
-})
+});
 // 架构配置
 const schema = ref<MaProTableSchema>({
   // 搜索项
   searchItems: getSearchItems(t, true, true),
   // 表格列
   tableColumns: getTableColumns(writeOffDialog, distributeDialog, t, true),
-})
+});
 
 // 返回值 Record<string, any> 断言 DisbursementOrderVo
 const searchData = computed((): DisbursementOrderVo => {
-  return proTableRef.value.getSearchForm() as DisbursementOrderVo
-})
-
-// 批量下载
-function handleDownload() {
-  const ids = selections.value.map((item: any) => item.id)
-  msg.confirm(t('disbursement_order.downloadBankBillMessage')).then(async () => {
-    await downloadBankBill(ids).then((res) => {
-      tool.download(res)
-      msg.success(t('disbursement_order.downloadBankBillSuccess'))
-    }).catch(() => {
-      msg.error(t('disbursement_order.downloadBankBillError'))
-    }).finally(() => {
-      proTableRef.value.refresh()
-    })
-  })
-}
+  return proTableRef.value.getSearchForm() as DisbursementOrderVo;
+});
 </script>
 
 <template>
@@ -222,17 +207,25 @@ function handleDownload() {
           type="primary"
           plain
           :disabled="selections.length < 1"
-          @click="() => {
-            if (searchData?.bank_account_id > 0 && searchData?.disbursement_channel_id > 0) {
-              downloadDialog.setTitle(t('disbursement_order.download'))
-              downloadDialog.open({ t })
+          @click="
+            () => {
+              if (
+                searchData?.bank_account_id > 0 &&
+                searchData?.disbursement_channel_id > 0
+              ) {
+                downloadDialog.setTitle(t('disbursement_order.download'));
+                downloadDialog.open({ t });
+              } else {
+                msg.warning(
+                  t('disbursement_order.downloadBankBillSelectBankAccountMsg')
+                );
+                searchBankDialog.setTitle(
+                  t('bankStatement.select_bank_account')
+                );
+                searchBankDialog.open({ t });
+              }
             }
-            else {
-              msg.warning(t('disbursement_order.downloadBankBillSelectBankAccountMsg'))
-              searchBankDialog.setTitle(t('bankStatement.select_bank_account'))
-              searchBankDialog.open({ t })
-            }
-          }"
+          "
         >
           {{ t("disbursement_order.download") }}
         </el-button>
@@ -243,12 +236,16 @@ function handleDownload() {
         <el-empty>
           <el-button
             type="primary"
-            @click="() => {
-              searchBankDialog.setTitle(t('bankStatement.select_bank_account'))
-              searchBankDialog.open({ t })
-            }"
+            @click="
+              () => {
+                searchBankDialog.setTitle(
+                  t('bankStatement.select_bank_account')
+                );
+                searchBankDialog.open({ t });
+              }
+            "
           >
-            {{ t('bankStatement.select_bank_account') }}
+            {{ t("bankStatement.select_bank_account") }}
           </el-button>
         </el-empty>
       </template>

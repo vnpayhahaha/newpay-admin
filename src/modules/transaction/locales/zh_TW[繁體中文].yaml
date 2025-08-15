@@ -181,6 +181,7 @@ disbursement_order:
   downloadBankBillSuccess: 银行账单下载成功
   downloadBankBillError: 请求服务器错误，下载失败
   download: 下 载
+  bank_disbursement_download: 银行账单
   downloadBankBillSelectBankAccountMsg: 请选择银行和银行账号后再继续
 bankStatement:
   index: 银行账单

@@ -23,7 +23,7 @@ export default function getTableColumns(
   dialog: UseDialogExpose,
   distributeDialog: UseDialogExpose,
   t: any,
-  isBankStatement: boolean = false,
+  isBankStatement: boolean = false
 ): MaProTableColumns[] {
   const dictStore = useDictStore();
   const msg = useMessage();
@@ -572,7 +572,28 @@ export default function getTableColumns(
       minWidth: 180,
       hide: true,
     },
-
+    {
+      label: () => t("disbursement_order.bank_disbursement_download"),
+      prop: "bank_disbursement_download",
+      width: 160,
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {row.bank_disbursement_download && (
+                <p>
+                  {row.bank_disbursement_download.file_name}.
+                  {row.bank_disbursement_download.suffix}
+                </p>
+              )}
+            </div>
+          </div>
+        );
+      },
+    },
     // 操作列
     {
       type: "operation",

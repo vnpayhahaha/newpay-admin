@@ -101,6 +101,13 @@ export interface DisbursementOrderVo {
     username: string;
     nickname: string;
   } | null;
+  down_bill_template_id: string;
+  bank_disbursement_download: {
+    id: number;
+    file_name: string;
+    hash: string;
+    suffix: string;
+  } | null;
 }
 
 // 付款订单查询
@@ -169,15 +176,17 @@ export function distribute(data: DistributerVo): Promise<ResponseStruct<null>> {
 
 // 获取下载表单 blod响应 /admin/transaction/disbursement_order/download_bank_bill
 export function downloadBankBill(
-  ids: number[]
+  ids: number[],
+  bill_template_id: string
 ): Promise<ResponseStruct<Blob>> {
   return useHttp().request({
-   url: "/admin/transaction/disbursement_order/download_bank_bill",
-   data: {
-    ids
+    url: "/admin/transaction/disbursement_order/download_bank_bill",
+    data: {
+      ids,
+      bill_template_id,
     },
-   method: 'post', 
-   timeout: 60 * 1000, 
-   responseType: 'blob'
+    method: "post",
+    timeout: 60 * 1000,
+    responseType: "blob",
   });
 }
