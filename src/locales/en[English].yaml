@@ -171,6 +171,9 @@ crud:
   cancelMessage: Should the selected order be canceled?
   cancelDataMessage: Do you want to cancel the order?
   cancelSuccess: Cancel successfully
+  downlaod: Download
+  downlaodMessage: Are you sure to download the data?
+  downlaodSuccess: Download successful
 form:
   pleaseInput: Please input {msg}
   pleaseSelect: Please select {msg}

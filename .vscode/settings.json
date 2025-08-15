@@ -20,7 +20,7 @@
   },
   "editor.codeActionsOnSaveTimeout": 5000,
   // 保存时自动格式化
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "explorer.confirmDragAndDrop": false,
   "editor.detectIndentation": false,
   "editor.tabSize": 2,

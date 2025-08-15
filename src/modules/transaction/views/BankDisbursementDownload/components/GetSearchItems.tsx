@@ -6,21 +6,21 @@
  *
  * @Author X.Mo <root@imoi.cn>
  * @Link   https://github.com/mineadmin
-*/
+ */
 
-import type { MaSearchItem } from '@mineadmin/search'
+import type { MaSearchItem } from "@mineadmin/search";
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
-                            {
-      label: () =>  '文件名' ,
-      prop: 'file_name',
+    {
+      label: () => t("bank_disbursement_download.file_name"),
+      prop: "file_name",
       render: () => <el-input />,
-          },
-                        {
-      label: () =>  '文件hash' ,
-      prop: 'hash',
+    },
+    {
+      label: () => t("bank_disbursement_download.hash"),
+      prop: "hash",
       render: () => <el-input />,
-          },
-                                          ]
+    },
+  ];
 }

@@ -185,10 +185,18 @@ disbursement_order:
   download: 下 载
 bankStatement:
   index: 银行账单
-  download: 下载
+  download: 下载账单
   select_bank_account: 选择银行账户
-BankDisbursementDownload:
+bank_disbursement_download:
   index: 下载记录
+  attachment_id: 资源ID
+  file_name: 文件名
+  path: 存储路径
+  hash: 文件哈希
+  file_size: 文件大小
+  record_count: 下载次数
+  created_by: 创建人
+  created_at: 创建时间
 TransactionRawData:
   index: 原始凭证
 TransactionParsingRules:

@@ -171,6 +171,9 @@ crud:
   cancelMessage: 是否取消所选中订单？
   cancelDataMessage: 是否取消订单？
   cancelSuccess: 取消成功
+  downlaod: 下载
+  downlaodMessage: 是否确认下载数据？
+  downlaodSuccess: 下载成功
 form:
   pleaseInput: 請輸入{msg}
   pleaseSelect: 請選擇{msg}

@@ -186,8 +186,16 @@ bankStatement:
   index: Bank Statement
   download: Download
   select_bank_account: Select Bank Account
-BankDisbursementDownload:
+bank_disbursement_download:
   index: Download Record
+  attachment_id: Attachment ID
+  file_name: File Name
+  path: Storage Path
+  hash: File Hash
+  file_size: File Size
+  record_count: Download Record Count
+  created_by: Operator
+  created_at: Create Time
 TransactionRawData:
   index: Original voucher
 TransactionParsingRules:

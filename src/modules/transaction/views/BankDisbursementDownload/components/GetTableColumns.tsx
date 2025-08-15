@@ -7,73 +7,107 @@
  * @Author X.Mo<root@imoi.cn>
  * @Link   https://github.com/mineadmin
  */
-import type { MaProTableColumns, MaProTableExpose } from '@mineadmin/pro-table'
-import type { BankDisbursementDownloadVo } from '~/transaction/api/BankDisbursementDownload.ts'
-import type { UseDialogExpose } from '@/hooks/useDialog.ts'
+import type { MaProTableColumns, MaProTableExpose } from "@mineadmin/pro-table";
+import type { BankDisbursementDownloadVo } from "~/transaction/api/BankDisbursementDownload.ts";
+import type { UseDialogExpose } from "@/hooks/useDialog.ts";
 
-import { useMessage } from '@/hooks/useMessage.ts'
-import { deleteByIds } from '~/transaction/api/BankDisbursementDownload.ts'
-import { ResultCode } from '@/utils/ResultCode.ts'
-import hasAuth from '@/utils/permission/hasAuth.ts'
+import { useMessage } from "@/hooks/useMessage.ts";
+import { downloadById } from "~/transaction/api/BankDisbursementDownload.ts";
+import { ResultCode } from "@/utils/ResultCode.ts";
+import hasAuth from "@/utils/permission/hasAuth.ts";
+import tool from "@/utils/tool";
 
-export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
-  const dictStore = useDictStore()
-  const msg = useMessage()
+export default function getTableColumns(
+  dialog: UseDialogExpose,
+  formRef: any,
+  t: any
+): MaProTableColumns[] {
+  const dictStore = useDictStore();
+  const msg = useMessage();
 
-  const showBtn = (auth: string | string[], row: BankDisbursementDownloadVo) => {
-    return hasAuth(auth)
-  }
+  const showBtn = (
+    auth: string | string[],
+    row: BankDisbursementDownloadVo
+  ) => {
+    return hasAuth(auth);
+  };
 
   return [
     // 多选列
-    { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection') },
     // 索引序号列
-    { type: 'index' },
+    { type: "index" },
     // 普通列
-                            { label: () =>  '资源ID' , prop: 'attachment_id' },
-                        { label: () =>  '文件名' , prop: 'file_name' },
-                        { label: () =>  '下载地址' , prop: 'url' },
-                        { label: () =>  '文件hash' , prop: 'hash' },
-                        { label: () =>  '数据大小（M）' , prop: 'file_size' },
-                        { label: () =>  '条数' , prop: 'record_count' },
-                        { label: () =>  '创建者' , prop: 'created_by' },
-                        { label: () =>  '创建时间' , prop: 'created_at' },
-          
+    {
+      label: () => t("bank_disbursement_download.file_name"),
+      minWidth: "300px",
+      prop: "file_name",
+    },
+    {
+      label: () => t("bank_disbursement_download.path"),
+      minWidth: "300px",
+      prop: "path",
+    },
+    {
+      label: () => t("bank_disbursement_download.hash"),
+      width: "300px",
+      prop: "hash",
+    },
+    {
+      label: () => t("bank_disbursement_download.file_size"),
+      width: "100px",
+      prop: "file_size",
+    },
+    {
+      label: () => t("bank_disbursement_download.record_count"),
+      width: "100px",
+      prop: "record_count",
+    },
+    {
+      label: () => t("bank_disbursement_download.created_by"),
+      width: "120px",
+      prop: "created_by",
+    },
+    {
+      label: () => t("bank_disbursement_download.created_at"),
+      width: "180px",
+      prop: "created_at",
+    },
+
     // 操作列
     {
-      type: 'operation',
-      label: () => t('crud.operation'),
-      width: '260px',
+      type: "operation",
+      label: () => t("crud.operation"),
+      width: "160px",
+      fixed: "left",
       operationConfigure: {
-        type: 'tile',
+        type: "tile",
         actions: [
           {
-            name: 'edit',
-            icon: 'i-heroicons:pencil',
-            show: ({ row }) => showBtn('transaction:bank_disbursement_download:update', row),
-            text: () => t('crud.edit'),
-            onClick: ({ row }) => {
-              dialog.setTitle(t('crud.edit'))
-              dialog.open({ formType: 'edit', data: row })
-            },
-          },
-          {
-            name: 'del',
-            show: ({ row }) => showBtn('transaction:bank_disbursement_download:delete', row),
-            icon: 'i-heroicons:trash',
-            text: () => t('crud.delete'),
+            name: "del",
+            show: ({ row }) =>
+              showBtn("transaction:bank_disbursement_download:delete", row),
+            icon: "i-heroicons:arrow-down-on-square-stack",
+            text: () => t("crud.downlaod"),
             onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t('crud.delDataMessage')).then(async () => {
-                const response = await deleteByIds([row.id])
-                if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t('crud.delSuccess'))
-                  await proxy.refresh()
-                }
-              })
+              msg.exportConfirm(t("crud.downlaodMessage")).then(async () => {
+                await downloadById(row.id)
+                  .then((res) => {
+                    tool.download(res);
+                    msg.success(
+                      t("disbursement_order.downloadBankBillSuccess")
+                    );
+                  })
+                  .catch(() => {
+                    msg.error(t("disbursement_order.downloadBankBillError"));
+                  })
+                  .finally(async () => {
+                    await proxy.refresh();
+                  });
+              });
             },
           },
         ],
       },
     },
-  ]
+  ];
 }
