@@ -28,6 +28,7 @@ import Form from "./Form.vue";
 
 defineOptions({ name: "transaction:bank_disbursement_download" });
 
+const route = useRoute();
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>;
 const formRef = ref();
 const setFormRef = ref();
@@ -116,8 +117,21 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
+    requestParams: {
+      ...(route.query.hash && { hash: route.query.hash }),
+    },
+    // autoRequest: false,
   },
 });
+
+onMounted(() => {
+  proTableRef.value.setSearchForm({
+    ...proTableRef.value.getSearchForm(),
+    hash: route.query.hash,
+  });
+  // proTableRef.value.requestData();
+});
+
 // 架构配置
 const schema = ref<MaProTableSchema>({
   // 搜索项
@@ -129,25 +143,7 @@ const schema = ref<MaProTableSchema>({
 
 <template>
   <div class="mine-layout pt-3">
-    <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <!-- 数据为空时 -->
-      <template #empty>
-        <el-empty>
-          <el-button
-            v-auth="['transaction:bank_disbursement_download:save']"
-            type="primary"
-            @click="
-              () => {
-                maDialog.setTitle(t('crud.add'));
-                maDialog.open({ formType: 'add' });
-              }
-            "
-          >
-            {{ t("crud.add") }}
-          </el-button>
-        </el-empty>
-      </template>
-    </MaProTable>
+    <MaProTable ref="proTableRef" :options="options" :schema="schema" />
 
     <component :is="maDialog.Dialog">
       <template #default="{ formType, data }">

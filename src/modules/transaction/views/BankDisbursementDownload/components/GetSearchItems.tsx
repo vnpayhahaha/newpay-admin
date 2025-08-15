@@ -15,12 +15,12 @@ export default function getSearchItems(t: any): MaSearchItem[] {
     {
       label: () => t("bank_disbursement_download.file_name"),
       prop: "file_name",
-      render: () => <el-input />,
+      render: () => <el-input clearable />,
     },
     {
       label: () => t("bank_disbursement_download.hash"),
       prop: "hash",
-      render: () => <el-input />,
+      render: () => <el-input clearable />,
     },
   ];
 }

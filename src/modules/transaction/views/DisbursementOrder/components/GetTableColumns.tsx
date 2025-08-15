@@ -27,6 +27,7 @@ export default function getTableColumns(
 ): MaProTableColumns[] {
   const dictStore = useDictStore();
   const msg = useMessage();
+  const router = useRouter();
 
   const showBtn = (auth: string | string[], row: DisbursementOrderVo) => {
     return hasAuth(auth);
@@ -575,7 +576,7 @@ export default function getTableColumns(
     {
       label: () => t("disbursement_order.bank_disbursement_download"),
       prop: "bank_disbursement_download",
-      width: 160,
+      width: 300,
       cellRender: ({ row }) => {
         return (
           <div
@@ -584,10 +585,31 @@ export default function getTableColumns(
           >
             <div style={{ flex: 1, minWidth: 0 }}>
               {row.bank_disbursement_download && (
-                <p>
-                  {row.bank_disbursement_download.file_name}.
-                  {row.bank_disbursement_download.suffix}
-                </p>
+                <>
+                  {" "}
+                  <p style={{ wordBreak: "break-all", whiteSpace: "normal" }}>
+                    <span
+                      class="cursor-pointer text-blue-600 hover:text-blue-800"
+                      onClick={() =>
+                        router.push({
+                          path: "/transaction/BankDisbursementDownload",
+                          query: { hash: row.bank_disbursement_download.hash },
+                        })
+                      }
+                    >
+                      {row.bank_disbursement_download.hash}
+                    </span>
+                  </p>
+                  <p style={{ wordBreak: "break-all", whiteSpace: "normal" }}>
+                    <MaCopy
+                      content={
+                        row.bank_disbursement_download.file_name +
+                        "." +
+                        row.bank_disbursement_download.suffix
+                      }
+                    />
+                  </p>
+                </>
               )}
             </div>
           </div>
