@@ -6,26 +6,26 @@
  *
  * @Author X.Mo <root@imoi.cn>
  * @Link   https://github.com/mineadmin
-*/
+ */
 
-import type { MaSearchItem } from '@mineadmin/search'
+import type { MaSearchItem } from "@mineadmin/search";
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
-                    {
-      label: () =>  '渠道ID' ,
-      prop: 'channel_id',
+    {
+      label: () => t("TransactionParsingRules.channel_id"),
+      prop: "channel_id",
       render: () => <el-input />,
-          },
-                        {
-      label: () =>  '提取变量名' ,
-      prop: 'variable_name',
+    },
+    {
+      label: () => t("TransactionParsingRules.variable_name"),
+      prop: "variable_name",
       render: () => <el-input />,
-          },
-                        {
-      label: () =>  '状态：1启用 0禁用' ,
-      prop: 'status',
+    },
+    {
+      label: () => t("TransactionParsingRules.status"),
+      prop: "status",
       render: () => <el-input />,
-          },
-                                  ]
+    },
+  ];
 }

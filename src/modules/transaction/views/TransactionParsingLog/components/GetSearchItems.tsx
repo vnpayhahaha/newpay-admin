@@ -6,36 +6,36 @@
  *
  * @Author X.Mo <root@imoi.cn>
  * @Link   https://github.com/mineadmin
-*/
+ */
 
-import type { MaSearchItem } from '@mineadmin/search'
+import type { MaSearchItem } from "@mineadmin/search";
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
-                    {
-      label: () =>  '原始数据ID' ,
-      prop: 'raw_data_id',
+    {
+      label: () => t("TransactionParsingLog.raw_data_id"),
+      prop: "raw_data_id",
       render: () => <el-input />,
-          },
-                {
-      label: () =>  '规则ID' ,
-      prop: 'rule_id',
+    },
+    {
+      label: () => t("TransactionParsingLog.rule_id"),
+      prop: "rule_id",
       render: () => <el-input />,
-          },
-                        {
-      label: () =>  '记录匹配变量名称' ,
-      prop: 'variable_name',
+    },
+    {
+      label: () => t("TransactionParsingLog.variable_name"),
+      prop: "variable_name",
       render: () => <el-input />,
-          },
-                {
-      label: () =>  '状态：1解析成功 2失败或部分失败' ,
-      prop: 'status',
+    },
+    {
+      label: () => t("TransactionParsingLog.status"),
+      prop: "status",
       render: () => <el-input />,
-          },
-                                {
-      label: () =>  '失败原因说明' ,
-      prop: 'desc',
+    },
+    {
+      label: () => t("TransactionParsingLog.desc"),
+      prop: "desc",
       render: () => <el-input />,
-          },
-          ]
+    },
+  ];
 }

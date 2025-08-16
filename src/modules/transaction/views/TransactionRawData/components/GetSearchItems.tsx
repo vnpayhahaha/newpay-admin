@@ -6,26 +6,26 @@
  *
  * @Author X.Mo <root@imoi.cn>
  * @Link   https://github.com/mineadmin
-*/
+ */
 
-import type { MaSearchItem } from '@mineadmin/search'
+import type { MaSearchItem } from "@mineadmin/search";
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
-                            {
-      label: () =>  '内容' ,
-      prop: 'content',
+    {
+      label: () => t("TransactionRawData.content"),
+      prop: "content",
       render: () => <el-input />,
-          },
-                {
-      label: () =>  '来源' ,
-      prop: 'source',
+    },
+    {
+      label: () => t("TransactionRawData.source"),
+      prop: "source",
       render: () => <el-input />,
-          },
-                {
-      label: () =>  '状态：0未解析 1解析成功 2解析失败' ,
-      prop: 'status',
+    },
+    {
+      label: () => t("TransactionRawData.status"),
+      prop: "status",
       render: () => <el-input />,
-          },
-                                  ]
+    },
+  ];
 }

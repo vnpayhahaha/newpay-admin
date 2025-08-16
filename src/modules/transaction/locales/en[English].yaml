@@ -199,10 +199,34 @@ bank_disbursement_download:
   created_at: Create Time
 TransactionRawData:
   index: Original voucher
+  hash: Hash
+  content: Content
+  source: Source
+  status: Status
+  repeat_count: Repeat Count
+  created_at: Create Time
+  updated_at: Update Time
 TransactionParsingRules:
   index: Parsing Rules
+  channel: Channel
+  channel_id: Channel ID
+  regex: Regex
+  variable_name: Variable Name
+  example_data: Example Data
+  status: Status
+  created_at: Create Time
+  updated_at: Update Time
+  deleted_at: Delete Time
 TransactionParsingLog:
   index: Parsing Log
+  raw_data_id: Raw Data ID
+  rule_id: Rule ID
+  rule_text: Rule Text
+  variable_name: Variable Name
+  status: Status
+  voucher_id: Voucher ID
+  created_at: Create Time
+  desc: Description
 menu:
   transaction_record:
     list: Transaction Record List

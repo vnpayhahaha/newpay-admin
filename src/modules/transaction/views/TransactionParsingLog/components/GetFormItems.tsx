@@ -7,20 +7,23 @@
  * @Author X.Mo<root@imoi.cn>
  * @Link   https://github.com/mineadmin
  */
-import type { MaFormItem } from '@mineadmin/form'
-import type { TransactionParsingLogVo } from '~/transaction/api/TransactionParsingLog.ts'
+import type { MaFormItem } from "@mineadmin/form";
+import type { TransactionParsingLogVo } from "~/transaction/api/TransactionParsingLog.ts";
 
-export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, model: TransactionParsingLogVo): MaFormItem[] {
+export default function getFormItems(
+  formType: "add" | "edit" = "add",
+  t: any,
+  model: TransactionParsingLogVo
+): MaFormItem[] {
   // 新增默认值
-  if (formType === 'add') {
+  if (formType === "add") {
     // todo...
   }
 
   // 编辑默认值
-  if (formType === 'edit') {
+  if (formType === "edit") {
     // todo...
   }
 
-  return [
-                                                                                                ]
+  return [];
 }
