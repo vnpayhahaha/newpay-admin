@@ -30,16 +30,17 @@ export default function getFormItems(
       label: t("TransactionRawData.content"),
       prop: "content",
       render: () => <el-input />,
+      renderProps: {
+        placeholder: t("TransactionRawData.content"),
+        type: "textarea",
+      },
+      itemProps: { required: true },
     },
     {
       label: t("TransactionRawData.source"),
       prop: "source",
       render: () => <el-input />,
-    },
-    {
-      label: t("TransactionRawData.status"),
-      prop: "status",
-      render: () => <el-input />,
+      itemProps: { required: true },
     },
   ];
 }

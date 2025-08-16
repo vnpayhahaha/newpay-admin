@@ -144,19 +144,7 @@ export default function getFormItems(
       prop: "status",
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
-      render: () => <ma-remote-select filterable />,
-      renderProps: {
-        api: () =>
-          new Promise((resolve) =>
-            resolve(selectStatus("transaction_parsing_rules", "status_list"))
-          ),
-        dataHandle: (response: any) => {
-          return response.data?.map((item: Common.StatusOptionItem) => {
-            return { label: `${item.label}`, value: item.value };
-          });
-        },
-        placeholder: t("TransactionParsingRules.status"),
-      },
+      render: () => <el-switch />,
     },
     {
       label: t("TransactionParsingRules.example_data"),

@@ -15,6 +15,7 @@ import { useMessage } from "@/hooks/useMessage.ts";
 import { deleteByIds } from "~/transaction/api/TransactionRawData.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
 import hasAuth from "@/utils/permission/hasAuth.ts";
+import { selectStatus } from "@/modules/Common";
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -35,20 +36,63 @@ export default function getTableColumns(
       showOverflowTooltip: false,
       label: () => t("crud.selection"),
     },
+    {
+      label: () => t("TransactionRawData.content"),
+      prop: "content",
+      width: 100,
+      type: "expand",
+      cellRender: ({ row }) => {
+        return row.content;
+      },
+    },
     // 索引序号列
     { type: "index" },
     // 普通列
-    { label: () => t("TransactionRawData.hash"), prop: "hash" },
-    { label: () => t("TransactionRawData.content"), prop: "content" },
-    { label: () => t("TransactionRawData.source"), prop: "source" },
-    { label: () => t("TransactionRawData.status"), prop: "status" },
-    { label: () => t("TransactionRawData.repeat_count"), prop: "repeat_count" },
-    { label: () => t("TransactionRawData.created_at"), prop: "created_at" },
-    { label: () => t("TransactionRawData.updated_at"), prop: "updated_at" },
+    { label: () => t("TransactionRawData.hash"), prop: "hash", minWidth: 280 },
+    { label: () => t("TransactionRawData.source"), prop: "source", width: 120 },
+    {
+      label: () => t("TransactionRawData.status"),
+      width: 100,
+      prop: "status",
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("transaction_raw_data", "status_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
+    },
+    {
+      label: () => t("TransactionRawData.repeat_count"),
+      prop: "repeat_count",
+      width: 100,
+    },
+    {
+      label: () => t("TransactionRawData.created_at"),
+      prop: "created_at",
+      width: 180,
+    },
+    {
+      label: () => t("TransactionRawData.updated_at"),
+      prop: "updated_at",
+      width: 180,
+    },
 
     // 操作列
     {
       type: "operation",
+      hide: true,
       label: () => t("crud.operation"),
       width: "260px",
       operationConfigure: {
