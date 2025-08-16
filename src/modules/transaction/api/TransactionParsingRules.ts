@@ -58,3 +58,21 @@ export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
     data: ids,
   });
 }
+
+// 真删除
+export function realDelete(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().delete(
+    "/admin/transaction/transaction_parsing_rules/real_delete",
+    {
+      data: ids,
+    }
+  );
+}
+
+// 单个或批量恢复在回收站的数据
+export function recovery(ids: number[]): Promise<ResponseStruct<null>> {
+  return useHttp().put(
+    "/admin/transaction/transaction_parsing_rules/recovery",
+    { ids }
+  );
+}

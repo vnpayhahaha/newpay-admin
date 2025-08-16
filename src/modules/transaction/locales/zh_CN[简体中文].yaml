@@ -219,6 +219,7 @@ TransactionParsingRules:
   updated_at: 更新时间
   deleted_at: 删除时间
   parse_result: 解析结果
+  parse_result_error: 解析错误
 TransactionParsingLog:
   index: 解析日志
   raw_data_id: 原始凭证ID

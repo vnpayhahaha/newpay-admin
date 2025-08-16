@@ -13,6 +13,7 @@ import type { ChannelDictVo } from "~/channel/api/Channel.ts";
 import { remote } from "~/channel/api/Channel.ts";
 import { selectStatus } from "@/modules/Common";
 import MaKeyValue from "@/components/ma-key-value/index.vue";
+import { ref } from "vue";
 
 const resultArr = ref<{ variable_name: string; result: string | number }[]>([]);
 const matchResult = ref<string[]>([]);
@@ -60,12 +61,64 @@ export default function getFormItems(
   if (formType === "edit") {
     // todo...
   }
+
+  // 初始化解析结果
   model.parse_result = [
     {
       label: "变量名",
       value: "变量值",
     },
   ];
+
+  // 执行正则解析的函数
+  const performRegexParsing = () => {
+    if (
+      model.example_data &&
+      model.regex &&
+      model.variable_name &&
+      model.variable_name.length > 0
+    ) {
+      try {
+        // 确保variable_name是数组类型
+        const variableNames = Array.isArray(model.variable_name)
+          ? model.variable_name
+          : [model.variable_name];
+        runRegex(model.example_data, model.regex, variableNames);
+        // 将解析结果转换为parse_result格式
+        if (resultArr.value.length > 0) {
+          model.parse_result = resultArr.value.map((item) => ({
+            label: item.variable_name,
+            value: item.result?.toString() || "",
+          }));
+        } else {
+          model.parse_result = [
+            {
+              label: "无匹配结果",
+              value: "正则表达式未匹配到任何内容",
+            },
+          ];
+        }
+      } catch (error) {
+        console.error("正则解析错误:", error);
+        model.parse_result = [
+          {
+            label: "解析错误",
+            value: "正则表达式格式不正确或解析失败",
+          },
+        ];
+      }
+    } else {
+      // 重置为默认状态
+      model.parse_result = [
+        {
+          label: "变量名",
+          value: "变量值",
+        },
+      ];
+    }
+  };
+
+  performRegexParsing();
 
   return [
     {
@@ -111,12 +164,20 @@ export default function getFormItems(
       render: () => <el-input />,
       renderProps: {
         type: "textarea",
+        onInput: () => {
+          setTimeout(() => performRegexParsing(), 0);
+        },
       },
     },
     {
       label: t("TransactionParsingRules.regex"),
       prop: "regex",
       render: () => <el-input />,
+      renderProps: {
+        onInput: () => {
+          setTimeout(() => performRegexParsing(), 0);
+        },
+      },
       renderSlots: {
         prefix: () => <span style="margin-left: 8px">/</span>,
         suffix: () => <span style="margin-right: 8px">/</span>,
@@ -141,6 +202,9 @@ export default function getFormItems(
         },
         placeholder: t("TransactionParsingRules.variable_name"),
         multiple: true,
+        onChange: () => {
+          setTimeout(() => performRegexParsing(), 0);
+        },
       },
     },
     {

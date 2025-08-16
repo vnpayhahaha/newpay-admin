@@ -20,12 +20,16 @@ import type { UseDialogExpose } from "@/hooks/useDialog.ts";
 import {
   deleteByIds,
   page,
+  realDelete,
+  recovery,
 } from "~/transaction/api/TransactionParsingRules.ts";
 import getSearchItems from "./components/GetSearchItems.tsx";
 import getTableColumns from "./components/GetTableColumns.tsx";
 import useDialog from "@/hooks/useDialog.ts";
 import { useMessage } from "@/hooks/useMessage.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
+import { useProTableToolbar } from "@mineadmin/pro-table";
+import MaRecycle from "@/components/ma-recycle/index.vue";
 
 import Form from "./Form.vue";
 
@@ -39,6 +43,42 @@ const i18n = useTrans() as TransType;
 const t = i18n.globalTrans;
 const local = i18n.localTrans;
 const msg = useMessage();
+
+const tableToolBar = useProTableToolbar();
+// 管理回收站状态
+const isRecovery = ref(false);
+const maRecycleRef = ref();
+
+const IndexName = "backAccount:Index";
+const isRecoveryAdded = ref(false);
+onActivated(() => {
+  // console.log(`[${IndexName}] Activated`)
+  // 确保按钮只添加一次
+  if (!isRecoveryAdded.value) {
+    tableToolBar.add({
+      name: IndexName,
+      order: 0,
+      show: true,
+      render: () =>
+        h(MaRecycle, {
+          ref: maRecycleRef, // 绑定引用
+          proxy: proTableRef.value,
+          isRecovery: isRecovery.value,
+          "onUpdate:isRecovery": (value: boolean) => {
+            isRecovery.value = value;
+          },
+        }),
+    });
+    isRecoveryAdded.value = true;
+  }
+});
+
+onDeactivated(() => {
+  // console.log(`[${IndexName}] Deactivated`)
+  // 移除工具栏按钮
+  tableToolBar.remove(IndexName);
+  isRecoveryAdded.value = false;
+});
 
 // 弹窗配置
 const maDialog: UseDialogExpose = useDialog({
@@ -119,6 +159,10 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
+    requestParams: {
+      orderBy: "id",
+      orderType: "desc",
+    },
   },
 });
 // 架构配置
@@ -132,10 +176,32 @@ const schema = ref<MaProTableSchema>({
 // 批量删除
 function handleDelete() {
   const ids = selections.value.map((item: any) => item.id);
-  msg.confirm(t("crud.delMessage")).then(async () => {
-    const response = await deleteByIds(ids);
+  if (isRecovery.value) {
+    msg.delConfirm(t("crud.realDeleteDataMessage")).then(async () => {
+      const response = await realDelete(ids);
+      if (response.code === ResultCode.SUCCESS) {
+        msg.success(t("crud.delSuccess"));
+        proTableRef.value.refresh();
+      }
+    });
+  } else {
+    msg.delConfirm(t("crud.delMessage")).then(async () => {
+      const response = await deleteByIds(ids);
+      if (response.code === ResultCode.SUCCESS) {
+        msg.success(t("crud.delSuccess"));
+        proTableRef.value.refresh();
+      }
+    });
+  }
+}
+
+// 批量恢复
+function handleRecovery() {
+  const ids = selections.value.map((item: any) => item.id);
+  msg.confirm(t("crud.restoreMessage")).then(async () => {
+    const response = await recovery(ids);
     if (response.code === ResultCode.SUCCESS) {
-      msg.success(t("crud.delSuccess"));
+      msg.success(t("crud.restoreSuccess"));
       proTableRef.value.refresh();
     }
   });
@@ -159,17 +225,28 @@ function handleDelete() {
           {{ t("crud.add") }}
         </el-button>
       </template>
-
       <template #toolbarLeft>
-        <el-button
-          v-auth="['transaction:transaction_parsing_rules:delete']"
-          type="danger"
-          plain
-          :disabled="selections.length < 1"
-          @click="handleDelete"
-        >
-          {{ t("crud.delete") }}
-        </el-button>
+        <el-button-group>
+          <el-button
+            v-auth="['transaction:transaction_parsing_rules:delete']"
+            type="danger"
+            plain
+            :disabled="selections.length < 1"
+            @click="handleDelete"
+          >
+            {{ t("crud.delete") }}
+          </el-button>
+          <el-button
+            v-if="isRecovery"
+            v-auth="['transaction:transaction_parsing_rules:recovery']"
+            type="success"
+            plain
+            :disabled="selections.length < 1"
+            @click="handleRecovery"
+          >
+            {{ t("crud.restore") }}
+          </el-button>
+        </el-button-group>
       </template>
       <!-- 数据为空时 -->
       <template #empty>
