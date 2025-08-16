@@ -217,6 +217,7 @@ TransactionParsingRules:
   created_at: Create Time
   updated_at: Update Time
   deleted_at: Delete Time
+  parse_result: Parse Result
 TransactionParsingLog:
   index: Parsing Log
   raw_data_id: Raw Data ID
