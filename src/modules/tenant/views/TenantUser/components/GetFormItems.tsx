@@ -19,6 +19,8 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
   if (formType === 'add') {
     model.password = '123456'
     model.status = true
+    model.is_enabled_google = false
+    model.ip_whitelist = '*.*.*.*'
   }
 
   // 编辑默认值
@@ -70,27 +72,13 @@ export default function getFormItems(formType: 'add' | 'edit' = 'add', t: any, m
       label: t('tenantUser.status'),
       prop: 'status',
       cols: { md: 12, xs: 24 },
-      render: () => MaDictRadio,
-      renderProps: {
-        placeholder: t('form.pleaseInput', { msg: t('crud.status') }),
-        dictName: 'system-status',
-      },
-      itemProps: {
-        required: true,
-      },
+      render: () => <el-switch />,
     },
     {
       label: t('tenantUser.is_enabled_google'),
       prop: 'is_enabled_google',
       cols: { md: 12, xs: 24 },
-      render: () => MaDictRadio,
-      renderProps: {
-        placeholder: t('form.pleaseInput', { msg: t('crud.status') }),
-        dictName: 'system-status',
-      },
-      itemProps: {
-        required: true,
-      },
+      render: () => <el-switch />,
     },
     {
       label: t('tenantUser.ip_whitelist'),

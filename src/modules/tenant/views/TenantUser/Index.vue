@@ -83,11 +83,13 @@ const maDialog: UseDialogExpose = useDialog({
           // 新增
           case 'add':
             formRef.value.add().then((res: any) => {
+              console.log('res', res)
               res.code === ResultCode.SUCCESS ? msg.success(t('crud.createSuccess')) : msg.error(res.message)
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              console.log('add-err', err)
+              msg.alertError(err?.response?.data?.message)
             })
             break
           // 修改
@@ -97,7 +99,7 @@ const maDialog: UseDialogExpose = useDialog({
               maDialog.close()
               proTableRef.value.refresh()
             }).catch((err: any) => {
-              msg.alertError(err)
+              msg.alertError(err?.response?.data?.message)
             })
             break
         }
