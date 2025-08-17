@@ -122,6 +122,14 @@ export interface CollectionOrderVo {
     username: string;
     nickname: string;
   } | null;
+  cancel_customer: {
+    id: number;
+    username: string;
+  } | null;
+  created_customer: {
+    id: number;
+    username: string;
+  } | null;
 }
 
 // 收款订单查询

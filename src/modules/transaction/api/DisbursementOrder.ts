@@ -108,6 +108,10 @@ export interface DisbursementOrderVo {
     hash: string;
     suffix: string;
   } | null;
+  created_customer: {
+    id: number;
+    username: string;
+  } | null;
 }
 
 // 付款订单查询
