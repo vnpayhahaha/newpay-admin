@@ -17,6 +17,7 @@ import { ResultCode } from "@/utils/ResultCode.ts";
 import hasAuth from "@/utils/permission/hasAuth.ts";
 import { selectStatus } from "@/modules/Common";
 import MaCopy from "@/components/ma-copy/index.vue";
+import item from "@/layouts/components/menu/item";
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -38,13 +39,31 @@ export default function getTableColumns(
       label: () => t("crud.selection"),
     },
     {
+      label: () => t("TransactionRawData.desc"),
+      prop: "content",
+      type: "expand",
+      width: 100,
+      cellRender: ({ row }) => {
+        let logs = "";
+        row.transaction_parsing_log.map((item) => {
+          const itemDesc = JSON.parse(item.fail_msg);
+          console.log(itemDesc);
+          logs +=
+            `<p style="color: ${item.status === 2 ? "red" : "green"}">${
+              item.created_at
+            }   > ${itemDesc[0]}</p>` +
+            " " +
+            itemDesc[1] +
+            "<br>";
+        });
+        return <div class="p-2" v-html={logs} />;
+      },
+    },
+    {
       label: () => t("TransactionRawData.content"),
       prop: "content",
       width: 100,
-      type: "expand",
-      cellRender: ({ row }) => {
-        return row.content;
-      },
+      hide: true,
     },
     // 索引序号列
     { type: "index" },

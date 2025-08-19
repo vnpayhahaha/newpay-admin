@@ -201,6 +201,7 @@ TransactionRawData:
   index: 原始凭证
   hash: 哈希值
   content: 内容
+  desc: 详情
   source: 来源
   status: 状态
   repeat_count: 重复次数

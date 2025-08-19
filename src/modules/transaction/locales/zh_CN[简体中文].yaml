@@ -201,6 +201,7 @@ bank_disbursement_download:
 TransactionRawData:
   index: 原始凭证
   hash: 哈希值
+  desc: 详情
   content: 内容
   source: 来源
   status: 状态

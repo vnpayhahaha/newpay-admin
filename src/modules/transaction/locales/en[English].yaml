@@ -200,6 +200,7 @@ bank_disbursement_download:
 TransactionRawData:
   index: Original voucher
   hash: Hash
+  desc: Description
   content: Content
   source: Source
   status: Status
