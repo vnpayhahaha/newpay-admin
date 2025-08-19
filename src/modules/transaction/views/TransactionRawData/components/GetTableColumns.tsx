@@ -56,7 +56,12 @@ export default function getTableColumns(
             itemDesc[1] +
             "<br>";
         });
-        return <div class="p-2" v-html={logs} />;
+        return (
+          <>
+            <el-tag>{row.content}</el-tag>
+            <div class="p-2" v-html={logs} />
+          </>
+        );
       },
     },
     {

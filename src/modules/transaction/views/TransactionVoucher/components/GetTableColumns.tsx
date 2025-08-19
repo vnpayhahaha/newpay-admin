@@ -44,11 +44,7 @@ export default function getTableColumns(
       width: 60,
       type: "expand",
       cellRender: ({ row }) => {
-        return (
-          <div class="text-align-left">
-            <p class="cell-ellipsis">{row.content}</p>
-          </div>
-        );
+        return <el-tag>{row.content}</el-tag>;
       },
     },
     // 普通列
