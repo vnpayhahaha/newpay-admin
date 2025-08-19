@@ -206,6 +206,10 @@ TransactionRawData:
   repeat_count: Repeat Count
   created_at: Create Time
   updated_at: Update Time
+  channel: Channel/Bank
+  channel_id: Channel ID
+  bank_account: Bank Account
+  bank_account_id: Bank Account ID
 TransactionParsingRules:
   index: Parsing Rules
   channel: Channel

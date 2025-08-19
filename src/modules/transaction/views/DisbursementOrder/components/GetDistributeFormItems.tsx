@@ -21,22 +21,24 @@ import {
 } from "~/channel/api/BankAccount.ts";
 import { unset } from "lodash-es";
 
+const bank_account_formRef = ref();
+
+const channel_account_formRef = ref();
 export default function getFormItems(
   t: any,
   model: DisbursementOrderVo
 ): MaFormItem[] {
-
   if (model.disbursement_channel_id === 0) {
-    unset(model, 'disbursement_channel_id')
-    unset(model, 'channel_type')
+    unset(model, "disbursement_channel_id");
+    unset(model, "channel_type");
   }
 
   if (model.channel_account_id === 0) {
-    unset(model, 'channel_account_id')
+    unset(model, "channel_account_id");
   }
 
   if (model.bank_account_id === 0) {
-    unset(model, 'bank_account_id')
+    unset(model, "bank_account_id");
   }
 
   const channelArray = reactive<ChannelDictVo[]>([]);
@@ -47,6 +49,12 @@ export default function getFormItems(
     // model.channel_id = channelArray.find(item => item.id === val)?.config || []
     model.channel_type =
       channelArray.find((item) => item.id === val)?.channel_type || 0;
+
+    if (model.channel_type === 1) {
+      bank_account_formRef.value.refresh();
+    } else {
+      channel_account_formRef.value.refresh();
+    }
   };
   return [
     {
@@ -133,7 +141,7 @@ export default function getFormItems(
       prop: "bank_account_id",
       hide: () => model.channel_type !== 1,
       render: () => {
-        return <ma-remote-select filterable />;
+        return <ma-remote-select ref={bank_account_formRef} filterable />;
       },
       renderSlots: {
         default: ({
@@ -184,9 +192,18 @@ export default function getFormItems(
         },
       },
       renderProps: {
+        axiosConfig: {
+          autoRequest: false,
+        },
         api: () =>
           new Promise((resolve) =>
-            resolve(remoteBankAccount({ status: 1, support_disbursement: 1 }))
+            resolve(
+              remoteBankAccount({
+                status: 1,
+                support_disbursement: 1,
+                channel_id: model.disbursement_channel_id,
+              })
+            )
           ),
         dataHandle: (response: any) => {
           return response.data?.map((item: BankAccountDictVo) => {
@@ -218,7 +235,7 @@ export default function getFormItems(
       prop: "channel_account_id",
       hide: () => model.channel_type !== 2,
       render: () => {
-        return <ma-remote-select filterable />;
+        return <ma-remote-select ref={channel_account_formRef} filterable />;
       },
       renderSlots: {
         default: ({
@@ -260,10 +277,17 @@ export default function getFormItems(
         },
       },
       renderProps: {
+        axiosConfig: {
+          autoRequest: false,
+        },
         api: () =>
           new Promise((resolve) =>
             resolve(
-              remoteChannelAccount({ status: 1, support_disbursement: 1 })
+              remoteChannelAccount({
+                status: 1,
+                support_disbursement: 1,
+                channel_id: model.disbursement_channel_id,
+              })
             )
           ),
         dataHandle: (response: any) => {

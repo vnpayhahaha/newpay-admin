@@ -16,6 +16,7 @@ import { deleteByIds } from "~/transaction/api/TransactionRawData.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
 import hasAuth from "@/utils/permission/hasAuth.ts";
 import { selectStatus } from "@/modules/Common";
+import MaCopy from "@/components/ma-copy/index.vue";
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -47,8 +48,79 @@ export default function getTableColumns(
     },
     // 索引序号列
     { type: "index" },
+    {
+      label: () => t("TransactionRawData.channel"),
+      prop: "channel",
+      type: "merge",
+      width: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <el-avatar shape="square" src={row.channel.channel_icon} />
+            <div class="ml-5" style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                <el-text class="mx-1" type="primary">
+                  {row.channel.channel_code}
+                </el-text>
+              </p>
+              <p>
+                <el-text class="mx-1" truncated>
+                  {row.channel.channel_name}
+                </el-text>
+              </p>
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      label: () => t("TransactionRawData.channel_id"),
+      prop: "channel_id",
+      width: 100,
+      hide: true,
+    },
+    {
+      label: () => t("TransactionRawData.bank_account"),
+      prop: "bank_account",
+      type: "merge",
+      minWidth: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <div class="ml-5" style={{ flex: 1, minWidth: 0 }}>
+              <p>{row.bank_account.account_holder}</p>
+              <p>
+                <MaCopy
+                  class="color-blue"
+                  content={row.bank_account.account_number}
+                />
+              </p>
+              <p> {row.bank_account.branch_name}</p>
+              <p>
+                <MaCopy
+                  class="color-blue"
+                  content={row.bank_account.bank_code}
+                />
+              </p>
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      label: () => t("TransactionRawData.bank_account_id"),
+      prop: "bank_account_id",
+      width: 100,
+      hide: true,
+    },
     // 普通列
-    { label: () => t("TransactionRawData.hash"), prop: "hash", minWidth: 280 },
+    { label: () => t("TransactionRawData.hash"), prop: "hash", width: 300 },
     { label: () => t("TransactionRawData.source"), prop: "source", width: 120 },
     {
       label: () => t("TransactionRawData.status"),

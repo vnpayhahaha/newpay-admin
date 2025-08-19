@@ -206,6 +206,10 @@ TransactionRawData:
   repeat_count: 重复次数
   created_at: 创建时间
   updated_at: 更新时间
+  channel: 渠道/银行
+  channel_id: 渠道ID
+  bank_account: 银行账户
+  bank_account_id: 银行账户ID
 TransactionParsingRules:
   index: 解析规则
   channel: 渠道

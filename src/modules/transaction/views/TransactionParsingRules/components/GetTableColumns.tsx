@@ -91,6 +91,7 @@ export default function getTableColumns(
     {
       label: () => t("TransactionParsingRules.variable_name"),
       prop: "variable_name",
+      width: 240,
       cellRender: ({ row }) => {
         return (
           <div
