@@ -220,6 +220,7 @@ export default function getTableColumns(
     },
     {
       label: () => t("transaction_voucher.transaction_voucher"),
+      width: 160,
       prop: "transaction_voucher",
     },
     {
