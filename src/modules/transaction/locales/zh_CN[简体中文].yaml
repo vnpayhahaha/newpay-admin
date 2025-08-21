@@ -198,6 +198,16 @@ bank_disbursement_download:
   record_count: 下载次数
   created_by: 创建人
   created_at: 创建时间
+bank_disbursement_upload:
+  index: 账单上传
+  attachment_id: 资源ID
+  file_name: 文件名
+  path: 存储路径
+  hash: 文件哈希
+  file_size: 文件大小
+  record_count: 下载次数
+  created_by: 创建人
+  created_at: 创建时间
 TransactionRawData:
   index: 原始凭证
   hash: 哈希值
@@ -268,6 +278,11 @@ menu:
     create: 新增银行账单下载
     update: 修改银行账单下载
     delete: 删除银行账单下载
+  bank_disbursement_upload:
+    list: 银行账单上传列表
+    create: 新增银行账单上传
+    update: 修改银行账单上传
+    delete: 删除银行账单上传
   transaction_raw_data:
     list: 原始凭证列表
     create: 新增原始凭证

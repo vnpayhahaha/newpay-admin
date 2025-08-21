@@ -197,6 +197,16 @@ bank_disbursement_download:
   record_count: Download Record Count
   created_by: Operator
   created_at: Create Time
+bank_disbursement_upload:
+  index: Upload Record
+  attachment_id: Attachment ID
+  file_name: File Name
+  path: Storage Path
+  hash: File Hash
+  file_size: File Size
+  record_count: Download Record Count
+  created_by: Operator
+  created_at: Create Time
 TransactionRawData:
   index: Original voucher
   hash: Hash
@@ -264,6 +274,11 @@ menu:
     create: Bank Disbursement Download Create
     update: Bank Disbursement Download Update
     delete: Bank Disbursement Download Delete
+  bank_disbursement_upload:
+    list: Bank Disbursement Upload List
+    create: Bank Disbursement Upload Create
+    update: Bank Disbursement Upload Update
+    delete: Bank Disbursement Upload Delete
   transaction_raw_data":
     list: Transaction Raw Data List
     create: Transaction Raw Data Create
