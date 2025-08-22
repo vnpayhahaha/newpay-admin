@@ -18,7 +18,7 @@ import {
 } from "~/channel/api/BankAccount.ts";
 import { unset } from "lodash-es";
 //down_bill_template_ids
-const bank_account_formRef = ref();
+const bankAccountFormRef = ref();
 export default function getFormItems(
   t: any,
   model: DisbursementOrderVo
@@ -35,10 +35,9 @@ export default function getFormItems(
   if (model.bank_account_id === 0) {
     unset(model, "bank_account_id");
   }
-
   const channelArray = reactive<ChannelDictVo[]>([]);
   const channelChange = (val: string) => {
-    bank_account_formRef.value.refresh();
+    bankAccountFormRef.value?.refresh();
   };
   return [
     {
@@ -124,7 +123,7 @@ export default function getFormItems(
       label: t("transaction_voucher.bank_account_id"),
       prop: "bank_account_id",
       render: () => {
-        return <ma-remote-select ref={bank_account_formRef} filterable />;
+        return <ma-remote-select ref={bankAccountFormRef} filterable />;
       },
       renderSlots: {
         default: ({
@@ -176,7 +175,7 @@ export default function getFormItems(
       },
       renderProps: {
         axiosConfig: {
-          autoRequest: false,
+          autoRequest: true,
         },
         api: () =>
           new Promise((resolve) =>

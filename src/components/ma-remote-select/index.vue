@@ -30,6 +30,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'select-item', value: Record<string, any>): void
   (event: 'change', value: any): void
+  (event: 'refresh'): void // 新增 refresh 事件
 }>()
 
 const elSelectV2Ref = ref<any>()
@@ -42,7 +43,11 @@ function handleChange(value: any) {
   const key = elSelectV2Ref.value.valueKey
   emit('select-item', options.value.find(item => item[key] === value) ?? null)
 }
-
+// 暴露方法改为事件触发
+function refresh() {
+  request()
+  emit('refresh') // 触发 refresh 事件
+}
 function request() {
   if (props?.api && typeof props.api === 'function') {
     props.api(props.axiosConfig).then((res: any) => {
@@ -68,7 +73,7 @@ function request() {
 (props?.axiosConfig?.autoRequest ?? true) && request()
 
 defineExpose({
-  refresh: () => request(),
+  refresh,
   selectRef: elSelectV2Ref,
 })
 </script>
