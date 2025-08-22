@@ -17,12 +17,13 @@ import type { Ref } from "vue";
 import type { TransType } from "@/hooks/auto-imports/useTrans.ts";
 import type { UseDialogExpose } from "@/hooks/useDialog.ts";
 
-import { page } from "~/transaction/api/BankDisbursementUpload.ts";
+import { page, upload } from "~/transaction/api/BankDisbursementUpload.ts";
 import getSearchItems from "./components/GetSearchItems.tsx";
 import getTableColumns from "./components/GetTableColumns.tsx";
 import useDialog from "@/hooks/useDialog.ts";
 import { useMessage } from "@/hooks/useMessage.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
+import MaUploadChunk from "@/components/ma-upload-chunk/index.vue";
 
 import Form from "./Form.vue";
 
@@ -31,6 +32,7 @@ defineOptions({ name: "transaction:bank_disbursement_upload" });
 const route = useRoute();
 const proTableRef = ref<MaProTableExpose>() as Ref<MaProTableExpose>;
 const formRef = ref();
+const advancedUploadRef = ref();
 const setFormRef = ref();
 const selections = ref<any[]>([]);
 const i18n = useTrans() as TransType;
@@ -88,6 +90,15 @@ const maDialog: UseDialogExpose = useDialog({
   },
 });
 
+const updateDialog: UseDialogExpose = useDialog({
+  // 保存数据
+  ok: ({ formType }, okLoadingState: (state: boolean) => void) => {
+    okLoadingState(true);
+
+    // okLoadingState(false);
+  },
+});
+
 // 参数配置
 const options = ref<MaProTableOptions>({
   // 表格距离底部的像素偏移适配
@@ -139,16 +150,60 @@ const schema = ref<MaProTableSchema>({
   // 表格列
   tableColumns: getTableColumns(maDialog, formRef, t),
 });
+
+function onUploadSuccess(file: any, result: any) {
+  console.log("上传成功:", file, result);
+}
+
+function onUploadError(file: any, error: Error) {
+  console.error("上传失败:", file, error);
+}
+
+function onSuccessAction(file: any, result: any) {
+  console.log("成功操作:", file, result);
+}
+const host = import.meta.env.VITE_APP_API_BASEURL;
+const uploadUrl = `${host}/admin/transaction/bank_disbursement_upload/upload`;
 </script>
 
 <template>
   <div class="mine-layout pt-3">
-    <MaProTable ref="proTableRef" :options="options" :schema="schema" />
+    <MaProTable ref="proTableRef" :options="options" :schema="schema">
+      <template #actions>
+        <el-button
+          v-auth="['transaction:transaction_raw_data:save']"
+          type="primary"
+          @click="
+            () => {
+              updateDialog.setTitle(t('crud.add'));
+              updateDialog.open({ formType: 'add' });
+            }
+          "
+        >
+          {{ t("crud.add") }}
+        </el-button>
+      </template>
+    </MaProTable>
 
-    <component :is="maDialog.Dialog">
-      <template #default="{ formType, data }">
-        <!-- 新增、编辑表单 -->
-        <Form ref="formRef" :form-type="formType" :data="data" />
+    <component :is="updateDialog.Dialog">
+      <template #default="{ data }">
+        <MaUploadChunk
+          ref="advancedUploadRef"
+          :action="upload"
+          :chunk-size="5 * 1024 * 1024"
+          :max-files="5"
+          :max-file-size="500 * 1024 * 1024"
+          :concurrency="5"
+          :retry-count="5"
+          :headers="{
+            'X-Custom-Header': 'test-value',
+          }"
+          :data="data"
+          tip="支持大文件上传，最大500MB"
+          success-action-text="下载"
+          @upload-success="onUploadSuccess"
+          @success-action="onSuccessAction"
+        />
       </template>
     </component>
   </div>

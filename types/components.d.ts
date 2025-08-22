@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Demo: typeof import('./../src/components/ma-upload-chunk/demo.vue')['default']
     Form: typeof import('./../src/components/ma-key-value/components/form.vue')['default']
     MaAuth: typeof import('./../src/components/ma-auth/index.vue')['default']
     MaCitySelect: typeof import('./../src/components/ma-city-select/index.vue')['default']
@@ -28,6 +29,7 @@ declare module 'vue' {
     MaSelectTable: typeof import('./../src/components/ma-select-table/index.vue')['default']
     MaSvgIcon: typeof import('./../src/components/ma-svg-icon/index.vue')['default']
     MaTree: typeof import('./../src/components/ma-tree/index.vue')['default']
+    MaUploadChunk: typeof import('./../src/components/ma-upload-chunk/index.vue')['default']
     MaUploadFile: typeof import('./../src/components/ma-upload-file/index.vue')['default']
     MaUploadImage: typeof import('./../src/components/ma-upload-image/index.vue')['default']
     MaVerifyCode: typeof import('./../src/components/ma-verify-code/index.vue')['default']

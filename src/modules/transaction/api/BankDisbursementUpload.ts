@@ -1,6 +1,6 @@
 import type { ResponseStruct } from "#/global";
 
-export interface BankDisbursementDownloadVo {
+export interface BankDisbursementUploadVo {
   // 主键ID
   id: number;
   // 资源ID
@@ -12,9 +12,9 @@ export interface BankDisbursementDownloadVo {
   // 文件hash
   hash: string;
   // 数据大小（M）
-  file_size: string;
+  file_size: number;
   // 条数
-  record_count: string;
+  record_count: number;
   // 创建者
   created_by: string;
   // 创建时间
@@ -23,8 +23,8 @@ export interface BankDisbursementDownloadVo {
 
 // bank_disbursement_upload查询
 export function page(
-  params: BankDisbursementDownloadVo
-): Promise<ResponseStruct<BankDisbursementDownloadVo[]>> {
+  params: BankDisbursementUploadVo
+): Promise<ResponseStruct<BankDisbursementUploadVo[]>> {
   return useHttp().get("/admin/transaction/bank_disbursement_upload/list", {
     params,
   });
@@ -32,7 +32,7 @@ export function page(
 
 // bank_disbursement_upload新增
 export function create(
-  data: BankDisbursementDownloadVo
+  data: BankDisbursementUploadVo
 ): Promise<ResponseStruct<null>> {
   return useHttp().post("/admin/transaction/bank_disbursement_upload", data);
 }
@@ -40,7 +40,7 @@ export function create(
 // bank_disbursement_upload编辑
 export function save(
   id: number,
-  data: BankDisbursementDownloadVo
+  data: BankDisbursementUploadVo
 ): Promise<ResponseStruct<null>> {
   return useHttp().put(
     `/admin/transaction/bank_disbursement_upload/${id}`,
@@ -62,4 +62,17 @@ export function downloadById(id: number): Promise<ResponseStruct<Blob>> {
     timeout: 60 * 1000,
     responseType: "blob",
   });
+}
+
+export function upload(data: FormData): Promise<ResponseStruct<any>> {
+  return useHttp().post(
+    "/admin/transaction/bank_disbursement_upload/upload",
+    data,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      timeout: 60 * 1000,
+    }
+  );
 }
