@@ -37,6 +37,7 @@ export default function getFormItems(
   }
   const channelArray = reactive<ChannelDictVo[]>([]);
   const channelChange = (val: string) => {
+    unset(model, "bank_account_id");
     bankAccountFormRef.value?.refresh();
   };
   return [
