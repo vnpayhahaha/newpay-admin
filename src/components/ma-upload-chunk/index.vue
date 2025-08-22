@@ -28,6 +28,8 @@ en:
   chunkUploadFailed: "Chunk upload failed"
   uploadIncomplete: "Upload incomplete: {uploaded}/{total} chunks uploaded"
   defaultTip: "Supports files within {maxSize}, up to {maxFiles} files can be uploaded"
+  fileTypeNotAllowed: "File type not allowed. Supported types: {types}"
+  fileExtensionNotAllowed: "File extension not allowed. Supported extensions: {extensions}"
   ready: "Ready to upload"
   uploading: "Uploading"
   canceled: "Canceled"
@@ -56,6 +58,8 @@ zh_CN:
   chunkUploadFailed: "分片上传失败"
   uploadIncomplete: "上传不完整，已上传 {uploaded}/{total} 个分片"
   defaultTip: "支持{maxSize}以内的文件，最多上传{maxFiles}个文件"
+  fileTypeNotAllowed: "不支持该文件类型，支持的类型：{types}"
+  fileExtensionNotAllowed: "不支持该文件扩展名，支持的扩展名：{extensions}"
   ready: "准备上传"
   uploading: "上传中"
   canceled: "已取消"
@@ -84,6 +88,8 @@ zh_TW:
   chunkUploadFailed: "分片上傳失敗"
   uploadIncomplete: "上傳不完整，已上傳 {uploaded}/{total} 個分片"
   defaultTip: "支持{maxSize}以內的文件，最多上傳{maxFiles}個文件"
+  fileTypeNotAllowed: "不支援該文件類型，支援的類型：{types}"
+  fileExtensionNotAllowed: "不支援該文件擴展名，支援的擴展名：{extensions}"
   ready: "準備上傳"
   uploading: "上傳中"
   canceled: "已取消"
@@ -124,6 +130,10 @@ const {
   retryCount = 3,
   // 是否自动开始上传
   autoUpload = false,
+  // 允许的MIME类型数组
+  allowedTypes = [],
+  // 允许的文件扩展名数组
+  allowedExtensions = [],
 } = defineProps<{
   action: ActionParam;
   multiple?: boolean;
@@ -139,6 +149,8 @@ const {
   concurrency?: number;
   retryCount?: number;
   autoUpload?: boolean;
+  allowedTypes?: string[];
+  allowedExtensions?: string[];
 }>();
 
 const emit = defineEmits<{
@@ -191,12 +203,62 @@ const http = useHttp();
 
 const files = ref<FileItem[]>([]);
 const abortControllers = new Map<string, AbortController>();
+// 获取文件扩展名
+function getFileExtension(filename: string): string {
+  return filename.split(".").pop()?.toLowerCase() || "";
+}
+
+// 验证文件类型
+function validateFileType(file: File): { valid: boolean; error?: string } {
+  // 检查 MIME 类型
+  if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
+    return {
+      valid: false,
+      error: t("fileTypeNotAllowed", { types: allowedTypes.join(", ") }),
+    };
+  }
+
+  // 检查文件扩展名
+  if (allowedExtensions.length > 0) {
+    const extension = getFileExtension(file.name);
+    if (!allowedExtensions.includes(extension)) {
+      return {
+        valid: false,
+        error: t("fileExtensionNotAllowed", {
+          extensions: allowedExtensions.join(", "),
+        }),
+      };
+    }
+  }
+
+  return { valid: true };
+}
+
 // 计算提示文本
 const tipText = computed(() => {
   if (tip) {
     return tip;
   }
-  return t("defaultTip", { maxSize: formatFileSize(maxFileSize), maxFiles });
+
+  let defaultTip = t("defaultTip", {
+    maxSize: formatFileSize(maxFileSize),
+    maxFiles,
+  });
+
+  // 添加文件类型提示
+  const typeInfo = [];
+  if (allowedTypes.length > 0) {
+    typeInfo.push(`支持类型：${allowedTypes.join(", ")}`);
+  }
+  if (allowedExtensions.length > 0) {
+    typeInfo.push(`支持扩展名：${allowedExtensions.join(", ")}`);
+  }
+
+  if (typeInfo.length > 0) {
+    defaultTip += `，${typeInfo.join("，")}`;
+  }
+
+  return defaultTip;
 });
 
 // 计算是否有文件正在上传
@@ -208,6 +270,13 @@ const isUploading = computed(() => {
 function handleFileChange(uploadFile: UploadFile) {
   const file = uploadFile.raw as UploadRawFile;
   if (!file) {
+    return;
+  }
+
+  // 检查文件类型
+  const typeValidation = validateFileType(file);
+  if (!typeValidation.valid) {
+    message.error(typeValidation.error!);
     return;
   }
 
