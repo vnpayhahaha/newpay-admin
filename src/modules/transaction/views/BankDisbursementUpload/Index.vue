@@ -184,8 +184,10 @@ function onSuccessAction(file: any, result: any) {
         <MaUploadChunk
           ref="advancedUploadRef"
           :action="upload"
+          :multiple="true"
           :chunk-size="5 * 1024 * 1024"
-          :max-files="5"
+          :max-files="2"
+          :auto-upload="false"
           :max-file-size="100 * 1024 * 1024"
           :concurrency="5"
           :retry-count="5"

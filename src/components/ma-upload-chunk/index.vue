@@ -103,6 +103,7 @@ zh_TW:
 <script setup lang="ts">
 import type { UploadFile, UploadRawFile } from "element-plus";
 import { UploadFilled } from "@element-plus/icons-vue";
+import { nextTick, ref, computed } from "vue";
 import SparkMD5 from "spark-md5";
 import { useMessage } from "@/hooks/useMessage";
 import { useLocalTrans } from "@/hooks/useLocalTrans";
@@ -195,7 +196,7 @@ type UploadFunction = (
 ) => Promise<ChunkUploadResponse>;
 
 // action参数可以是URL字符串或上传函数
-type ActionParam = string | UploadFunction;
+type ActionParam = string | UploadFunction | ((formData: FormData, signal?: AbortSignal) => Promise<any>);
 
 const message = useMessage();
 const t = useLocalTrans();
@@ -267,8 +268,8 @@ const isUploading = computed(() => {
 });
 
 // 处理文件选择
-function handleFileChange(uploadFile: UploadFile) {
-  const file = uploadFile.raw as UploadRawFile;
+function handleFileChange(elementUploadFile: UploadFile) {
+  const file = elementUploadFile.raw as UploadRawFile;
   if (!file) {
     return;
   }
@@ -289,14 +290,17 @@ function handleFileChange(uploadFile: UploadFile) {
   }
 
   // 检查文件数量
-  if (!multiple && files.value.length >= 1) {
-    message.error(t("onlyOneFile"));
-    return;
-  }
-
-  if (multiple && files.value.length >= maxFiles) {
-    message.error(t("fileCountExceeded", { maxFiles }));
-    return;
+  if (!multiple) {
+    // 单文件模式：清除现有文件以支持替换
+    if (files.value.length >= 1) {
+      files.value = [];
+    }
+  } else {
+    // 多文件模式：检查是否超过最大文件数量
+    if (files.value.length >= maxFiles) {
+      message.error(t("fileCountExceeded", { maxFiles }));
+      return;
+    }
   }
 
   // 创建文件对象
@@ -306,7 +310,7 @@ function handleFileChange(uploadFile: UploadFile) {
     name: file.name,
     size: file.size,
     percentage: 0,
-    status: "ready",
+    status: "ready" as const,
     uploading: false,
     calculatingHash: false,
     hashProgress: 0,
@@ -319,7 +323,9 @@ function handleFileChange(uploadFile: UploadFile) {
 
   // 如果开启自动上传，立即开始上传
   if (autoUpload) {
-    uploadFile(fileObj);
+    nextTick(() => {
+      uploadFile(fileObj);
+    });
   }
 }
 
@@ -351,7 +357,10 @@ function calculateFileHash(fileObj: FileItem): Promise<string | null> {
     const hashChunkSize = 2 * 1024 * 1024; // 2MB per chunk
     let offset = 0;
 
-    fileObj.hashProgress = 0;
+    const hashIndex = files.value.findIndex(f => f.id === fileObj.id);
+    if (hashIndex !== -1) {
+      files.value[hashIndex].hashProgress = 0;
+    }
 
     const loadNext = () => {
       const slice = file.slice(offset, offset + hashChunkSize);
@@ -362,7 +371,10 @@ function calculateFileHash(fileObj: FileItem): Promise<string | null> {
       if (e.target?.result) {
         spark.append(e.target.result as ArrayBuffer);
         offset += hashChunkSize;
-        fileObj.hashProgress = Math.min(100, Math.round((offset / size) * 100));
+        const progressIndex = files.value.findIndex(f => f.id === fileObj.id);
+        if (progressIndex !== -1) {
+          files.value[progressIndex].hashProgress = Math.min(100, Math.round((offset / size) * 100));
+        }
 
         if (offset < size) {
           loadNext();
@@ -388,20 +400,31 @@ async function uploadFile(fileObj: FileItem) {
   const fileId = fileObj.id;
   const totalChunks = Math.ceil(file.size / chunkSize);
 
-  fileObj.uploading = true;
-  fileObj.status = "uploading";
-  fileObj.errorMessage = null;
-  fileObj.percentage = 0;
+  const fileIndex = files.value.findIndex(f => f.id === fileObj.id);
+  if (fileIndex !== -1) {
+    files.value[fileIndex].uploading = true;
+    files.value[fileIndex].status = "uploading";
+    files.value[fileIndex].errorMessage = null;
+    files.value[fileIndex].percentage = 0;
+  }
 
   try {
     // 计算文件哈希值
-    fileObj.calculatingHash = true;
+    const fileIndex1 = files.value.findIndex(f => f.id === fileObj.id);
+    if (fileIndex1 !== -1) {
+      files.value[fileIndex1].calculatingHash = true;
+    }
     fileObj.hash = await calculateFileHash(fileObj);
-    fileObj.calculatingHash = false;
+    const fileIndex2 = files.value.findIndex(f => f.id === fileObj.id);
+    if (fileIndex2 !== -1) {
+      files.value[fileIndex2].calculatingHash = false;
+    }
 
     if (!fileObj.hash) {
       throw new Error(t("hashCalculationFailed"));
     }
+
+    fileObj.hash = fileObj.hash as string; // 确保类型安全
 
     // 创建取消控制器
     const abortController = new AbortController();
@@ -414,24 +437,31 @@ async function uploadFile(fileObj: FileItem) {
       abortController.signal
     );
 
-    fileObj.uploading = false;
-    fileObj.status = "success";
-    fileObj.percentage = 100;
+    const successIndex = files.value.findIndex(f => f.id === fileObj.id);
+    if (successIndex !== -1) {
+      files.value[successIndex].uploading = false;
+      files.value[successIndex].status = "success";
+      files.value[successIndex].percentage = 100;
+    }
+    
     emit("upload-success", fileObj, fileObj.result);
     message.success(t("uploadSuccess"));
   } catch (error: any) {
-    fileObj.uploading = false;
-    if (error.name === "AbortError" || error.message === t("uploadCanceled")) {
-      fileObj.status = "canceled";
-      fileObj.percentage = 0;
-      fileObj.chunkInfo = null;
-      emit("upload-canceled", fileObj);
-      message.info(t("uploadCanceled"));
-    } else {
-      fileObj.status = "error";
-      fileObj.errorMessage = error.message || t("chunkUploadFailed");
-      emit("upload-error", fileObj, error);
-      message.error(fileObj.errorMessage);
+    const errorIndex = files.value.findIndex(f => f.id === fileObj.id);
+    if (errorIndex !== -1) {
+      files.value[errorIndex].uploading = false;
+      if (error.name === "AbortError" || error.message === t("uploadCanceled")) {
+        files.value[errorIndex].status = "canceled";
+        files.value[errorIndex].percentage = 0;
+        files.value[errorIndex].chunkInfo = null;
+        emit("upload-canceled", fileObj);
+        message.info(t("uploadCanceled"));
+      } else {
+        files.value[errorIndex].status = "error";
+        files.value[errorIndex].errorMessage = error.message || t("chunkUploadFailed");
+        emit("upload-error", fileObj, error);
+        message.error(files.value[errorIndex].errorMessage);
+      }
     }
   } finally {
     abortControllers.delete(fileId);
@@ -482,14 +512,19 @@ async function uploadChunksWithConcurrency(
         uploadedChunks.add(chunkIndex);
 
         // 更新进度
-        fileObj.percentage = Math.round(
-          (uploadedChunks.size / totalChunks) * 100
-        );
-        fileObj.chunkInfo = {
-          current: uploadedChunks.size,
-          total: totalChunks,
-        };
-        emit("upload-progress", fileObj, fileObj.percentage);
+        const newPercentage = Math.round((uploadedChunks.size / totalChunks) * 100);
+        
+        // 找到文件在数组中的索引并更新
+        const fileIndex = files.value.findIndex(f => f.id === fileObj.id);
+        if (fileIndex !== -1) {
+          files.value[fileIndex].percentage = newPercentage;
+          files.value[fileIndex].chunkInfo = {
+            current: uploadedChunks.size,
+            total: totalChunks,
+          };
+        }
+        
+        emit("upload-progress", fileObj, newPercentage);
 
         // 如果是最后一个分片，保存结果
         if (uploadedChunks.size === totalChunks && result.code === 200) {
@@ -564,7 +599,19 @@ async function uploadChunk(
   // 判断action类型并调用相应的上传方法
   if (typeof action === "function") {
     // 如果action是函数，直接调用
-    return await action(formData, signal);
+    const response = await action(formData, signal);
+    
+    // 适配响应格式 - 确保返回正确的结构
+    if (response && typeof response.code === 'number') {
+      return response;
+    }
+    
+    // 兜底：包装响应格式
+    return {
+      code: response?.code || 200,
+      data: response?.data || response,
+      message: response?.message || ''
+    };
   } else {
     // 如果action是字符串URL，使用http.post
     const response = await http.post(action, formData, {
@@ -709,6 +756,7 @@ defineExpose({
     <!-- 批量操作按钮 -->
     <div v-if="files.length > 0" class="batch-actions">
       <el-button
+        v-if="!autoUpload"
         type="primary"
         :disabled="isUploading || files.every((f) => f.status === 'success')"
         @click="uploadAllFiles"
@@ -724,11 +772,16 @@ defineExpose({
     <div v-if="files.length > 0" class="file-list">
       <div v-for="fileItem in files" :key="fileItem.id" class="file-item">
         <el-card
-          :class="{
-            'uploading-file': fileItem.uploading || fileItem.calculatingHash,
-            'success-file': fileItem.status === 'success',
-            'error-file': fileItem.status === 'error',
-          }"
+          :key="`card-${fileItem.id}`"
+          :class="[
+            'file-card',
+            `file-${fileItem.id}`,
+            {
+              'uploading-file': fileItem.uploading || fileItem.calculatingHash,
+              'success-file': fileItem.status === 'success',
+              'error-file': fileItem.status === 'error',
+            }
+          ]"
         >
           <template #header>
             <div class="file-header">
@@ -752,7 +805,8 @@ defineExpose({
               <div class="file-actions">
                 <el-button
                   v-if="
-                    fileItem.status === 'ready' || fileItem.status === 'error'
+                    !autoUpload
+                    && (fileItem.status === 'ready' || fileItem.status === 'error')
                   "
                   type="primary"
                   size="small"
@@ -795,6 +849,7 @@ defineExpose({
                 {{ t("calculatingHash") }}
               </div>
               <el-progress
+                :key="`hash-progress-${fileItem.id}`"
                 :percentage="fileItem.hashProgress"
                 :show-text="false"
                 :stroke-width="6"
@@ -804,6 +859,7 @@ defineExpose({
             <!-- 上传进度 -->
             <div v-if="!fileItem.calculatingHash" class="upload-progress">
               <el-progress
+                :key="`upload-progress-${fileItem.id}`"
                 :percentage="fileItem.percentage"
                 :status="getProgressStatus(fileItem.status)"
                 :stroke-width="8"
@@ -854,6 +910,10 @@ defineExpose({
 
 .file-item {
   margin-bottom: 16px;
+}
+
+.file-card {
+  transition: all 0.3s ease;
 }
 
 .file-header {
