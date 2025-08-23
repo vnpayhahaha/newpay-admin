@@ -17,30 +17,27 @@ import {
 } from "~/channel/api/BankAccount.ts";
 import { unset } from "lodash-es";
 
+const bankAccountFormRef = ref();
 export default function getFormItems(
   t: any,
   model: DisbursementOrderVo
 ): MaFormItem[] {
-
   if (model.disbursement_channel_id === 0) {
-    unset(model, 'disbursement_channel_id')
+    unset(model, "disbursement_channel_id");
   }
 
   if (model.channel_account_id === 0) {
-    unset(model, 'channel_account_id')
+    unset(model, "channel_account_id");
   }
 
   if (model.bank_account_id === 0) {
-    unset(model, 'bank_account_id')
+    unset(model, "bank_account_id");
   }
 
   const channelArray = reactive<ChannelDictVo[]>([]);
   const channelChange = (val: string) => {
-    // console.log('channelArray', channelArray)
-    // console.log('channelChange', val)
-    // model.api_config 赋值等于 遍历channelArray 中id === val 的 channelArray[i].config
-    // model.channel_id = channelArray.find(item => item.id === val)?.config || []
-
+    unset(model, "bank_account_id");
+    bankAccountFormRef.value?.refresh();
   };
   return [
     {
@@ -108,7 +105,7 @@ export default function getFormItems(
       renderProps: {
         api: () =>
           new Promise((resolve) =>
-            resolve(remote({ support_disbursement: 1 , channel_type : 1}))
+            resolve(remote({ support_disbursement: 1, channel_type: 1 }))
           ),
         dataHandle: (response: any) => {
           channelArray.splice(0, channelArray.length, ...response.data);
@@ -126,7 +123,7 @@ export default function getFormItems(
       label: t("transaction_voucher.bank_account_id"),
       prop: "bank_account_id",
       render: () => {
-        return <ma-remote-select filterable />;
+        return <ma-remote-select ref={bankAccountFormRef} filterable />;
       },
       renderSlots: {
         default: ({
@@ -179,7 +176,13 @@ export default function getFormItems(
       renderProps: {
         api: () =>
           new Promise((resolve) =>
-            resolve(remoteBankAccount({ status: 1, support_disbursement: 1 }))
+            resolve(
+              remoteBankAccount({
+                status: 1,
+                support_disbursement: 1,
+                channel_id: model.disbursement_channel_id,
+              })
+            )
           ),
         dataHandle: (response: any) => {
           return response.data?.map((item: BankAccountDictVo) => {
