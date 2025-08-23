@@ -9,9 +9,42 @@
  */
 
 import type { MaSearchItem } from "@mineadmin/search";
-
+import type { ChannelDictVo } from "~/channel/api/Channel.ts";
+import { remote } from "~/channel/api/Channel.ts";
+import { selectStatus } from "@/modules/Common";
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
+    {
+      label: () => t("bankAccount.channel_id"),
+      prop: "channel_id",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise((resolve) => resolve(remote({ channel_type: 1 }))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: ChannelDictVo) => {
+            return { label: `${item.channel_name}`, value: item.id };
+          });
+        },
+      },
+    },
+    {
+      label: t("bank_disbursement_upload.upload_bill_template_id"),
+      prop: "upload_bill_template_id",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("disbursement_order", "bill_template_list"))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
+        multiple: false,
+      },
+    },
     {
       label: () => t("bank_disbursement_upload.file_name"),
       prop: "file_name",
