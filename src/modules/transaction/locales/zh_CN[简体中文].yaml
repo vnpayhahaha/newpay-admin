@@ -205,9 +205,11 @@ bank_disbursement_upload:
   path: 存储路径
   hash: 文件哈希
   file_size: 文件大小
-  record_count: 下载次数
+  record_count: 条数
   created_by: 创建人
   created_at: 创建时间
+  channel_id: 银行
+  upload_bill_template_id: 账单模板
 TransactionRawData:
   index: 原始凭证
   hash: 哈希值

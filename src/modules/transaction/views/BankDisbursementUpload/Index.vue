@@ -64,7 +64,7 @@ const maDialog: UseDialogExpose = useDialog({
                   proTableRef.value.refresh();
                 })
                 .catch((err: any) => {
-                  msg.alertError(err);
+                  msg.alertError(err.response.data?.message);
                 });
               break;
             // 修改
@@ -79,7 +79,7 @@ const maDialog: UseDialogExpose = useDialog({
                   proTableRef.value.refresh();
                 })
                 .catch((err: any) => {
-                  msg.alertError(err);
+                  msg.alertError(err.response.data?.message);
                 });
               break;
           }

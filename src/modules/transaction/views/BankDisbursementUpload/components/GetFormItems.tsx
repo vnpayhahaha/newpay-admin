@@ -11,8 +11,8 @@ import type { MaFormItem } from "@mineadmin/form";
 import type { BankDisbursementUploadVo } from "~/transaction/api/BankDisbursementUpload.ts";
 import { remote, ChannelDictVo } from "~/channel/api/Channel.ts";
 import { selectStatus } from "@/modules/Common";
-import { fa } from "element-plus/es/locale/index.mjs";
 import { chunkUpload } from "~/base/api/attachment.ts";
+import { unset } from "lodash-es";
 export default function getFormItems(
   formType: "add" | "edit" = "add",
   t: any,
@@ -27,8 +27,16 @@ export default function getFormItems(
   if (formType === "edit") {
     // todo...
   }
+  unset(model, "channel_id");
+  unset(model, "upload_bill_template_id");
   function onUploadSuccess(file: any, result: any) {
     console.log("上传成功:11", file, result);
+    model.attachment_id = result.id;
+    model.file_name = result.origin_name;
+    model.path = result.base_path;
+    model.hash = result.hash;
+    model.file_size = result.size_info;
+    model.suffix = result.suffix;
   }
 
   function onSuccessAction(file: any, result: any) {
@@ -36,12 +44,10 @@ export default function getFormItems(
   }
   return [
     {
-      label: t("bankAccount.channel_id"),
+      label: t("bank_disbursement_upload.channel_id"),
       prop: "channel_id",
       itemProps: { required: true },
-      render: () => (
-        <ma-remote-select filterable disabled={formType === "edit"} />
-      ),
+      render: () => <ma-remote-select filterable />,
       renderProps: {
         api: () =>
           new Promise((resolve) => resolve(remote({ channel_type: 1 }))),
@@ -53,8 +59,8 @@ export default function getFormItems(
       },
     },
     {
-      label: t("bankAccount.down_bill_template_id"),
-      prop: "down_bill_template_id",
+      label: t("bank_disbursement_upload.upload_bill_template_id"),
+      prop: "upload_bill_template_id",
       itemProps: { required: true },
       render: () => <ma-remote-select filterable />,
       renderProps: {
@@ -78,8 +84,7 @@ export default function getFormItems(
         return (
           <ma-upload-chunk
             ref="advancedUploadRef"
-            upload-success={onUploadSuccess}
-            success-action={onSuccessAction}
+            onUploadSuccess={onUploadSuccess}
           />
         );
       },
@@ -88,13 +93,13 @@ export default function getFormItems(
         multiple: false,
         chunkSize: 5 * 1024 * 1024,
         maxFiles: 1,
-        autoUpload: false,
+        autoUpload: true,
         maxFileSize: 100 * 1024 * 1024,
         concurrency: 2,
         retryCount: 5,
         allowedExtensions: ["csv", "xls", "xlsx"],
         tip: "支持大文件上传，最大100MB，仅支持CSV和Excel文件",
-        successActionText: "下载",
+        showSuccessAction: false,
       },
     },
   ];

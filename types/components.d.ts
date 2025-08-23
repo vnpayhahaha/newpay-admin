@@ -9,6 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Demo: typeof import('./../src/components/ma-upload-chunk/demo.vue')['default']
+    Example: typeof import('./../src/components/ma-upload-chunk/example.vue')['default']
     Form: typeof import('./../src/components/ma-key-value/components/form.vue')['default']
     MaAuth: typeof import('./../src/components/ma-auth/index.vue')['default']
     MaCitySelect: typeof import('./../src/components/ma-city-select/index.vue')['default']

@@ -444,8 +444,32 @@ async function uploadFile(fileObj: FileItem) {
       files.value[successIndex].percentage = 100;
     }
     
-    emit("upload-success", fileObj, fileObj.result);
-    message.success(t("uploadSuccess"));
+    // 触发upload-success事件，传递完整的文件信息和结果
+    emit('upload-success', fileObj, fileObj.result)
+    
+    // 自动触发success-action事件
+    const autoEventData = {
+      ...fileObj.result,
+      manual: false,
+      actionType: 'auto',
+      uploadTime: new Date().toISOString(),
+      fileInfo: {
+        name: fileObj.name,
+        size: fileObj.size,
+        type: fileObj.file.type
+      }
+    }
+    emit('success-action', fileObj, autoEventData)
+    
+    // 调试日志
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[MaUploadChunk] Events emitted:', {
+        'upload-success': { fileObj, result: fileObj.result },
+        'success-action': { fileObj, eventData: autoEventData }
+      })
+    }
+    
+    message.success(t('uploadSuccess'))
   } catch (error: any) {
     const errorIndex = files.value.findIndex(f => f.id === fileObj.id);
     if (errorIndex !== -1) {
@@ -649,9 +673,22 @@ function removeFile(fileObj: FileItem) {
   }
 }
 
-// 处理成功后的操作
+// 处理成功后的手动操作（点击按钮时）
 function handleSuccessAction(fileObj: FileItem) {
-  emit("success-action", fileObj, fileObj.result);
+  // 手动操作时也触发success-action事件，但添加手动标识
+  const eventData = { 
+    ...fileObj.result, 
+    manual: true,
+    actionType: 'manual',
+    clickTime: new Date().toISOString()
+  }
+  
+  // 调试日志
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[MaUploadChunk] Manual success-action triggered:', { fileObj, eventData })
+  }
+  
+  emit('success-action', fileObj, eventData)
 }
 
 // 清除所有文件

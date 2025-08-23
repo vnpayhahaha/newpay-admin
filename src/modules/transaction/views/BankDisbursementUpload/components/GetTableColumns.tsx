@@ -32,8 +32,40 @@ export default function getTableColumns(
   return [
     // 多选列
     // 索引序号列
-    { type: "index" },
+    // { type: "index" },
+    {
+      label: () => t("bankAccount.channel_id"),
+      prop: "channel_id",
+      width: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div
+            class="text-align-left"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <el-avatar shape="square" src={row.channel.channel_icon} />
+            <div class="ml-5" style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                <el-text class="mx-1" type="primary">
+                  {row.channel.channel_code}
+                </el-text>
+              </p>
+              <p>
+                <el-text class="mx-1" truncated>
+                  {row.channel.channel_name}
+                </el-text>
+              </p>
+            </div>
+          </div>
+        );
+      },
+    },
     // 普通列
+    {
+      label: () => t("bank_disbursement_upload.upload_bill_template_id"),
+      minWidth: "120px",
+      prop: "upload_bill_template_id",
+    },
     {
       label: () => t("bank_disbursement_upload.file_name"),
       minWidth: "300px",
