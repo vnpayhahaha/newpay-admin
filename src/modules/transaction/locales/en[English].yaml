@@ -209,6 +209,9 @@ bank_disbursement_upload:
   created_at: Create Time
   channel_id: Bank
   upload_bill_template_id: Bill Template
+  parsing_status: Parsing Status
+  success_count: Success Count
+  failure_count: Failure Count
 TransactionRawData:
   index: Original voucher
   hash: Hash

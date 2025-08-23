@@ -16,6 +16,7 @@ import { downloadById } from "~/transaction/api/BankDisbursementUpload.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
 import hasAuth from "@/utils/permission/hasAuth.ts";
 import tool from "@/utils/tool";
+import { selectStatus } from "@/modules/Common";
 
 export default function getTableColumns(
   dialog: UseDialogExpose,
@@ -68,18 +69,44 @@ export default function getTableColumns(
     },
     {
       label: () => t("bank_disbursement_upload.file_name"),
-      minWidth: "300px",
+      minWidth: "330px",
       prop: "file_name",
     },
     {
-      label: () => t("bank_disbursement_upload.path"),
-      minWidth: "300px",
-      prop: "path",
-    },
-    {
-      label: () => t("bank_disbursement_upload.hash"),
-      width: "300px",
-      prop: "hash",
+      label: () => t("bank_disbursement_upload.parsing_status"),
+      width: "100px",
+      prop: "parsing_status",
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(
+                selectStatus("bank_disbursement_upload", "parsing_status_list")
+              )
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              if (item.value === 1) {
+                return {
+                  label: `${item.label}`,
+                  value: item.value,
+                  color: "success",
+                };
+              }
+              return {
+                label: `${item.label}`,
+                value: item.value,
+                color: "info",
+              };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
     },
     {
       label: () => t("bank_disbursement_upload.file_size"),
@@ -90,6 +117,26 @@ export default function getTableColumns(
       label: () => t("bank_disbursement_upload.record_count"),
       width: "100px",
       prop: "record_count",
+    },
+    {
+      label: () => t("bank_disbursement_upload.success_count"),
+      width: "100px",
+      prop: "success_count",
+    },
+    {
+      label: () => t("bank_disbursement_upload.failure_count"),
+      width: "100px",
+      prop: "failure_count",
+    },
+    {
+      label: () => t("bank_disbursement_upload.path"),
+      minWidth: "300px",
+      prop: "path",
+    },
+    {
+      label: () => t("bank_disbursement_upload.hash"),
+      width: "300px",
+      prop: "hash",
     },
     {
       label: () => t("bank_disbursement_upload.created_by"),

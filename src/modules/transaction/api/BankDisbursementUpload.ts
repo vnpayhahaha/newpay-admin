@@ -22,6 +22,9 @@ export interface BankDisbursementUploadVo {
   suffix: string;
   channel_id: number;
   upload_bill_template_id: string;
+  parsing_status: number;
+  success_count: number;
+  failure_count: number;
 }
 
 // bank_disbursement_upload查询

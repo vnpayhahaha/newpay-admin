@@ -46,6 +46,24 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       },
     },
     {
+      label: () => t("bank_disbursement_upload.parsing_status"),
+      prop: "parsing_status",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(
+              selectStatus("bank_disbursement_upload", "parsing_status_list")
+            )
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
+      },
+    },
+    {
       label: () => t("bank_disbursement_upload.file_name"),
       prop: "file_name",
       render: () => <el-input clearable />,
