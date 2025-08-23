@@ -71,9 +71,9 @@ export default function getFormItems(
       },
     },
     {
-      label: t("bank_disbursement_upload.attachment_id"),
+      label: "",
       prop: "attachment_id",
-      itemProps: { required: true },
+      itemProps: { required: true, labelWidth: 1 },
       render: () => {
         return (
           <ma-upload-chunk
