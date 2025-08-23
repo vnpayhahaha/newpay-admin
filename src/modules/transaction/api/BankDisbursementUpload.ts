@@ -19,6 +19,8 @@ export interface BankDisbursementUploadVo {
   created_by: string;
   // 创建时间
   created_at: string;
+  channel_id: number;
+  upload_bill_template_id: string;
 }
 
 // bank_disbursement_upload查询

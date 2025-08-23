@@ -169,8 +169,8 @@ function onSuccessAction(file: any, result: any) {
           type="primary"
           @click="
             () => {
-              updateDialog.setTitle(t('crud.add'));
-              updateDialog.open({ formType: 'add' });
+              maDialog.setTitle(t('crud.add'));
+              maDialog.open({ formType: 'add' });
             }
           "
         >
@@ -178,7 +178,12 @@ function onSuccessAction(file: any, result: any) {
         </el-button>
       </template>
     </MaProTable>
-
+    <component :is="maDialog.Dialog">
+      <template #default="{ formType, data }">
+        <!-- 新增、编辑表单 -->
+        <Form ref="formRef" :form-type="formType" :data="data" />
+      </template>
+    </component>
     <component :is="updateDialog.Dialog">
       <template #default="{ data }">
         <MaUploadChunk
