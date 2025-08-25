@@ -146,15 +146,7 @@ function handleDelete() {
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #toolbarLeft>
-        <el-button
-          v-auth="['transaction:bank_disbursement_bill_icici:delete']"
-          type="danger"
-          plain
-          :disabled="selections.length < 1"
-          @click="handleDelete"
-        >
-          {{ t("crud.delete") }}
-        </el-button>
+        <NmSearch :proxy="proTableRef" :row="2" />
       </template>
     </MaProTable>
 

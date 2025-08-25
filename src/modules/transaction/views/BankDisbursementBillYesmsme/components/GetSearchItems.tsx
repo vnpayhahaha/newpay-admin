@@ -6,61 +6,101 @@
  *
  * @Author X.Mo <root@imoi.cn>
  * @Link   https://github.com/mineadmin
-*/
+ */
 
-import type { MaSearchItem } from '@mineadmin/search'
+import type { MaSearchItem } from "@mineadmin/search";
 
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
-                            {
-      label: () => t('bank_disbursement_bill_yesmsme.record_ref_no'),
-      prop: 'record_ref_no',
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.record_ref_no"),
+      prop: "record_ref_no",
       render: () => <el-input />,
-          },
-                {
-      label: () => t('bank_disbursement_bill_yesmsme.file_ref_no'),
-      prop: 'file_ref_no',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.record_ref_no"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.file_ref_no"),
+      prop: "file_ref_no",
       render: () => <el-input />,
-          },
-                {
-      label: () => t('bank_disbursement_bill_yesmsme.ebanking_ref_no'),
-      prop: 'ebanking_ref_no',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.file_ref_no"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.ebanking_ref_no"),
+      prop: "ebanking_ref_no",
       render: () => <el-input />,
-          },
-                {
-      label: () => t('bank_disbursement_bill_yesmsme.contract_ref_no'),
-      prop: 'contract_ref_no',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.ebanking_ref_no"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.contract_ref_no"),
+      prop: "contract_ref_no",
       render: () => <el-input />,
-          },
-                {
-      label: () => t('bank_disbursement_bill_yesmsme.record_status'),
-      prop: 'record_status',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.contract_ref_no"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.record_status"),
+      prop: "record_status",
       render: () => <el-input />,
-          },
-                {
-      label: () => t('bank_disbursement_bill_yesmsme.status_code'),
-      prop: 'status_code',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.record_status"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.status_code"),
+      prop: "status_code",
       render: () => <el-input />,
-          },
-                {
-      label: () => t('bank_disbursement_bill_yesmsme.status_description'),
-      prop: 'status_description',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.status_code"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.status_description"),
+      prop: "status_description",
       render: () => <el-input />,
-          },
-                {
-      label: () => t('bank_disbursement_bill_yesmsme.created_at'),
-      prop: 'created_at',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.status_description"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.created_at"),
+      prop: "created_at",
       render: () => <el-input />,
-          },
-                        {
-      label: () => t('bank_disbursement_bill_yesmsme.order_no'),
-      prop: 'order_no',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.created_at"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.order_no"),
+      prop: "order_no",
       render: () => <el-input />,
-          },
-                        {
-      label: () => t('bank_disbursement_bill_yesmsme.file_hash'),
-      prop: 'file_hash',
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.order_no"),
+        clearable: true,
+      },
+    },
+    {
+      label: () => t("bank_disbursement_bill_yesmsme.file_hash"),
+      prop: "file_hash",
       render: () => <el-input />,
-          },
-          ]
+      renderProps: {
+        placeholder: t("bank_disbursement_bill_yesmsme.file_hash"),
+        clearable: true,
+      },
+    },
+  ];
 }
