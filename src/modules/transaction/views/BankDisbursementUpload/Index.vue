@@ -169,12 +169,12 @@ function onSuccessAction(file: any, result: any) {
           type="primary"
           @click="
             () => {
-              maDialog.setTitle(t('crud.add'));
+              maDialog.setTitle(t('crud.upload'));
               maDialog.open({ formType: 'add' });
             }
           "
         >
-          {{ t("crud.add") }}
+          {{ t("crud.upload") }}
         </el-button>
       </template>
     </MaProTable>
