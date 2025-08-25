@@ -13,52 +13,52 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                             {
-      label: () =>  '记录参考号' ,
+      label: () => t('bank_disbursement_bill_yesmsme.record_ref_no'),
       prop: 'record_ref_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '文件参考号' ,
+      label: () => t('bank_disbursement_bill_yesmsme.file_ref_no'),
       prop: 'file_ref_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '电子银行参考号' ,
+      label: () => t('bank_disbursement_bill_yesmsme.ebanking_ref_no'),
       prop: 'ebanking_ref_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '合同参考号' ,
+      label: () => t('bank_disbursement_bill_yesmsme.contract_ref_no'),
       prop: 'contract_ref_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '记录状态' ,
+      label: () => t('bank_disbursement_bill_yesmsme.record_status'),
       prop: 'record_status',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '状态代码' ,
+      label: () => t('bank_disbursement_bill_yesmsme.status_code'),
       prop: 'status_code',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '状态描述' ,
+      label: () => t('bank_disbursement_bill_yesmsme.status_description'),
       prop: 'status_description',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '创建时间' ,
+      label: () => t('bank_disbursement_bill_yesmsme.created_at'),
       prop: 'created_at',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '订单号' ,
+      label: () => t('bank_disbursement_bill_yesmsme.order_no'),
       prop: 'order_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '上传源文件hash' ,
+      label: () => t('bank_disbursement_bill_yesmsme.file_hash'),
       prop: 'file_hash',
       render: () => <el-input />,
           },

@@ -252,24 +252,218 @@ TransactionParsingLog:
   desc: 描述
 bank_disbursement_bill_axis:
   index: 账单Axis
+  bill_id: 账单ID
+  sr_no: 序号
+  corporate_product: 企业产品
+  payment_method: 支付方式
+  batch_no: 批次号
+  next_working_day_date: 下一工作日日期
+  debit_account_no: 借记账号
+  corporate_account_description: 企业账户描述
+  beneficiary_account_no: 收款人账号
+  beneficiary_code: 收款人代码
+  beneficiary_name: 收款人姓名
+  payee_name: 付款人姓名
+  currency: 币种
+  amount_payable: 应付金额
+  transaction_status: 交易状态
+  crn_no: CRN编号
+  paid_date: 支付日期
+  utr_reference_no: UTR/RBI参考号
+  funding_date: 资金日期
+  reason: 原因
+  remarks: 备注
+  stage: 阶段
+  email_id: 邮箱
+  clg_branch_name: CLG分行名称
+  activation_date: 激活日期
+  payout_mode: 支付模式
+  finacle_cheque_no: Finacle支票号
+  ifsc_code: IFSC代码/MICR代码/IIN
+  bank_reference_no: 银行参考号
+  account_number: 账号
+  created_by: 创建人ID
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 上传源文件hash
+  created_at: 创建时间
+  updated_at: 更新时间
 bank_disbursement_bill_axis_neft:
   index: 账单AxisNEFT
+  bill_id: 账单ID
+  receipient_name: 收款人名称
+  account_number: 账户号码
+  ifsc_code: IFSC代码
+  amount: 金额
+  description: 描述
+  status: 状态
+  failure_reason: 失败原因
+  created_at: 创建时间
+  created_by: 创建人
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
 bank_disbursement_bill_axis_neo:
   index: 账单AxisNEO
+  bill_id: 账单ID
+  srl_no: 序列号
+  tran_date: 交易日期
+  chq_no: 支票号
+  particulars: 摘要
+  amount_inr: 金额(INR)
+  dr_cr: 借/贷
+  balance_inr: 余额(INR)
+  sol: SOL
+  created_at: 创建时间
+  created_by: 创建人
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
 bank_disbursement_bill_bandhan:
   index: 账单Bandhan
+  bill_id: 账单ID
+  core_ref_number: 核心参考号
+  status: 状态
+  execution_time: 执行时间
+  error_code: 错误代码
+  payment_date: 付款日期
+  payment_type: 付款类型
+  customer_ref_number: 客户参考号
+  source_account_number: 源账户号码
+  source_narration: 源账户说明
+  destination_account_number: 目标账户号码
+  currency: 币种
+  amount: 金额
+  destination_narration: 目标账户说明
+  destination_bank: 目标银行
+  destination_bank_routing_code: 目标银行路由代码
+  beneficiary_name: 受益人名称
+  beneficiary_code: 受益人代码
+  beneficiary_account_type: 受益人账户类型
+  created_at: 创建时间
+  created_by: 创建人
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
+  rejection_reason: 拒绝原因
 bank_disbursement_bill_icici:
   index: 账单ICICI
+  bill_id: 账单ID
+  pymt_mode: 支付模式
+  file_sequence_num: 文件序列号
+  debit_acct_no: 借记账户号码
+  beneficiary_name: 受益人名称
+  beneficiary_account_no: 受益人账户号
+  bene_ifsc_code: 受益人IFSC代码
+  amount: 金额
+  remark: 备注
+  pymt_date: 支付日期
+  status: 状态
+  rejection_reason: 拒绝原因
+  customer_ref_no: 客户编号
+  utr_no: UTR号
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
+  created_at: 创建时间
+  created_by: 创建人
 bank_disbursement_bill_icici_2:
   index: 账单ICICI2
+  bill_id: 账单ID
+  network_id: 网络ID
+  credit_account_number: 贷方账户号码
+  debit_account_number: 借方账户号码
+  ifsc_code: IFSC代码
+  total_amount: 总金额
+  host_reference_number: 主机参考号码
+  transaction_remarks: 交易备注
+  transaction_status: 交易状态
+  transaction_status_remarks: 交易状态备注
+  created_at: 创建时间
+  created_by: 创建人
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
+  rejection_reason: 拒绝原因
 bank_disbursement_bill_idfc:
   index: 账单IDFC
+  bill_id: 账单ID
+  beneficiary_name: 收款人姓名
+  beneficiary_account_number: 收款人账号
+  ifsc: IFSC代码
+  transaction_type: 交易类型
+  debit_account_no: 借记账号
+  transaction_date: 交易日期
+  amount: 金额
+  currency: 币种
+  beneficiary_email_id: 收款人邮箱
+  remarks: 备注
+  utr_number: UTR编号
+  status: 状态
+  errors: 错误信息
+  created_at: 创建时间
+  created_by: 创建人
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
 bank_disbursement_bill_iob_other:
   index: 账单IOB其他
+  bill_id: 账单ID
+  s_no: 序号
+  name: 姓名
+  ifsc_code: IFSC代码
+  type: 类型
+  number: 编号
+  amount: 金额
+  charges: 费用
+  status: 状态
+  remarks: 备注
+  narration: 说明
+  utr_no: UTR编号
+  reason: 原因
+  created_at: 创建时间
+  created_by: 创建人
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
+  rejection_reason: 拒绝原因
 bank_disbursement_bill_iob_same:
   index: 账单IOBSame
+  bill_id: 账单ID
+  s_no: 序号
+  name: 姓名
+  ifsc_code: IFSC代码
+  type: 类型
+  number: 编号
+  amount: 金额
+  charges: 费用
+  status: 状态
+  remarks: 备注
+  narration: 说明
+  utr_no: UTR编号
+  reason: 原因
+  created_at: 创建时间
+  created_by: 创建人
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
+  rejection_reason: 拒绝原因
 bank_disbursement_bill_yesmsme:
   index: 账单YESMSME
+  bill_id: 账单ID
+  record: 记录
+  record_ref_no: 记录参考号
+  file_ref_no: 文件参考号
+  ebanking_ref_no: 电子银行参考号
+  contract_ref_no: 合同参考号
+  record_status: 记录状态
+  status_code: 状态代码
+  status_description: 状态描述
+  created_at: 创建时间
+  created_by: 创建人
+  order_no: 订单号
+  upload_id: 上传ID
+  file_hash: 文件哈希
 menu:
   transaction_record:
     list: 交易记录列表

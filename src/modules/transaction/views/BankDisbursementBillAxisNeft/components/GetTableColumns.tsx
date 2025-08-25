@@ -30,19 +30,19 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-                  { label: () =>  '自增id' , prop: 'bill_id' },
-                        { label: () =>  '收款人名称' , prop: 'receipient_name' },
-                        { label: () =>  '账户号码' , prop: 'account_number' },
-                        { label: () =>  'IFSC代码' , prop: 'ifsc_code' },
-                        { label: () =>  '金额' , prop: 'amount' },
-                        { label: () =>  '描述' , prop: 'description' },
-                        { label: () =>  '状态' , prop: 'status' },
-                        { label: () =>  '失败原因' , prop: 'failure_reason' },
-                        { label: () =>  '创建时间' , prop: 'created_at' },
-                        { label: () =>  '创建人ID' , prop: 'created_by' },
-                        { label: () =>  '订单号' , prop: 'order_no' },
-                        { label: () =>  '上传ID' , prop: 'upload_id' },
-                        { label: () =>  '上传源文件hash' , prop: 'file_hash' },
+                  { label: () =>  t('bank_disbursement_bill_axis_neft.bill_id') , prop: 'bill_id' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.receipient_name') , prop: 'receipient_name' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.account_number') , prop: 'account_number' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.ifsc_code') , prop: 'ifsc_code' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.amount') , prop: 'amount' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.description') , prop: 'description' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.status') , prop: 'status' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.failure_reason') , prop: 'failure_reason' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.created_at') , prop: 'created_at' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.created_by') , prop: 'created_by' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.order_no') , prop: 'order_no' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.upload_id') , prop: 'upload_id' },
+                        { label: () =>  t('bank_disbursement_bill_axis_neft.file_hash') , prop: 'file_hash' },
           
     // 操作列
     {

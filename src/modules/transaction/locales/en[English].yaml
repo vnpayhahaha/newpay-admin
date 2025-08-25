@@ -55,7 +55,7 @@ transaction_voucher:
   operation_admin_id: operation admin
   created_at: created at
   updated_at: updated at
-  transaction_type: 交易类型
+  transaction_type: Transaction Type
 collection_order:
   index: Collection Order
   all: All
@@ -238,6 +238,7 @@ TransactionParsingRules:
   updated_at: Update Time
   deleted_at: Delete Time
   parse_result: Parse Result
+  parse_result_error: Parse Result Error
 TransactionParsingLog:
   index: Parsing Log
   raw_data_id: Raw Data ID
@@ -250,24 +251,218 @@ TransactionParsingLog:
   desc: Description
 bank_disbursement_bill_axis:
   index: Bank Bill Axis
+  bill_id: Bill ID
+  sr_no: Serial Number
+  corporate_product: Corporate Product
+  payment_method: Payment Method
+  batch_no: Batch Number
+  next_working_day_date: Next Working Day Date
+  debit_account_no: Debit Account Number
+  corporate_account_description: Corporate Account Description
+  beneficiary_account_no: Beneficiary Account Number
+  beneficiary_code: Beneficiary Code
+  beneficiary_name: Beneficiary Name
+  payee_name: Payee Name
+  currency: Currency
+  amount_payable: Amount Payable
+  transaction_status: Transaction Status
+  crn_no: CRN Number
+  paid_date: Paid Date
+  utr_reference_no: UTR/RBI Reference No./Core Ref No.
+  funding_date: Funding Date
+  reason: Reason
+  remarks: Remarks
+  stage: Stage
+  email_id: Email ID
+  clg_branch_name: CLG Branch Name
+  activation_date: Activation Date
+  payout_mode: Payout Mode
+  finacle_cheque_no: Finacle Cheque No
+  ifsc_code: IFSC Code/MICR Code/IIN
+  bank_reference_no: Bank Reference No.
+  account_number: Account Number
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
+  created_at: Created At
+  updated_at: Updated At
 bank_disbursement_bill_axis_neft:
   index: Bank Bill AxisNEFT
+  bill_id: Bill ID
+  receipient_name: Recipient Name
+  account_number: Account Number
+  ifsc_code: IFSC Code
+  amount: Amount
+  description: Description
+  status: Status
+  failure_reason: Failure Reason
+  created_at: Created At
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
 bank_disbursement_bill_axis_neo:
   index: Bank Bill AxisNEO
+  bill_id: Bill ID
+  srl_no: Serial Number
+  tran_date: Transaction Date
+  chq_no: Cheque Number
+  particulars: Particulars
+  amount_inr: Amount (INR)
+  dr_cr: Dr/Cr
+  balance_inr: Balance (INR)
+  sol: SOL
+  created_at: Created At
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
 bank_disbursement_bill_bandhan:
   index: Bank Bill Bandhan
+  bill_id: Bill ID
+  core_ref_number: Core Reference Number
+  status: Status
+  execution_time: Execution Time
+  error_code: Error Code
+  payment_date: Payment Date
+  payment_type: Payment Type
+  customer_ref_number: Customer Reference Number
+  source_account_number: Source Account Number
+  source_narration: Source Narration
+  destination_account_number: Destination Account Number
+  currency: Currency
+  amount: Amount
+  destination_narration: Destination Narration
+  destination_bank: Destination Bank
+  destination_bank_routing_code: Destination Bank Routing Code
+  beneficiary_name: Beneficiary Name
+  beneficiary_code: Beneficiary Code
+  beneficiary_account_type: Beneficiary Account Type
+  created_at: Created At
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
+  rejection_reason: Rejection Reason
 bank_disbursement_bill_icici:
   index: Bank Bill ICICI
+  bill_id: Bill ID
+  pymt_mode: Payment Mode
+  file_sequence_num: File Sequence Number
+  debit_acct_no: Debit Account Number
+  beneficiary_name: Beneficiary Name
+  beneficiary_account_no: Beneficiary Account Number
+  bene_ifsc_code: Beneficiary IFSC Code
+  amount: Amount
+  remark: Remark
+  pymt_date: Payment Date
+  status: Status
+  rejection_reason: Rejection Reason
+  customer_ref_no: Customer Reference Number
+  utr_no: UTR Number
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
+  created_at: Created At
+  created_by: Created By
 bank_disbursement_bill_icici_2:
   index: Bank Bill ICICI2
+  bill_id: Bill ID
+  network_id: Network ID
+  credit_account_number: Credit Account Number
+  debit_account_number: Debit Account Number
+  ifsc_code: IFSC Code
+  total_amount: Total Amount
+  host_reference_number: Host Reference Number
+  transaction_remarks: Transaction Remarks
+  transaction_status: Transaction Status
+  transaction_status_remarks: Transaction Status Remarks
+  created_at: Created At
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
+  rejection_reason: Rejection Reason
 bank_disbursement_bill_idfc:
   index: Bank Bill IDFC
+  bill_id: Bill ID
+  beneficiary_name: Beneficiary Name
+  beneficiary_account_number: Beneficiary Account Number
+  ifsc: IFSC Code
+  transaction_type: Transaction Type
+  debit_account_no: Debit Account No
+  transaction_date: Transaction Date
+  amount: Amount
+  currency: Currency
+  beneficiary_email_id: Beneficiary Email ID
+  remarks: Remarks
+  utr_number: UTR Number
+  status: Status
+  errors: Errors
+  created_at: Created At
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
 bank_disbursement_bill_iob_other:
-  index: Bank Bill OB-Other
+  index: Bank Bill IOB-Other
+  bill_id: Bill ID
+  s_no: Serial Number
+  name: Name
+  ifsc_code: IFSC Code
+  type: Type
+  number: Number
+  amount: Amount
+  charges: Charges
+  status: Status
+  remarks: Remarks
+  narration: Narration
+  utr_no: UTR Number
+  reason: Reason
+  created_at: Created At
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
+  rejection_reason: Rejection Reason
 bank_disbursement_bill_iob_same:
-  index: Bank Bill OB-Same
+  index: Bank Bill IOB-Same
+  bill_id: Bill ID
+  s_no: Serial Number
+  name: Name
+  ifsc_code: IFSC Code
+  type: Type
+  number: Number
+  amount: Amount
+  charges: Charges
+  status: Status
+  remarks: Remarks
+  narration: Narration
+  utr_no: UTR Number
+  reason: Reason
+  created_at: Created At
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
+  rejection_reason: Rejection Reason
 bank_disbursement_bill_yesmsme:
   index: Bank Bill YESMSME
+  bill_id: Bill ID
+  record: Record
+  record_ref_no: Record Reference No
+  file_ref_no: File Reference No
+  ebanking_ref_no: E-banking Reference No
+  contract_ref_no: Contract Reference No
+  record_status: Record Status
+  status_code: Status Code
+  status_description: Status Description
+  created_at: Created At
+  created_by: Created By
+  order_no: Order No
+  upload_id: Upload ID
+  file_hash: File Hash
 menu:
   transaction_record:
     list: Transaction Record List

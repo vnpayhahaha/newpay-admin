@@ -13,72 +13,72 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                     {
-      label: () =>  '支付模式(IMPS)' ,
+      label: () => t('bank_disbursement_bill_icici.pymt_mode'),
       prop: 'pymt_mode',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '文件序列号' ,
+      label: () => t('bank_disbursement_bill_icici.file_sequence_num'),
       prop: 'file_sequence_num',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '借记账户号码' ,
+      label: () => t('bank_disbursement_bill_icici.debit_acct_no'),
       prop: 'debit_acct_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '受益人名称' ,
+      label: () => t('bank_disbursement_bill_icici.beneficiary_name'),
       prop: 'beneficiary_name',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '受益人账户号' ,
+      label: () => t('bank_disbursement_bill_icici.beneficiary_account_no'),
       prop: 'beneficiary_account_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '受益人IFSC代码' ,
+      label: () => t('bank_disbursement_bill_icici.bene_ifsc_code'),
       prop: 'bene_ifsc_code',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '备注' ,
+      label: () => t('bank_disbursement_bill_icici.remark'),
       prop: 'remark',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '支付日期' ,
+      label: () => t('bank_disbursement_bill_icici.pymt_date'),
       prop: 'pymt_date',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '状态' ,
+      label: () => t('bank_disbursement_bill_icici.status'),
       prop: 'status',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '客户编号' ,
+      label: () => t('bank_disbursement_bill_icici.customer_ref_no'),
       prop: 'customer_ref_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  'UTR_NO' ,
+      label: () => t('bank_disbursement_bill_icici.utr_no'),
       prop: 'utr_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '订单号' ,
+      label: () => t('bank_disbursement_bill_icici.order_no'),
       prop: 'order_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '上传源文件hash' ,
+      label: () => t('bank_disbursement_bill_icici.file_hash'),
       prop: 'file_hash',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '创建时间' ,
+      label: () => t('bank_disbursement_bill_icici.created_at'),
       prop: 'created_at',
       render: () => <el-input />,
           },

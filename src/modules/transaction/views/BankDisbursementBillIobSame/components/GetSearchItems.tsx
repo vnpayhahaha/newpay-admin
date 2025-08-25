@@ -13,72 +13,72 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                     {
-      label: () =>  '序号' ,
+      label: () => t('bank_disbursement_bill_iob_same.s_no'),
       prop: 's_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '姓名' ,
+      label: () => t('bank_disbursement_bill_iob_same.name'),
       prop: 'name',
       render: () => <el-input />,
           },
                 {
-      label: () =>  'IFSC代码' ,
+      label: () => t('bank_disbursement_bill_iob_same.ifsc_code'),
       prop: 'ifsc_code',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '类型' ,
+      label: () => t('bank_disbursement_bill_iob_same.type'),
       prop: 'type',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '编号' ,
+      label: () => t('bank_disbursement_bill_iob_same.number'),
       prop: 'number',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '状态' ,
+      label: () => t('bank_disbursement_bill_iob_same.status'),
       prop: 'status',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '备注' ,
+      label: () => t('bank_disbursement_bill_iob_same.remarks'),
       prop: 'remarks',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '说明' ,
+      label: () => t('bank_disbursement_bill_iob_same.narration'),
       prop: 'narration',
       render: () => <el-input />,
           },
                 {
-      label: () =>  'UTR编号' ,
+      label: () => t('bank_disbursement_bill_iob_same.utr_no'),
       prop: 'utr_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '原因' ,
+      label: () => t('bank_disbursement_bill_iob_same.reason'),
       prop: 'reason',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '创建时间' ,
+      label: () => t('bank_disbursement_bill_iob_same.created_at'),
       prop: 'created_at',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '订单号' ,
+      label: () => t('bank_disbursement_bill_iob_same.order_no'),
       prop: 'order_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '上传源文件hash' ,
+      label: () => t('bank_disbursement_bill_iob_same.file_hash'),
       prop: 'file_hash',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '拒绝原因' ,
+      label: () => t('bank_disbursement_bill_iob_same.rejection_reason'),
       prop: 'rejection_reason',
       render: () => <el-input />,
           },

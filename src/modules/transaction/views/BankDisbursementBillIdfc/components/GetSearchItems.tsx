@@ -13,62 +13,62 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                     {
-      label: () =>  '收款人姓名/Beneficiary Name' ,
+      label: () => t('bank_disbursement_bill_idfc.beneficiary_name'),
       prop: 'beneficiary_name',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '收款人账号/Beneficiary Account Number' ,
+      label: () => t('bank_disbursement_bill_idfc.beneficiary_account_number'),
       prop: 'beneficiary_account_number',
       render: () => <el-input />,
           },
                 {
-      label: () =>  'IFSC代码' ,
+      label: () => t('bank_disbursement_bill_idfc.ifsc'),
       prop: 'ifsc',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '交易类型/Transaction Type' ,
+      label: () => t('bank_disbursement_bill_idfc.transaction_type'),
       prop: 'transaction_type',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '借记账号/Debit Account No' ,
+      label: () => t('bank_disbursement_bill_idfc.debit_account_no'),
       prop: 'debit_account_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '交易日期/Transaction Date' ,
+      label: () => t('bank_disbursement_bill_idfc.transaction_date'),
       prop: 'transaction_date',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '收款人邮箱/Beneficiary Email ID' ,
+      label: () => t('bank_disbursement_bill_idfc.beneficiary_email_id'),
       prop: 'beneficiary_email_id',
       render: () => <el-input />,
           },
                         {
-      label: () =>  'UTR编号/UTR Number' ,
+      label: () => t('bank_disbursement_bill_idfc.utr_number'),
       prop: 'utr_number',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '状态/Status' ,
+      label: () => t('bank_disbursement_bill_idfc.status'),
       prop: 'status',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '创建时间' ,
+      label: () => t('bank_disbursement_bill_idfc.created_at'),
       prop: 'created_at',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '订单号' ,
+      label: () => t('bank_disbursement_bill_idfc.order_no'),
       prop: 'order_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '上传源文件hash' ,
+      label: () => t('bank_disbursement_bill_idfc.file_hash'),
       prop: 'file_hash',
       render: () => <el-input />,
           },

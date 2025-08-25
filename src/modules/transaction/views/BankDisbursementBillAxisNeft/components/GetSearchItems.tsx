@@ -13,42 +13,42 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                     {
-      label: () =>  '收款人名称' ,
+      label: () => t('bank_disbursement_bill_axis_neft.receipient_name'),
       prop: 'receipient_name',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '账户号码' ,
+      label: () => t('bank_disbursement_bill_axis_neft.account_number'),
       prop: 'account_number',
       render: () => <el-input />,
           },
                 {
-      label: () =>  'IFSC代码' ,
+      label: () => t('bank_disbursement_bill_axis_neft.ifsc_code'),
       prop: 'ifsc_code',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '状态' ,
+      label: () => t('bank_disbursement_bill_axis_neft.status'),
       prop: 'status',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '失败原因' ,
+      label: () => t('bank_disbursement_bill_axis_neft.failure_reason'),
       prop: 'failure_reason',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '创建人ID' ,
+      label: () => t('bank_disbursement_bill_axis_neft.created_by'),
       prop: 'created_by',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '订单号' ,
+      label: () => t('bank_disbursement_bill_axis_neft.order_no'),
       prop: 'order_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '上传源文件hash' ,
+      label: () => t('bank_disbursement_bill_axis_neft.file_hash'),
       prop: 'file_hash',
       render: () => <el-input />,
           },

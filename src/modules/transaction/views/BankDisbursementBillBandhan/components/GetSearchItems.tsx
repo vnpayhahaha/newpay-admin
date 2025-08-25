@@ -13,67 +13,67 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                     {
-      label: () =>  '核心参考号' ,
+      label: () => t('bank_disbursement_bill_bandhan.core_ref_number'),
       prop: 'core_ref_number',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '状态' ,
+      label: () => t('bank_disbursement_bill_bandhan.status'),
       prop: 'status',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '付款日期' ,
+      label: () => t('bank_disbursement_bill_bandhan.payment_date'),
       prop: 'payment_date',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '付款类型' ,
+      label: () => t('bank_disbursement_bill_bandhan.payment_type'),
       prop: 'payment_type',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '源账户号码' ,
+      label: () => t('bank_disbursement_bill_bandhan.source_account_number'),
       prop: 'source_account_number',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '目标账户号码' ,
+      label: () => t('bank_disbursement_bill_bandhan.destination_account_number'),
       prop: 'destination_account_number',
       render: () => <el-input />,
           },
                                                         {
-      label: () =>  '受益人名称' ,
+      label: () => t('bank_disbursement_bill_bandhan.beneficiary_name'),
       prop: 'beneficiary_name',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '受益人代码' ,
+      label: () => t('bank_disbursement_bill_bandhan.beneficiary_code'),
       prop: 'beneficiary_code',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '受益人账户类型' ,
+      label: () => t('bank_disbursement_bill_bandhan.beneficiary_account_type'),
       prop: 'beneficiary_account_type',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '创建时间' ,
+      label: () => t('bank_disbursement_bill_bandhan.created_at'),
       prop: 'created_at',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '订单号' ,
+      label: () => t('bank_disbursement_bill_bandhan.order_no'),
       prop: 'order_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '上传源文件hash' ,
+      label: () => t('bank_disbursement_bill_bandhan.file_hash'),
       prop: 'file_hash',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '拒绝原因' ,
+      label: () => t('bank_disbursement_bill_bandhan.rejection_reason'),
       prop: 'rejection_reason',
       render: () => <el-input />,
           },

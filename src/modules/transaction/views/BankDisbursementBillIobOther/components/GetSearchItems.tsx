@@ -13,52 +13,52 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                     {
-      label: () =>  '序号' ,
+      label: () => t('bank_disbursement_bill_iob_other.s_no'),
       prop: 's_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '姓名' ,
+      label: () => t('bank_disbursement_bill_iob_other.name'),
       prop: 'name',
       render: () => <el-input />,
           },
                 {
-      label: () =>  'IFSC代码' ,
+      label: () => t('bank_disbursement_bill_iob_other.ifsc_code'),
       prop: 'ifsc_code',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '编号' ,
+      label: () => t('bank_disbursement_bill_iob_other.number'),
       prop: 'number',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '状态' ,
+      label: () => t('bank_disbursement_bill_iob_other.status'),
       prop: 'status',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  'UTR编号' ,
+      label: () => t('bank_disbursement_bill_iob_other.utr_no'),
       prop: 'utr_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '创建时间' ,
+      label: () => t('bank_disbursement_bill_iob_other.created_at'),
       prop: 'created_at',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '订单号' ,
+      label: () => t('bank_disbursement_bill_iob_other.order_no'),
       prop: 'order_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '上传源文件hash' ,
+      label: () => t('bank_disbursement_bill_iob_other.file_hash'),
       prop: 'file_hash',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '拒绝原因' ,
+      label: () => t('bank_disbursement_bill_iob_other.rejection_reason'),
       prop: 'rejection_reason',
       render: () => <el-input />,
           },

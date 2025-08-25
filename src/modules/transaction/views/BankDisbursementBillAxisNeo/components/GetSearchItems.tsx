@@ -13,37 +13,37 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                     {
-      label: () =>  '序列号' ,
+      label: () => t('bank_disbursement_bill_axis_neo.srl_no'),
       prop: 'srl_no',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '交易日期' ,
+      label: () => t('bank_disbursement_bill_axis_neo.tran_date'),
       prop: 'tran_date',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '支票号' ,
+      label: () => t('bank_disbursement_bill_axis_neo.chq_no'),
       prop: 'chq_no',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '借/贷' ,
+      label: () => t('bank_disbursement_bill_axis_neo.dr_cr'),
       prop: 'dr_cr',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '创建时间' ,
+      label: () => t('bank_disbursement_bill_axis_neo.created_at'),
       prop: 'created_at',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '订单号' ,
+      label: () => t('bank_disbursement_bill_axis_neo.order_no'),
       prop: 'order_no',
       render: () => <el-input />,
           },
                         {
-      label: () =>  '上传源文件hash' ,
+      label: () => t('bank_disbursement_bill_axis_neo.file_hash'),
       prop: 'file_hash',
       render: () => <el-input />,
           },
