@@ -250,6 +250,26 @@ TransactionParsingLog:
   voucher_id: 凭证ID
   created_at: 创建时间
   desc: 描述
+bank_disbursement_bill_axis:
+  index: 账单Axis
+bank_disbursement_bill_axis_neft:
+  index: 账单AxisNEFT
+bank_disbursement_bill_axis_neo:
+  index: 账单AxisNEO
+bank_disbursement_bill_bandhan:
+  index: 账单Bandhan
+bank_disbursement_bill_icici:
+  index: 账单ICICI
+bank_disbursement_bill_icici_2:
+  index: 账单ICICI2
+bank_disbursement_bill_idfc:
+  index: 账单IDFC
+bank_disbursement_bill_iob_other:
+  index: 账单IOB其他
+bank_disbursement_bill_iob_same:
+  index: 账单IOBSame
+bank_disbursement_bill_yesmsme:
+  index: 账单YESMSME
 menu:
   transaction_record:
     list: 交易记录列表

@@ -248,6 +248,26 @@ TransactionParsingLog:
   voucher_id: Voucher ID
   created_at: Create Time
   desc: Description
+bank_disbursement_bill_axis:
+  index: Bank Bill Axis
+bank_disbursement_bill_axis_neft:
+  index: Bank Bill AxisNEFT
+bank_disbursement_bill_axis_neo:
+  index: Bank Bill AxisNEO
+bank_disbursement_bill_bandhan:
+  index: Bank Bill Bandhan
+bank_disbursement_bill_icici:
+  index: Bank Bill ICICI
+bank_disbursement_bill_icici_2:
+  index: Bank Bill ICICI2
+bank_disbursement_bill_idfc:
+  index: Bank Bill IDFC
+bank_disbursement_bill_iob_other:
+  index: Bank Bill OB-Other
+bank_disbursement_bill_iob_same:
+  index: Bank Bill OB-Same
+bank_disbursement_bill_yesmsme:
+  index: Bank Bill YESMSME
 menu:
   transaction_record:
     list: Transaction Record List
