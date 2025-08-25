@@ -20,6 +20,7 @@ declare module 'vue' {
     MaDictRadio: typeof import('./../src/components/ma-dict-picker/ma-dict-radio.vue')['default']
     MaDictSelect: typeof import('./../src/components/ma-dict-picker/ma-dict-select.vue')['default']
     MaDrawer: typeof import('./../src/components/ma-drawer/index.vue')['default']
+    MaDualProgress: typeof import('./../src/components/ma-dual-progress/index.vue')['default']
     MaIconPanel: typeof import('./../src/components/ma-icon-picker/ma-icon-panel.vue')['default']
     MaIconPicker: typeof import('./../src/components/ma-icon-picker/index.vue')['default']
     MaKeyValue: typeof import('./../src/components/ma-key-value/index.vue')['default']

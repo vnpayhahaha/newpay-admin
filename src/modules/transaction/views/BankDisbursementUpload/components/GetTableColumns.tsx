@@ -109,6 +109,18 @@ export default function getTableColumns(
       },
     },
     {
+      label: () => t("bank_disbursement_upload.parsing_status_message"),
+      minWidth: "300px",
+      prop: "parsing_status_message",
+      cellRender: ({ row }) => {
+        return <ma-dual-progress   success-value={30}
+      failure-value={20}
+      total={100}  success-color="#52c41a"
+  failure-color="#ff4d4f" />
+      },
+
+    },
+    {
       label: () => t("bank_disbursement_upload.file_size"),
       width: "100px",
       prop: "file_size",
