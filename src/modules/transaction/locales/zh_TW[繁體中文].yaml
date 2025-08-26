@@ -212,6 +212,7 @@ bank_disbursement_upload:
   parsing_status: 解析状态
   success_count: 成功条数
   failure_count: 失败条数
+  parsing_status_message: 解析状态
 TransactionRawData:
   index: 原始凭证
   hash: 哈希值

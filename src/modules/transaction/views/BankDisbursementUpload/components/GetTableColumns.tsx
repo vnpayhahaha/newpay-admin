@@ -111,14 +111,19 @@ export default function getTableColumns(
     {
       label: () => t("bank_disbursement_upload.parsing_status_message"),
       minWidth: "300px",
+      type: "merge",
       prop: "parsing_status_message",
       cellRender: ({ row }) => {
-        return <ma-dual-progress   success-value={30}
-      failure-value={20}
-      total={100}  success-color="#52c41a"
-  failure-color="#ff4d4f" />
+        return (
+          <ma-dual-progress
+            success-value={row.success_count}
+            failure-value={row.failure_count}
+            total={row.record_count}
+            success-color="#52c41a"
+            failure-color="#ff4d4f"
+          />
+        );
       },
-
     },
     {
       label: () => t("bank_disbursement_upload.file_size"),
