@@ -212,7 +212,7 @@ bank_disbursement_upload:
   parsing_status: Parsing Status
   success_count: Success Count
   failure_count: Failure Count
-  parsing_status_message: Parsing Status
+  parsing_status_message: Parsing Status Message
 TransactionRawData:
   index: Original voucher
   hash: Hash
