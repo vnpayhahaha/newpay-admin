@@ -109,7 +109,7 @@ export default function getTableColumns(
       },
     },
     {
-      label: () => t("bank_disbursement_upload.parsing_status_message"),
+      label: () => t("bank_disbursement_upload.parsing_progress_message"),
       minWidth: "300px",
       type: "merge",
       prop: "parsing_status_message",
