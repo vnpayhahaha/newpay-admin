@@ -127,8 +127,8 @@ export default function getTableColumns(
             </el-text>
           );
         }
-        return row.row.balance_available_after >
-          row.row.balance_available_before ? (
+        return Number(row.row.balance_available_after) >
+          Number(row.row.balance_available_before) ? (
           <el-text class="mx-1" type="danger" size="large">
             {row.row.balance_available_after}
           </el-text>
