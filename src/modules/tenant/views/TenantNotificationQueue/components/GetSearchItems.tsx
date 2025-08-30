@@ -13,47 +13,47 @@ import type { MaSearchItem } from '@mineadmin/search'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
                     {
-      label: () =>  '租户编号' ,
+      label: () => t('tenant_notification_queue.tenant_id'),
       prop: 'tenant_id',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '应用ID' ,
+      label: () => t('tenant_notification_queue.app_id'),
       prop: 'app_id',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '账户变动类型（继承tenant_account类型1-收款账户 2-付款账户）' ,
+      label: () => t('tenant_notification_queue.account_type'),
       prop: 'account_type',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '通知类型:1-系统通知 2-订单通知 3-账单通知' ,
+      label: () => t('tenant_notification_queue.notification_type'),
       prop: 'notification_type',
       render: () => <el-input />,
           },
                                 {
-      label: () =>  '请求数据' ,
+      label: () => t('tenant_notification_queue.request_data'),
       prop: 'request_data',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '执行状态:0-待执行 1-执行中 2-成功 3-失败' ,
+      label: () => t('tenant_notification_queue.execute_status'),
       prop: 'execute_status',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '执行次数' ,
+      label: () => t('tenant_notification_queue.execute_count'),
       prop: 'execute_count',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '下次执行时间' ,
+      label: () => t('tenant_notification_queue.next_execute_time'),
       prop: 'next_execute_time',
       render: () => <el-input />,
           },
                 {
-      label: () =>  '最后执行时间' ,
+      label: () => t('tenant_notification_queue.last_execute_time'),
       prop: 'last_execute_time',
       render: () => <el-input />,
           },

@@ -140,6 +140,44 @@ tenant_api_interface:
   updated_by: 修改人
   created_at: 创建时间
   updated_at: 修改时间
+tenant_notification_queue:
+  index: 回调通知
+  tenant_id: 租户编号
+  app_id: 应用ID
+  account_type: 账户类型
+  collection_order_id: 收款订单ID
+  disbursement_order_id: 付款订单ID
+  notification_type: 通知类型
+  notification_url: 通知URL
+  request_method: 请求方式
+  request_data: 请求数据
+  execute_status: 执行状态
+  execute_count: 执行次数
+  next_execute_time: 下次执行时间
+  last_execute_time: 最后执行时间
+  error_message: 错误信息
+  created_at: 创建时间
+  updated_at: 修改时间
+  max_retry_count: 最大重试次数
+  lock_version: 版本锁
+tenant_notification_record:
+  index: 通知记录
+  queue_id: 通知队列ID
+  tenant_id: 租户编号
+  app_id: 应用ID
+  account_type: 账户类型
+  collection_order_id: 收款订单ID
+  disbursement_order_id: 付款订单ID
+  notification_type: 通知类型
+  notification_url: 通知URL
+  request_method: 请求方式
+  request_data: 请求数据
+  response_status: 响应状态
+  response_data: 响应数据
+  execute_count: 执行次数
+  status: 执行状态
+  created_at: 创建时间
+  updated_at: 修改时间
 tenantMenu:
   tenant:
     list: 租户列表
@@ -184,6 +222,11 @@ tenantMenu:
     create: 新增接口
     update: 修改接口
     delete: 删除接口
+  tenant_notification_record:
+    list: 回调记录列表
+    create: 新增回调记录
+    update: 修改回调记录
+    delete: 删除回调记录
 enums:
   tenant:
     isEnabled:

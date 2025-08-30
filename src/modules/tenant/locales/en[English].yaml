@@ -140,6 +140,44 @@ tenant_api_interface:
   updated_by: Updated By
   created_at: Created Time
   updated_at: Updated Time
+tenant_notification_queue:
+  index: Callback Notification
+  tenant_id: Tenant ID
+  app_id: Application ID
+  account_type: Account Type
+  collection_order_id: Collection Order ID
+  disbursement_order_id: Disbursement Order ID
+  notification_type: Notification Type
+  notification_url: Notification URL
+  request_method: Request Method
+  request_data: Request Data
+  execute_status: Execute Status
+  execute_count: Execute Count
+  next_execute_time: Next Execute Time
+  last_execute_time: Last Execute Time
+  error_message: Error Message
+  created_at: Created Time
+  updated_at: Updated Time
+  max_retry_count: Max Retry Count
+  lock_version: Lock Version
+tenant_notification_record:
+  index: Notification Record
+  queue_id: Notification Queue ID
+  tenant_id: Tenant ID
+  app_id: Application ID
+  account_type: Account Type
+  collection_order_id: Collection Order ID
+  disbursement_order_id: Disbursement Order ID
+  notification_type: Notification Type
+  notification_url: Notification URL
+  request_method: Request Method
+  request_data: Request Data
+  response_status: Response Status
+  response_data: Response Data
+  execute_count: Execute Count
+  status: Execute Status
+  created_at: Created Time
+  updated_at: Updated Time
 tenantMenu:
   tenant:
     list: Tenant list
@@ -184,6 +222,11 @@ tenantMenu:
     create: Add Interface
     update: Modify Interface
     delete: Delete Interface
+  tenant_notification_record:
+    list: Callback Record List
+    create: Add Callback Record
+    update: Modify Callback Record
+    delete: Delete Callback Record
 enums:
   tenant:
     isEnabled:
