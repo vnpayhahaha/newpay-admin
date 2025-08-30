@@ -160,6 +160,7 @@ tenant_notification_queue:
   updated_at: Updated Time
   max_retry_count: Max Retry Count
   lock_version: Lock Version
+  detail: Detail
 tenant_notification_record:
   index: Notification Record
   queue_id: Notification Queue ID

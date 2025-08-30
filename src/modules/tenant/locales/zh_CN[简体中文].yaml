@@ -160,6 +160,7 @@ tenant_notification_queue:
   updated_at: 修改时间
   max_retry_count: 最大重试次数
   lock_version: 版本锁
+  detail: 详情
 tenant_notification_record:
   index: 通知记录
   queue_id: 通知队列ID
