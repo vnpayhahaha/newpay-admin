@@ -175,6 +175,9 @@ crud:
   downlaodMessage: 是否确认下载数据？
   downlaodSuccess: 下载成功
   upload: 上传
+  callbackNotification: 通知
+  callbackNotificationDataMessage: 是否确认回调通知？
+  callbackNotificationSuccess: 回调通知成功
 form:
   pleaseInput: 请输入{msg}
   pleaseSelect: 请选择{msg}

@@ -175,6 +175,9 @@ crud:
   downlaodMessage: Are you sure to download the data?
   downlaodSuccess: Download successful
   upload: Upload
+  callbackNotification: Notify
+  callbackNotificationDataMessage: Whether to confirm the callback notification?
+  callbackNotificationSuccess: Callback notification successful
 form:
   pleaseInput: Please input {msg}
   pleaseSelect: Please select {msg}

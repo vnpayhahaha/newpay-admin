@@ -12,7 +12,7 @@ import type { CollectionOrderVo } from "~/transaction/api/CollectionOrder.ts";
 import type { UseDialogExpose } from "@/hooks/useDialog.ts";
 
 import { useMessage } from "@/hooks/useMessage.ts";
-import { cancel } from "~/transaction/api/CollectionOrder.ts";
+import { cancel, notify } from "~/transaction/api/CollectionOrder.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
 import hasAuth from "@/utils/permission/hasAuth.ts";
 import MaCopy from "@/components/ma-copy/index.vue";
@@ -434,18 +434,19 @@ export default function getTableColumns(
               <p>{row.cancelled_at}</p>
               {row.cancel_operator?.id && (
                 <p>
-                  platform end:
-                  {' '}
+                  platform end:{" "}
                   <MaCopy
-                    content={row.cancel_operator?.nickname || row.cancel_operator?.username}
+                    content={
+                      row.cancel_operator?.nickname ||
+                      row.cancel_operator?.username
+                    }
                     class="color-blue"
                   />
                 </p>
               )}
               {row.cancel_customer?.id && (
                 <p>
-                  client end:
-                  {' '}
+                  client end:{" "}
                   <MaCopy
                     content={row.cancel_customer?.username}
                     class="color-blue"
@@ -496,11 +497,7 @@ export default function getTableColumns(
               <p>
                 <MaCopy content={row.order_source} />
                 {row.created_customer?.username && (
-                  <>
-                    [
-                    {row.created_customer.username}
-                    ]
-                  </>
+                  <>[{row.created_customer.username}]</>
                 )}
               </p>
               <p>
@@ -727,7 +724,8 @@ export default function getTableColumns(
       width: "200px",
       fixed: "right",
       operationConfigure: {
-        type: "tile",
+        type: "auto",
+        fold: 2,
         actions: [
           {
             name: "write_off",
@@ -756,6 +754,23 @@ export default function getTableColumns(
                   await proxy.refresh();
                 }
               });
+            },
+          },
+          {
+            name: "notify",
+            disabled: ({ row }) => row.status < 20,
+            icon: "i-material-symbols:cancel-outline-rounded",
+            text: () => t("crud.callbackNotification"),
+            onClick: ({ row }, proxy: MaProTableExpose) => {
+              msg
+                .delConfirm(t("crud.callbackNotificationDataMessage"))
+                .then(async () => {
+                  const response = await notify(row.id);
+                  if (response.code === ResultCode.SUCCESS) {
+                    msg.success(t("crud.callbackNotificationSuccess"));
+                    await proxy.refresh();
+                  }
+                });
             },
           },
         ],

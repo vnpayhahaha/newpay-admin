@@ -194,3 +194,10 @@ export function downloadBankBill(
     responseType: "blob",
   });
 }
+
+// 付款订单手动回调
+export function notify(id: number): Promise<ResponseStruct<null>> {
+  return useHttp().get(
+    `/admin/transaction/disbursement_order/manual_notify/${id}`
+  );
+}

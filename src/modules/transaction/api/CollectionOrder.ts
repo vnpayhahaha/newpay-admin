@@ -169,3 +169,10 @@ export function writeOff(
     data
   );
 }
+
+// 收款订单手动回调
+export function notify(id: number): Promise<ResponseStruct<null>> {
+  return useHttp().get(
+    `/admin/transaction/collection_order/manual_notify/${id}`
+  );
+}
