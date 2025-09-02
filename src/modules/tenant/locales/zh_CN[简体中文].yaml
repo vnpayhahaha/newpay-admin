@@ -45,6 +45,7 @@ tenant:
   auto_verify_fail_rate: 自动核销失败比例
   payment_assign_items: 付款自动分配项
   collection_use_method: 收款方式
+  cashier_template: 收银台模板
 tenantApp:
   index: 租户应用
   appName: 应用名称

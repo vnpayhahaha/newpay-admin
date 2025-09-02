@@ -7,23 +7,23 @@
  * @Author X.Mo<root@imoi.cn>
  * @Link   https://github.com/mineadmin
  */
-import type { MaFormItem } from '@mineadmin/form'
-import type { TenantVo } from '~/tenant/api/Tenant.ts'
-import type { AvailableOption } from '@/modules/channel/api/ChannelAccount'
-import { selectStatus } from '@/modules/Common'
-import { availableOptions } from '@/modules/channel/api/ChannelAccount'
-import MaDictCheckbox from '@/components/ma-dict-picker/ma-dict-checkbox.vue'
+import type { MaFormItem } from "@mineadmin/form";
+import type { TenantVo } from "~/tenant/api/Tenant.ts";
+import type { AvailableOption } from "@/modules/channel/api/ChannelAccount";
+import { selectStatus } from "@/modules/Common";
+import { availableOptions } from "@/modules/channel/api/ChannelAccount";
+import MaDictCheckbox from "@/components/ma-dict-picker/ma-dict-checkbox.vue";
 
 export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
-  model.float_range = model.float_range ?? [0, 0]
-  model.notify_range = model.notify_range ?? [0, 0]
-  model.upstream_items = model.upstream_items ?? []
-  model.collection_use_method = model.collection_use_method ?? []
+  model.float_range = model.float_range ?? [0, 0];
+  model.notify_range = model.notify_range ?? [0, 0];
+  model.upstream_items = model.upstream_items ?? [];
+  model.collection_use_method = model.collection_use_method ?? [];
 
   return [
     {
-      label: t('tenant.companyName'),
-      prop: 'company_name',
+      label: t("tenant.companyName"),
+      prop: "company_name",
       render: () => <el-input disabled />,
       itemProps: {
         required: true,
@@ -33,8 +33,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.is_receipt'),
-      prop: 'is_receipt',
+      label: t("tenant.is_receipt"),
+      prop: "is_receipt",
       render: () => <el-switch />,
       itemProps: {
         required: true,
@@ -44,15 +44,20 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.settlement_type'),
-      prop: 'settlement_delay_mode',
+      label: t("tenant.settlement_type"),
+      prop: "settlement_delay_mode",
       render: () => <ma-remote-select filterable />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(selectStatus('transaction_record', 'settlement_delay_mode_list'))),
+        api: () =>
+          new Promise((resolve) =>
+            resolve(
+              selectStatus("transaction_record", "settlement_delay_mode_list")
+            )
+          ),
         dataHandle: (response: any) => {
           return response.data?.map((item: Common.StatusOptionItem) => {
-            return { label: `${item.label}`, value: item.value }
-          })
+            return { label: `${item.label}`, value: item.value };
+          });
         },
       },
       itemProps: {
@@ -63,8 +68,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.settlement_delay_days'),
-      prop: 'settlement_delay_days',
+      label: t("tenant.settlement_delay_days"),
+      prop: "settlement_delay_days",
       render: () => <el-input-number class="w-full" />,
       itemProps: {
         required: true,
@@ -78,26 +83,26 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.receipt_fee_type'),
-      prop: 'receipt_fee_type',
+      label: t("tenant.receipt_fee_type"),
+      prop: "receipt_fee_type",
       render: () => MaDictCheckbox,
       renderProps: {
         multiple: true,
         data: [
           {
-            label: t('tenant.receipt_fixed_fee'),
+            label: t("tenant.receipt_fixed_fee"),
             value: 1,
           },
           {
-            label: t('tenant.receipt_fee_rate'),
+            label: t("tenant.receipt_fee_rate"),
             value: 2,
           },
         ],
       },
     },
     {
-      label: t('tenant.receipt_fixed_fee'),
-      prop: 'receipt_fixed_fee',
+      label: t("tenant.receipt_fixed_fee"),
+      prop: "receipt_fixed_fee",
       hide: () => !model.receipt_fee_type.includes(1),
       render: () => <el-input-number class="w-full" />,
       itemProps: {
@@ -116,8 +121,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.receipt_fee_rate'),
-      prop: 'receipt_fee_rate',
+      label: t("tenant.receipt_fee_rate"),
+      prop: "receipt_fee_rate",
       hide: () => !model.receipt_fee_type.includes(2),
       render: () => <el-input-number class="w-full" />,
       itemProps: {
@@ -137,8 +142,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.receipt_min_amount'),
-      prop: 'receipt_min_amount',
+      label: t("tenant.receipt_min_amount"),
+      prop: "receipt_min_amount",
       render: () => <el-input-number class="w-full" />,
       itemProps: {
         required: true,
@@ -156,8 +161,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.receipt_max_amount'),
-      prop: 'receipt_max_amount',
+      label: t("tenant.receipt_max_amount"),
+      prop: "receipt_max_amount",
       render: () => <el-input-number class="w-full" />,
       itemProps: {
         required: true,
@@ -175,15 +180,18 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.receipt_settlement_type'),
-      prop: 'receipt_settlement_type',
+      label: t("tenant.receipt_settlement_type"),
+      prop: "receipt_settlement_type",
       render: () => <ma-remote-select filterable />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'settlement_list'))),
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("tenant", "settlement_list"))
+          ),
         dataHandle: (response: any) => {
           return response.data?.map((item: Common.StatusOptionItem) => {
-            return { label: `${item.label}`, value: item.value }
-          })
+            return { label: `${item.label}`, value: item.value };
+          });
         },
       },
       cols: {
@@ -191,15 +199,18 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.card_acquire_type'),
-      prop: 'card_acquire_type',
+      label: t("tenant.card_acquire_type"),
+      prop: "card_acquire_type",
       render: () => <ma-remote-select filterable />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'bank_card_list'))),
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("tenant", "bank_card_list"))
+          ),
         dataHandle: (response: any) => {
           return response.data?.map((item: Common.StatusOptionItem) => {
-            return { label: `${item.label}`, value: item.value }
-          })
+            return { label: `${item.label}`, value: item.value };
+          });
         },
       },
       cols: {
@@ -207,8 +218,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.upstream_enabled'),
-      prop: 'upstream_enabled',
+      label: t("tenant.upstream_enabled"),
+      prop: "upstream_enabled",
       render: () => <el-switch />,
       itemProps: {
         required: true,
@@ -218,15 +229,15 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.upstream_items'),
-      prop: 'upstream_items',
+      label: t("tenant.upstream_items"),
+      prop: "upstream_items",
       render: () => <ma-remote-select filterable />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(availableOptions(1))),
+        api: () => new Promise((resolve) => resolve(availableOptions(1))),
         dataHandle: (response: any) => {
           return response.data?.map((item: AvailableOption) => {
-            return { label: `${item.merchant_id}`, value: item.id }
-          })
+            return { label: `${item.merchant_id}`, value: item.id };
+          });
         },
         multiple: true,
       },
@@ -235,8 +246,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.float_enabled'),
-      prop: 'float_enabled',
+      label: t("tenant.float_enabled"),
+      prop: "float_enabled",
       render: () => <el-switch />,
       itemProps: {
         required: true,
@@ -246,10 +257,13 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.float_range'),
-      prop: 'float_range',
+      label: t("tenant.float_range"),
+      prop: "float_range",
       render: () => (
-        <div class="w-full" style="display: flex; align-items: center; gap: 8px;">
+        <div
+          class="w-full"
+          style="display: flex; align-items: center; gap: 8px;"
+        >
           <el-input-number
             v-model={model.float_range[0]}
             min={-5}
@@ -257,7 +271,7 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
             precision={2}
             step={0.01}
             controls-position="right"
-            placeholder={t('common.min')}
+            placeholder={t("common.min")}
             style="flex: 1;"
           />
           <span style="padding: 0 8px;">~</span>
@@ -268,7 +282,7 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
             precision={2}
             step={0.01}
             controls-position="right"
-            placeholder={t('common.max')}
+            placeholder={t("common.max")}
             style="flex: 1;"
           />
         </div>
@@ -278,11 +292,14 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
         rules: [
           {
             validator: (_, value, callback) => {
-              if (value[0] !== undefined && value[1] !== undefined && value[0] > value[1]) {
-                callback(new Error(t('validation.rangeInvalid')))
-              }
-              else {
-                callback()
+              if (
+                value[0] !== undefined &&
+                value[1] !== undefined &&
+                value[0] > value[1]
+              ) {
+                callback(new Error(t("validation.rangeInvalid")));
+              } else {
+                callback();
               }
             },
           },
@@ -291,10 +308,13 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       cols: { span: 12 },
     },
     {
-      label: t('tenant.notify_range'),
-      prop: 'notify_range',
+      label: t("tenant.notify_range"),
+      prop: "notify_range",
       render: () => (
-        <div class="w-full" style="display: flex; align-items: center; gap: 8px;">
+        <div
+          class="w-full"
+          style="display: flex; align-items: center; gap: 8px;"
+        >
           <el-input-number
             v-model={model.notify_range[0]}
             min={-5}
@@ -302,7 +322,7 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
             precision={2}
             step={0.01}
             controls-position="right"
-            placeholder={t('common.min')}
+            placeholder={t("common.min")}
             style="flex: 1;"
           />
           <span style="padding: 0 8px;">~</span>
@@ -313,7 +333,7 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
             precision={2}
             step={0.01}
             controls-position="right"
-            placeholder={t('common.max')}
+            placeholder={t("common.max")}
             style="flex: 1;"
           />
         </div>
@@ -323,11 +343,14 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
         rules: [
           {
             validator: (_, value, callback) => {
-              if (value[0] !== undefined && value[1] !== undefined && value[0] > value[1]) {
-                callback(new Error(t('validation.rangeInvalid')))
-              }
-              else {
-                callback()
+              if (
+                value[0] !== undefined &&
+                value[1] !== undefined &&
+                value[0] > value[1]
+              ) {
+                callback(new Error(t("validation.rangeInvalid")));
+              } else {
+                callback();
               }
             },
           },
@@ -336,8 +359,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       cols: { span: 12 },
     },
     {
-      label: t('tenant.receipt_expire_minutes'),
-      prop: 'receipt_expire_minutes',
+      label: t("tenant.receipt_expire_minutes"),
+      prop: "receipt_expire_minutes",
       render: () => <el-input-number class="w-full" />,
       itemProps: {
         required: true,
@@ -354,8 +377,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.reconcile_retain_minutes'),
-      prop: 'reconcile_retain_minutes',
+      label: t("tenant.reconcile_retain_minutes"),
+      prop: "reconcile_retain_minutes",
       render: () => <el-input-number class="w-full" />,
       itemProps: {
         required: true,
@@ -372,8 +395,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.bill_delay_minutes'),
-      prop: 'bill_delay_minutes',
+      label: t("tenant.bill_delay_minutes"),
+      prop: "bill_delay_minutes",
       render: () => <el-input-number class="w-full" />,
       itemProps: {
         required: true,
@@ -390,15 +413,18 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.collection_use_method'),
-      prop: 'collection_use_method',
+      label: t("tenant.collection_use_method"),
+      prop: "collection_use_method",
       render: () => <ma-remote-select filterable />,
       renderProps: {
-        api: () => new Promise(resolve => resolve(selectStatus('tenant', 'collection_use_method_list'))),
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("tenant", "collection_use_method_list"))
+          ),
         dataHandle: (response: any) => {
           return response.data?.map((item: Common.StatusOptionItem) => {
-            return { label: `${item.label}`, value: item.value }
-          })
+            return { label: `${item.label}`, value: item.value };
+          });
         },
         multiple: true,
       },
@@ -407,8 +433,8 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
       },
     },
     {
-      label: t('tenant.auto_verify_fail_rate'),
-      prop: 'auto_verify_fail_rate',
+      label: t("tenant.auto_verify_fail_rate"),
+      prop: "auto_verify_fail_rate",
       render: () => <el-input-number class="w-full" />,
       itemProps: {
         required: true,
@@ -426,5 +452,21 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
         suffix: () => <span style="margin-left: 8px">%</span>,
       },
     },
-  ]
+    {
+      label: t("tenant.cashier_template"),
+      prop: "cashier_template",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () =>
+          new Promise((resolve) =>
+            resolve(selectStatus("tenant", "cashier_template_list"))
+          ),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value };
+          });
+        },
+      },
+    },
+  ];
 }
