@@ -8,31 +8,11 @@
  - @Link   https://github.com/mineadmin
 -->
 <script setup lang="tsx">
-import type { MaTableExpose } from '@mineadmin/table'
-import useTable from '@/hooks/useTable.ts'
+import WorkbenchFast from "./components/workbench/workbench-fast.vue";
+import WorkbenchLogin from "~/base/views/welcome/components/workbench/workbench-login.vue";
 
-defineOptions({ name: 'welcome' })
-const userinfo = useUserStore().getUserInfo()
-
-useTable('table').then((table: MaTableExpose) => {
-  table.setColumns([
-    { label: '成员', prop: 'member', width: 150, align: 'center' },
-    { label: '动态', prop: 'dynamic', align: 'center' },
-    { label: '时间', prop: 'timer', width: 180, align: 'center',
-      cellRender: ({ row }) => {
-        return useDayjs(row.timer).fromNow()
-      },
-    },
-  ])
-
-  table.setData([
-    { member: 'IT界-风清扬', dynamic: '上班不摸鱼，与咸鱼有什么区别。', timer: '2024-09-25 17:10:20' },
-    { member: 'Anna', dynamic: '技术部那几位童鞋，再次警告，不要摸鱼，不要摸鱼，不要摸鱼啦！', timer: '2024-09-15 16:34:56' },
-    { member: '小李子', dynamic: '中午吃什么嘞，好烦呐！那个谁，来一段唱、跳、rap和篮球吧', timer: '2024-09-09 12:01:10' },
-    { member: '咩咩羊', dynamic: '向 MineAdmin 提交了一个bug，抽时间看看吧！', timer: '2024-09-05 14:20:07' },
-    { member: '李大', dynamic: '刚才把工作台页面随便写了一些，凑合能看了！', timer: '2024-09-03 10:43:36' },
-  ])
-})
+defineOptions({ name: "welcome" });
+const userinfo = useUserStore().getUserInfo();
 </script>
 
 <template>
@@ -40,11 +20,15 @@ useTable('table').then((table: MaTableExpose) => {
     <div class="flex justify-between bg-white p-3 dark-bg-dark-8">
       <div class="flex gap-x-5">
         <el-avatar :src="userinfo?.avatar" :size="80">
-          <span v-if="!userinfo?.avatar" class="text-5xl">{{ userinfo.username[0].toUpperCase() }}</span>
+          <span v-if="!userinfo?.avatar" class="text-5xl">{{
+            userinfo.username[0].toUpperCase()
+          }}</span>
         </el-avatar>
         <div class="flex flex-col justify-center gap-y-2">
+          <span class="text-sm text-dark-1 dark-text-gray-3">{{
+            userinfo.username
+          }}</span>
           <span class="text-xl">早安，天青色等烟雨，而我在等你！</span>
-          <span class="text-sm text-dark-1 dark-text-gray-3">某某公司 - 某某部门 - 技术总监</span>
         </div>
       </div>
     </div>
@@ -160,28 +144,9 @@ useTable('table').then((table: MaTableExpose) => {
       </div>
     </div> -->
 
-    <div class="mine-card">
-      <div class="text-base">
-        <div>部门动态</div>
-      </div>
-      <ma-table ref="table" class="mt-5" />
-    </div>
+    <WorkbenchFast />
+    <WorkbenchLogin />
   </div>
 </template>
 
-<style lang="scss" scoped>
-.run-list {
-  @apply b-1 b-solid b-gray-1 dark-b-dark-3 p-3 b-l-0 b-t-0 b-r-0 lg:b-r-1
-  transition-all duration-300
-  hover-shadow dark-hover-shadow-dark-3
-  ;
-
-  .desc {
-    @apply mt-3 text-sm leading-6 dark-text-[#888] text-gray-5
-  }
-}
-
-.ma-link li {
-  @apply flex items-center py-1.5;
-}
-</style>
+<style lang="scss" scoped></style>

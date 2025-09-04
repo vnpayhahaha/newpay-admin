@@ -189,3 +189,11 @@ recycleBin:
   createdAt: Created time
   restore: Restore
   list: Restore List
+analysis:
+  collection_order: Collection Order
+  disbursement_order: Disbursement Order
+  order_quantity: Order Quantity
+  success_quantity: Success Quantity
+  success_rate: Success Rate
+  success_amount: Success Amount
+  compared_to_yesterday: VS. Yesterday
