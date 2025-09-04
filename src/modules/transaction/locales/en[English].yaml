@@ -183,6 +183,7 @@ disbursement_order:
   download: Download
   downloadBankBillSelectBankAccountMsg: Please select a bank and a bank account before continuing
   bank_disbursement_download: Bank Statement
+  cashier: Cashier
 bankStatement:
   index: Bank Statement
   download: Download

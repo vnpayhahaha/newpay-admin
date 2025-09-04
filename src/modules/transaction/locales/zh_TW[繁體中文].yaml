@@ -119,6 +119,7 @@ collection_order:
   cancelled_at: 取消时间
   cancelled_by: 取消人
   cancel_info: 取消信息
+  cashier: 收银台
 disbursement_order:
   bankStatement: 银行账单
   index: 付款订单

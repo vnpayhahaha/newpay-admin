@@ -721,12 +721,25 @@ export default function getTableColumns(
     {
       type: "operation",
       label: () => t("crud.operation"),
-      width: "200px",
+      width: "240px",
       fixed: "right",
       operationConfigure: {
         type: "auto",
-        fold: 2,
+        fold: 3,
         actions: [
+          {
+            name: "cashier",
+            icon: "i-heroicons:qr-code",
+            show: ({ row }) =>
+              showBtn("transaction:collection_order:update", row),
+            disabled: ({ row }) =>
+              row.status > 10 || trim(row.pay_url) == "" || row.pay_url == null,
+            text: () => t("collection_order.cashier"),
+            onClick: ({ row }) => {
+              // 判断row.pay_url是否有值，新网页打开
+              window.open(row.pay_url);
+            },
+          },
           {
             name: "write_off",
             icon: "i-heroicons:qr-code",
