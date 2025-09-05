@@ -50,3 +50,28 @@ export function disbursementSuccessfulRate(): Promise<ResponseStruct<countVo>> {
     "/admin/analysis/weekOrder/disbursement_successful_rate"
   );
 }
+
+export interface contentPeriodVo {
+  xAxis: Array<string>;
+  data: Array<{
+    name: string;
+    value: Array<number>;
+  }>;
+}
+export function successOrderHourToday(): Promise<
+  ResponseStruct<contentPeriodVo>
+> {
+  return useHttp().get("/admin/analysis/successOrder/hourToday");
+}
+
+export function successOrderHourYesterday(): Promise<
+  ResponseStruct<contentPeriodVo>
+> {
+  return useHttp().get("/admin/analysis/successOrder/hourYesterday");
+}
+
+export function successOrderHourWeek(): Promise<
+  ResponseStruct<contentPeriodVo>
+> {
+  return useHttp().get("/admin/analysis/successOrder/hourWeek");
+}

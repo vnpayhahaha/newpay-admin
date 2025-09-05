@@ -234,3 +234,7 @@ analysis:
   success_rate: 成功率
   success_amount: 成交金额
   compared_to_yesterday: 较昨日
+  success_order_line: 成功订单
+  one_week: 一周内
+  yesterday: 昨日
+  today: 今日

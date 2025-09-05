@@ -197,3 +197,7 @@ analysis:
   success_rate: Success Rate
   success_amount: Success Amount
   compared_to_yesterday: VS. Yesterday
+  success_order_line: Success Order
+  one_week: A Week
+  yesterday: Yesterday
+  today: Today

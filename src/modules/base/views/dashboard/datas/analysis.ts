@@ -9,36 +9,40 @@
  */
 export default function getAnalysisData() {
   const getVisitorsData = () => {
-    const year = new Date().getFullYear()
+    const year = new Date().getFullYear();
     const getLineData = (name: number) => {
-      return Array.from({ length: 12 }).fill(0).map((_item, index) => ({
-        x: `${index + 1}月`,
-        y: Math.floor(Math.random() * 10 + 2),
-        name: String(name),
-      }))
-    }
+      return Array.from({ length: 12 })
+        .fill(0)
+        .map((_item, index) => ({
+          x: `${index + 1}月`,
+          y: Math.floor(Math.random() * 10 + 2),
+          name: String(name),
+        }));
+    };
     return {
       count: 5670,
       growth: 206.32,
       chartData: [...getLineData(year), ...getLineData(year - 1)],
-    }
-  }
+    };
+  };
 
   const getPublishedData = () => {
-    const year = new Date().getFullYear()
+    const year = new Date().getFullYear();
     const getLineData = (name: number) => {
-      return Array.from({ length: 12 }).fill(0).map((_item, index) => ({
-        x: `${index + 1}日`,
-        y: Math.floor(Math.random() * 20 + 5),
-        name: String(name),
-      }))
-    }
+      return Array.from({ length: 12 })
+        .fill(0)
+        .map((_item, index) => ({
+          x: `${index + 1}日`,
+          y: Math.floor(Math.random() * 20 + 5),
+          name: String(name),
+        }));
+    };
     return {
       count: 5670,
       growth: 206.32,
       chartData: [...getLineData(year)],
-    }
-  }
+    };
+  };
 
   const getContentTimerData = () => {
     return {
@@ -46,15 +50,15 @@ export default function getAnalysisData() {
       growth: 206.32,
       chartData: [
         // itemStyle for demo
-        { name: '文本类', value: 25, itemStyle: { color: '#8D4EDA' } },
-        { name: '图文类', value: 35, itemStyle: { color: '#165DFF' } },
-        { name: '视频类', value: 40, itemStyle: { color: '#00B2FF' } },
+        { name: "文本类", value: 25, itemStyle: { color: "#8D4EDA" } },
+        { name: "图文类", value: 35, itemStyle: { color: "#165DFF" } },
+        { name: "视频类", value: 40, itemStyle: { color: "#00B2FF" } },
       ],
-    }
-  }
+    };
+  };
 
   function barChartOptionsFactory() {
-    const data = ref<any>([])
+    const data = ref<any>([]);
     const chartOption = ref<any>({
       grid: {
         left: 0,
@@ -63,7 +67,7 @@ export default function getAnalysisData() {
         bottom: 0,
       },
       xAxis: {
-        type: 'category',
+        type: "category",
         show: false,
       },
       yAxis: {
@@ -71,26 +75,26 @@ export default function getAnalysisData() {
       },
       tooltip: {
         show: true,
-        trigger: 'axis',
+        trigger: "axis",
       },
       series: {
-        name: 'total',
+        name: "total",
         data,
-        type: 'bar',
+        type: "bar",
         barWidth: 7,
         itemStyle: {
           borderRadius: 2,
         },
       },
-    })
+    });
     return {
       data,
       chartOption,
-    }
+    };
   }
 
   function lineChartOptionsFactory() {
-    const data = ref<number[][]>([[], []])
+    const data = ref<number[][]>([[], []]);
     const chartOption = ref<any>({
       grid: {
         left: 0,
@@ -99,7 +103,7 @@ export default function getAnalysisData() {
         bottom: 0,
       },
       xAxis: {
-        type: 'category',
+        type: "category",
         show: false,
       },
       yAxis: {
@@ -107,43 +111,43 @@ export default function getAnalysisData() {
       },
       tooltip: {
         show: true,
-        trigger: 'axis',
+        trigger: "axis",
       },
       series: [
         {
-          name: '2001',
+          name: "2001",
           data: data.value[0],
-          type: 'line',
+          type: "line",
           showSymbol: false,
           smooth: true,
           lineStyle: {
-            color: '#165DFF',
+            color: "#165DFF",
             width: 3,
           },
         },
         {
-          name: '2002',
+          name: "2002",
           data: data.value[1],
-          type: 'line',
+          type: "line",
           showSymbol: false,
           smooth: true,
           lineStyle: {
-            color: '#6AA1FF',
+            color: "#6AA1FF",
             width: 3,
-            type: 'dashed',
+            type: "dashed",
           },
         },
       ],
-    })
+    });
 
     return {
       data,
       chartOption,
-    }
+    };
   }
 
   function pieChartOptionsFactory() {
-    const data = ref<any>([])
+    const data = ref<any>([]);
     const chartOption = ref<any>({
       grid: {
         left: 0,
@@ -153,14 +157,14 @@ export default function getAnalysisData() {
       },
       legend: {
         show: true,
-        top: 'center',
-        right: '0',
-        orient: 'vertical',
-        icon: 'circle',
+        top: "center",
+        right: "0",
+        orient: "vertical",
+        icon: "circle",
         itemWidth: 6,
         itemHeight: 6,
         textStyle: {
-          color: '#4E5969',
+          color: "#4E5969",
         },
       },
       tooltip: {
@@ -168,20 +172,20 @@ export default function getAnalysisData() {
       },
       series: [
         {
-          name: '总计',
-          type: 'pie',
-          radius: ['50%', '70%'],
+          name: "总计",
+          type: "pie",
+          radius: ["50%", "70%"],
           label: {
             show: false,
           },
           data,
         },
       ],
-    })
+    });
     return {
       data,
       chartOption,
-    }
+    };
   }
 
   function contentPublishRadio() {
@@ -190,35 +194,41 @@ export default function getAnalysisData() {
         name,
         x: [] as string[],
         y: [] as number[],
-      }
-      Array.from({ length: 12 }).fill(0).forEach((_item, index) => {
-        result.x.push(`${index * 2}:00`)
-        result.y.push(Math.floor(Math.random() * 1000 + 500))
-      })
-      return result
-    }
+      };
+      Array.from({ length: 12 })
+        .fill(0)
+        .forEach((_item, index) => {
+          result.x.push(`${index * 2}:00`);
+          result.y.push(Math.floor(Math.random() * 1000 + 500));
+        });
+      return result;
+    };
     return [
-      generateLineData('纯文本'),
-      generateLineData('图文类'),
-      generateLineData('视频类'),
-    ]
+      generateLineData("纯文本"),
+      generateLineData("图文类"),
+      generateLineData("视频类"),
+    ];
   }
 
   function contentPeriod() {
     const getLineData = (name: string) => {
       return {
         name,
-        value: Array.from({ length: 12 }).fill(0).map(() => Math.floor(Math.random() * 30 + 5)),
-      }
-    }
+        value: Array.from({ length: 13 })
+          .fill(0)
+          .map(() => Math.floor(Math.random() * 30 + 5)),
+      };
+    };
     return {
-      xAxis: Array.from({ length: 12 }).fill(0).map((_item, index) => `${index * 2}:00`),
+      xAxis: Array.from({ length: 13 })
+        .fill(0)
+        .map((_item, index) => `${index * 2}:00`),
       data: [
-        getLineData('纯文本'),
-        getLineData('图文类'),
-        getLineData('视频类'),
+        getLineData("纯文本"),
+        getLineData("图文类"),
+        getLineData("视频类"),
       ],
-    }
+    };
   }
 
   return {
@@ -230,5 +240,5 @@ export default function getAnalysisData() {
     pieChartOptionsFactory,
     contentPublishRadio,
     contentPeriod,
-  }
+  };
 }
