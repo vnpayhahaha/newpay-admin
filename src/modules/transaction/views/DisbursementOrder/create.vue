@@ -137,7 +137,7 @@ const options = ref<MaProTableOptions>({
     requestParams: {
       orderBy: 'id',
       orderType: 'desc',
-      status: 0,
+      status: 1,
     },
     responseDataHandler: (response: Record<string, any>) => {
       responseTableData.value = response
