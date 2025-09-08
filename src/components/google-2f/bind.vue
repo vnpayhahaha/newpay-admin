@@ -173,6 +173,7 @@ async function copySecretKey() {
           v-model="google_code"
           placeholder="请输入Google验证码"
           maxlength="6"
+          :clearable="true"
         />
       </el-form-item>
     </el-form>
