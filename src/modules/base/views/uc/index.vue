@@ -50,7 +50,7 @@ zh_CN:
   whetherMultiDeviceLogin: 是否多设备登录
   whetherGoogle2FactorAuth: 是否开启双因素认证
   google_bind:
-    bind: 绑定 Google 验证
+    bind: 绑定 Google 双因素认证
     unbind: 未绑定
     binded: 已绑定
     reBind: 重新绑定

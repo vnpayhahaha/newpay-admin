@@ -1,22 +1,76 @@
 <!-- src/components/google-2f/bind.vue -->
+<i18n lang="yaml">
+en:
+  title: Bind Google Authenticator
+  secretKey: Google Secret Key
+  copy: Click to copy
+  copySuccess: Key copied to clipboard
+  copyFailed: Copy failed, please copy manually
+  code: Google Verification Code
+  codePlaceholder: Please enter Google verification code
+  submit: Bind
+  cancel: Cancel
+  getSuccess: Get success
+  getFailed: Failed to get secret key
+  getQrFailed: Failed to get QR code
+  bindSuccess: Binding successful
+  bindFailed: Binding failed
+  requestError: Request error, please try again!
+zh_CN:
+  title: 绑定双因素认证
+  secretKey: 双因素认证密钥
+  copy: 点击复制
+  copySuccess: 密钥已复制到剪贴板
+  copyFailed: 复制失败，请手动复制
+  code: 双因素认证验证码
+  codePlaceholder: 请输入双因素认证验证码
+  submit: 去绑定
+  cancel: 取消
+  getSuccess: 获取成功
+  getFailed: 获取密钥失败
+  getQrFailed: 获取二维码失败
+  bindSuccess: 绑定成功
+  bindFailed: 绑定失败
+  requestError: 请求异常，请重试！
+zh_TW:
+  title: 綁定Google驗證碼
+  secretKey: Google金鑰
+  copy: 點擊複製
+  copySuccess: 金鑰已複製到剪貼簿
+  copyFailed: 複製失敗，請手動複製
+  code: Google驗證碼
+  codePlaceholder: 請輸入Google驗證碼
+  submit: 去綁定
+  cancel: 取消
+  getSuccess: 獲取成功
+  getFailed: 獲取金鑰失敗
+  getQrFailed: 獲取二維碼失敗
+  bindSuccess: 綁定成功
+  bindFailed: 綁定失敗
+  requestError: 請求異常，請重試！
+</i18n>
+
 <script setup lang="ts">
 import { defineEmits, defineProps, onMounted, reactive, ref } from "vue";
 import { generate, getQRCode } from "~/base/api/google2f";
 import { useMessage } from "@/hooks/useMessage";
 import { resetGoogleSecretKey } from "~/base/api/user";
-import GoogleTwoFa from "./index.vue";
+import { useLocalTrans } from "@/hooks/useLocalTrans";
 
 const props = defineProps({
   isBind: Boolean,
 });
+
 const emit = defineEmits(["bind"]);
+
+// 引入 useLocalTrans
+const t = useLocalTrans();
 const userStore = useUserStore();
 const google_secret_key = ref("");
 const google_code = ref("");
 const googleQrCodeBase64 = ref("");
 const visible = ref(false);
 const isVerifying = ref(false);
-const isVerifyGoogleTwoFa = ref(false);
 const msg = useMessage();
 
 // 使用响应式用户信息
@@ -27,13 +81,13 @@ async function getGoogleSecretKey() {
     const response = await generate();
     if (response.success && response.data) {
       google_secret_key.value = response.data.secret;
-      msg.success("获取成功");
+      msg.success(t("getSuccess"));
       await getGoogleQRCode();
     } else {
-      msg.error(response.message || "获取密钥失败");
+      msg.error(response.message || t("getFailed"));
     }
   } catch (error) {
-    msg.error("请求异常，请重试！");
+    msg.error(t("requestError"));
   }
 }
 
@@ -47,10 +101,10 @@ async function getGoogleQRCode() {
     if (response.success && response.data) {
       googleQrCodeBase64.value = response.data.qr_code;
     } else {
-      msg.error(response.message || "获取二维码失败");
+      msg.error(response.message || t("getQrFailed"));
     }
   } catch (error) {
-    msg.error("请求异常，请重试！");
+    msg.error(t("requestError"));
   }
 }
 
@@ -77,7 +131,7 @@ async function handleBindGoogleTwoFa() {
   try {
     const response = await resetGoogleSecretKey(userInfoData); // 传递普通对象
     if (response.success) {
-      msg.success(response.message);
+      msg.success(response.message || t("bindSuccess"));
       // 更新 store 中的用户信息
       userStore.setUserInfo({
         ...userStore.getUserInfo(),
@@ -87,11 +141,11 @@ async function handleBindGoogleTwoFa() {
       return true;
     }
 
-    msg.error(response.message);
+    msg.error(response.message || t("bindFailed"));
     return false;
   } catch (error) {
     console.error(error);
-    msg.error("请求异常，请重试！");
+    msg.error(t("requestError"));
     return false;
   }
 }
@@ -122,7 +176,7 @@ async function copySecretKey() {
   try {
     // 使用 Clipboard API 复制文本
     await navigator.clipboard.writeText(google_secret_key.value);
-    msg.success("密钥已复制到剪贴板");
+    msg.success(t("copySuccess"));
   } catch (err) {
     // Fallback 方案：创建临时 input 元素
     const textarea = document.createElement("textarea");
@@ -131,9 +185,9 @@ async function copySecretKey() {
     textarea.select();
     try {
       document.execCommand("copy");
-      msg.success("密钥已复制到剪贴板");
+      msg.success(t("copySuccess"));
     } catch (e) {
-      msg.error("复制失败，请手动复制");
+      msg.error(t("copyFailed"));
     }
     document.body.removeChild(textarea);
   } finally {
@@ -146,13 +200,13 @@ async function copySecretKey() {
 <template>
   <el-dialog
     :model-value="visible"
-    title="绑定Google验证码"
+    :title="t('title')"
     :close-on-click-modal="false"
     :before-close="handleCancel"
   >
     <el-form class="mt-3 w-full" :model="userInfo">
-      <el-form-item label="Google密钥" label-width="140px">
-        <el-tooltip content="点击复制">
+      <el-form-item :label="t('secretKey')" label-width="140px">
+        <el-tooltip :content="t('copy')">
           <el-tag type="primary" class="cursor-pointer" @click="copySecretKey">
             {{ google_secret_key }}
           </el-tag>
@@ -168,18 +222,21 @@ async function copySecretKey() {
           </div>
         </div>
       </el-form-item>
-      <el-form-item label="Google验证码" prop="code" label-width="140px">
+      <el-form-item :label="t('code')" prop="code" label-width="140px">
         <el-input
           v-model="google_code"
-          placeholder="请输入Google验证码"
+          :placeholder="t('codePlaceholder')"
           maxlength="6"
           :clearable="true"
         />
       </el-form-item>
     </el-form>
     <template #footer>
+      <el-button @click="handleCancel">
+        {{ t("cancel") }}
+      </el-button>
       <el-button type="primary" :loading="isVerifying" @click="handleBeforeOk">
-        去绑定
+        {{ t("submit") }}
       </el-button>
     </template>
   </el-dialog>
