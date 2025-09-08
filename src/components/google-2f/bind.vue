@@ -205,7 +205,7 @@ async function copySecretKey() {
     :before-close="handleCancel"
   >
     <el-form class="mt-3 w-full" :model="userInfo">
-      <el-form-item :label="t('secretKey')" label-width="140px">
+      <el-form-item :label="t('secretKey')" label-width="180px">
         <el-tooltip :content="t('copy')">
           <el-tag type="primary" class="cursor-pointer" @click="copySecretKey">
             {{ google_secret_key }}
@@ -222,7 +222,7 @@ async function copySecretKey() {
           </div>
         </div>
       </el-form-item>
-      <el-form-item :label="t('code')" prop="code" label-width="140px">
+      <el-form-item :label="t('code')" prop="code" label-width="180px">
         <el-input
           v-model="google_code"
           :placeholder="t('codePlaceholder')"
