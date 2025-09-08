@@ -12,11 +12,11 @@ const props = defineProps({
 const emit = defineEmits(["bind"]);
 const userStore = useUserStore();
 const google_secret_key = ref("");
+const google_code = ref("");
 const googleQrCodeBase64 = ref("");
 const visible = ref(false);
 const isVerifying = ref(false);
 const isVerifyGoogleTwoFa = ref(false);
-const google2faRef = ref<InstanceType<typeof GoogleTwoFa>>();
 const msg = useMessage();
 
 // 使用响应式用户信息
@@ -55,11 +55,6 @@ async function getGoogleQRCode() {
 }
 
 async function handleBeforeOk() {
-  if (!isVerifyGoogleTwoFa.value) {
-    google2faRef.value?.open("绑定，需要谷歌验证！", google_secret_key.value);
-    return false;
-  }
-
   isVerifying.value = true;
   try {
     const result = await handleBindGoogleTwoFa();
@@ -71,16 +66,12 @@ async function handleBeforeOk() {
   }
 }
 
-function handleVerifyGoogleTwoFa(isVerify: boolean) {
-  console.log("handleVerifyGoogleTwoFa", isVerify);
-  isVerifyGoogleTwoFa.value = isVerify;
-}
-
 async function handleBindGoogleTwoFa() {
   // 修复：创建普通对象而不是直接使用响应式对象
   const userInfoData = {
     google_secret: google_secret_key.value,
     is_bind_google: 1,
+    code: google_code.value,
   };
 
   try {
@@ -123,6 +114,32 @@ defineExpose({
   open,
   close: handleCancel,
 });
+
+const isCopying = ref(false);
+
+async function copySecretKey() {
+  isCopying.value = true;
+  try {
+    // 使用 Clipboard API 复制文本
+    await navigator.clipboard.writeText(google_secret_key.value);
+    msg.success("密钥已复制到剪贴板");
+  } catch (err) {
+    // Fallback 方案：创建临时 input 元素
+    const textarea = document.createElement("textarea");
+    textarea.value = google_secret_key.value;
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand("copy");
+      msg.success("密钥已复制到剪贴板");
+    } catch (e) {
+      msg.error("复制失败，请手动复制");
+    }
+    document.body.removeChild(textarea);
+  } finally {
+    isCopying.value = false;
+  }
+}
 </script>
 
 <!-- 模板部分保持不变 -->
@@ -136,7 +153,7 @@ defineExpose({
     <el-form class="mt-3 w-full" :model="userInfo">
       <el-form-item label="Google密钥" label-width="140px">
         <el-tooltip content="点击复制">
-          <el-tag type="primary" class="cursor-pointer">
+          <el-tag type="primary" class="cursor-pointer" @click="copySecretKey">
             {{ google_secret_key }}
           </el-tag>
         </el-tooltip>
@@ -151,12 +168,14 @@ defineExpose({
           </div>
         </div>
       </el-form-item>
+      <el-form-item label="Google验证码" prop="code" label-width="140px">
+        <el-input
+          v-model="google_code"
+          placeholder="请输入Google验证码"
+          maxlength="6"
+        />
+      </el-form-item>
     </el-form>
-    <GoogleTwoFa
-      ref="google2faRef"
-      :is-verify="isVerifyGoogleTwoFa"
-      @pass="handleVerifyGoogleTwoFa"
-    />
     <template #footer>
       <el-button type="primary" :loading="isVerifying" @click="handleBeforeOk">
         去绑定
@@ -166,6 +185,15 @@ defineExpose({
 </template>
 
 <style scoped>
+/* 确保父容器有足够空间 */
+.el-form-item .box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 220px; /* 给一个最小高度确保居中 */
+}
+
 .box {
   position: relative;
   width: 200px;
@@ -175,7 +203,9 @@ defineExpose({
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  margin: 0 auto; /* 水平居中 */
 }
+
 .box-bg {
   width: 100%;
   height: 100%;
@@ -183,6 +213,7 @@ defineExpose({
     linear-gradient(to bottom, #ededed 1px, transparent 1px);
   background-size: 10px 10px;
 }
+
 .box::after {
   content: "";
   position: absolute;
