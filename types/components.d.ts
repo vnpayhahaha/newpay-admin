@@ -8,9 +8,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Bind: typeof import('./../src/components/google-2f/bind.vue')['default']
     Demo: typeof import('./../src/components/ma-upload-chunk/demo.vue')['default']
     Example: typeof import('./../src/components/ma-upload-chunk/example.vue')['default']
     Form: typeof import('./../src/components/ma-key-value/components/form.vue')['default']
+    Google2f: typeof import('./../src/components/google-2f/index.vue')['default']
     MaAuth: typeof import('./../src/components/ma-auth/index.vue')['default']
     MaCitySelect: typeof import('./../src/components/ma-city-select/index.vue')['default']
     MaColCard: typeof import('./../src/components/ma-col-card/index.vue')['default']

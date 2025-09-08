@@ -266,6 +266,7 @@ const useUserStore = defineStore("useUserStore", () => {
     getLanguage,
     requestUserInfo,
     getUserInfo,
+    setUserInfo,
     setPermissions,
     getPermissions,
     getRoles,
