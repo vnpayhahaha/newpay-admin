@@ -6,6 +6,8 @@ loginForm:
   codePlaceholder: 请输入验证码
   usernamePlaceholder: 请输入账户
   passwordLabel: 密码
+  googleCodeLabel: 双因素验证码
+  google_2fa_codePlaceholder: 请输入谷歌双因素验证码
 mineAdmin:
   goHome: 回到首页
   settings:

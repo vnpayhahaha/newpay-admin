@@ -6,6 +6,8 @@ loginForm:
   codePlaceholder: please input captcha
   usernamePlaceholder: please input account
   passwordLabel: Password
+  googleCodeLabel: Two-factor authentication code
+  google_2fa_codePlaceholder: Please input two-factor authentication code
 mineAdmin:
   goHome: Back to Home
   settings:
