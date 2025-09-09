@@ -257,10 +257,13 @@ watch(avatar, async (val: string | undefined) => {
                 <el-button
                   type="primary"
                   class="ml-4"
+                  :disabled="userInfo.is_bind_google"
                   @click="openGoogle2fBind"
                 >
                   {{
-                    userInfo.is_bind_google ? "重新绑定" : "绑定 Google 验证"
+                    userInfo.is_bind_google
+                      ? t("google_bind.binded")
+                      : t("google_bind.bind")
                   }}
                 </el-button>
               </div>
