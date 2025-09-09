@@ -130,7 +130,7 @@ useForm("changeBalanceAvailableForm").then(async (form: MaFormExpose) => {
       prop: "change_balance",
       render: () => ElInputNumber,
       renderProps: {
-        min: 0,
+        min: 0.01,
         max: balanceAvailableModel.value.change_balance_max,
         class: "w-full",
         precision: 2,
@@ -145,6 +145,7 @@ useForm("changeBalanceAvailableForm").then(async (form: MaFormExpose) => {
         userInfo.value.is_enabled_google && userInfo.value.is_bind_google,
       prop: "google2f_code",
       render: () => <el-input clearable />,
+      itemProps: { required: true },
     },
   ]);
   form.setOptions({
