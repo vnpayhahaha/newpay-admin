@@ -216,3 +216,4 @@ validation:
   rangeInvalid: 最小值不能大于最大值
 google_2f:
   title: 谷歌双因素验证码
+  need_valid_msg: 需要进行谷歌双因素验证

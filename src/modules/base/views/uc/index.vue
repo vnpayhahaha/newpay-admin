@@ -19,11 +19,14 @@ en:
   whetherReceiveMsg: Whether receive message
   whetherMultiDeviceLogin: Whether multi-device login
   whetherGoogle2FactorAuth: Whether to enable two-factor authentication
+  isTwoTactorAuthenticationBound: Is two-factor authentication bound
   google_bind:
     bind: Bind Google Verification
     unbind: Unbound
     binded: Bound
     reBind: Rebind
+  enable: Enable
+  disable: Disable
   bind_message:
     bind_success: Binding successful
     bind_fail: Binding failed
@@ -49,11 +52,14 @@ zh_CN:
   whetherReceiveMsg: 是否接收消息
   whetherMultiDeviceLogin: 是否多设备登录
   whetherGoogle2FactorAuth: 是否开启双因素认证
+  isTwoTactorAuthenticationBound: 是否绑定Google双因素认证
   google_bind:
-    bind: 绑定 Google 双因素认证
+    bind: 绑定Google双因素认证
     unbind: 未绑定
     binded: 已绑定
     reBind: 重新绑定
+  enable: 开启
+  disable: 关闭
   bind_message:
     bind_success: 绑定成功
     bind_fail: 绑定失败
@@ -79,11 +85,14 @@ zh_TW:
   whetherReceiveMsg: 是否接受消息
   whetherMultiDeviceLogin: 是否多設備登錄
   whetherGoogle2FactorAuth: 是否谷歌兩步認證
+  isTwoTactorAuthenticationBound: 是否绑定谷歌兩步認證
   google_bind:
     bind: 绑定 Google 验证
     unbind: 未绑定
     binded: 已绑定
     reBind: 重新绑定
+  enable: 开启
+  disable: 关闭
   bind_message:
     bind_success: 绑定成功
     bind_fail: 绑定失败
@@ -107,6 +116,8 @@ import UcModifyInfo from "./components/modify-info.vue";
 import UcTitle from "./components/title.vue";
 import { useMessage } from "@/hooks/useMessage.ts";
 import Google2fBind from "@/components/google-2f/bind.vue";
+import Google2f from "@/components/google-2f/index.vue";
+import { google2FaStatus } from "~/base/api/user";
 
 const modalRef = ref();
 const selected = ref("profile");
@@ -146,11 +157,10 @@ function handleBind(result: boolean) {
 const form = reactive({
   isReceiveMsg: true,
   multiDeviceLogin: false,
-  isGoogle2FactorAuth: false,
+  isGoogle2FactorAuth: userInfo.value.is_enabled_google,
 });
 
 const avatar = ref<string>(userStore.getUserInfo().avatar);
-const globalTrans = useTrans().globalTrans;
 
 const showFields = reactive({
   nickname: useLocalTrans("userinfo.nickname"),
@@ -167,10 +177,38 @@ watch(avatar, async (val: string | undefined) => {
     avatar: val ?? "",
   });
   if (response.code === 200) {
-    msg.success(globalTrans("crud.updateSuccess"));
+    msg.success(t("crud.updateSuccess"));
     userStore.getUserInfo().avatar = val ?? "";
   }
 });
+
+function changeGoogle2FaStatus() {
+  const cur_status = userInfo.value.is_enabled_google;
+  google2FaStatus(!cur_status).then((response) => {
+    if (response.code === 200) {
+      msg.success(t("crud.updateSuccess"));
+      // 更新 store 中的用户信息
+      userStore.setUserInfo({
+        ...userStore.getUserInfo(),
+        is_enabled_google: !cur_status,
+      });
+    }
+  });
+}
+const showGoogle2FaRef = ref();
+function handleBindGoogleTwoFa(newStatus) {
+  // 引入 谷歌两步验证组件
+  showGoogle2FaRef.value.open();
+}
+
+function handleGoogleTwoFaIsPass(isPass: boolean) {
+  console.log("handleGoogleTwoFaIsPass", isPass);
+  if (!isPass) {
+    form.isGoogle2FactorAuth = !form.isGoogle2FactorAuth;
+  } else {
+    changeGoogle2FaStatus();
+  }
+}
 </script>
 
 <template>
@@ -251,7 +289,7 @@ watch(avatar, async (val: string | undefined) => {
           <li>
             <div class="desc-item">
               <div class="desc-label">
-                {{ useLocalTrans("whetherGoogle2FactorAuth") }}
+                {{ useLocalTrans("isTwoTactorAuthenticationBound") }}
               </div>
               <div class="desc-value">
                 <el-button
@@ -269,6 +307,22 @@ watch(avatar, async (val: string | undefined) => {
               </div>
             </div>
           </li>
+          <li>
+            <div class="desc-item">
+              <div class="desc-label">
+                {{ useLocalTrans("whetherGoogle2FactorAuth") }}
+              </div>
+              <div class="desc-value">
+                <el-switch
+                  v-model="form.isGoogle2FactorAuth"
+                  :disabled="!userInfo.is_bind_google"
+                  :active-text="t('enable')"
+                  :inactive-text="t('disable')"
+                  @change="handleBindGoogleTwoFa"
+                />
+              </div>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -280,6 +334,7 @@ watch(avatar, async (val: string | undefined) => {
       :is-bind="userInfo.is_bind_google"
       @bind="handleBind"
     />
+    <Google2f ref="showGoogle2FaRef" @pass="handleGoogleTwoFaIsPass" />
   </UcContainer>
 </template>
 

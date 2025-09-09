@@ -214,3 +214,6 @@ common:
   select_channel: Select channel
 validation:
   rangeInvalid: The value must be between {min} and {max}
+google_2f:
+  title: Google two-factor authentication code
+  need_valid_msg: Google two-factor authentication is required

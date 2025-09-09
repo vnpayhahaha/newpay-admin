@@ -67,10 +67,18 @@ export function updateInfo(data: UserVo): Promise<ResponseStruct<null>> {
   return useHttp().put("/admin/user", data);
 }
 
-export function resetGoogleSecretKey(
+export function bindGoogleSecretKey(
   data: UserVo
 ): Promise<ResponseStruct<null>> {
-  return useHttp().put("/admin/resetGoogleSecretKey", data);
+  return useHttp().put("/admin/bindGoogleSecretKey", data);
+}
+
+export function google2FaStatus(
+  is_enabled_google: boolean
+): Promise<ResponseStruct<null>> {
+  return useHttp().put("/admin/user/google_2fa_status", {
+    is_enabled_google,
+  });
 }
 
 export function getUserRole(id: number): Promise<ResponseStruct<any[]>> {

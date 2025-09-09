@@ -35,10 +35,10 @@ zh_TW:
 import { defineEmits, defineProps, ref } from "vue";
 import { verify } from "~/base/api/google2f";
 import { useMessage } from "@/hooks/useMessage";
+import { useLocalTrans } from "@/hooks/useLocalTrans";
+import { fa } from "element-plus/es/locale/index.mjs";
 
-const props = defineProps({
-  isVerify: Boolean, // 是否已验证
-});
+const props = defineProps({});
 const emit = defineEmits(["pass"]);
 
 const userStore = useUserStore();
@@ -48,6 +48,8 @@ const codeValue = ref("");
 const googleSecretKey = ref("");
 const isVerifying = ref(false);
 const msg = useMessage();
+// 使用全局 t 函数
+const t = useLocalTrans();
 // 使用响应式用户信息
 const userInfo = ref({ ...userStore.getUserInfo() });
 
@@ -57,21 +59,18 @@ async function handleBeforeOk() {
     return false;
   }
 
-  if (!googleSecretKey.value) {
-    msg.warning(t("missingKey"));
-    return false;
-  }
-
   isVerifying.value = true;
   try {
     const response = await verify(codeValue.value, googleSecretKey.value);
+    console.log("response==", response);
     if (response.success && response.data?.is_pass === true) {
       emit("pass", true);
       codeValue.value = "";
       msg.success(t("verifySuccess"));
       return true;
     } else {
-      msg.error(response.message || t("verifyFailed"));
+      emit("pass", false);
+      msg.error(t("verifyFailed"));
       return false;
     }
   } catch (error: any) {
@@ -84,6 +83,7 @@ async function handleBeforeOk() {
 }
 
 function handleCancel() {
+  emit("pass", false);
   visible.value = false;
   codeValue.value = "";
 }
@@ -95,21 +95,18 @@ async function handleEnter() {
   }
 }
 
-function open(msg: string, google_secret_key: string = "") {
-  alertMsg.value = msg;
+function open(msg: string = "", google_secret_key: string = "") {
+  alertMsg.value = msg !== "" ? msg : t("google_2f.need_valid_msg");
   googleSecretKey.value = google_secret_key;
   visible.value = true;
 }
 
 // 判断是否需要验证的方法
 function isNeedGoogleTwoFa() {
-  return userInfo.value?.is_enabled_google === true && !props.isVerify;
+  return userInfo.value?.is_enabled_google === true;
 }
 
 defineExpose({ open, isNeedGoogleTwoFa });
-
-// 使用全局 t 函数
-const { t } = useTrans();
 </script>
 
 <template>
@@ -119,10 +116,9 @@ const { t } = useTrans();
     width="30%"
     :before-close="handleCancel"
   >
-    <el-alert type="warning" :closable="false">
+    <el-alert type="warning" :closable="false" class="mb-4">
       {{ alertMsg }}
     </el-alert>
-    <el-divider />
     <el-input
       v-model="codeValue"
       type="text"

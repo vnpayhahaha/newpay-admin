@@ -54,7 +54,7 @@ zh_TW:
 import { defineEmits, defineProps, onMounted, reactive, ref } from "vue";
 import { generate, getQRCode } from "~/base/api/google2f";
 import { useMessage } from "@/hooks/useMessage";
-import { resetGoogleSecretKey } from "~/base/api/user";
+import { bindGoogleSecretKey } from "~/base/api/user";
 import { useLocalTrans } from "@/hooks/useLocalTrans";
 
 const props = defineProps({
@@ -129,7 +129,7 @@ async function handleBindGoogleTwoFa() {
   };
 
   try {
-    const response = await resetGoogleSecretKey(userInfoData); // 传递普通对象
+    const response = await bindGoogleSecretKey(userInfoData); // 传递普通对象
     if (response.success) {
       msg.success(response.message || t("bindSuccess"));
       // 更新 store 中的用户信息
@@ -228,6 +228,7 @@ async function copySecretKey() {
           :placeholder="t('codePlaceholder')"
           maxlength="6"
           :clearable="true"
+          @keyup.enter="handleBeforeOk"
         />
       </el-form-item>
     </el-form>
