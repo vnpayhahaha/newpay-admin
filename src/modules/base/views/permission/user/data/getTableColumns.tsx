@@ -31,7 +31,7 @@ export default function getTableColumns(
   const msg = useMessage();
   const userStore = useUserStore();
   const userInfo = ref({ ...userStore.getUserInfo() });
-  console.log(userInfo.value);
+
   const showBtn = (auth: string | string[], row: UserVo) => {
     return hasAuth(auth) && row.id !== 1;
   };
@@ -177,7 +177,7 @@ export default function getTableColumns(
             show: ({ row }) => userInfo.value.is_super_admin,
             icon: "material-symbols:passkey",
             text: () => t("baseUserManage.resetGoogle2FaSecret"),
-            onClick: ({ row }) => {
+            onClick: ({ row }, proxy: MaProTableExpose) => {
               msg
                 .confirm(t("baseUserManage.resetGoogle2FaSecretConfirm"))
                 .then(async () => {
@@ -186,6 +186,7 @@ export default function getTableColumns(
                     msg.success(
                       t("baseUserManage.resetGoogle2FaSecretSuccess")
                     );
+                    await proxy.refresh();
                   }
                 });
             },
