@@ -214,3 +214,5 @@ common:
   select_channel: 选择渠道
 validation:
   rangeInvalid: 最小值不能大于最大值
+google_2f:
+  title: 谷歌双因素验证码
