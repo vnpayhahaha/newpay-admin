@@ -210,3 +210,6 @@ analysis:
   one_week: A Week
   yesterday: Yesterday
   today: Today
+welcome:
+  document: API Documentation
+  merchant_end: Merchant End

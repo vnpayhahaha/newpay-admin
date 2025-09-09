@@ -10,25 +10,53 @@
 <script setup lang="tsx">
 import WorkbenchFast from "./components/workbench/workbench-fast.vue";
 import WorkbenchLogin from "~/base/views/welcome/components/workbench/workbench-login.vue";
+import { useI18n } from "vue-i18n";
 
 defineOptions({ name: "welcome" });
 const userinfo = useUserStore().getUserInfo();
+const i18n = useTrans() as TransType;
+const t = i18n.globalTrans;
+const documentUrl = import.meta.env.VITE_APP_DOC_URL;
+const merchant_endpoint = import.meta.env.VITE_APP_MERCHANT_URL;
+
+const { locale } = useI18n();
+function openDocument() {
+  // 判断当前语言环境
+  console.log("locale", locale.value);
+  if (locale.value === "en") {
+    window.open(`${documentUrl}/en`, "_blank");
+  } else {
+    window.open(documentUrl, "_blank");
+  }
+}
+
+function openMerchant() {
+  window.open(merchant_endpoint, "_blank");
+}
 </script>
 
 <template>
   <div class="mine-layout">
     <div class="flex justify-between bg-white p-3 dark-bg-dark-8">
-      <div class="flex gap-x-5">
+      <div class="w-full flex gap-x-5">
         <el-avatar :src="userinfo?.avatar" :size="80">
           <span v-if="!userinfo?.avatar" class="text-5xl">{{
             userinfo.username[0].toUpperCase()
           }}</span>
         </el-avatar>
         <div class="flex flex-col justify-center gap-y-2">
-          <span class="text-sm text-dark-1 dark-text-gray-3">{{
+          <!-- <span class="text-sm text-dark-1 dark-text-gray-3">{{
             userinfo.username
-          }}</span>
-          <span class="text-xl">早安，天青色等烟雨，而我在等你！</span>
+          }}</span> -->
+          <span class="text-xl">早安，{{ userinfo.username }}！</span>
+        </div>
+        <div class="ml-auto mr-5 flex items-center">
+          <el-button type="primary" @click="openMerchant">
+            {{ t("welcome.merchant_end") }}
+          </el-button>
+          <el-button type="primary" @click="openDocument">
+            {{ t("welcome.document") }}
+          </el-button>
         </div>
       </div>
     </div>
