@@ -73,6 +73,12 @@ export function bindGoogleSecretKey(
   return useHttp().put("/admin/bindGoogleSecretKey", data);
 }
 
+export function resetGoogle2FaSecret(
+  userId: number
+): Promise<ResponseStruct<null>> {
+  return useHttp().put(`/admin/user/resetGoogle2FaSecret/${userId}`);
+}
+
 export function google2FaStatus(
   is_enabled_google: boolean
 ): Promise<ResponseStruct<null>> {

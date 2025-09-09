@@ -17,6 +17,15 @@ baseUserManage:
   initPassword: 重設密碼
   setPassword: 是否將密碼重設為[123456]?
   setPasswordSuccess: 密碼重設完畢
+  resetGoogle2FaSecret: 重置双因素验证密钥
+  resetGoogle2FaSecretConfirm: 是否确认重置双因素验证密钥？
+  resetGoogle2FaSecretSuccess: 重置双因素验证密钥成功
+  is_bind_google: 是否绑定谷歌双因素验证
+  bound: 已绑定
+  unbound: 未绑定
+  is_enabled_google: 是否启用谷歌双因素验证
+  enabled: 已启用
+  disabled: 未启用
 baseRoleManage:
   mainTitle: 角色管理
   subTitle: 提供用戶角色、權限設定

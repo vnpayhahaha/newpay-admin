@@ -17,6 +17,15 @@ baseUserManage:
   initPassword: Init password
   setPassword: Whether to reset the password to 123456?
   setPasswordSuccess: The password was reset successfully
+  resetGoogle2FaSecret: Reset Google Two-Factor Authentication Secret Key
+  resetGoogle2FaSecretConfirm: Are you sure to reset the two-factor authentication secret key?
+  resetGoogle2FaSecretSuccess: Resetting the two-factor authentication secret key successfully
+  is_bind_google: Whether to bind Google two-factor authentication
+  bound: Bound
+  unbound: Unbound
+  is_enabled_google: Whether to enable Google two-factor authentication
+  enabled: Enabled
+  disabled: Disabled
 baseRoleManage:
   mainTitle: Role Rule
   subTitle: Provide user roles and permission settings
