@@ -35,6 +35,8 @@ export interface UserInfo {
   signed: string;
   dashboard: string;
   backend_setting: any[];
+  is_enabled_google: boolean;
+  is_bind_google: boolean
 }
 
 function getInfo(): Promise<ResponseStruct<UserInfo>> {
@@ -108,10 +110,10 @@ const useUserStore = defineStore("useUserStore", () => {
   }
 
   async function login(data: {
-    username: string;
-    password: string;
-    code: string;
-    google_2fa_code: string;
+    username: string,
+    password: string,
+    code: string,
+    google_2fa_code: string,
   }) {
     return new Promise((resolve, reject) => {
       loginApi(data)

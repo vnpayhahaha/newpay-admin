@@ -8,73 +8,74 @@
  - @Link   https://github.com/mineadmin
 -->
 <script setup lang="ts">
-import Message from "vue-m-message";
-import { useI18n } from "vue-i18n";
-import useUserStore from "@/store/modules/useUserStore.ts";
-import useSettingStore from "@/store/modules/useSettingStore.ts";
+import Message from 'vue-m-message'
+import { useI18n } from 'vue-i18n'
+import useUserStore from '@/store/modules/useUserStore.ts'
+import useSettingStore from '@/store/modules/useSettingStore.ts'
 
-const { t } = useI18n();
-const isProduction: boolean = import.meta.env.MODE === "production";
-const userStore = useUserStore();
-const settingStore = useSettingStore();
-const router = useRouter();
-const isFormSubmit = ref(false);
-const isValidState = ref(true);
-const codeRef = ref();
+const { t } = useI18n()
+const isProduction: boolean = import.meta.env.MODE === 'production'
+const userStore = useUserStore()
+const settingStore = useSettingStore()
+const router = useRouter()
+const isFormSubmit = ref(false)
+const isValidState = ref(true)
+const codeRef = ref()
 const form = reactive<{
-  username: string;
-  password: string;
-  google_2fa_code: string;
-  code: string;
+  username: string
+  password: string
+  google_2fa_code?: string
+  code: string
 }>({
-  username: isProduction ? "" : "admin",
-  password: isProduction ? "" : "123456",
-  code: isProduction ? "" : "1234",
-});
+  username: isProduction ? '' : 'admin',
+  password: isProduction ? '' : '123456',
+  code: isProduction ? '' : '1234',
+})
 
 function easyValidate(event: Event) {
-  const dom = event?.target as HTMLInputElement;
-  if (form[dom.name] === undefined || form[dom.name] === "") {
-    dom.classList.add("!ring-red-5");
-    Message.error(t(`loginForm.${dom.name}Placeholder`));
-    isValidState.value = false;
-  } else {
-    dom.classList.remove("!ring-red-5");
-    isValidState.value = true;
+  const dom = event?.target as HTMLInputElement
+  if (form[dom.name] === undefined || form[dom.name] === '') {
+    dom.classList.add('!ring-red-5')
+    Message.error(t(`loginForm.${dom.name}Placeholder`))
+    isValidState.value = false
+  }
+  else {
+    dom.classList.remove('!ring-red-5')
+    isValidState.value = true
   }
 }
 
 async function submit() {
   Object.keys(form).forEach((key) => {
-    if (form[key] === undefined || form[key] === "") {
-      Message.error(t(`loginForm.${key}Placeholder`));
-      isValidState.value = false;
+    if (form[key] === undefined || form[key] === '') {
+      Message.error(t(`loginForm.${key}Placeholder`))
+      isValidState.value = false
     }
-  });
+  })
   if (!isValidState.value) {
-    return false;
+    return false
   }
 
   if (isProduction && !codeRef.value.checkResult(form.code)) {
-    form.code = "";
-    return false;
+    form.code = ''
+    return false
   }
 
-  isFormSubmit.value = true;
+  isFormSubmit.value = true
   userStore
     .login(form)
     .then(async (userData: any) => {
-      const welcomePath = settingStore.getSettings("welcomePage").path ?? null;
-      const redirect = router.currentRoute.value.query?.redirect ?? undefined;
+      const welcomePath = settingStore.getSettings('welcomePage').path ?? null
+      const redirect = router.currentRoute.value.query?.redirect ?? undefined
       if (userData) {
-        await router.push({ path: redirect ?? welcomePath ?? "/" });
+        await router.push({ path: redirect ?? welcomePath ?? '/' })
       }
-      isFormSubmit.value = false;
+      isFormSubmit.value = false
     })
     .catch((error: any) => {
-      isFormSubmit.value = false;
-      Message.error(error.response?.data?.message || "login failed");
-    });
+      isFormSubmit.value = false
+      Message.error(error.response?.data?.message || 'login failed')
+    })
 }
 </script>
 
