@@ -148,7 +148,8 @@ export default function getTableColumns(
       label: () => t("crud.operation"),
       width: "260px",
       operationConfigure: {
-        type: "tile",
+        type: "auto",
+        fold: 2,
         actions: [
           {
             name: "reset_password",
@@ -162,25 +163,6 @@ export default function getTableColumns(
                   const response = await resetPassword(row.id);
                   if (response.code === ResultCode.SUCCESS) {
                     msg.success(t("crud.reset_password_success"));
-                    await proxy.refresh();
-                  }
-                });
-            },
-          },
-          {
-            name: "resetGoogle2FaSecret",
-            show: ({ row }) => userInfo.value.is_super_admin,
-            icon: "material-symbols:passkey",
-            text: () => t("baseUserManage.resetGoogle2FaSecret"),
-            onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg
-                .confirm(t("baseUserManage.resetGoogle2FaSecretConfirm"))
-                .then(async () => {
-                  const response = await resetGoogle2FaSecret(row.id);
-                  if (response.code === ResultCode.SUCCESS) {
-                    msg.success(
-                      t("baseUserManage.resetGoogle2FaSecretSuccess")
-                    );
                     await proxy.refresh();
                   }
                 });
@@ -241,6 +223,25 @@ export default function getTableColumns(
                   }
                 });
               }
+            },
+          },
+          {
+            name: "resetGoogle2FaSecret",
+            show: ({ row }) => userInfo.value.is_super_admin,
+            icon: "material-symbols:passkey",
+            text: () => t("baseUserManage.resetGoogle2FaSecret"),
+            onClick: ({ row }, proxy: MaProTableExpose) => {
+              msg
+                .confirm(t("baseUserManage.resetGoogle2FaSecretConfirm"))
+                .then(async () => {
+                  const response = await resetGoogle2FaSecret(row.id);
+                  if (response.code === ResultCode.SUCCESS) {
+                    msg.success(
+                      t("baseUserManage.resetGoogle2FaSecretSuccess")
+                    );
+                    await proxy.refresh();
+                  }
+                });
             },
           },
         ],
