@@ -1,3 +1,36 @@
+<!--
+ - Google 2FA Verification Component
+-->
+<i18n lang="yaml">
+en:
+  title: Google Authenticator Code
+  placeholder: Please enter Google Authenticator Code
+  verify: Verify
+  enterCode: Please enter verification code
+  missingKey: Missing key information
+  verifySuccess: Verification successful!
+  verifyFailed: Verification failed
+  requestError: Request error, please try again!
+zh_CN:
+  title: Google 验证码
+  placeholder: 请输入 Google 验证码
+  verify: 验证
+  enterCode: 请输入验证码
+  missingKey: 缺少密钥信息
+  verifySuccess: 验证成功！
+  verifyFailed: 验证失败
+  requestError: 请求异常，请重试！
+zh_TW:
+  title: Google 驗證碼
+  placeholder: 請輸入 Google 驗證碼
+  verify: 驗證
+  enterCode: 請輸入驗證碼
+  missingKey: 缺少金鑰資訊
+  verifySuccess: 驗證成功！
+  verifyFailed: 驗證失敗
+  requestError: 請求異常，請重試！
+</i18n>
+
 <script setup lang="ts">
 import { defineEmits, defineProps, ref } from "vue";
 import { verify } from "~/base/api/google2f";
@@ -15,14 +48,17 @@ const codeValue = ref("");
 const googleSecretKey = ref("");
 const isVerifying = ref(false);
 const msg = useMessage();
+// 使用响应式用户信息
+const userInfo = ref({ ...userStore.getUserInfo() });
+
 async function handleBeforeOk() {
   if (!codeValue.value) {
-    msg.warning("请输入验证码");
+    msg.warning(t("enterCode"));
     return false;
   }
 
   if (!googleSecretKey.value) {
-    msg.warning("缺少密钥信息");
+    msg.warning(t("missingKey"));
     return false;
   }
 
@@ -32,14 +68,14 @@ async function handleBeforeOk() {
     if (response.success && response.data?.is_pass === true) {
       emit("pass", true);
       codeValue.value = "";
-      msg.success("验证成功！");
+      msg.success(t("verifySuccess"));
       return true;
     } else {
-      msg.error(response.message || "验证失败");
+      msg.error(response.message || t("verifyFailed"));
       return false;
     }
   } catch (error: any) {
-    msg.error(error.message || "请求异常，请重试！");
+    msg.error(error.message || t("requestError"));
     return false;
   } finally {
     isVerifying.value = false;
@@ -67,16 +103,19 @@ function open(msg: string, google_secret_key: string = "") {
 
 // 判断是否需要验证的方法
 function isNeedGoogleTwoFa() {
-  return userStore.userInfo?.is_enabled_google === true && !props.isVerify;
+  return userInfo.value?.is_enabled_google === true && !props.isVerify;
 }
 
 defineExpose({ open, isNeedGoogleTwoFa });
+
+// 使用全局 t 函数
+const { t } = useTrans();
 </script>
 
 <template>
   <el-dialog
     v-model="visible"
-    title="Google Authenticator Code"
+    :title="t('title')"
     width="30%"
     :before-close="handleCancel"
   >
@@ -87,13 +126,13 @@ defineExpose({ open, isNeedGoogleTwoFa });
     <el-input
       v-model="codeValue"
       type="text"
-      placeholder="请输入 Google Authenticator Code"
+      :placeholder="t('placeholder')"
       clearable
       @keyup.enter="handleEnter"
     />
     <template #footer>
       <el-button type="primary" :loading="isVerifying" @click="handleBeforeOk">
-        验证
+        {{ t("verify") }}
       </el-button>
     </template>
   </el-dialog>
