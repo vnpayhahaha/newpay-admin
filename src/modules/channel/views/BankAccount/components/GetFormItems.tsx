@@ -44,6 +44,15 @@ export default function getFormItems(
     // todo...
   }
 
+  const channelArray = reactive<ChannelDictVo[]>([]);
+  const channelChange = (val: string) => {
+    console.log("channelArray", channelArray);
+    console.log("channelChange", val);
+    // model.account_config 赋值等于 遍历channelArray 中id === val 的 channelArray[i].config
+    model.account_config =
+      channelArray.find((item) => item.id === val)?.config || [];
+  };
+
   return [
     {
       label: t("bankAccount.channel_id"),
@@ -51,12 +60,17 @@ export default function getFormItems(
       cols: { md: 12, xs: 24 },
       itemProps: { required: true },
       render: () => (
-        <ma-remote-select filterable disabled={formType === "edit"} />
+        <ma-remote-select
+          filterable
+          onChange={channelChange}
+          disabled={formType === "edit"}
+        />
       ),
       renderProps: {
         api: () =>
           new Promise((resolve) => resolve(remote({ channel_type: 1 }))),
         dataHandle: (response: any) => {
+          channelArray.splice(0, channelArray.length, ...response.data);
           return response.data?.map((item: ChannelDictVo) => {
             return { label: `${item.channel_name}`, value: item.id };
           });
