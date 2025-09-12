@@ -1,5 +1,9 @@
 import type { ResponseStruct } from "#/global";
 
+interface AccountConfigVo {
+  value: string;
+  label: string;
+}
 export interface BankAccountVo {
   //
   id: number;
@@ -63,6 +67,8 @@ export interface BankAccountVo {
   support_collection: boolean;
   support_disbursement: boolean;
   down_bill_template_id: string[];
+  // API配置
+  account_config: Array<AccountConfigVo>;
 }
 
 // 银行账户查询

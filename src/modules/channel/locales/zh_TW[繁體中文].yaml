@@ -52,6 +52,7 @@ bankAccount:
   daily_payment: 每日付款限制
   today_receipt: 今日收款
   today_payment: 今日付款
+  account_config: 账户配置
 channelAccount:
   index: 渠道账户
   channel_id: 渠道ID

@@ -53,6 +53,7 @@ bankAccount:
   daily_payment: Daily payment limit
   today_receipt: Received payment today
   today_payment: Today's payment
+  account_config: Account configuration
 channelAccount:
   index: Channel account
   channel_id: Channel ID
