@@ -112,6 +112,14 @@ export interface DisbursementOrderVo {
     id: number;
     username: string;
   } | null;
+  status_records: Array<{
+    id: number,
+    order_id: number,
+    status: number,
+    desc_cn: string,
+    desc_en: string,
+    remark: string
+  }>
 }
 
 // 付款订单查询

@@ -42,6 +42,8 @@ export default function getTableColumns(
     },
     // 索引序号列
     { type: "index" },
+    { label: () => t("disbursement_order.status_records"),
+      prop: "status_records" },
     // 普通列
     {
       label: () => t("disbursement_order.channel"),

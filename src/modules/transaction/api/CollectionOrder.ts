@@ -130,6 +130,14 @@ export interface CollectionOrderVo {
     id: number;
     username: string;
   } | null;
+  status_records: Array<{
+    id: number,
+    order_id: number,
+    status: number,
+    desc_cn: string,
+    desc_en: string,
+    remark: string
+  }>
 }
 
 // 收款订单查询

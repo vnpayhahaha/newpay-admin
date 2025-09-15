@@ -120,6 +120,7 @@ collection_order:
   cancelled_by: 取消人
   cancel_info: 取消信息
   cashier: 收银台
+  status_records: 状态记录
 disbursement_order:
   bankStatement: 银行账单
   index: 付款订单
@@ -184,6 +185,7 @@ disbursement_order:
   download: 下 载
   bank_disbursement_download: 银行账单
   downloadBankBillSelectBankAccountMsg: 请选择银行和银行账号后再继续
+  status_records: 状态记录
 bankStatement:
   index: 银行账单
   download: 下载

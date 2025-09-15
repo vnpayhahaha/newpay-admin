@@ -43,6 +43,14 @@ export default function getTableColumns(
     },
     // 索引序号列
     { type: "index" },
+    { label: () => t("collection_order.status_records"),
+      prop: "status_records",
+      width: 100,
+      type: "expand",
+      cellRender: ({ row }) => {
+        return <el-tag>{row.status_records[0]?.remark}</el-tag>;
+      },
+    },
     // 普通列
     {
       label: () => t("collection_order.channel"),
