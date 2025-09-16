@@ -36,16 +36,19 @@ export default function getTableColumns(
   };
 
   // 定义状态活动基础信息
+  // 订单状态: 0-创建中 1-已创建 10-待支付 11-待对账 20-成功 30-挂起
+  // 40-失败 41-已取消 43-已失效 44-已退款
   const status_activities = {
-    0: { label: "已创建", color: "#909399", icon: "i-ep:plus" },
+    0: { label: "创建中", color: "#909399", icon: "i-ep:loading" },
+    1: { label: "已创建", color: "#909399", icon: "i-ep:plus" },
     10: { label: "待支付", color: "#E6A23C", icon: "i-ep:loading" },
-    20: { label: "支付中", color: "#E6A23C", icon: "i-ep:loading" },
-    30: { label: "已成功", color: "#67C23A", icon: "i-ep:success-filled" },
-    40: { label: "已挂起", color: "#F56C6C", icon: "i-ep:warning-filled" },
-    50: { label: "已失败", color: "#F56C6C", icon: "i-ep:close-bold" },
-    51: { label: "已取消", color: "#909399", icon: "i-ep:close" },
-    53: { label: "已失效", color: "#C0C4CC", icon: "i-ep:clock" },
-    54: { label: "已退款", color: "#409EFF", icon: "i-ep:refresh-left" }
+    11: { label: "待对账", color: "#E6A23C", icon: "i-ep:document-checked" },
+    20: { label: "已成功", color: "#67C23A", icon: "i-ep:success-filled" },
+    30: { label: "已挂起", color: "#F56C6C", icon: "i-ep:warning-filled" },
+    40: { label: "已失败", color: "#F56C6C", icon: "i-ep:close-bold" },
+    41: { label: "已取消", color: "#909399", icon: "i-ep:close" },
+    43: { label: "已失效", color: "#C0C4CC", icon: "i-ep:clock" },
+    44: { label: "已退款", color: "#409EFF", icon: "i-ep:refresh-left" }
   } as const;
 
   return [

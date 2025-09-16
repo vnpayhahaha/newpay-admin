@@ -200,15 +200,16 @@ disbursement_order:
   no_status_records: 暫無狀態記錄
   remark_label: 備註
   status_labels:
-    0: 已創建
+    0: 創建中
+    1: 已創建
     10: 待支付
-    20: 支付中
-    30: 已成功
-    40: 已掛起
-    50: 已失敗
-    51: 已取消
-    53: 已失效
-    54: 已退款
+    11: 待對賬
+    20: 已成功
+    30: 已掛起
+    40: 已失敗
+    41: 已取消
+    43: 已失效
+    44: 已退款
 bankStatement:
   index: 银行账单
   download: 下载

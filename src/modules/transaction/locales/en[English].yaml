@@ -199,15 +199,16 @@ disbursement_order:
   no_status_records: No Status Records
   remark_label: Remark
   status_labels:
-    0: Created
+    0: Creating
+    1: Created
     10: Pending Payment
-    20: Processing Payment
-    30: Success
-    40: Suspended
-    50: Failed
-    51: Cancelled
-    53: Expired
-    54: Refunded
+    11: Pending Reconciliation
+    20: Success
+    30: Suspended
+    40: Failed
+    41: Cancelled
+    43: Expired
+    44: Refunded
 bankStatement:
   index: Bank Statement
   download: Download
