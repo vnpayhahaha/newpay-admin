@@ -122,6 +122,17 @@ collection_order:
   cancel_info: 取消信息
   cashier: 收银台
   status_records: 状态记录
+  no_status_records: 暂无状态记录
+  remark_label: 备注
+  status_labels:
+    0: 已创建
+    10: 待支付
+    20: 已成功
+    30: 已挂起
+    40: 已失败
+    41: 已取消
+    43: 已失效
+    44: 已退款
 disbursement_order:
   bankStatement: 银行账单
   index: 付款订单
@@ -187,6 +198,18 @@ disbursement_order:
   download: 下 载
   bank_disbursement_download: 银行账单
   status_records: 状态记录
+  no_status_records: 暂无状态记录
+  remark_label: 备注
+  status_labels:
+    0: 已创建
+    10: 待支付
+    20: 支付中
+    30: 已成功
+    40: 已挂起
+    50: 已失败
+    51: 已取消
+    53: 已失效
+    54: 已退款
 bankStatement:
   index: 银行账单
   download: 下载账单

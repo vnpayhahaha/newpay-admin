@@ -119,8 +119,19 @@ collection_order:
   cancelled_at: 取消时间
   cancelled_by: 取消人
   cancel_info: 取消信息
-  cashier: 收银台
-  status_records: 状态记录
+  cashier: 收銀台
+  status_records: 狀態記錄
+  no_status_records: 暫無狀態記錄
+  remark_label: 備註
+  status_labels:
+    0: 已創建
+    10: 處理中
+    20: 已成功
+    30: 已掛起
+    40: 已失敗
+    41: 已取消
+    43: 已失效
+    44: 已退款
 disbursement_order:
   bankStatement: 银行账单
   index: 付款订单
@@ -181,11 +192,23 @@ disbursement_order:
   write_off: 核销
   downloadBankBillMessage: 银行账单下载
   downloadBankBillSuccess: 银行账单下载成功
-  downloadBankBillError: 请求服务器错误，下载失败
-  download: 下 载
-  bank_disbursement_download: 银行账单
-  downloadBankBillSelectBankAccountMsg: 请选择银行和银行账号后再继续
-  status_records: 状态记录
+  downloadBankBillError: 請求服務器錯誤，下載失敗
+  download: 下載
+  bank_disbursement_download: 銀行賬單
+  downloadBankBillSelectBankAccountMsg: 請選擇銀行和銀行賬號後再繼續
+  status_records: 狀態記錄
+  no_status_records: 暫無狀態記錄
+  remark_label: 備註
+  status_labels:
+    0: 已創建
+    10: 待支付
+    20: 支付中
+    30: 已成功
+    40: 已掛起
+    50: 已失敗
+    51: 已取消
+    53: 已失效
+    54: 已退款
 bankStatement:
   index: 银行账单
   download: 下载

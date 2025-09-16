@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Communication Language
+**IMPORTANT**: All interactions and responses with users should be in Chinese (中文). The project team primarily communicates in Chinese, and all documentation, comments, and user-facing text should follow this convention. This is critical for maintaining consistency with the project's communication standards.
+
 ## Project Overview
 
 NewPay Admin is a Vue 3 + TypeScript admin dashboard built on the MineAdmin framework. It's a financial/payment administration system with modules for managing tenants, channels, transactions, and bank operations.
@@ -10,7 +13,7 @@ NewPay Admin is a Vue 3 + TypeScript admin dashboard built on the MineAdmin fram
 
 ### Core Commands
 - `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production 
+- `npm run build` - Build for production
 - `npm run serve` - Serve built files locally using http-server
 
 ### Code Quality
@@ -22,6 +25,8 @@ NewPay Admin is a Vue 3 + TypeScript admin dashboard built on the MineAdmin fram
 ### Icon Management
 - `npm run gen:icons` - Generate icon data from assets
 - `npm run svgo` - Optimize SVG icons
+
+**Note**: No test framework is currently configured. Code quality is maintained through TypeScript checking and comprehensive linting.
 
 ## Architecture Overview
 
@@ -78,9 +83,17 @@ Custom plugin architecture in `src/plugins/` with specialized components:
 
 ## Environment & Build
 - Node.js ^20.0.0 required
-- Uses pnpm for package management
+- Uses pnpm for package management (note: npm commands work but pnpm is preferred)
 - Vite handles dev server and builds
 - Environment variables control proxy, API endpoints, and feature flags
+
+### Environment Variables
+Key environment variables (defined in `.env` files):
+- `VITE_APP_PORT` - Development server port
+- `VITE_APP_API_BASEURL` - Backend API base URL
+- `VITE_PROXY_PREFIX` - API proxy prefix for development
+- `VITE_OPEN_PROXY` - Enable/disable proxy in development
+- `VITE_BUILD_SOURCEMAP` - Generate sourcemaps in build
 
 ## File Upload Architecture
 The system includes chunk-based file upload components (`ma-upload-chunk`, `ma-upload-file`, `ma-upload-image`) for handling various file types including bank statements and transaction vouchers.

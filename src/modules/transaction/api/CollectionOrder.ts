@@ -136,7 +136,8 @@ export interface CollectionOrderVo {
     status: number,
     desc_cn: string,
     desc_en: string,
-    remark: string
+    remark: string,
+    created_at?: string
   }>
 }
 

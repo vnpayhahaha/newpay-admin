@@ -12,6 +12,7 @@ import type { DisbursementOrderVo } from "~/transaction/api/DisbursementOrder.ts
 import type { UseDialogExpose } from "@/hooks/useDialog.ts";
 
 import { useMessage } from "@/hooks/useMessage.ts";
+import { useI18n } from "vue-i18n";
 import { cancel, notify } from "~/transaction/api/DisbursementOrder.ts";
 import { ResultCode } from "@/utils/ResultCode.ts";
 import hasAuth from "@/utils/permission/hasAuth.ts";
@@ -27,11 +28,25 @@ export default function getTableColumns(
 ): MaProTableColumns[] {
   const dictStore = useDictStore();
   const msg = useMessage();
+  const { locale } = useI18n();
   const router = useRouter();
 
   const showBtn = (auth: string | string[], row: DisbursementOrderVo) => {
     return hasAuth(auth);
   };
+
+  // 定义状态活动基础信息
+  const status_activities = {
+    0: { label: "已创建", color: "#909399", icon: "i-ep:plus" },
+    10: { label: "待支付", color: "#E6A23C", icon: "i-ep:loading" },
+    20: { label: "支付中", color: "#E6A23C", icon: "i-ep:loading" },
+    30: { label: "已成功", color: "#67C23A", icon: "i-ep:success-filled" },
+    40: { label: "已挂起", color: "#F56C6C", icon: "i-ep:warning-filled" },
+    50: { label: "已失败", color: "#F56C6C", icon: "i-ep:close-bold" },
+    51: { label: "已取消", color: "#909399", icon: "i-ep:close" },
+    53: { label: "已失效", color: "#C0C4CC", icon: "i-ep:clock" },
+    54: { label: "已退款", color: "#409EFF", icon: "i-ep:refresh-left" }
+  } as const;
 
   return [
     // 多选列
@@ -43,7 +58,63 @@ export default function getTableColumns(
     // 索引序号列
     { type: "index" },
     { label: () => t("disbursement_order.status_records"),
-      prop: "status_records" },
+      prop: "status_records",
+      width: 90,
+      type: "expand",
+      cellRender: ({ row }) => {
+        if (!row.status_records || row.status_records.length === 0) {
+          return <el-tag type="info">{t("disbursement_order.no_status_records")}</el-tag>;
+        }
+
+        return (
+          <el-timeline style={{ paddingLeft: "8px" }}>
+            {row.status_records.map((record: any) => {
+              const activity = status_activities[record.status as keyof typeof status_activities];
+              return (
+                <el-timeline-item
+                  key={record.id}
+                  color={activity?.color || "#909399"}
+                  icon={activity?.icon || "i-ep:info-filled"}
+                  timestamp={record.created_at || row.created_at}
+                >
+                  <div style={{ paddingLeft: "8px" }}>
+                    <div style={{ fontWeight: "500", marginBottom: "4px" }}>
+                      <el-tag
+                        type={activity?.color === "#67C23A" ? "success" :
+                              activity?.color === "#F56C6C" ? "danger" :
+                              activity?.color === "#E6A23C" ? "warning" : "info"}
+                        size="small"
+                      >
+                        {t(`disbursement_order.status_labels.${record.status}`) || activity?.label || `status：${record.status}`}
+                      </el-tag>
+                    </div>
+                    <div style={{ color: "#606266", fontSize: "13px" }}>
+                      {(() => {
+                        // 根据当前语言环境选择合适的描述
+                        const isEnglish = locale.value === 'en';
+
+                        if (isEnglish && record.desc_en) {
+                          return record.desc_en;
+                        } else if (record.desc_cn) {
+                          return record.desc_cn;
+                        } else {
+                          return record.remark;
+                        }
+                      })()}
+                    </div>
+                    {record.remark && record.desc_cn && record.remark !== record.desc_cn && (
+                      <div style={{ color: "#909399", fontSize: "12px", marginTop: "2px" }}>
+                        {t("disbursement_order.remark_label")}: {record.remark}
+                      </div>
+                    )}
+                  </div>
+                </el-timeline-item>
+              );
+            })}
+          </el-timeline>
+        );
+      },
+    },
     // 普通列
     {
       label: () => t("disbursement_order.channel"),
