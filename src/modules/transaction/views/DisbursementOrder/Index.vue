@@ -61,8 +61,8 @@ const writeOffDialog: UseDialogExpose = useDialog({
           .catch((err: any) => {
             msg.alertError(err.response.data?.message)
           }).finally(() => {
-        okLoadingState(false)
-      })
+            okLoadingState(false)
+          })
       })
       .catch().finally(() => {
         okLoadingState(false)
