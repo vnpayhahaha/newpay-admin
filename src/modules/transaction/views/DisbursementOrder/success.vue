@@ -60,10 +60,13 @@ const writeOffDialog: UseDialogExpose = useDialog({
           })
           .catch((err: any) => {
             msg.alertError(err.response.data?.message)
+          }).finally(() => {
+            okLoadingState(false)
           })
       })
-      .catch()
-    okLoadingState(false)
+      .catch().finally(() => {
+            okLoadingState(false)
+          })
   },
 })
 const distributeDialog: UseDialogExpose = useDialog({
@@ -87,9 +90,12 @@ const distributeDialog: UseDialogExpose = useDialog({
           .catch((err: any) => {
             msg.alertError(err.response.data?.message)
           })
-      })
-      .catch()
-    okLoadingState(false)
+      }).finally(() => {
+            okLoadingState(false)
+          })
+      .catch().finally(() => {
+            okLoadingState(false)
+          })
   },
 })
 const checkboxGroupAllocation = ref([])
