@@ -62,6 +62,8 @@ const maDialog: UseDialogExpose = useDialog({
                 })
                 .catch((err: any) => {
                   msg.alertError(err);
+                }).finally(() => {
+                  okLoadingState(false);
                 });
               break;
             // 修改
@@ -77,11 +79,15 @@ const maDialog: UseDialogExpose = useDialog({
                 })
                 .catch((err: any) => {
                   msg.alertError(err);
+                }).finally(() => {
+                  okLoadingState(false);
                 });
               break;
           }
         })
-        .catch();
+        .catch().finally(() => {
+                  okLoadingState(false);
+                });
     }
     okLoadingState(false);
   },
