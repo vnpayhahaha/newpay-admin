@@ -9,7 +9,7 @@
  */
 
 import type { MaSearchItem } from "@mineadmin/search";
-
+import { selectStatus } from "@/modules/Common";
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
     {
@@ -25,7 +25,30 @@ export default function getSearchItems(t: any): MaSearchItem[] {
     {
       label: () => t("TransactionParsingRules.status"),
       prop: "status",
-      render: () => <el-input />,
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('transaction_parsing_rules', 'status_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+        placeholder: t('TransactionParsingRules.status'),
+      },
+    },
+        {
+      label: () => t("TransactionParsingRules.variable_name"),
+      prop: "variable_name",
+      render: () => <ma-remote-select filterable />,
+      renderProps: {
+        api: () => new Promise(resolve => resolve(selectStatus('transaction_parsing_rules', 'variable_name_list'))),
+        dataHandle: (response: any) => {
+          return response.data?.map((item: Common.StatusOptionItem) => {
+            return { label: `${item.label}`, value: item.value }
+          })
+        },
+        placeholder: t('TransactionParsingRules.variable_name'),
+      },
     },
   ];
 }

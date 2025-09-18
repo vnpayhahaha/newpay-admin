@@ -265,6 +265,14 @@ export default function getSearchItems(
       },
     },
     {
+      label: () => t("disbursement_order.platform_transaction_no"),
+      prop: "platform_transaction_no",
+      render: () => <el-input />,
+      renderProps: {
+        placeholder: t("disbursement_order.platform_transaction_no"),
+      },
+    },
+    {
       label: () => t("disbursement_order.expire_time"),
       prop: "expire_time",
       render: () => <el-input />,

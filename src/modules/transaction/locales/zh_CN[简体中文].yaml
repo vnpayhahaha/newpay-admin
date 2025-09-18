@@ -186,6 +186,7 @@ disbursement_order:
   cancelled_by: 取消人
   cancel_info: 取消信息
   payee_info: 收款信息
+  platform_transaction_no: 平台交易流水号
   undistributed: 未分配
   distributed: 已分配
   distribute: 分配

@@ -134,6 +134,7 @@ collection_order:
     44: 已退款
 disbursement_order:
   bankStatement: 银行账单
+  platform_transaction_no: 平台交易流水号
   index: 付款订单
   all: 全部
   bank_account: 银行账号

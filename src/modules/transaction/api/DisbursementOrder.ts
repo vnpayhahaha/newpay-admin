@@ -120,6 +120,7 @@ export interface DisbursementOrderVo {
     desc_en: string,
     remark: string
   }>
+  platform_transaction_no: string
 }
 
 // 付款订单查询
