@@ -766,7 +766,7 @@ export default function getTableColumns(
           {
             name: "notify",
             disabled: ({ row }) => row.status < 20,
-            icon: "i-material-symbols:cancel-outline-rounded",
+            icon: "i-fa6-solid:bullhorn",
             text: () => t("crud.callbackNotification"),
             onClick: ({ row }, proxy: MaProTableExpose) => {
               msg
