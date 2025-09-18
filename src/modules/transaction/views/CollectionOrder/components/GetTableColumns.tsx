@@ -38,8 +38,8 @@ export default function getTableColumns(
 
   // 定义状态活动基础信息
   const status_activities = {
-    0: { label: "已创建", color: "#909399", icon: "i-ep:plus" },
-    10: { label: "待支付", color: "#E6A23C", icon: "i-ep:loading" },
+    0: { label: "已创建", color: "#909399", icon: "el-icon-apple" },
+    10: { label: "待支付", color: "#E6A23C", icon: "i-el-icon-apple" },
     20: { label: "成功", color: "#67C23A", icon: "i-ep:success-filled" },
     30: { label: "挂起", color: "#F56C6C", icon: "i-ep:warning-filled" },
     40: { label: "失败", color: "#F56C6C", icon: "i-ep:close-bold" },
@@ -70,18 +70,21 @@ export default function getTableColumns(
           <el-timeline style={{ paddingLeft: "8px" }}>
             {row.status_records.map((record: any, index: number) => {
               const activity = status_activities[record.status as keyof typeof status_activities];
+              
               return (
                 <el-timeline-item
                   key={record.id}
-                  color={activity?.color || "#909399"}
-                  icon={activity?.icon || "i-ep:info-filled"}
+                  color={index === 0 ? activity?.color : "#C0C4CC"}
+                  size={index === 0 ? "large" : "normal"}
                   timestamp={record.created_at || row.created_at}
-                  placement={index % 2 === 0 ? "top" : "bottom"}
+                  placement="bottom"
                 >
                   <div style={{ paddingLeft: "8px" }}>
                     <div style={{ fontWeight: "500", marginBottom: "4px" }}>
                       <el-tag
-                        type={activity?.color === "#67C23A" ? "success" :
+                        type={
+                              index > 0 ? "info" :
+                              activity?.color === "#67C23A" ? "success" :
                               activity?.color === "#F56C6C" ? "danger" :
                               activity?.color === "#E6A23C" ? "warning" : "info"}
                         size="small"

@@ -71,19 +71,22 @@ export default function getTableColumns(
 
         return (
           <el-timeline style={{ paddingLeft: "8px" }}>
-            {row.status_records.map((record: any) => {
+            {row.status_records.map((record: any, index: number) => {
               const activity = status_activities[record.status as keyof typeof status_activities];
               return (
                 <el-timeline-item
                   key={record.id}
-                  color={activity?.color || "#909399"}
-                  icon={activity?.icon || "i-ep:info-filled"}
+                  color={index === 0 ? activity?.color : "#C0C4CC"}
+                  size={index === 0 ? "large" : "normal"}
                   timestamp={record.created_at || row.created_at}
+                  placement="bottom"
                 >
                   <div style={{ paddingLeft: "8px" }}>
                     <div style={{ fontWeight: "500", marginBottom: "4px" }}>
                       <el-tag
-                        type={activity?.color === "#67C23A" ? "success" :
+                        type={
+                              index > 0 ? "info" :
+                              activity?.color === "#67C23A" ? "success" :
                               activity?.color === "#F56C6C" ? "danger" :
                               activity?.color === "#E6A23C" ? "warning" : "info"}
                         size="small"
