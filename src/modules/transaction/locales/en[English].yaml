@@ -24,6 +24,7 @@ transaction_record:
   remark: remark
   created_at: create time
   updated_at: update time
+  no_settlement_info: no settlement info
 transaction_queue_status:
   index: Transaction Queue
   transaction_no: transaction no
@@ -131,6 +132,8 @@ collection_order:
     41: Cancelled
     43: Expired
     44: Refunded
+  settlement_status: Settlement Status
+  settlement_status_info: Settlement Info
 disbursement_order:
   bankStatement: Bank Statement
   index: Payment Order
@@ -199,6 +202,8 @@ disbursement_order:
   no_status_records: No Status Records
   remark_label: Remark
   platform_transaction_no: Platform Transaction No
+  settlement_status: Settlement Status
+  settlement_status_info: Settlement Info
   status_labels:
     0: Creating
     1: Created

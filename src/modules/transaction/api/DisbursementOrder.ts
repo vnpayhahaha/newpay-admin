@@ -120,7 +120,18 @@ export interface DisbursementOrderVo {
     desc_en: string,
     remark: string
   }>
-  platform_transaction_no: string
+  platform_transaction_no: string;
+  settlement_status: {
+    id: number,
+    transaction_no: string,
+    transaction_status: number,
+    transaction_type: number,
+    settlement_delay_mode: number,
+    settlement_delay_days: number,
+    expected_settlement_time: string,
+    failed_msg: string,
+    remark: string,
+  } | null;
 }
 
 // 付款订单查询

@@ -424,6 +424,81 @@ export default function getTableColumns(
       },
     },
     {
+      label: () => t("collection_order.settlement_status"),
+      prop: "settlement_status",
+      minWidth: "120px",
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          propItem: "transaction_status",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("transaction_record", "status_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
+    },
+    {
+      label: () => t("collection_order.settlement_status_info"),
+      prop: "settlement_status_info",
+      type: "merge",
+      minWidth: "280px",
+      cellRender: ({ row }) => {
+        // 判断 settlement_status 是否存在
+        if (!row.settlement_status) {
+          return <el-tag type="info">{t("transaction_record.no_settlement_info")}</el-tag>;
+        }
+        return (
+          <>
+            <div
+              class="text-align-left"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p>
+                  {t("transaction_record.transaction_no")}:{" "}
+                  <MaCopy
+                    class="color-blue"
+                    content={row.settlement_status?.transaction_no || ''}
+                  />
+                </p>
+                <p>
+                  {row.settlement_status?.settlement_delay_mode > 2 ? "T" : "D"}:{" "}
+                  <MaCopy
+                    class="color-green"
+                    content={row.settlement_status?.settlement_delay_days}
+                  />
+                </p>
+                <p>
+                  {t("transaction_record.expected_settlement_time")}:{" "}
+                  <MaCopy
+                    class="color-red"
+                    content={row.settlement_status?.expected_settlement_time}
+                  />
+                </p>
+                <p>
+                  {t("transaction_record.failed_msg")}:{" "}
+                  <MaCopy
+                    class="color-red"
+                    content={row.settlement_status?.failed_msg}
+                  />
+                </p>
+              </div>
+            </div>
+          </>
+        );
+      },
+    },
+    {
       label: () => t("collection_order.upstream_settlement_info"),
       prop: "upstream_settlement_info",
       minWidth: "120px",

@@ -21,6 +21,7 @@ const { data, proxy, props } = defineProps<{
     type?: string;
     props?: Tag;
     prop?: string | null;
+    propItem?: string | null;
     dictName?: string | "";
     data?: Array<dataItems>;
     api?: () => Promise<any>;
@@ -168,7 +169,11 @@ watch(
 );
 
 const modelValue = computed(() => {
-  return props?.prop ? data.row[props.prop] : null;
+  return props?.prop 
+    ? (props.propItem 
+        ? data.row[props.prop]?.[props.propItem] ?? data.row[props.prop] 
+        : data.row[props.prop]) 
+    : null;
 });
 
 const isArrayField = computed(() => Array.isArray(modelValue.value));

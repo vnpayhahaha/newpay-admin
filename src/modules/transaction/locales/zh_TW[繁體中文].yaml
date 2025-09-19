@@ -24,6 +24,7 @@ transaction_record:
   remark: 备注
   created_at: 创建时间
   updated_at: 更新时间
+  no_settlement_info: 无结算信息
 transaction_queue_status:
   index: 交易队列
   transaction_no: 交易编号
@@ -132,6 +133,8 @@ collection_order:
     41: 已取消
     43: 已失效
     44: 已退款
+  settlement_status: 结算状态
+  settlement_status_info: 结算状态详情
 disbursement_order:
   bankStatement: 银行账单
   platform_transaction_no: 平台交易流水号
@@ -211,6 +214,8 @@ disbursement_order:
     41: 已取消
     43: 已失效
     44: 已退款
+  settlement_status: 结算状态
+  settlement_status_info: 结算状态详情
 bankStatement:
   index: 银行账单
   download: 下载
