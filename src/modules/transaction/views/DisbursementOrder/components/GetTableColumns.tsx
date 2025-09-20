@@ -40,7 +40,7 @@ export default function getTableColumns(
   // 40-失败 41-已取消 43-已失效 44-已退款
   const status_activities = {
     0: { label: "创建中", color: "#909399", icon: "i-ep:loading" },
-    1: { label: "已创建", color: "#909399", icon: "i-ep:plus" },
+    1: { label: "已创建", color: "#409EFF", icon: "i-ep:plus" },
     10: { label: "待支付", color: "#E6A23C", icon: "i-ep:loading" },
     11: { label: "待对账", color: "#E6A23C", icon: "i-ep:document-checked" },
     20: { label: "已成功", color: "#67C23A", icon: "i-ep:success-filled" },
@@ -48,7 +48,7 @@ export default function getTableColumns(
     40: { label: "已失败", color: "#F56C6C", icon: "i-ep:close-bold" },
     41: { label: "已取消", color: "#909399", icon: "i-ep:close" },
     43: { label: "已失效", color: "#C0C4CC", icon: "i-ep:clock" },
-    44: { label: "已退款", color: "#409EFF", icon: "i-ep:refresh-left" }
+    44: { label: "已退款", color: "#303133", icon: "i-ep:refresh-left" }
   } as const;
 
   return [
@@ -86,6 +86,7 @@ export default function getTableColumns(
                       <el-tag
                         type={
                               index > 0 ? "info" :
+                              activity?.color === "#409EFF" ? "primary" :
                               activity?.color === "#67C23A" ? "success" :
                               activity?.color === "#F56C6C" ? "danger" :
                               activity?.color === "#E6A23C" ? "warning" : "info"}

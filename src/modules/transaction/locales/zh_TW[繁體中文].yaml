@@ -555,7 +555,9 @@ enums:
     collection: 代收
     disbursement: 代付
   transaction_voucher_type:
-    order_no: 交易ID
+    order_id: 订单ID编码
+    platform_order_no: 平台订单号
+    upstream_order_no: 上游订单号
     utr: UTR
     amount: 金额
   CollectionOrder:

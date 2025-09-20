@@ -552,7 +552,9 @@ enums:
     collection: Collection
     disbursement: Disbursement
   transaction_voucher_type:
-    order_no: Transaction ID
+    order_id: Order ID code
+    platform_order_no: Platform Order No
+    upstream_order_no: Upstream Order No
     utr: UTR
     amount: Amount
   CollectionOrder:

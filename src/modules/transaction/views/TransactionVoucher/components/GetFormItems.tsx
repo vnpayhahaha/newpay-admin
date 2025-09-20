@@ -20,6 +20,7 @@ import {
 } from "~/channel/api/BankAccount.ts";
 import MaDictRadio from "@/components/ma-dict-picker/ma-dict-radio.vue";
 import { Label } from "radix-vue";
+import { tr } from "element-plus/es/locale/index.mjs";
 
 export default function getFormItems(
   formType: "add" | "edit" = "add",
@@ -47,8 +48,14 @@ export default function getFormItems(
     // console.log('channelChange', val)
     // model.api_config 赋值等于 遍历channelArray 中id === val 的 channelArray[i].config
     // model.channel_id = channelArray.find(item => item.id === val)?.config || []
-    channelType.value =
-      channelArray.find((item) => item.id === val)?.channel_type || 0;
+    const newChannelType = channelArray.find((item) => item.id === val)?.channel_type || 0;
+
+    // 如果渠道类型变为1且当前选中的是最后一个选项(upstream_order_no)，则取消选中
+    if (newChannelType === 1 && model.transaction_voucher_type === 5) {
+      model.transaction_voucher_type = 1; // 重置为第一个选项
+    }
+
+    channelType.value = newChannelType;
   };
   return [
     {
@@ -325,31 +332,33 @@ export default function getFormItems(
     {
       label: t("transaction_voucher.transaction_voucher_type"),
       prop: "transaction_voucher_type",
-      cols: { md: 12, xs: 24 },
+      cols: { span: 24 },
       render: () => MaDictRadio,
       itemProps: {
         required: true,
       },
       renderProps: {
-        data: [
-          { label: t("enums.transaction_voucher_type.order_no"), value: 1 },
-          { label: t("enums.transaction_voucher_type.utr"), value: 2 },
-          { label: t("enums.transaction_voucher_type.amount"), value: 3 },
-        ],
+        data: computed(() => [
+          { label: t("enums.transaction_voucher_type.utr"), value: 1 },
+          { label: t("enums.transaction_voucher_type.order_id"), value: 2 },
+          { label: t("enums.transaction_voucher_type.platform_order_no"), value: 3 },
+          { label: t("enums.transaction_voucher_type.amount"), value: 4 },
+          { label: t("enums.transaction_voucher_type.upstream_order_no"), value: 5, disabled: channelType.value === 1 },
+        ]),
         // disabled: true,
       },
     },
     {
       label: t("transaction_voucher.transaction_voucher"),
       prop: "transaction_voucher",
-      hide: () => model.transaction_voucher_type === 3,
+      hide: () => model.transaction_voucher_type === 4,
       render: () => <el-input class="w-full" />,
       itemProps: {
         rules: [
           {
             required: true, // 保持基础必填规则
             validator: (_, value, callback) => {
-              if (model.transaction_voucher_type < 3 && !value) {
+              if (model.transaction_voucher_type !== 4 && !value) {
                 callback(new Error("transaction_voucher is required"));
               } else {
                 callback();
@@ -359,15 +368,21 @@ export default function getFormItems(
         ],
       },
       cols: {
-        span: 12,
+        span: 24,
       },
       renderSlots: {
         prefix: () => (
           <span style="margin-left: 8px">
             {model.transaction_voucher_type === 1
-              ? t("enums.transaction_voucher_type.order_no")
-              : model.transaction_voucher_type === 2
               ? t("enums.transaction_voucher_type.utr")
+              : model.transaction_voucher_type === 2
+              ? t("enums.transaction_voucher_type.order_id")
+              : model.transaction_voucher_type === 3
+              ? t("enums.transaction_voucher_type.platform_order_no")
+              : model.transaction_voucher_type === 4
+              ? t("enums.transaction_voucher_type.amount")
+              : model.transaction_voucher_type === 5
+              ? t("enums.transaction_voucher_type.upstream_order_no")
               : t("enums.transaction_voucher_type.amount")}
           </span>
         ),
