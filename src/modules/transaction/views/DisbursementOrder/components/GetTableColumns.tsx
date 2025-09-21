@@ -41,7 +41,7 @@ export default function getTableColumns(
   const status_activities = {
     0: { label: "创建中", color: "#909399", icon: "i-ep:loading" },
     1: { label: "已创建", color: "#409EFF", icon: "i-ep:plus" },
-    2: { label: "已分配", color: "#409EFF", icon: "i-ep:plus" },
+    2: { label: "已分配", color: "#E6A23C", icon: "i-ep:plus" },
     10: { label: "待支付", color: "#E6A23C", icon: "i-ep:loading" },
     11: { label: "待对账", color: "#E6A23C", icon: "i-ep:document-checked" },
     20: { label: "已成功", color: "#67C23A", icon: "i-ep:success-filled" },
