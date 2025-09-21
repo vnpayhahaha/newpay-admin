@@ -207,6 +207,7 @@ disbursement_order:
   status_labels:
     0: 创建中
     1: 已创建
+    2: 已分配
     10: 待支付
     11: 待对账
     20: 已成功
