@@ -575,6 +575,7 @@ enums:
   disbursement_order:
     status:
       create: 已创建
+      allocated: 已分配
       wait_pay: 待支付
       wait_fill: 支付中
       success: 已支付
