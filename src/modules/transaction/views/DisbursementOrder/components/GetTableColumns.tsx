@@ -801,7 +801,7 @@ export default function getTableColumns(
             show: ({ row }) =>
               showBtn("transaction:disbursement_order:update", row),
             disabled: ({ row }) =>
-              (row.status > 10 && row.status !== 43) ||
+              (row.status >= 10 && row.status !== 30 && row.status !== 43) ||
               row.disbursement_channel_id > 0,
             text: () => t("disbursement_order.distribute"),
             onClick: ({ row }) => {
@@ -815,7 +815,7 @@ export default function getTableColumns(
             show: ({ row }) =>
               showBtn("transaction:disbursement_order:update", row),
             disabled: ({ row }) =>
-              (row.status > 10 && row.status !== 43) ||
+              (row.status !== 2 && row.status !== 11 && row.status !== 30 && row.status !== 43) ||
               row.disbursement_channel_id == 0,
             text: () => t("disbursement_order.write_off"),
             onClick: ({ row }) => {
@@ -827,7 +827,7 @@ export default function getTableColumns(
             name: "cancel",
             show: ({ row }) =>
               showBtn("transaction:disbursement_order:update", row),
-            disabled: ({ row }) => row.status > 10,
+            disabled: ({ row }) => row.status > 10 && row.status !== 30,
             icon: "i-material-symbols:cancel-outline-rounded",
             text: () => t("crud.cancel"),
             onClick: ({ row }, proxy: MaProTableExpose) => {
