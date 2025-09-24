@@ -432,26 +432,26 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
         span: 12,
       },
     },
-    {
-      label: t("tenant.auto_verify_fail_rate"),
-      prop: "auto_verify_fail_rate",
-      render: () => <el-input-number class="w-full" />,
-      itemProps: {
-        required: true,
-      },
-      renderProps: {
-        min: 0,
-        max: 100,
-        precision: 2,
-        step: 0.01,
-      },
-      cols: {
-        span: 12,
-      },
-      renderSlots: {
-        suffix: () => <span style="margin-left: 8px">%</span>,
-      },
-    },
+    // {
+    //   label: t("tenant.auto_verify_fail_rate"),
+    //   prop: "auto_verify_fail_rate",
+    //   render: () => <el-input-number class="w-full" />,
+    //   itemProps: {
+    //     required: true,
+    //   },
+    //   renderProps: {
+    //     min: 0,
+    //     max: 100,
+    //     precision: 2,
+    //     step: 0.01,
+    //   },
+    //   cols: {
+    //     span: 12,
+    //   },
+    //   renderSlots: {
+    //     suffix: () => <span style="margin-left: 8px">%</span>,
+    //   },
+    // },
     {
       label: t("tenant.cashier_template"),
       prop: "cashier_template",
@@ -466,6 +466,9 @@ export default function getFormItems(t: any, model: TenantVo): MaFormItem[] {
             return { label: `${item.label}`, value: item.value };
           });
         },
+      },
+      cols: {
+        span: 12,
       },
     },
   ];
