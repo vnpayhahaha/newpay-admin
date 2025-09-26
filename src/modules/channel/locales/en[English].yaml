@@ -94,11 +94,14 @@ ChannelAccountDailyStats:
   channel_id: Channel ID
   stat_date: Statistical date
   transaction_count: Transaction count
-  success_count: Successful transaction count
-  failure_count: Failed transaction count
+  collection_success_count: Number of successful collections
+  collection_failure_count: Number of collection failures
+  disbursement_success_count: Number of successful payments
+  disbursement_failure_count: Number of payment failures
   receipt_amount: Receipt amount
   payment_amount: Payment amount
-  success_rate: Success rate
+  collection_success_rate: Collection success rate
+  disbursement_success_rate: Payment success rate
   avg_process_time: Average processing time
   limit_status: Limit status
   created_at: Creation time
@@ -116,7 +119,7 @@ channel_callback_record:
   callback_body: Callback body
   callback_time: Callback time
   client_ip: Client IP
-  verification_status: Verification status
+  status: Status
   response_content: Response content
   process_result: Process result
   elapsed_time: Elapsed time

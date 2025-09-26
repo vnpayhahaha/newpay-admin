@@ -26,7 +26,7 @@ export interface ChannelCallbackRecordVo {
   // 回调来源IP
   client_ip: string
   // 验签状态: 0-未验签, 1-验签成功, 2-验签失败
-  verification_status: string
+  status: number
   // 返回给渠道的内容
   response_content: string
   // 处理结果描述

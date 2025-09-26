@@ -15,6 +15,7 @@ import { useMessage } from '@/hooks/useMessage.ts'
 import { deleteByIds } from '~/channel/api/ChannelCallbackRecord.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import { selectStatus } from "@/modules/Common";
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
   const dictStore = useDictStore()
@@ -41,7 +42,27 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { label: () => t('channel_callback_record.callback_body'), prop: 'callback_body' },
     { label: () => t('channel_callback_record.callback_time'), prop: 'callback_time' },
     { label: () => t('channel_callback_record.client_ip'), prop: 'client_ip' },
-    { label: () => t('channel_callback_record.verification_status'), prop: 'verification_status' },
+    { label: () => t('channel_callback_record.status'), prop: 'status',
+          width: 120,
+      cellRenderTo: {
+        name: "nmCellEnhance",
+        props: {
+          type: "tag",
+          api: () =>
+            new Promise((resolve) =>
+              resolve(selectStatus("channel_callback_record", "status_list"))
+            ),
+          dataHandle: (response: any) => {
+            return response.data?.map((item: Common.StatusOptionItem) => {
+              return { label: `${item.label}`, value: item.value };
+            });
+          },
+          props: {
+            effect: "dark",
+          },
+        },
+      },
+     },
     { label: () => t('channel_callback_record.response_content'), prop: 'response_content' },
     { label: () => t('channel_callback_record.process_result'), prop: 'process_result' },
     { label: () => t('channel_callback_record.elapsed_time'), prop: 'elapsed_time' },

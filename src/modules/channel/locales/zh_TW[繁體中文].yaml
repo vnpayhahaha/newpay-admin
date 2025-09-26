@@ -93,11 +93,14 @@ ChannelAccountDailyStats:
   channel_id: 渠道ID
   stat_date: 统计日期
   transaction_count: 交易次数
-  success_count: 成功次数
-  failure_count: 失败次数
+  collection_success_count: 收款成功次数
+  collection_failure_count: 收款失败次数
+  disbursement_success_count: 付款成功次数
+  disbursement_failure_count: 付款失败次数
   receipt_amount: 收款金额
   payment_amount: 付款金额
-  success_rate: 成功率
+  collection_success_rate: 收款成功率
+  disbursement_success_rate: 付款成功率
   avg_process_time: 平均处理时间
   limit_status: 限额状态
   created_at: 创建时间
@@ -115,7 +118,7 @@ channel_callback_record:
   callback_body: 回调内容
   callback_time: 回调时间
   client_ip: 回调来源IP
-  verification_status: 验证状态
+  status: 接收状态
   response_content: 回调内容
   process_result: 处理结果
   elapsed_time: 处理耗时
