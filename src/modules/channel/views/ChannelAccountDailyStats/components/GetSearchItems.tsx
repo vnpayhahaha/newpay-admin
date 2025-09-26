@@ -33,8 +33,13 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       render: () => <el-input />,
     },
     {
-      label: () => t('ChannelAccountDailyStats.success_rate'),
-      prop: 'success_rate',
+      label: () => t('ChannelAccountDailyStats.collection_success_rate'),
+      prop: 'collection_success_rate',
+      render: () => <el-input />,
+    },
+    {
+      label: () => t('ChannelAccountDailyStats.disbursement_success_rate'),
+      prop: 'disbursement_success_rate',
       render: () => <el-input />,
     },
     {
