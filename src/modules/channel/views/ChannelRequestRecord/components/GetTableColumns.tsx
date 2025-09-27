@@ -283,6 +283,13 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       width: '180px',
       showOverflowTooltip: true
     },
+    {
+      label: () => t('channel_request_record.updated_at'),
+      prop: 'updated_at',
+      width: '180px',
+      showOverflowTooltip: true,
+      hide: true
+    },
 
     // 操作列
     {
