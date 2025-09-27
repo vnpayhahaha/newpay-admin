@@ -102,7 +102,8 @@ ChannelAccountDailyStats:
   payment_amount: 付款金额
   collection_success_rate: 收款成功率
   disbursement_success_rate: 付款成功率
-  avg_process_time: 平均处理时间
+  collection_avg_process_time: 收款平均耗时
+  disbursement_avg_process_time: 付款平均耗时
   limit_status: 限额状态
   created_at: 创建时间
   updated_at: 修改时间

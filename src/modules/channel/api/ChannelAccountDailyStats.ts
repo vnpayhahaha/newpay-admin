@@ -23,14 +23,31 @@ export interface ChannelAccountDailyStatsVo {
   payment_amount: string
   // 交易成功率(%)
   success_rate: string
-  // 平均处理时间(ms)
-  avg_process_time: string
+  // 平均处理时间(s)
+  collection_avg_process_time: number
+  disbursement_avg_process_time: number
   // 限额状态:0正常 1部分限额 2完全限额
   limit_status: string
   // 创建时间
   created_at: string
   // 更新时间
   updated_at: string
+  bank_account: {
+    //
+    id: number;
+    // 银行名称
+    branch_name: string;
+  } | null;
+  channel_account: {
+    id: number;
+    merchant_id: string;
+  } | null;
+  channel: {
+    channel_code: string;
+    channel_icon: string;
+    channel_name: string;
+    id: number;
+  };
 }
 
 // 渠道账单统计查询

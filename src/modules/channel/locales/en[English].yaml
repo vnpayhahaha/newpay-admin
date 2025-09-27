@@ -102,7 +102,8 @@ ChannelAccountDailyStats:
   payment_amount: Payment amount
   collection_success_rate: Collection success rate
   disbursement_success_rate: Payment success rate
-  avg_process_time: Average processing time
+  collection_avg_process_time: Average collection processing time
+  disbursement_avg_process_time: Average payment processing time
   limit_status: Limit status
   created_at: Creation time
   updated_at: Update time
