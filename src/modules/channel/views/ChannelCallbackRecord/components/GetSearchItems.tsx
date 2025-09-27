@@ -38,8 +38,8 @@ export default function getSearchItems(t: any): MaSearchItem[] {
       render: () => <el-input />,
     },
     {
-      label: () => t('channel_callback_record.verification_status'),
-      prop: 'verification_status',
+      label: () => t('channel_callback_record.status'),
+      prop: 'status',
       render: () => <el-input />,
     },
   ]

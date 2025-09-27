@@ -132,6 +132,7 @@ menu:
   welcome: 欢迎页
   dashboard: 仪表盘
 crud:
+  details: 详情
   cancel: 取消
   save: 保存
   ok: 确定

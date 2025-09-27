@@ -116,13 +116,13 @@ channel_callback_record:
   callback_url: 回调URL
   callback_http_method: 回调HTTP方法
   callback_params: 回调参数
-  callback_headers: 回调头
-  callback_body: 回调内容
+  callback_headers: 回调头信息
+  callback_body: 回调体内容
   callback_time: 回调时间
   client_ip: 回调来源IP
   status: 接收状态
-  response_content: 回调内容
-  process_result: 处理结果
+  response_content: 返回内容
+  process_result: 处理结果描述
   elapsed_time: 处理耗时
   created_at: 创建时间
 channel_request_record:

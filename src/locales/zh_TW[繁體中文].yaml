@@ -132,6 +132,7 @@ menu:
   welcome: 歡迎頁
   dashboard: 儀表盤
 crud:
+  details: 详情
   cancel: 放棄
   save: 保存
   ok: 確定

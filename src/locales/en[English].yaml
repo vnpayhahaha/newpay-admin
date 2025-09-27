@@ -132,6 +132,7 @@ menu:
   welcome: Welcome Page
   dashboard: Dashboard
 crud:
+  details: Details
   cancel: Cancel
   save: Save
   ok: OK
