@@ -35,6 +35,12 @@ export interface ChannelCallbackRecordVo {
   elapsed_time: string
   // 创建时间
   created_at: string
+  channel: {
+    channel_code: string;
+    channel_icon: string;
+    channel_name: string;
+    id: number;
+  };
 }
 
 // 渠道回调记录查询

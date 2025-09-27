@@ -39,6 +39,12 @@ export interface ChannelRequestRecordVo {
   created_at: string
   // 更新时间
   updated_at: string
+  channel: {
+    channel_code: string;
+    channel_icon: string;
+    channel_name: string;
+    id: number;
+  };
 }
 
 // 渠道请求记录查询

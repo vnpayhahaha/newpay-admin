@@ -148,7 +148,22 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     {
       label: () => t('channel_callback_record.channel_id'),
       prop: 'channel_id',
-      width: '100px'
+      width: 220,
+      cellRender: ({ row }) => {
+        return (
+          <div class="text-align-left" style={{ display: 'flex', alignItems: 'center' }}>
+            <el-avatar shape="square" src={row.channel.channel_icon} />
+            <div class="ml-5" style={{ flex: 1, minWidth: 0 }}>
+              <p>
+                <el-text class="mx-1" type="primary">{row.channel.channel_code}</el-text>
+              </p>
+              <p>
+                <el-text class="mx-1" truncated>{row.channel.channel_name}</el-text>
+              </p>
+            </div>
+          </div>
+        )
+      },
     },
     {
       label: () => t('channel_callback_record.original_request_id'),

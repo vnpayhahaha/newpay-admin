@@ -64,6 +64,12 @@ export interface ChannelAccountVo {
   min_receipt_per_txn: number;
   // 单笔最小付款限额
   min_payment_per_txn: number;
+  channel: {
+    channel_code: string;
+    channel_icon: string;
+    channel_name: string;
+    id: number;
+  };
 }
 
 // 渠道账户查询
