@@ -142,7 +142,7 @@ tenant_api_interface:
   created_at: 创建时间
   updated_at: 修改时间
 tenant_notification_queue:
-  index: 回调通知
+  index: 通知队列
   tenant_id: 租户编号
   app_id: 应用ID
   account_type: 账户类型

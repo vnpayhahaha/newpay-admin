@@ -142,7 +142,7 @@ tenant_api_interface:
   created_at: Created Time
   updated_at: Updated Time
 tenant_notification_queue:
-  index: Callback Notification
+  index: Callback Notification Queue
   tenant_id: Tenant ID
   app_id: Application ID
   account_type: Account Type
