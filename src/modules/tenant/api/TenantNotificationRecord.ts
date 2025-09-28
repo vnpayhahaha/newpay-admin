@@ -35,6 +35,25 @@ export interface TenantNotificationRecordVo {
   created_at: string
   // 
   updated_at: string
+  tenant: {
+    tenant_id: string
+    company_name: string
+  }
+  app: {
+    id: number
+    app_name: string
+    app_key: string
+  }
+  collection_order: {
+    id: number
+    platform_order_no: string
+    tenant_order_no: string
+  } | null
+  disbursement_order: {
+    id: number
+    platform_order_no: string
+    tenant_order_no: string
+  } | null
 }
 
 // tenant_notification_record查询

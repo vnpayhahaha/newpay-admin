@@ -180,6 +180,24 @@ tenant_notification_record:
   status: Execute Status
   created_at: Created Time
   updated_at: Updated Time
+  # Added translation keys
+  tenant_company: Tenant Company
+  app_name: Application Name
+  app_key: Application Key
+  basic_info: Basic Information
+  order_info: Order Details
+  order_type: Order Type
+  platform_order_no: Platform Order Number
+  merchant_order_no: Merchant Order Number
+  collection_order: Collection Order
+  disbursement_order: Disbursement Order
+  collection: Collection
+  disbursement: Disbursement
+  system_notification: System Notification
+  order_notification: Order Notification
+  bill_notification: Bill Notification
+  no_related_order: No Related Order
+  associated_order: Associated Order
 tenantMenu:
   tenant:
     list: Tenant list

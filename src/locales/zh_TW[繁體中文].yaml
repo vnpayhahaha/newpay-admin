@@ -181,6 +181,8 @@ crud:
   callbackNotification: 回调通知
   callbackNotificationDataMessage: 是否确认回调通知？
   callbackNotificationSuccess: 回调通知成功
+  success: 成功
+  failed: 失败
 form:
   pleaseInput: 請輸入{msg}
   pleaseSelect: 請選擇{msg}

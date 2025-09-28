@@ -181,6 +181,8 @@ crud:
   callbackNotification: Notify
   callbackNotificationDataMessage: Whether to confirm the callback notification?
   callbackNotificationSuccess: Callback notification successful
+  success: Successful
+  failed: Failure
 form:
   pleaseInput: Please input {msg}
   pleaseSelect: Please select {msg}

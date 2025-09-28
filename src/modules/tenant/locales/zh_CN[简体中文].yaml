@@ -180,6 +180,24 @@ tenant_notification_record:
   status: 执行状态
   created_at: 创建时间
   updated_at: 修改时间
+  # 新增的翻译键值
+  tenant_company: 租户公司
+  app_name: 应用名称
+  app_key: 应用密钥
+  basic_info: 基础信息
+  order_info: 订单详情
+  order_type: 订单类型
+  platform_order_no: 平台订单号
+  merchant_order_no: 商户订单号
+  collection_order: 收款订单
+  disbursement_order: 付款订单
+  collection: 收款
+  disbursement: 付款
+  system_notification: 系统通知
+  order_notification: 订单通知
+  bill_notification: 账单通知
+  no_related_order: 无关联订单
+  associated_order: 关联订单
 tenantMenu:
   tenant:
     list: 租户列表

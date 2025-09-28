@@ -163,23 +163,41 @@ tenant_notification_queue:
   lock_version: 版本锁
   detail: 详情
 tenant_notification_record:
-  index: 通知记录
-  queue_id: 通知队列ID
-  tenant_id: 租户编号
-  app_id: 应用ID
-  account_type: 账户类型
-  collection_order_id: 收款订单ID
-  disbursement_order_id: 付款订单ID
-  notification_type: 通知类型
+  index: 通知記錄
+  queue_id: 通知隊列ID
+  tenant_id: 租戶編號
+  app_id: 應用ID
+  account_type: 賬戶類型
+  collection_order_id: 收款訂單ID
+  disbursement_order_id: 付款訂單ID
+  notification_type: 通知類型
   notification_url: 通知URL
-  request_method: 请求方式
-  request_data: 请求数据
-  response_status: 响应状态
-  response_data: 响应数据
-  execute_count: 执行次数
-  status: 执行状态
-  created_at: 创建时间
-  updated_at: 修改时间
+  request_method: 請求方式
+  request_data: 請求數據
+  response_status: 響應狀態
+  response_data: 響應數據
+  execute_count: 執行次數
+  status: 執行狀態
+  created_at: 創建時間
+  updated_at: 修改時間
+  # 新增的翻譯鍵值
+  tenant_company: 租戶公司
+  app_name: 應用名稱
+  app_key: 應用密鑰
+  basic_info: 基礎信息
+  order_info: 訂單詳情
+  order_type: 訂單類型
+  platform_order_no: 平台訂單號
+  merchant_order_no: 商戶訂單號
+  collection_order: 收款訂單
+  disbursement_order: 付款訂單
+  collection: 收款
+  disbursement: 付款
+  system_notification: 系統通知
+  order_notification: 訂單通知
+  bill_notification: 賬單通知
+  no_related_order: 無關聯訂單
+  associated_order: 關聯訂單
 tenantMenu:
   tenant:
     list: 租户列表
