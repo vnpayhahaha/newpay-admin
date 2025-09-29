@@ -75,3 +75,14 @@ export function successOrderHourWeek(): Promise<
 > {
   return useHttp().get("/admin/analysis/successOrder/hourWeek");
 }
+
+interface LoginTimesVo {
+  xAxis: Array<string>;
+  chartData: Array<number>;
+
+}
+export function statisticsLoginCountOfLast10Days(): Promise<
+  ResponseStruct<LoginTimesVo>
+> {
+  return useHttp().get("/admin/analysis/login_times");
+}
