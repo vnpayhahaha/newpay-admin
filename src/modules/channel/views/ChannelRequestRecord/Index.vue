@@ -99,6 +99,10 @@ const options = ref<MaProTableOptions>({
   // 请求配置
   requestOptions: {
     api: page,
+    requestParams: {
+      orderBy: "id",
+      orderType: "desc",
+    },
   },
 })
 // 架构配置
