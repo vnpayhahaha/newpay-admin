@@ -33,7 +33,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
   // 格式化金额显示
   const formatAmount = (value: string | number) => {
     if (!value && value !== 0) return '-'
-    return `¥${Number(value).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    return `${Number(value).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
   }
 
   // 格式化百分比显示
